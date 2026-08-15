@@ -1,0 +1,135 @@
+/* ================= Footer ================= */
+
+.footer {
+    margin-top: 284px;
+}
+
+
+/* ================= Footer Top ================= */
+
+.footer-top {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 45px 0;
+    background: #fff;
+}
+
+
+/* ================= Feature ================= */
+
+.feature {
+    text-align: center;
+}
+
+.feature i {
+    font-size: 45px;
+    color: #2d2d2d;
+    margin-bottom: 15px;
+}
+
+.feature h4 {
+    font-size: 18px;
+    font-family: Georgia, serif;
+    font-weight: 500;
+    color: #2d2d2d;
+}
+
+
+/* ================= Footer Bottom ================= */
+
+.footer-bottom {
+    background: #2c4152;
+    margin-top: 0;
+    padding: 30px 60px;
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+}
+
+
+/* ================= Footer Columns ================= */
+
+.footer-column h3 {
+    color: #ffffff;
+    margin-top: 3px;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-column li {
+    margin-bottom: 14px;
+}
+
+.footer-column a {
+    color: #d9d9d9;
+    text-decoration: none;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+.footer-column a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+
+/* ================= Service Strip ================= */
+
+.service-strip {
+    width: 100%;
+    height: 100px;
+
+    border-top: 3px solid #e8e8e8;
+    border-bottom: 3px solid #e8e8e8;
+
+    background: #fff;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 55px;
+
+    margin-top: 40px;
+}
+
+.service-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.service-box i {
+    font-size: 26px;
+    color: #9a6d19;
+}
+
+.service-box span {
+    font-size: 16px;
+    color: #9a6d19;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+
+/* ================= General ================= */
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    overflow-x: hidden;
+}

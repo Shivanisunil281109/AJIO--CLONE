@@ -1,0 +1,288 @@
+/* ================================
+   REGISTER PAGE
+================================ */
+
+.overlay {
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: rgba(0, 0, 0, 0.4);
+}
+
+
+/* ================================
+   REGISTER BOX
+================================ */
+
+.register-box {
+    width: 420px;
+    min-height: 700px;
+
+    background: white;
+
+    padding: 30px;
+}
+
+
+/* ================================
+   TOP ROW
+================================ */
+
+.top-row {
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-bottom: 40px;
+}
+
+
+/* ================================
+   BACK BUTTON
+================================ */
+
+.back-btn {
+    background: none;
+    border: none;
+
+    text-decoration: none;
+
+    color: #2d3e50;
+
+    cursor: pointer;
+
+    font-size: 16px;
+}
+
+
+/* ================================
+   CLOSE BUTTON
+================================ */
+
+.close-btn {
+    font-size: 32px;
+
+    cursor: pointer;
+}
+
+
+/* ================================
+   HEADING
+================================ */
+
+.register-box h1 {
+    font-size: 42px;
+
+    font-weight: 400;
+
+    color: #2d3e50;
+
+    margin-bottom: 10px;
+}
+
+.register-box p {
+    margin-bottom: 20px;
+
+    color: #555;
+}
+
+
+/* ================================
+   MOBILE ROW
+================================ */
+
+.mobile-row {
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-bottom: 8px;
+}
+
+.mobile-row a {
+    color: #0074c2;
+}
+
+
+/* ================================
+   GENDER
+================================ */
+
+.gender {
+    margin-top: 20px;
+
+    margin-bottom: 20px;
+}
+
+
+/* ================================
+   INPUTS
+================================ */
+
+.register-box input[type="text"],
+.register-box input[type="email"] {
+    width: 100%;
+
+    border: none;
+
+    border-bottom: 1px solid #ddd;
+
+    padding: 14px 0;
+
+    margin-bottom: 15px;
+
+    outline: none;
+}
+
+
+/* ================================
+   CHECKBOX
+================================ */
+
+.checkbox {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-top: 20px;
+
+    font-size: 14px;
+
+    color: #555;
+}
+
+.checkbox input {
+    width: auto;
+}
+
+.checkbox a {
+    color: #0066a6;
+
+    text-decoration: none;
+
+    font-weight: 600;
+}
+
+
+/* ================================
+   SEND OTP
+================================ */
+
+.otp-btn {
+    display: inline-block;
+
+    width: 170px;
+
+    height: 42px;
+
+    background: #9b7b2e;
+
+    color: white;
+
+    border: none;
+
+    text-decoration: none;
+
+    text-align: center;
+
+    line-height: 42px;
+
+    margin-top: 30px;
+
+    letter-spacing: 1px;
+
+    cursor: pointer;
+}
+
+
+/* ================================
+   TABLET
+================================ */
+
+@media (max-width: 1024px) {
+
+    .register-box {
+        width: 380px;
+
+        min-height: auto;
+
+        padding: 25px;
+    }
+
+    .register-box h1 {
+        font-size: 36px;
+    }
+
+}
+
+
+/* ================================
+   MOBILE
+================================ */
+
+@media (max-width: 768px) {
+
+    .overlay {
+        padding: 15px;
+    }
+
+    .register-box {
+        width: 100%;
+
+        min-height: auto;
+
+        padding: 20px;
+    }
+
+    .top-row {
+        margin-bottom: 25px;
+    }
+
+    .register-box h1 {
+        font-size: 30px;
+
+        line-height: 38px;
+    }
+
+    .register-box p {
+        font-size: 14px;
+    }
+
+    .mobile-row {
+        flex-direction: row;
+
+        align-items: center;
+    }
+
+    .gender {
+        font-size: 14px;
+
+        line-height: 30px;
+    }
+
+    .register-box input[type="text"],
+    .register-box input[type="email"] {
+        font-size: 14px;
+    }
+
+    .checkbox {
+        font-size: 13px;
+
+        line-height: 20px;
+
+        align-items: flex-start;
+    }
+
+    .otp-btn {
+        width: 100%;
+
+        margin-top: 25px;
+    }
+
+}
