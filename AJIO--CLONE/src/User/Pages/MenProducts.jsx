@@ -129,7 +129,7 @@ const MenProducts = () => {
         // Product 9
         {
             id: 9,
-            image: "https://assets.sheinindia.in/medias/shein_sys_master/root/20250923/NPyd/68d1de658bfb9009ac271bf4/shein_beige_shein_straight_fit_full_length_fixed_waist_stone_wash_jeans.jpg",
+            image: "https://assets.sheinindia.in/medias/shein_sys_master/root1/20250923/NPyd/68d1de658bfb9009ac271bf4/shein_beige_shein_straight_fit_full_length_fixed_waist_stone_wash_jeans.jpg",
             tag: "NEW",
             brand: "Shein",
             name: "Shein Straight Fit Length Fixed Waist Stone Wash Jeans",

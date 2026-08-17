@@ -6,6 +6,7 @@ import Login from "./User/Pages/Login";
 import Register from "./User/Pages/Register";
 import OTP from "./User/Pages/OTP";
 import MenProducts from "./User/Pages/MenProducts";
+import SingleProduct from "./User/Pages/SingleProduct";
 
 function App() {
 
@@ -23,6 +24,11 @@ function App() {
                 <Route path="/otp" element={<OTP />} />
 
                 <Route path="/MenProducts" element={<MenProducts />} />
+
+                <Route
+                    path="/single-product/:productId"
+                    element={<SingleProduct />}
+                />
 
             </Route>
 
