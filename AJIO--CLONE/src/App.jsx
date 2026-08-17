@@ -4,26 +4,27 @@ import UserLayout from "./User/Components/UserLayout";
 import Home from "./User/Pages/Home";
 import Login from "./User/Pages/Login";
 import Register from "./User/Pages/Register";
-
+import OTP from "./User/Pages/OTP";
+import MenProducts from "./User/Pages/MenProducts";
 
 function App() {
+
     return (
         <Routes>
 
+            <Route element={<UserLayout />}>
 
+                <Route path="/" element={<Home />} />
 
-         <Route element={<UserLayout />}>
+                <Route path="/login" element={<Login />} />
 
-        <Route  path="/"  element={<Home />} />
-        <Route path="/Login" element={<Login/>}/>
-         <Route path="/register" element={<Register />}
-            />
-            
-           
+                <Route path="/register" element={<Register />} />
+
+                <Route path="/otp" element={<OTP />} />
+
+                <Route path="/MenProducts" element={<MenProducts />} />
+
             </Route>
-
-
-
 
         </Routes>
     );

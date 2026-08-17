@@ -411,7 +411,8 @@ border-top:1px solid #e5e5e5;
     font-size: 48px;
     font-weight: 700;
     color: #111;
-    margin-bottom: 17px;
+    margin-bottom: 20px;
+    margin-top: 30px;
 }
 
 .exclusive-menswear img{
@@ -441,6 +442,7 @@ border-top:1px solid #e5e5e5;
     font-size:48px;
     font-weight:700;
     margin-bottom:20px;
+    margin-top: 20px;
 }
 
 .westernwear-container{
@@ -489,6 +491,7 @@ ETHNICWEAR
     text-align:center;
     font-size:48px;
     font-weight:700;
+    margin-top: 20px;
     margin-bottom:20px;
 }
 
@@ -1393,12 +1396,24 @@ header{
 }
 
 /* Headings */
-.top-trends h2,
+/* .top-trends h2,
 .exclusive-menswear h2,
 .westernwear h2,
 .ethnicwear h2{
     font-size:28px;
+} */
+
+
+.top-trends h2,
+.exclusive-menswear h2,
+.westernwear h2,
+.ethnicwear h2 {
+    font-size: 28px;
+    margin-top: 25px;
+    margin-bottom: 20px;
 }
+
+
 
 /* Top Trends */
 .trend-container{
@@ -1412,12 +1427,13 @@ header{
 
 /* Exclusive Menswear */
 .exclusive-menswear img{
-    width:95%;
+   
 }
 
 /* Westernwear */
 .westernwear-container{
     grid-template-columns:1fr;
+    margin-top: 20px;
 }
 
 /* Ethnicwear */

@@ -1,12 +1,16 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router";
+// import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 import "../CSS/Register.css";
 
 const Register = () => {
 
     const navigate = useNavigate();
+    const location = useLocation();
 
-    const [gender, setGender] = useState("");
+const mobile = location.state?.mobile || "";
+
+const [gender, setGender] = useState("");
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [inviteCode, setInviteCode] = useState("");
@@ -44,10 +48,16 @@ const Register = () => {
 
         console.log("Name:", name);
         console.log("Email:", email);
-        console.log("Gender:", gender);
+        console.log("Gender :",  gender);
         console.log("Invite Code:", inviteCode);
+        console.log("Mobile:", mobile);
 
-        navigate("/otp");
+       navigate("/otp", {
+    state: {
+        mobile: mobile
+    }
+});
+
     };
 
 
@@ -87,17 +97,19 @@ const Register = () => {
 
                 {/* ================= MOBILE NUMBER ================= */}
 
-                <div className="mobile-row">
+               <div className="mobile-row">
 
-                    <span>
-                        +91
-                    </span>
+    <span>
+        +91 {mobile}
+    </span>
 
-                    <a href="#">
-                        Edit
-                    </a>
+    <a href="#">
+        Edit
+    </a>
 
-                </div>
+</div>
+
+
 
                 <small>
                     OTP will be sent to this number for verification

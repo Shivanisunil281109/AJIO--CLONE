@@ -205,7 +205,13 @@ const Login = () => {
 
         console.log("Mobile Number:", mobile);
 
-        navigate("/register");
+      
+   navigate("/register", {
+    state: {
+        mobile: mobile
+    }
+});
+
     };
 
 

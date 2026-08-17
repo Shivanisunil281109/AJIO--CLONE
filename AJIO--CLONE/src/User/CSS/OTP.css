@@ -1,0 +1,226 @@
+/* ================================
+   OTP PAGE
+================================ */
+
+.overlay {
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: rgba(0, 0, 0, 0.4);
+}
+
+
+/* ================================
+   OTP BOX
+================================ */
+
+.otp-box {
+    width: 420px;
+    min-height: 700px;
+
+    background: white;
+
+    padding: 30px;
+}
+
+
+/* ================================
+   TOP ROW
+================================ */
+
+.top-row {
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-bottom: 50px;
+}
+
+
+/* ================================
+   BACK BUTTON
+================================ */
+
+.back-btn {
+    background: none;
+    border: none;
+
+    text-decoration: none;
+
+    color: #2d3e50;
+
+    font-size: 16px;
+
+    cursor: pointer;
+}
+
+
+/* ================================
+   CLOSE BUTTON
+================================ */
+
+.close-btn {
+    font-size: 35px;
+
+    cursor: pointer;
+}
+
+
+/* ================================
+   HEADING
+================================ */
+
+.otp-box h1 {
+    font-size: 30px;
+
+    font-weight: 400;
+
+    color: #2d3e50;
+
+    margin-bottom: 25px;
+}
+
+
+/* ================================
+   OTP TEXT
+================================ */
+
+.otp-text {
+    color: #555;
+
+    margin-bottom: 20px;
+}
+
+
+/* ================================
+   MOBILE NUMBER
+================================ */
+
+.mobile-number {
+    color: #2d3e50;
+
+    font-size: 18px;
+
+    margin-bottom: 30px;
+}
+
+
+/* ================================
+   OTP INPUT
+================================ */
+
+.otp-box input {
+    width: 100%;
+
+    border: none;
+
+    border-bottom: 1px solid #ddd;
+
+    padding: 14px 0;
+
+    outline: none;
+
+    font-size: 16px;
+}
+
+
+/* ================================
+   RESEND OTP
+================================ */
+
+.resend-row {
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-top: 15px;
+
+    margin-bottom: 30px;
+}
+
+.resend-row a {
+    text-decoration: none;
+
+    color: #0074c2;
+
+    font-size: 14px;
+}
+
+
+/* ================================
+   START SHOPPING
+================================ */
+
+.shopping-btn {
+    display: inline-block;
+
+    width: 170px;
+
+    height: 45px;
+
+    background: #9b7b2e;
+
+    color: white;
+
+    border: none;
+
+    text-decoration: none;
+
+    text-align: center;
+
+    line-height: 45px;
+
+    letter-spacing: 2px;
+
+    cursor: pointer;
+}
+
+
+/* ================================
+   TABLET
+================================ */
+
+@media (max-width: 1024px) {
+
+    .otp-box {
+        width: 380px;
+
+        min-height: 650px;
+    }
+
+}
+
+
+/* ================================
+   MOBILE
+================================ */
+
+@media (max-width: 768px) {
+
+    .otp-box {
+        width: 90%;
+
+        min-height: auto;
+
+        padding: 20px;
+    }
+
+    .otp-box h1 {
+        font-size: 26px;
+    }
+
+    .shopping-btn {
+        width: 100%;
+    }
+
+    .resend-row {
+        flex-direction: column;
+
+        gap: 10px;
+    }
+
+}
