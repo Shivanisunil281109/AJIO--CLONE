@@ -305,11 +305,13 @@ border-top:1px solid #e5e5e5;
 
 .hero-slider{
     width:100%;
+    
 }
 
 .hero-slider img{
     width:100%;
     display:block;
+    margin-top: 5px;
 }
 
 

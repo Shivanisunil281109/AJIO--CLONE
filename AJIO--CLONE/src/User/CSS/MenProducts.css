@@ -1045,7 +1045,7 @@ padding:12px;
 
 
     .current-price {
-        font-size: 13px;
+        font-size: 12px;
 
         font-weight: 700 !important;
     }
@@ -1057,7 +1057,7 @@ padding:12px;
 
 
     .discount {
-        font-size: 11px;
+        font-size: 12px;
     }
 
 
@@ -1280,9 +1280,9 @@ padding:12px;
 
         font-family: Arial, sans-serif;
 
-        font-size: 14px;
+        font-size: 12px;
 
-        font-weight: 700 !important;
+        font-weight: 650 !important;
 
         color: #9a6a13;
 
@@ -1299,7 +1299,7 @@ padding:12px;
     .product-name {
         width: 95%;
 
-        margin: 5px auto;
+        margin: 3px auto;
 
         font-family: Georgia, serif;
 
@@ -1315,26 +1315,40 @@ padding:12px;
     }
 
 
-    /* Rating Box */
+    
+.product-info {
+    padding: 10px 8px;
+    text-align: center;
+}
 
-    .rating-box {
-        display: inline-flex;
 
-        align-items: center;
-        justify-content: center;
+/* Rating Green Box */
+.rating-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-        gap: 3px;
+    width: fit-content;
+    max-width: fit-content;
 
-        margin-top: 6px;
+    margin: 6px auto 0;
 
-        padding: 4px 7px;
+    padding: 3px 7px;
 
-        font-size: 11px;
+    background: #07892C;
+    color: #fff;
 
-        font-weight: 700 !important;
+    border-radius: 3px;
 
-        border-radius: 3px;
-    }
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    line-height: 15px;
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+
 
 
     /* Price Row */
@@ -1359,7 +1373,7 @@ padding:12px;
     .current-price {
         font-family: Arial, sans-serif;
 
-        font-size: 25px !important;
+        font-size: 23px !important;
 
         font-weight: 600 !important;
 
@@ -1381,7 +1395,7 @@ padding:12px;
     /* Discount */
 
     .discount {
-        font-size: 13px;
+        font-size: 16px;
 
         font-weight: 500;
 
@@ -1401,9 +1415,9 @@ padding:12px;
 
         gap: 4px;
 
-        margin-top: 5px;
+        margin-top: 1px;
 
-        font-size: 13px;
+        font-size: 15px;
 
         font-weight: 700;
     }
