@@ -1,8 +1,13 @@
 import React from "react";
+import { useNavigate } from "react-router";
 import "../CSS/MenProducts.css";
 import ProductCard from "../Components/ProductCard";
 
-const MenProducts = () => {
+
+
+  const MenProducts = () => {
+
+    const navigate = useNavigate();
 
     const products = [
 
@@ -458,18 +463,29 @@ const MenProducts = () => {
 
                 {/* ================= PRODUCT GRID ================= */}
 
-                <div className="products-grid">
+     <div className="products-grid">
 
-                    {products.map((product) => (
+    {products.map((product) => (
 
-                        <ProductCard
-                            key={product.id}
-                            product={product}
-                        />
+        <div
+            key={product.id}
+            onClick={() => navigate(`/single-product/${product.id}`)}
+        >
 
-                    ))}
+            <ProductCard product={product} />
 
-                </div>
+        </div>
+
+    ))}
+
+</div>
+
+
+
+
+
+
+
 
             </div>
 
