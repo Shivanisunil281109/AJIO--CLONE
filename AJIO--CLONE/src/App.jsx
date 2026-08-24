@@ -7,6 +7,8 @@ import Register from "./User/Pages/Register";
 import OTP from "./User/Pages/OTP";
 import MenProducts from "./User/Pages/MenProducts";
 import SingleProduct from "./User/Pages/SingleProduct";
+import Wishlist from "./User/Pages/Wishlist";
+
 
 function App() {
 
@@ -29,6 +31,11 @@ function App() {
                     path="/single-product/:productId"
                     element={<SingleProduct />}
                 />
+
+
+                <Route path="/wishlist" element={<Wishlist />} />
+
+
 
             </Route>
 

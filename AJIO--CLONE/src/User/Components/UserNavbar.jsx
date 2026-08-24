@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router";
 import "../CSS/UserNavbar.css";
 
 
@@ -255,15 +256,25 @@ const UserNavbar = () => {
                     </div>
 
 
-                    {/* WISHLIST */}
-                    <div className="wishlist-icon">
 
-                        <img
-                            src="https://cdn.pixelbin.io/v2/dry-wildflower-b77541/original/svg/wishlistIcon.svg"
-                            alt="wishlist"
-                        />
 
-                    </div>
+{/* WISHLIST */}
+<div className="wishlist-icon">
+
+    <Link to="/wishlist">
+
+        <img
+            src="https://cdn.pixelbin.io/v2/dry-wildflower-b77541/original/svg/wishlistIcon.svg"
+            alt="wishlist"
+        />
+
+    </Link>
+
+</div>
+                   
+
+
+
 
 
                     {/* BAG */}
