@@ -8,6 +8,10 @@ import OTP from "./User/Pages/OTP";
 import MenProducts from "./User/Pages/MenProducts";
 import SingleProduct from "./User/Pages/SingleProduct";
 import Wishlist from "./User/Pages/Wishlist";
+import Cart from "./User/Pages/Cart";
+
+
+
 
 
 function App() {
@@ -35,7 +39,8 @@ function App() {
 
                 <Route path="/wishlist" element={<Wishlist />} />
 
-
+               
+              <Route path="/cart" element={<Cart />} />
 
             </Route>
 

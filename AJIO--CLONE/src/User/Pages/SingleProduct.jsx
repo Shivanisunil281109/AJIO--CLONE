@@ -42,6 +42,50 @@ const SingleProduct = () => {
     );
 
 
+// ================= WISHLIST =================
+
+const handleWishlist = () => {
+
+    const existingWishlist =
+        JSON.parse(localStorage.getItem("wishlist")) || [];
+
+    const alreadyExists = existingWishlist.some(
+        (item) => item.id === product.id
+    );
+
+    if (!alreadyExists) {
+
+        const updatedWishlist = [
+            ...existingWishlist,
+            product
+        ];
+
+        localStorage.setItem(
+            "wishlist",
+            JSON.stringify(updatedWishlist)
+        );
+
+        alert("Product added to Wishlist ❤️");
+
+    } else {
+
+        alert("Product is already in Wishlist ❤️");
+
+    }
+
+};
+
+
+
+
+
+
+
+
+
+
+
+
     return (
         <>
 
@@ -400,16 +444,22 @@ const SingleProduct = () => {
 
 
                         {/* ================= WISHLIST ================= */}
+{/* ================= WISHLIST ================= */}
 
-                        <div className="wishlist-btn">
+             <div
+               className="wishlist-btn"
+                     onClick={handleWishlist}
+                  >
 
-                            <i className="fa-regular fa-heart"></i>
+             <i className="fa-regular fa-heart"></i>
 
-                            <span>
-                                SAVE TO WISHLIST
-                            </span>
+                 <span>
+                    SAVE TO WISHLIST
+                   </span>
 
                         </div>
+
+
 
 
                         {/* ================= PRODUCT DETAILS ================= */}
