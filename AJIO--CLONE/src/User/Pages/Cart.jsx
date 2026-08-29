@@ -1,10 +1,22 @@
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import "../CSS/Cart.css";
 
 const Cart = () => {
+
     const navigate = useNavigate();
+
+    const [cartItems, setCartItems] = useState([]);
+
+    useEffect(() => {
+
+        const savedCart =
+            JSON.parse(localStorage.getItem("cart")) || [];
+
+        setCartItems(savedCart);
+
+    }, []);
 
     return (
         <div className="cart-page">
@@ -140,234 +152,123 @@ const Cart = () => {
 
                         {/* PRODUCT 1 */}
 
-                        <div className="cart-product-card">
-
-                            <div className="cart-product-image">
-
-                                <img
-                                    src="https://assets-jiocdn.ajio.com/medias/sys_master/root1/20260618/JktH/6a33ef62afd8cf5e737db289/-288Wx360H-443123669-ltpurple-MODEL.jpg"
-                                    alt="YOUSTA Women Kurti"
-                                />
-
-                            </div>
-
-
-                            <div className="cart-product-details">
-
-                                <div className="cart-product-top">
-
-                                    <div className="cart-product-info">
-
-                                        <h3>
-                                            YOUSTA-Women Embroidered Cotton Straight Kurti
-                                        </h3>
-
-                                        <div className="cart-product-options">
-
-                                            <span>
-                                                Size
-                                            </span>
-
-                                            <select defaultValue="M">
-
-                                                <option value="S">
-                                                    S
-                                                </option>
-
-                                                <option value="M">
-                                                    M
-                                                </option>
-
-                                                <option value="L">
-                                                    L
-                                                </option>
-
-                                            </select>
-
-
-                                            <span>
-                                                Qty
-                                            </span>
-
-                                            <select defaultValue="1">
-
-                                                <option value="1">
-                                                    1
-                                                </option>
-
-                                                <option value="2">
-                                                    2
-                                                </option>
-
-                                                <option value="3">
-                                                    3
-                                                </option>
-
-                                            </select>
-
-                                        </div>
-
-                                    </div>
-
-
-                                    <div className="cart-product-price">
-
-                                        <span className="cart-price-box">
-                                            Rs. 499.00
-                                        </span>
-
-                                    </div>
-
-                                </div>
-
-
-                                <div className="cart-product-bottom">
-
-                                    <div></div>
-
-                                    <div className="cart-product-actions">
-
-                                        <a href="#">
-                                            Delete
-                                        </a>
-
-                                        <a href="#">
-
-                                            <i className="fa-regular fa-heart"></i>
-
-                                            Move to Wishlist
-
-                                        </a>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
+                        
 
 
                         {/* PRODUCT 2 */}
 
-                        <div className="cart-product-card">
-
-                            <div className="cart-product-image">
-
-                                <img
-                                    src="https://assets-jiocdn.ajio.com/medias/sys_master/root1/20260312/7q7O/69b28d7daf321a7f921b941a/-288Wx360H-443110691-fuchsia-MODEL.jpg"
-                                    alt="AVAASA Anarkali Kurta"
-                                />
-
-                            </div>
 
 
-                            <div className="cart-product-details">
+{/* ================= DYNAMIC CART PRODUCTS ================= */}
 
-                                <div className="cart-product-top">
+{cartItems.map((item) => (
 
-                                    <div className="cart-product-info">
+    <div className="cart-product-card" key={item.id}>
 
-                                        <h3>
-                                            AVAASA MIX N' MATCH Women Embroidered Anarkali Kurta
-                                        </h3>
+        <div className="cart-product-image">
 
+            <img
+                src={item.mainImage || item.image}
+                alt={item.name}
+            />
 
-                                        <div className="cart-product-options">
-
-                                            <span>
-                                                Size
-                                            </span>
-
-                                            <select defaultValue="M">
-
-                                                <option value="S">
-                                                    S
-                                                </option>
-
-                                                <option value="M">
-                                                    M
-                                                </option>
-
-                                                <option value="L">
-                                                    L
-                                                </option>
-
-                                            </select>
+        </div>
 
 
-                                            <span>
-                                                Qty
-                                            </span>
+        <div className="cart-product-details">
 
-                                            <select defaultValue="1">
+            <div className="cart-product-top">
 
-                                                <option value="1">
-                                                    1
-                                                </option>
+                <div className="cart-product-info">
 
-                                                <option value="2">
-                                                    2
-                                                </option>
-
-                                                <option value="3">
-                                                    3
-                                                </option>
-
-                                            </select>
-
-                                        </div>
-
-                                    </div>
+                    <h3>
+                        {item.name}
+                    </h3>
 
 
-                                    <div className="cart-product-right">
+                    <div className="cart-product-options">
 
-                                        <div className="cart-saving">
+                        <span>
+                            Size
+                        </span>
 
-                                            Savings :
+                        <select defaultValue={item.selectedSize || "M"}>
 
-                                            <span>
-                                                Rs. 1,104.00
-                                            </span>
+                            <option value="S">
+                                S
+                            </option>
 
-                                        </div>
+                            <option value="M">
+                                M
+                            </option>
 
+                            <option value="L">
+                                L
+                            </option>
 
-                                        <div className="cart-old-price">
-                                            Rs.1,699.00 (65%)
-                                        </div>
-
-
-                                        <div className="cart-price-box">
-                                            Rs. 595.00
-                                        </div>
-
-
-                                        <div className="cart-product-actions">
-
-                                            <a href="#">
-                                                Delete
-                                            </a>
+                        </select>
 
 
-                                            <a href="#">
+                        <span>
+                            Qty
+                        </span>
 
-                                                <i className="fa-regular fa-heart"></i>
+                        <select defaultValue={item.quantity || 1}>
 
-                                                Move to Wishlist
+                            <option value="1">
+                                1
+                            </option>
 
-                                            </a>
+                            <option value="2">
+                                2
+                            </option>
 
-                                        </div>
+                            <option value="3">
+                                3
+                            </option>
 
-                                    </div>
+                        </select>
 
-                                </div>
+                    </div>
 
-                            </div>
+                </div>
 
-                        </div>
+
+                <div className="cart-product-right">
+
+                    <div className="cart-price-box">
+                      {item.price}
+                    </div>
+
+
+                    <div className="cart-product-actions">
+
+                        <a href="#">
+                            Delete
+                        </a>
+
+
+                        <a href="#">
+
+                            <i className="fa-regular fa-heart"></i>
+
+                            Move to Wishlist
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+))}
+
+
 
 
                         {/* ADD FROM WISHLIST */}
@@ -695,4 +596,3 @@ const Cart = () => {
 };
 
 export default Cart;
-

@@ -79,6 +79,45 @@ const handleWishlist = () => {
 
 
 
+// ================= ADD TO CART =================
+
+const handleAddToCart = () => {
+
+    const existingCart =
+        JSON.parse(localStorage.getItem("cart")) || [];
+
+    const alreadyExists = existingCart.some(
+        (item) => item.id === product.id
+    );
+
+    if (!alreadyExists) {
+
+        const cartItem = {
+            ...product,
+            quantity: 1,
+            selectedSize: product.sizes?.[0] || "M"
+        };
+
+        const updatedCart = [
+            ...existingCart,
+            cartItem
+        ];
+
+        localStorage.setItem(
+            "cart",
+            JSON.stringify(updatedCart)
+        );
+
+        alert("Product added to Cart 🛍️");
+
+    } else {
+
+        alert("Product is already in Cart 🛍️");
+
+    }
+
+};
+
 
 
 
@@ -425,15 +464,20 @@ const handleWishlist = () => {
 
                         {/* ================= ADD TO BAG ================= */}
 
-                        <div className="add-to-bag">
+                        <div
+                className="add-to-bag"
+             onClick={handleAddToCart}
+              >
 
-                            <i className="fa-solid fa-bag-shopping"></i>
+                <i className="fa-solid fa-bag-shopping"></i>
 
-                            <span>
-                                ADD TO BAG
-                            </span>
+                 <span>
+                   ADD TO BAG
+                </span>
 
-                        </div>
+                   </div>
+
+
 
 
                         <p className="bag-text">
