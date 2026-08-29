@@ -1,2204 +1,702 @@
-/* ========================================================= 
-   AJIO CART PAGE 
-========================================================= */
-
-.cart-page { 
-    width: 100%; 
-    min-height: 100vh; 
-    background: #fff; 
-    color: #222; 
-    font-family: Georgia, "Times New Roman", serif; 
-    box-sizing: border-box; 
-} 
-
-.cart-page *, 
-.cart-page *::before, 
-.cart-page *::after { 
-    box-sizing: border-box; 
-}
-
-
-/* ========================================================= 
-   HEADER 
-   ONLY BAG / DELIVERY / PAYMENT 
-========================================================= */
-
-.cart-page-header { 
-    width: 100%; 
-    height: 100px; 
-    background: #fff; 
-    border-bottom: 1px solid #e5e5e5; 
-
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-}
-
-
-/* ========================================================= 
-   CHECKOUT HEADER 
-========================================================= */
-
-.cart-checkout-header { 
-    display: flex; 
-    align-items: flex-start; 
-    justify-content: center; 
-}
-
-
-/* ========================================================= 
-   STEP 
-========================================================= */
-
-.cart-step { 
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; 
-
-    min-width: 120px; 
-
-    position: relative; 
-}
-
-
-/* ========================================================= 
-   STEP ICON 
-========================================================= */
-
-.cart-step i { 
-    width: 34px; 
-    height: 34px; 
-
-    border-radius: 50%; 
-
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-
-    background: #e9e9e9; 
-    color: #7d7d7d; 
-
-    font-size: 14px; 
-}
-
-
-/* ========================================================= 
-   ACTIVE STEP 
-========================================================= */
-
-.cart-step-active i { 
-    background: #2c4152; 
-    color: #fff; 
-} 
-
-.cart-step-active span { 
-    color: #2c4152; 
-    font-weight: 600; 
-}
-
-
-/* ========================================================= 
-   STEP TEXT 
-========================================================= */
-
-.cart-step span { 
-    margin-top: 5px; 
-
-    font-size: 14px; 
-
-    color: #777; 
-
-    white-space: nowrap; 
-}
-
-
-/* ========================================================= 
-   STEP LINE 
-========================================================= */
-
-.cart-step-line { 
-    width: 90px; 
-    height: 2px; 
-
-    background: #d7d7d7; 
-
-    margin-top: 16px; 
-
-    flex-shrink: 0; 
-}
-
-
-/* ========================================================= 
-   MAIN CONTAINER 
-========================================================= */
-
-.cart-page-container { 
-    width: 90%; 
-
-    margin: 18px auto; 
-
-    display: flex; 
-
-    gap: 20px; 
-
-    align-items: flex-start; 
-}
-
-
-/* ========================================================= 
-   LEFT SIDE 
-========================================================= */
-
-.cart-left-section { 
-    width: 72%; 
-}
-
-
-/* ========================================================= 
-   RIGHT SIDE 
-========================================================= */
-
-.cart-right-section { 
-    width: 28%; 
-}
-
-
-/* ========================================================= 
-   GIFT BANNER 
-========================================================= */
-
-.cart-gift-banner { 
-    min-height: 72px; 
-
-    display: flex; 
-
-    justify-content: space-between; 
-
-    align-items: center; 
-
-    border: 1px dashed #b8a5ff; 
-
-    background: #faf9ff; 
-
-    padding: 8px 20px; 
-
-    margin-bottom: 30px; 
-} 
-
-
-.cart-gift-info { 
-    display: flex; 
-
-    align-items: center; 
-
-    gap: 15px; 
-} 
-
-
-.cart-gift-info img { 
-    width: 66px; 
-    height: 67px; 
-
-    object-fit: contain; 
-
-    background-color: #aea4e4; 
-} 
-
-
-.cart-gift-info h4 { 
-    font-size: 18px; 
-
-    font-weight: 600; 
-
-    color: #222; 
-
-    margin: 0; 
-} 
-
-
-.cart-gift-banner a { 
-    text-decoration: none; 
-
-    color: #0d6db8; 
-
-    font-size: 18px; 
-
-    font-weight: 600; 
-} 
-
-.cart-gift-banner a:hover { 
-    text-decoration: underline; 
-}
-
-
-/* ========================================================= 
-   MY BAG 
-========================================================= */
-
-.cart-bag-section { 
-    width: 100%; 
-
-    margin-top: 10px; 
-
-    border-top: 1px solid #e5e5e5; 
-} 
-
-
-.cart-bag-header { 
-    display: flex; 
-
-    justify-content: space-between; 
-
-    align-items: center; 
-
-    padding: 8px 0; 
-
-    border-bottom: 1px solid #e5e5e5; 
-} 
-
-
-.cart-bag-header h2 { 
-    font-size: 27px; 
-
-    font-family: Georgia, serif; 
-
-    font-weight: 600; 
-
-    color: #2c4152; 
-
-    margin: 0; 
-} 
-
-
-.cart-bag-header h2 span { 
-    font-size: 20px; 
-
-    color: #6b6b6b; 
-
-    font-weight: 400; 
-
-    margin-left: 5px; 
-} 
-
-
-.cart-wishlist-link { 
-    text-decoration: none; 
-
-    color: #0b6fb8; 
-
-    font-size: 20px; 
-
-    font-weight: 500; 
-} 
-
-.cart-wishlist-link:hover { 
-    text-decoration: underline; 
-}
-
-
-/* ========================================================= 
-   PRODUCT CARD 
-========================================================= */
-
-.cart-product-card { 
-    display: flex; 
-
-    gap: 25px; 
-
-    padding: 18px; 
-
-    border: 1px solid #ebebeb; 
-
-    margin-bottom: 20px; 
-
-    background: #fff; 
-}
-
-
-/* ========================================================= 
-   PRODUCT IMAGE 
-========================================================= */
-
-.cart-product-image { 
-    width: 135px; 
-
-    flex-shrink: 0; 
-} 
-
-
-.cart-product-image img { 
-    width: 135px; 
-    height: 170px; 
-
-    object-fit: cover; 
-
-    display: block; 
-}
-
-
-/* ========================================================= 
-   PRODUCT DETAILS 
-========================================================= */
-
-.cart-product-details { 
-    flex: 1; 
-
-    display: flex; 
-
-    flex-direction: column; 
-
-    justify-content: space-between; 
-
-    min-width: 0; 
-}
-
-
-/* ========================================================= 
-   PRODUCT TOP 
-========================================================= */
-
-.cart-product-top { 
-    display: flex; 
-
-    justify-content: space-between; 
-
-    align-items: flex-start; 
-
-    gap: 20px; 
-} 
-
-
-.cart-product-info { 
-    width: 75%; 
-
-    min-width: 0; 
-} 
-
-
-.cart-product-info h3 { 
-    font-size: 18px; 
-
-    font-weight: 400; 
-
-    color: #333; 
-
-    margin: 0 0 20px; 
-
-    line-height: 30px; 
-}
-
-
-/* ========================================================= 
-   PRODUCT OPTIONS 
-========================================================= */
-
-.cart-product-options { 
-    display: flex; 
-
-    align-items: center; 
-
-    gap: 12px; 
-} 
-
-
-.cart-product-options span { 
-    font-size: 16px; 
-
-    color: #555; 
-} 
-
-
-.cart-product-options select { 
-    border: none; 
-
-    font-size: 16px; 
-
-    cursor: pointer; 
-
-    outline: none; 
-
-    background: #fff; 
-}
-
-
-/* ========================================================= 
-   PRODUCT PRICE 
-========================================================= */
-
-.cart-product-price { 
-    display: flex; 
-
-    align-items: flex-start; 
-
-    justify-content: flex-end; 
-
-    flex-shrink: 0; 
-}
-
-
-/* ========================================================= 
-   UPDATED PRICE BOX 
-   MAIN PRICE FIX 
-========================================================= */
-
-.cart-price-box { 
-    display: flex; 
-
-    align-items: center; 
-
-    justify-content: flex-end; 
-
-    min-width: 130px; 
-
-    min-height: 38px; 
-
-    padding: 8px 16px; 
-
-    background: #eef7ff; 
-
-    border-left: 4px solid #0b79d0; 
-
-    color: #222; 
-
-    font-family: Arial, Helvetica, sans-serif; 
-
-    font-size: 16px; 
-
-    font-weight: 700; 
-
-    line-height: 1; 
-
-    letter-spacing: 0.2px; 
-
-    white-space: nowrap; 
-
-    text-align: right; 
-
-    font-variant-numeric: tabular-nums; 
-}
-
-
-/* ========================================================= 
-   PRODUCT BOTTOM 
-========================================================= */
-
-.cart-product-bottom { 
-    display: flex; 
-
-    justify-content: space-between; 
-
-    align-items: flex-end; 
-
-    margin-top: 55px; 
-}
-
-
-/* ========================================================= 
-   PRODUCT ACTIONS 
-========================================================= */
-
-.cart-product-actions { 
-    display: flex; 
-
-    gap: 35px; 
-
-    justify-content: flex-end; 
-
-    width: 100%; 
-} 
-
-
-.cart-product-actions a { 
-    color: #0072bc; 
-
-    text-decoration: none; 
-
-    font-size: 17px; 
-} 
-
-.cart-product-actions a:hover { 
-    text-decoration: underline; 
-} 
-
-
-.cart-product-actions i { 
-    margin-right: 6px; 
-}
-
-
-/* ========================================================= 
-   SECOND PRODUCT RIGHT SIDE 
-========================================================= */
-
-.cart-product-right { 
-    width: 240px; 
-
-    display: flex; 
-
-    flex-direction: column; 
-
-    align-items: flex-end; 
-
-    justify-content: flex-start; 
-
-    flex-shrink: 0; 
-} 
-
-
-.cart-saving { 
-    font-size: 16px; 
-
-    color: #b37b1f; 
-
-    font-weight: 600; 
-
-    margin-bottom: 6px; 
-
-    white-space: nowrap; 
-
-    font-variant-numeric: tabular-nums; 
-} 
-
-
-.cart-saving span { 
-    color: #9d7a2d; 
-} 
-
-
-.cart-old-price { 
-    font-size: 16px; 
-
-    color: #666; 
-
-    text-decoration: line-through; 
-
-    margin-bottom: 12px; 
-
-    white-space: nowrap; 
-
-    font-variant-numeric: tabular-nums; 
-}
-
-
-/* ========================================================= 
-   SECOND PRODUCT PRICE 
-========================================================= */
-
-.cart-product-right .cart-price-box { 
-    min-width: 130px; 
-
-    min-height: 38px; 
-
-    background: #edf6ff; 
-
-    border-left: 4px solid #0b79d0; 
-
-    padding: 9px 16px; 
-
-    font-family: Arial, Helvetica, sans-serif; 
-
-    font-size: 16px; 
-
-    font-weight: 700; 
-
-    color: #222; 
-
-    line-height: 1; 
-
-    text-align: right; 
-
-    white-space: nowrap; 
-
-    margin-bottom: 55px; 
-
-    font-variant-numeric: tabular-nums; 
-}
-
-
-/* ========================================================= 
-   BOTTOM WISHLIST 
-========================================================= */
-
-.cart-wishlist-bottom { 
-    width: 100%; 
-
-    display: flex; 
-
-    justify-content: flex-end; 
-
-    padding: 25px 0; 
-
-    border-bottom: 1px solid #e5e5e5; 
-} 
-
-
-.cart-wishlist-bottom a { 
-    text-decoration: none; 
-
-    color: #0072bc; 
-
-    font-size: 20px; 
-
-    font-weight: 500; 
-} 
-
-.cart-wishlist-bottom a:hover { 
-    text-decoration: underline; 
-}
-
-
-/* ========================================================= 
-   ORDER SUMMARY 
-========================================================= */
-
-.cart-order-summary { 
-    width: 88%; 
-
-    background: #fff; 
-
-    border: 1px solid #e5e5e5; 
-
-    padding: 16px; 
-} 
-
-
-.cart-order-summary h3 { 
-    font-size: 18px; 
-
-    font-weight: 700; 
-
-    color: #202020; 
-
-    padding: 10px 16px; 
-
-    margin: 0 0 14px; 
-}
-
-
-/* ========================================================= 
-   ORDER PRICE ROW 
-========================================================= */
-
-.cart-price-row { 
-    display: flex; 
-
-    justify-content: space-between; 
-
-    align-items: flex-start; 
-
-    padding: 0 16px; 
-
-    margin-bottom: 9px; 
-
-    font-size: 15px; 
-
-    color: #444; 
-
-    line-height: 1.3; 
-
-    gap: 15px; 
-} 
-
-
-.cart-price-row > span:last-child { 
-    min-width: 90px; 
-
-    text-align: right; 
-
-    white-space: nowrap; 
-
-    font-family: Arial, Helvetica, sans-serif; 
-
-    font-variant-numeric: tabular-nums; 
-
-    letter-spacing: 0.15px; 
-} 
-
-
-.cart-price-row a { 
-    color: #0b6ebd; 
-
-    text-decoration: none; 
-
-    font-size: 12px; 
-} 
-
-.cart-price-row a:hover { 
-    text-decoration: underline; 
-} 
-
-
-.cart-discount { 
-    color: #9c7b1c; 
-
-    font-weight: 600; 
-
-    font-variant-numeric: tabular-nums; 
-} 
-
-
-.cart-free { 
-    color: #008000; 
-
-    font-weight: 600; 
-} 
-
-
-.cart-price-row del { 
-    color: #444; 
-
-    margin-left: 4px; 
-
-    font-variant-numeric: tabular-nums; 
-}
-
-
-/* ========================================================= 
-   TOTAL 
-========================================================= */
-
-.cart-total-section { 
-    border-top: 1px solid #e5e5e5; 
-
-    margin-top: 10px; 
-
-    padding-top: 12px; 
-} 
-
-
-.cart-total-row { 
-    display: flex; 
-
-    justify-content: space-between; 
-
-    align-items: center; 
-
-    padding: 0 16px 16px; 
-
-    font-size: 16px; 
-
-    font-weight: 700; 
-
-    color: #202020; 
-
-    gap: 15px; 
-} 
-
-
-.cart-total-row > span:last-child { 
-    min-width: 100px; 
-
-    text-align: right; 
-
-    white-space: nowrap; 
-
-    font-family: Arial, Helvetica, sans-serif; 
-
-    font-variant-numeric: tabular-nums; 
-
-    letter-spacing: 0.2px; 
-}
-
-
-/* ========================================================= 
-   SHIPPING BUTTON 
-========================================================= */
-
-.cart-shipping-btn { 
-    width: 100%; 
-
-    height: 50px; 
-
-    border: none; 
-
-    outline: none; 
-
-    cursor: pointer; 
-
-    background: #8d6a20; 
-
-    color: #fff; 
-
-    font-size: 15px; 
-
-    font-weight: 700; 
-
-    text-transform: uppercase; 
-
-    letter-spacing: .4px; 
-} 
-
-
-.cart-shipping-btn:hover { 
-    background: #7a5919; 
-}
-
-
-/* ========================================================= 
-   COUPON 
-========================================================= */
-
-.cart-coupon-box { 
-    margin-top: 18px; 
-
-    width: 88%; 
-
-    min-height: 420px; 
-
-    border: 1px dashed #d9c9a7; 
-
-    background: #fff; 
-
-    padding: 16px; 
-} 
-
-
-.cart-coupon-box h3 { 
-    margin: 0 0 18px; 
-
-    font-size: 18px; 
-
-    color: #202020; 
-
-    font-weight: 700; 
-} 
-
-
-.cart-coupon-input { 
-    display: flex; 
-
-    margin-bottom: 24px; 
-} 
-
-
-.cart-coupon-input input { 
-    flex: 1; 
-
-    height: 40px; 
-
-    border: 1px solid #e2e2e2; 
-
-    outline: none; 
-
-    padding-left: 12px; 
-
-    font-size: 14px; 
-} 
-
-
-.cart-coupon-input button { 
-    width: 72px; 
-
-    border: none; 
-
-    background: #f3f3f3; 
-
-    color: #555; 
-
-    font-size: 14px; 
-
-    cursor: pointer; 
-} 
-
-
-.cart-coupon-input button:hover { 
-    background: #e8e8e8; 
-} 
-
-
-.cart-coupon-box h4 { 
-    margin: 0 0 18px; 
-
-    font-size: 15px; 
-
-    font-weight: 700; 
-}
-
-
-/* ========================================================= 
-   COUPON ITEM 
-========================================================= */
-
-.cart-coupon-item { 
-    display: flex; 
-
-    align-items: flex-start; 
-
-    gap: 12px; 
-} 
-
-
-.cart-coupon-item input { 
-    margin-top: 4px; 
-
-    width: 18px; 
-
-    height: 18px; 
-} 
-
-
-.cart-coupon-details { 
-    flex: 1; 
-} 
-
-
-.cart-coupon-saving { 
-    margin: 0; 
-
-    color: #202020; 
-
-    font-size: 15px; 
-
-    font-weight: 700; 
-
-    font-variant-numeric: tabular-nums; 
-} 
-
-
-.cart-coupon-saving span { 
-    color: #9d7a2d; 
-} 
-
-
-.cart-coupon-details h5 { 
-    margin: 6px 0; 
-
-    font-size: 15px; 
-
-    color: #202020; 
-} 
-
-
-.cart-offer { 
-    margin: 0; 
-
-    color: #555; 
-
-    font-size: 14px; 
-
-    line-height: 22px; 
-} 
-
-
-.cart-coupon-details a { 
-    display: inline-block; 
-
-    margin-top: 8px; 
-
-    color: #0b6ebd; 
-
-    text-decoration: none; 
-
-    font-size: 14px; 
-} 
-
-
-.cart-coupon-details a:hover { 
-    text-decoration: underline; 
-}
-
-
-/* ========================================================= 
-   GST 
-========================================================= */
-
-.cart-gst-section { 
-    width: 88%; 
-
-    margin-top: 10px; 
-
-    border: 1px solid #e8e8e8; 
-
-    background: #fff; 
-
-    padding: 16px; 
-} 
-
-
-.cart-gst-section h4 { 
-    font-size: 17px; 
-
-    color: #222; 
-
-    font-weight: 700; 
-
-    margin: 0 0 10px; 
-} 
-
-
-.cart-gst-check { 
-    display: flex; 
-
-    align-items: center; 
-
-    gap: 12px; 
-
-    cursor: pointer; 
-
-    font-size: 16px; 
-
-    color: #333; 
-} 
-
-
-.cart-gst-check input { 
-    width: 18px; 
-
-    height: 18px; 
-
-    cursor: pointer; 
-}
-
-
-/* ========================================================= 
-   REFUND POLICY 
-========================================================= */
-
-.cart-refund-section { 
-    width: 88%; 
-
-    margin-top: 20px; 
-
-    border: 1px solid #e8e8e8; 
-
-    background: #fff; 
-
-    padding: 16px; 
-} 
-
-
-.cart-refund-section h4 { 
-    font-size: 16px; 
-
-    font-weight: 700; 
-
-    color: #222; 
-
-    margin: 3px 0 8px; 
-} 
-
-
-.cart-refund-section p { 
-    font-size: 14px; 
-
-    color: #666; 
-
-    line-height: 22px; 
-
-    margin: 0 0 10px; 
-} 
-
-
-.cart-refund-section a { 
-    display: inline-block; 
-
-    margin-top: 8px; 
-
-    color: #619dbc; 
-
-    text-decoration: none; 
-
-    font-size: 16px; 
-
-    font-weight: 600; 
-} 
-
-
-.cart-refund-section a:hover { 
-    text-decoration: underline; 
-}
-
-
-/* ========================================================= 
-   SERVICE STRIP 
-========================================================= */
-
-.cart-service-strip { 
-    width: 100%; 
-
-    min-height: 100px; 
-
-    border-top: 3px solid #e8e8e8; 
-
-    border-bottom: 3px solid #e8e8e8; 
-
-    background: #fff; 
-
-    display: flex; 
-
-    justify-content: center; 
-
-    align-items: center; 
-
-    gap: 55px; 
-
-    margin-top: 40px; 
-} 
-
-
-.cart-service-box { 
-    display: flex; 
-
-    align-items: center; 
-
-    gap: 8px; 
-} 
-
-
-.cart-service-box i { 
-    font-size: 26px; 
-
-    color: #9a6d19; 
-} 
-
-
-.cart-service-box span { 
-    font-size: 16px; 
-
-    color: #9a6d19; 
-
-    font-weight: 500; 
-
-    text-transform: uppercase; 
-}
-
-
-/* ========================================================= 
-   FOOTER 
-========================================================= */
-
-.cart-footer { 
-    margin-top: 5px; 
-}
-
-
-/* ========================================================= 
-   FOOTER TOP 
-========================================================= */
-
-.cart-footer-top { 
-    display: flex; 
-
-    justify-content: space-around; 
-
-    align-items: center; 
-
-    padding: 45px 0; 
-
-    background: #fff; 
-} 
-
-
-.cart-feature { 
-    text-align: center; 
-} 
-
-
-.cart-feature i { 
-    font-size: 45px; 
-
-    color: #2d2d2d; 
-
-    margin-bottom: 18px; 
-} 
-
-
-.cart-feature h4 { 
-    font-size: 18px; 
-
-    font-family: Georgia, serif; 
-
-    font-weight: 500; 
-
-    color: #2d2d2d; 
-
-    margin: 0; 
-}
-
-
-/* ========================================================= 
-   FOOTER BOTTOM 
-========================================================= */
-
-.cart-footer-bottom { 
-    background: #2c4152; 
-
-    margin-top: 0; 
-
-    padding: 30px 60px; 
-
-    display: grid; 
-
-    grid-template-columns: repeat(4, 1fr); 
-
-    gap: 50px; 
-} 
-
-
-.cart-footer-column h3 { 
-    color: #fff; 
-
-    margin-top: 3px; 
-
-    font-size: 18px; 
-
-    font-weight: 600; 
-
-    margin-bottom: 20px; 
-
-    text-transform: uppercase; 
-} 
-
-
-.cart-footer-column ul { 
-    list-style: none; 
-
-    padding: 0; 
-
-    margin: 0; 
-} 
-
-
-.cart-footer-column li { 
-    margin-bottom: 14px; 
-} 
-
-
-.cart-footer-column a { 
-    color: #d9d9d9; 
-
-    text-decoration: none; 
-
-    font-size: 15px; 
-
-    transition: .3s; 
-} 
-
-
-.cart-footer-column a:hover { 
-    color: #fff; 
-
-    text-decoration: underline; 
-}
-
-
-/* ========================================================= 
-   TABLET VIEW 
-   768px - 1024px 
-========================================================= */
-
-@media screen and (min-width: 768px) and (max-width: 1024px) { 
-
-    /* HEADER */ 
-
-    .cart-page-header { 
-        height: 90px; 
-    } 
-
-    .cart-checkout-header { 
-        transform: scale(.82); 
-
-        transform-origin: center; 
-    } 
-
-    .cart-step { 
-        min-width: 110px; 
-    } 
-
-    .cart-step-line { 
-        width: 55px; 
-    } 
-
-
-    /* MAIN */ 
-
-    .cart-page-container { 
-        width: 95%; 
-
-        margin: 20px auto; 
-
-        display: grid; 
-
-        grid-template-columns: 55% 42%; 
-
-        align-items: start; 
-
-        gap: 25px; 
-    } 
-
-    .cart-left-section, 
-    .cart-right-section { 
-        width: 100%; 
-    } 
-
-
-    /* BAG */ 
-
-    .cart-bag-header { 
-        margin-bottom: 15px; 
-    } 
-
-    .cart-bag-header h2 { 
-        font-size: 20px; 
-    } 
-
-    .cart-bag-header h2 span { 
-        font-size: 15px; 
-    } 
-
-    .cart-wishlist-link { 
-        font-size: 15px; 
-    } 
-
-
-    /* PRODUCT */ 
-
-    .cart-product-card { 
-        display: flex; 
-
-        gap: 12px; 
-
-        padding: 14px; 
-
-        margin-bottom: 18px; 
-    } 
-
-
-    .cart-product-image { 
-        width: 95px; 
-    } 
-
-
-    .cart-product-image img { 
-        width: 95px; 
-
-        height: 125px; 
-    } 
-
-
-    .cart-product-info { 
-        width: auto; 
-
-        flex: 1; 
-    } 
-
-
-    .cart-product-info h3 { 
-        font-size: 15px; 
-
-        line-height: 24px; 
-
-        margin-bottom: 14px; 
-    } 
-
-
-    .cart-product-options { 
-        gap: 10px; 
-
-        font-size: 14px; 
-    } 
-
-
-    .cart-product-options span, 
-    .cart-product-options select { 
-        font-size: 14px; 
-    } 
-
-
-    .cart-product-top { 
-        gap: 10px; 
-    } 
-
-
-    /* UPDATED TABLET PRICE */ 
-
-    .cart-product-right { 
-        width: 110px; 
-    } 
-
-    .cart-product-price .cart-price-box, 
-    .cart-product-right .cart-price-box { 
-        min-width: 100px; 
-
-        font-size: 14px; 
-
-        padding: 8px 10px; 
-
-        min-height: 34px; 
-
-        margin-bottom: 30px; 
-    } 
-
-
-    .cart-product-actions { 
-        gap: 15px; 
-
-        flex-wrap: wrap; 
-    } 
-
-
-    .cart-product-actions a { 
-        font-size: 13px; 
-    } 
-
-
-    .cart-product-bottom { 
-        margin-top: 30px; 
-    } 
-
-
-    /* RIGHT SIDE */ 
-
-    .cart-order-summary, 
-    .cart-coupon-box, 
-    .cart-gst-section, 
-    .cart-refund-section { 
-        width: 100%; 
-    } 
-
-
-    .cart-order-summary { 
-        padding: 14px; 
-    } 
-
-
-    .cart-order-summary h3 { 
-        font-size: 17px; 
-    } 
-
-
-    .cart-price-row { 
-        font-size: 14px; 
-    } 
-
-
-    .cart-price-row > span:last-child { 
-        min-width: 80px; 
-    } 
-
-
-    .cart-total-row { 
-        font-size: 16px; 
-    } 
-
-
-    .cart-shipping-btn { 
-        font-size: 14px; 
-    } 
-
-
-    .cart-coupon-box { 
-        min-height: auto; 
-    } 
-
-
-    /* SERVICE */ 
-
-    .cart-service-strip { 
-        gap: 25px; 
-
-        padding: 20px 10px; 
-    } 
-
-
-    .cart-service-box { 
-        gap: 6px; 
-    } 
-
-
-    .cart-service-box i { 
-        font-size: 21px; 
-    } 
-
-
-    .cart-service-box span { 
-        font-size: 12px; 
-    } 
-
-
-    /* FOOTER */ 
-
-    .cart-footer-top { 
-        padding: 35px 15px; 
-    } 
-
-
-    .cart-feature i { 
-        font-size: 35px; 
-    } 
-
-
-    .cart-feature h4 { 
-        font-size: 15px; 
-    } 
-
-
-    .cart-footer-bottom { 
-        padding: 30px; 
-
-        grid-template-columns: repeat(2, 1fr); 
-
-        gap: 35px; 
-    } 
-
-}
-
-
-/* ========================================================= 
-   MOBILE VIEW 
-   BELOW 767px 
-========================================================= */
-
-@media screen and (max-width: 767px) { 
-
-    /* HEADER */ 
-
-    .cart-page-header { 
-        height: 85px; 
-
-        padding: 10px; 
-    } 
-
-
-    .cart-checkout-header { 
-        transform: scale(.65); 
-
-        transform-origin: center; 
-    } 
-
-
-    .cart-step { 
-        min-width: 100px; 
-    } 
-
-
-    .cart-step-line { 
-        width: 35px; 
-    } 
-
-
-    /* MAIN */ 
-
-    .cart-page-container { 
-        display: flex; 
-
-        flex-direction: column; 
-
-        width: 95%; 
-
-        margin: 15px auto; 
-
-        gap: 20px; 
-    } 
-
-
-    .cart-left-section, 
-    .cart-right-section { 
-        width: 100%; 
-    } 
-
-
-    /* GIFT */ 
-
-    .cart-gift-banner { 
-        min-height: 80px; 
-
-        gap: 10px; 
-
-        padding: 10px; 
-    } 
-
-
-    .cart-gift-info { 
-        gap: 10px; 
-
-        flex: 1; 
-    } 
-
-
-    .cart-gift-info img { 
-        width: 45px; 
-
-        height: 50px; 
-
-        flex-shrink: 0; 
-    } 
-
-
-    .cart-gift-info h4 { 
-        font-size: 14px; 
-
-        line-height: 20px; 
-    } 
-
-
-    .cart-gift-banner a { 
-        font-size: 14px; 
-
-        white-space: nowrap; 
-    } 
-
-
-    /* BAG */ 
-
-    .cart-bag-header { 
-        display: flex; 
-
-        justify-content: space-between; 
-
-        align-items: center; 
-
-        flex-wrap: wrap; 
-
-        gap: 10px; 
-    } 
-
-
-    .cart-bag-header h2 { 
-        font-size: 18px; 
-
-        margin: 0; 
-    } 
-
-
-    .cart-bag-header h2 span { 
-        font-size: 14px; 
-
-        margin-left: 5px; 
-    } 
-
-
-    .cart-wishlist-link { 
-        font-size: 14px; 
-
-        white-space: nowrap; 
-    } 
-
-
-    /* PRODUCT */ 
-
-    .cart-product-card { 
-        display: flex; 
-
-        align-items: flex-start; 
-
-        gap: 12px; 
-
-        padding: 12px; 
-
-        margin-bottom: 15px; 
-    } 
-
-
-    .cart-product-image { 
-        flex: 0 0 100px; 
-
-        width: 100px; 
-    } 
-
-
-    .cart-product-image img { 
-        width: 100px; 
-
-        height: 130px; 
-
-        object-fit: cover; 
-    } 
-
-
-    .cart-product-details { 
-        flex: 1; 
-
-        min-width: 0; 
-
-        min-height: 240px; 
-    } 
-
-
-    .cart-product-top { 
-        display: block; 
-    } 
-
-
-    .cart-product-info { 
-        width: 100%; 
-    } 
-
-
-    .cart-product-info h3 { 
-        font-size: 15px; 
-
-        line-height: 22px; 
-
-        margin: 0 0 12px; 
-    } 
-
-
-    .cart-product-options { 
-        display: flex; 
-
-        gap: 8px; 
-
-        margin-top: 8px; 
-
-        margin-bottom: 12px; 
-
-        flex-wrap: wrap; 
-    } 
-
-
-    .cart-product-options span, 
-    .cart-product-options select { 
-        font-size: 13px; 
-    } 
-
-
-    /* SECOND PRODUCT RIGHT */ 
-
-    .cart-product-right { 
-        width: 100%; 
-
-        align-items: flex-start; 
-
-        margin-top: 8px; 
-    } 
-
-
-    .cart-saving { 
-        font-size: 13px; 
-    } 
-
-
-    .cart-old-price { 
-        font-size: 13px; 
-    } 
-
-
-    .cart-product-right .cart-price-box { 
-        min-width: 105px; 
-
-        width: auto; 
-
-        font-size: 14px; 
-
-        padding: 7px 10px; 
-
-        min-height: 32px; 
-
-        margin-bottom: 20px; 
-    } 
-
-
-    /* PRICE */ 
-
-    .cart-product-price { 
-        margin-top: 10px; 
-
-        justify-content: flex-start; 
-    } 
-
-
-    .cart-product-price .cart-price-box { 
-        min-width: 105px; 
-
-        font-size: 14px; 
-
-        padding: 7px 10px; 
-
-        min-height: 32px; 
-    } 
-
-
-    /* BOTTOM */ 
-
-    .cart-product-bottom { 
-        margin-top: 25px; 
-    } 
-
-
-    /* ACTIONS */ 
-
-    .cart-product-actions { 
-        margin-top: auto; 
-
-        display: flex; 
-
-        justify-content: flex-start; 
-
-        align-items: center; 
-
-        gap: 15px; 
-
-        flex-wrap: wrap; 
-
-        width: 100%; 
-    } 
-
-
-    .cart-product-actions a { 
-        font-size: 13px; 
-
-        white-space: nowrap; 
-    } 
-
-
-    /* WISHLIST */ 
-
-    .cart-wishlist-bottom { 
-        padding: 18px 0; 
-    } 
-
-
-    .cart-wishlist-bottom a { 
-        font-size: 15px; 
-    } 
-
-
-    /* RIGHT */ 
-
-    .cart-order-summary, 
-    .cart-coupon-box, 
-    .cart-gst-section, 
-    .cart-refund-section { 
-        width: 100%; 
-    } 
-
-
-    /* ORDER */ 
-
-    .cart-order-summary { 
-        padding: 14px; 
-    } 
-
-
-    .cart-order-summary h3 { 
-        font-size: 17px; 
-
-        padding: 8px 10px; 
-    } 
-
-
-    .cart-price-row { 
-        padding: 0 10px; 
-
-        font-size: 13px; 
-
-        margin-bottom: 10px; 
-    } 
-
-
-    .cart-price-row > span:last-child { 
-        min-width: 75px; 
-
-        font-size: 13px; 
-    } 
-
-
-    .cart-total-row { 
-        padding: 0 10px 14px; 
-
-        font-size: 16px; 
-    } 
-
-
-    .cart-total-row > span:last-child { 
-        min-width: 80px; 
-
-        font-size: 14px; 
-    } 
-
-
-    .cart-shipping-btn { 
-        height: 48px; 
-
-        font-size: 13px; 
-    } 
-
-
-    /* COUPON */ 
-
-    .cart-coupon-box { 
-        min-height: auto; 
-
-        padding: 14px; 
-    } 
-
-
-    .cart-coupon-box h3 { 
-        font-size: 17px; 
-    } 
-
-
-    .cart-coupon-input input { 
-        height: 40px; 
-    } 
-
-
-    .cart-coupon-input button { 
-        width: 65px; 
-    } 
-
-
-    .cart-offer { 
-        font-size: 13px; 
-
-        line-height: 20px; 
-    } 
-
-
-    /* GST */ 
-
-    .cart-gst-section { 
-        padding: 14px; 
-    } 
-
-
-    .cart-gst-section h4 { 
-        font-size: 15px; 
-    } 
-
-
-    .cart-gst-check { 
-        font-size: 14px; 
-    } 
-
-
-    /* REFUND */ 
-
-    .cart-refund-section { 
-        padding: 14px; 
-
-        margin-top: 15px; 
-    } 
-
-
-    .cart-refund-section h4 { 
-        font-size: 15px; 
-    } 
-
-
-    .cart-refund-section p { 
-        font-size: 13px; 
-
-        line-height: 20px; 
-    } 
-
-
-    .cart-refund-section a { 
-        font-size: 14px; 
-    } 
-
-
-    /* SERVICE */ 
-
-    .cart-service-strip { 
-        height: auto; 
-
-        display: flex; 
-
-        flex-direction: column; 
-
-        gap: 18px; 
-
-        padding: 25px 10px; 
-
-        margin-top: 25px; 
-    } 
-
-
-    .cart-service-box { 
-        width: 100%; 
-
-        justify-content: center; 
-    } 
-
-
-    .cart-service-box i { 
-        font-size: 22px; 
-    } 
-
-
-    .cart-service-box span { 
-        font-size: 13px; 
-    } 
-
-
-    /* FOOTER TOP */ 
-
-    .cart-footer-top { 
-        display: grid; 
-
-        grid-template-columns: 1fr; 
-
-        gap: 30px; 
-
-        padding: 30px 15px; 
-    } 
-
-
-    .cart-feature i { 
-        font-size: 35px; 
-    } 
-
-
-    .cart-feature h4 { 
-        font-size: 15px; 
-    } 
-
-
-    /* FOOTER BOTTOM */ 
-
-    .cart-footer-bottom { 
-        display: grid; 
-
-        grid-template-columns: 1fr; 
-
-        gap: 30px; 
-
-        padding: 25px; 
-    } 
-
-
-    .cart-footer-column h3 { 
-        font-size: 16px; 
-    } 
-
-
-    .cart-footer-column a { 
-        font-size: 14px; 
-    } 
-
-}
-
-
-/* ========================================================= 
-   VERY SMALL MOBILE 
-   BELOW 480px 
-========================================================= */
-
-@media screen and (max-width: 480px) { 
-
-    .cart-page-header { 
-        height: 78px; 
-    } 
-
-
-    .cart-checkout-header { 
-        transform: scale(.55); 
-    } 
-
-
-    .cart-step { 
-        min-width: 90px; 
-    } 
-
-
-    .cart-step-line { 
-        width: 25px; 
-    } 
-
-
-    .cart-product-card { 
-        gap: 10px; 
-
-        padding: 10px; 
-    } 
-
-
-    .cart-product-image { 
-        flex: 0 0 85px; 
-
-        width: 85px; 
-    } 
-
-
-    .cart-product-image img { 
-        width: 85px; 
-
-        height: 115px; 
-    } 
-
-
-    .cart-product-info h3 { 
-        font-size: 14px; 
-
-        line-height: 20px; 
-    } 
-
-
-    .cart-product-options { 
-        gap: 6px; 
-    } 
-
-
-    /* VERY SMALL PRICE */ 
-
-    .cart-product-price .cart-price-box, 
-    .cart-product-right .cart-price-box { 
-        min-width: 95px; 
-
-        font-size: 13px; 
-
-        padding: 7px 9px; 
-    } 
-
-
-    .cart-product-actions { 
-        gap: 10px; 
-    } 
-
-
-    .cart-product-actions a { 
-        font-size: 12px; 
-    } 
-
-
-    .cart-price-row > span:last-child { 
-        min-width: 70px; 
-
-        font-size: 12px; 
-    } 
-
-
-    .cart-total-row > span:last-child { 
-        min-width: 75px; 
-
-        font-size: 13px; 
-    } 
-
-
-    .cart-service-box span { 
-        font-size: 12px; 
-    } 
-
-}
-
 
 /* =========================================================
-   =========================================================
-   CART PAGE - UPDATED NUMBER / PRICE STYLING
-   ADDED AT THE VERY BOTTOM
-   DO NOT REMOVE PREVIOUS CSS
-   =========================================================
-========================================================= */
-
-
-/* =========================================================
-   COMMON NUMBER / PRICE SETTINGS
+   AJIO CART PAGE
 ========================================================= */
 
 .cart-page {
+    width: 100%;
+    min-height: 100vh;
+    background: #fff;
+    color: #222;
+    font-family: Georgia, "Times New Roman", serif;
+    box-sizing: border-box;
+
     font-variant-numeric: proportional-nums;
+}
+
+.cart-page *,
+.cart-page *::before,
+.cart-page *::after {
+    box-sizing: border-box;
 }
 
 
 /* =========================================================
-   PRODUCT CURRENT PRICE
-   Example: Rs. 595.00
+   HEADER
+   ONLY BAG / DELIVERY / PAYMENT
+========================================================= */
+
+.cart-page-header {
+    width: 100%;
+    height: 100px;
+    background: #fff;
+    border-bottom: 1px solid #e5e5e5;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* =========================================================
+   CHECKOUT HEADER
+========================================================= */
+
+.cart-checkout-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+
+/* =========================================================
+   STEP
+========================================================= */
+
+.cart-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    min-width: 120px;
+
+    position: relative;
+}
+
+
+/* =========================================================
+   STEP ICON
+========================================================= */
+
+.cart-step i {
+    width: 34px;
+    height: 34px;
+
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #e9e9e9;
+    color: #7d7d7d;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   ACTIVE STEP
+========================================================= */
+
+.cart-step-active i {
+    background: #2c4152;
+    color: #fff;
+}
+
+.cart-step-active span {
+    color: #2c4152;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   STEP TEXT
+========================================================= */
+
+.cart-step span {
+    margin-top: 5px;
+
+    font-size: 14px;
+
+    color: #777;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   STEP LINE
+========================================================= */
+
+.cart-step-line {
+    width: 90px;
+    height: 2px;
+
+    background: #d7d7d7;
+
+    margin-top: 16px;
+
+    flex-shrink: 0;
+}
+
+
+/* =========================================================
+   MAIN CONTAINER
+========================================================= */
+
+.cart-page-container {
+    width: 90%;
+
+    margin: 18px auto;
+
+    display: flex;
+
+    gap: 20px;
+
+    align-items: flex-start;
+}
+
+
+/* =========================================================
+   LEFT SIDE
+========================================================= */
+
+.cart-left-section {
+    width: 72%;
+}
+
+
+/* =========================================================
+   RIGHT SIDE
+========================================================= */
+
+.cart-right-section {
+    width: 28%;
+}
+
+
+/* =========================================================
+   GIFT BANNER
+========================================================= */
+
+.cart-gift-banner {
+    min-height: 72px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    border: 1px dashed #b8a5ff;
+
+    background: #faf9ff;
+
+    padding: 8px 20px;
+
+    margin-bottom: 30px;
+}
+
+
+.cart-gift-info {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+}
+
+
+.cart-gift-info img {
+    width: 66px;
+    height: 67px;
+
+    object-fit: contain;
+
+    background-color: #aea4e4;
+}
+
+
+.cart-gift-info h4 {
+    font-size: 18px;
+
+    font-weight: 600;
+
+    color: #222;
+
+    margin: 0;
+
+    overflow: visible;
+
+    word-break: normal;
+
+    overflow-wrap: normal;
+
+    line-height: 1.4;
+}
+
+
+/* =========================================================
+   GIFT AMOUNT
+========================================================= */
+
+.cart-gift-info h4 span {
+    display: inline-block;
+
+    white-space: nowrap;
+
+    word-break: normal;
+
+    overflow-wrap: normal;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    font-weight: 700;
+
+    font-variant-numeric: tabular-nums;
+
+    font-feature-settings: "tnum";
+
+    letter-spacing: 0.25px;
+
+    margin-left: 3px;
+
+    vertical-align: baseline;
+}
+
+
+.cart-gift-banner a {
+    text-decoration: none;
+
+    color: #0d6db8;
+
+    font-size: 18px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+
+    word-break: normal;
+
+    overflow-wrap: normal;
+}
+
+
+.cart-gift-banner a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   MY BAG
+========================================================= */
+
+.cart-bag-section {
+    width: 100%;
+
+    margin-top: 10px;
+
+    border-top: 1px solid #e5e5e5;
+}
+
+
+.cart-bag-header {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 8px 0;
+
+    border-bottom: 1px solid #e5e5e5;
+}
+
+
+.cart-bag-header h2 {
+    font-size: 27px;
+
+    font-family: Georgia, serif;
+
+    font-weight: 600;
+
+    color: #2c4152;
+
+    margin: 0;
+}
+
+
+.cart-bag-header h2 span {
+    font-size: 20px;
+
+    color: #6b6b6b;
+
+    font-weight: 400;
+
+    margin-left: 5px;
+
+    white-space: nowrap;
+}
+
+
+.cart-wishlist-link {
+    text-decoration: none;
+
+    color: #0b6fb8;
+
+    font-size: 20px;
+
+    font-weight: 500;
+
+    white-space: nowrap;
+}
+
+
+.cart-wishlist-link:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   PRODUCT CARD
+========================================================= */
+
+.cart-product-card {
+    display: flex;
+
+    gap: 25px;
+
+    padding: 18px;
+
+    border: 1px solid #ebebeb;
+
+    margin-bottom: 20px;
+
+    background: #fff;
+}
+
+
+/* =========================================================
+   PRODUCT IMAGE
+========================================================= */
+
+.cart-product-image {
+    width: 135px;
+
+    flex-shrink: 0;
+}
+
+
+.cart-product-image img {
+    width: 135px;
+
+    height: 170px;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+
+/* =========================================================
+   PRODUCT DETAILS
+========================================================= */
+
+.cart-product-details {
+    flex: 1;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-between;
+
+    min-width: 0;
+}
+
+
+/* =========================================================
+   PRODUCT TOP
+========================================================= */
+
+.cart-product-top {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+    gap: 20px;
+}
+
+
+.cart-product-info {
+    width: 75%;
+
+    min-width: 0;
+}
+
+
+.cart-product-info h3 {
+    font-size: 18px;
+
+    font-weight: 400;
+
+    color: #333;
+
+    margin: 0 0 20px;
+
+    line-height: 30px;
+}
+
+
+/* =========================================================
+   PRODUCT OPTIONS
+========================================================= */
+
+.cart-product-options {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+
+.cart-product-options span {
+    font-size: 16px;
+
+    color: #555;
+}
+
+
+.cart-product-options select {
+    border: none;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    outline: none;
+
+    background: #fff;
+}
+
+
+/* =========================================================
+   PRODUCT PRICE
+========================================================= */
+
+.cart-product-price {
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: flex-end;
+
+    flex-shrink: 0;
+}
+
+
+/* =========================================================
+   PRICE BOX
 ========================================================= */
 
 .cart-price-box {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
     min-width: 135px;
+
+    min-height: 38px;
+
+    padding: 9px 16px;
+
+    background: #eef7ff;
+
+    border-left: 4px solid #0b79d0;
+
+    color: #222;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    line-height: 1.2;
+
+    letter-spacing: 0.3px;
+
+    white-space: nowrap;
+
+    word-break: normal;
+
+    overflow-wrap: normal;
+
+    text-align: right;
+
+    font-variant-numeric: tabular-nums;
+
+    font-feature-settings: "tnum";
+
+    border-radius: 1px;
+}
+
+
+/* =========================================================
+   PRODUCT BOTTOM
+========================================================= */
+
+.cart-product-bottom {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-end;
+
+    margin-top: 55px;
+}
+
+
+/* =========================================================
+   PRODUCT ACTIONS
+========================================================= */
+
+.cart-product-actions {
+    display: flex;
+
+    gap: 35px;
+
+    justify-content: flex-end;
+
+    width: 100%;
+}
+
+
+.cart-product-actions a {
+    color: #0072bc;
+
+    text-decoration: none;
+
+    font-size: 17px;
+
+    white-space: nowrap;
+}
+
+
+.cart-product-actions a:hover {
+    text-decoration: underline;
+}
+
+
+.cart-product-actions i {
+    margin-right: 6px;
+}
+
+
+/* =========================================================
+   SECOND PRODUCT RIGHT SIDE
+========================================================= */
+
+.cart-product-right {
+    width: 240px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-end;
+
+    justify-content: flex-start;
+
+    flex-shrink: 0;
+}
+
+
+.cart-saving {
+    font-size: 16px;
+
+    color: #a87518;
+
+    font-weight: 700;
+
+    margin-bottom: 6px;
+
+    white-space: nowrap;
+
+    word-break: normal;
+
+    overflow-wrap: normal;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    font-variant-numeric: tabular-nums;
+
+    font-feature-settings: "tnum";
+
+    letter-spacing: 0.25px;
+
+    line-height: 1.3;
+}
+
+
+.cart-saving span {
+    color: #9a711e;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    display: inline-block;
+
+    word-break: normal;
+
+    overflow-wrap: normal;
+
+    font-variant-numeric: tabular-nums;
+
+    font-feature-settings: "tnum";
+}
+
+
+.cart-old-price {
+    font-size: 15px;
+
+    color: #666;
+
+    text-decoration: line-through;
+
+    text-decoration-thickness: 1px;
+
+    margin-bottom: 12px;
+
+    white-space: nowrap;
+
+    word-break: normal;
+
+    overflow-wrap: normal;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    font-weight: 500;
+
+    font-variant-numeric: tabular-nums;
+
+    font-feature-settings: "tnum";
+
+    letter-spacing: 0.25px;
+
+    line-height: 1.3;
+}
+
+
+/* =========================================================
+   SECOND PRODUCT PRICE
+========================================================= */
+
+.cart-product-right .cart-price-box {
+    min-width: 135px;
+
+    min-height: 38px;
+
+    background: #edf6ff;
+
+    border-left: 4px solid #0b79d0;
 
     padding: 9px 16px;
 
@@ -2208,145 +706,113 @@
 
     font-weight: 700;
 
-    letter-spacing: 0.3px;
+    color: #222;
 
     line-height: 1.2;
 
-    font-variant-numeric: tabular-nums;
-
-    font-feature-settings: "tnum";
+    text-align: right;
 
     white-space: nowrap;
 
-    text-align: right;
+    word-break: normal;
 
-    border-radius: 1px;
+    overflow-wrap: normal;
+
+    margin-bottom: 55px;
+
+    font-variant-numeric: tabular-nums;
+
+    font-feature-settings: "tnum";
 }
 
 
 /* =========================================================
-   PRODUCT OLD PRICE
-   Example: Rs. 1,699.00
+   BOTTOM WISHLIST
 ========================================================= */
 
-.cart-old-price {
-    font-family: Arial, Helvetica, sans-serif;
+.cart-wishlist-bottom {
+    width: 100%;
 
-    font-size: 15px;
+    display: flex;
+
+    justify-content: flex-end;
+
+    padding: 25px 0;
+
+    border-bottom: 1px solid #e5e5e5;
+}
+
+
+.cart-wishlist-bottom a {
+    text-decoration: none;
+
+    color: #0072bc;
+
+    font-size: 20px;
 
     font-weight: 500;
 
-    color: #666;
+    white-space: nowrap;
+}
 
-    text-decoration: line-through;
 
-    text-decoration-thickness: 1px;
+.cart-wishlist-bottom a:hover {
+    text-decoration: underline;
+}
 
-    letter-spacing: 0.25px;
+
+/* =========================================================
+   ORDER SUMMARY
+========================================================= */
+
+.cart-order-summary {
+    width: 88%;
+
+    background: #fff;
+
+    border: 1px solid #e5e5e5;
+
+    padding: 16px;
+}
+
+
+.cart-order-summary h3 {
+    font-size: 18px;
+
+    font-weight: 700;
+
+    color: #202020;
+
+    padding: 10px 16px;
+
+    margin: 0 0 14px;
+}
+
+
+/* =========================================================
+   ORDER PRICE ROW
+========================================================= */
+
+.cart-price-row {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+    padding: 0 16px;
+
+    margin-bottom: 9px;
+
+    font-size: 15px;
+
+    color: #444;
 
     line-height: 1.3;
 
-    font-variant-numeric: tabular-nums;
-
-    font-feature-settings: "tnum";
-
-    white-space: nowrap;
+    gap: 15px;
 }
 
-
-/* =========================================================
-   PRODUCT SAVINGS
-   Example: Savings: Rs. 1,104.00
-========================================================= */
-
-.cart-saving {
-    font-family: Arial, Helvetica, sans-serif;
-
-    font-size: 16px;
-
-    font-weight: 700;
-
-    color: #a87518;
-
-    letter-spacing: 0.25px;
-
-    line-height: 1.3;
-
-    font-variant-numeric: tabular-nums;
-
-    font-feature-settings: "tnum";
-
-    white-space: nowrap;
-}
-
-
-.cart-saving span {
-    color: #9a711e;
-
-    font-weight: 700;
-
-    font-variant-numeric: tabular-nums;
-
-    font-feature-settings: "tnum";
-}
-
-
-/* =========================================================
-   GIFT BANNER
-   Example:
-   You're Getting Free Gifts Worth ₹1495!
-========================================================= */
-
-.cart-gift-info h4 {
-    font-size: 18px;
-
-    font-weight: 600;
-
-    color: #222;
-
-    letter-spacing: 0.15px;
-
-    line-height: 1.4;
-
-    font-variant-numeric: proportional-nums;
-}
-
-
-/* Gift amount if wrapped inside span */
-
-.cart-gift-info h4 span {
-    font-family: Arial, Helvetica, sans-serif;
-
-    font-weight: 700;
-
-    letter-spacing: 0.25px;
-
-    font-variant-numeric: tabular-nums;
-
-    font-feature-settings: "tnum";
-
-    white-space: nowrap;
-}
-
-
-/* Gift banner link / amount */
-
-.cart-gift-banner a {
-    font-family: Georgia, "Times New Roman", serif;
-
-    font-size: 18px;
-
-    font-weight: 600;
-
-    letter-spacing: 0.15px;
-
-    white-space: nowrap;
-}
-
-
-/* =========================================================
-   ORDER SUMMARY - ALL NUMBERS
-========================================================= */
 
 .cart-price-row > span:last-child {
     min-width: 100px;
@@ -2355,29 +821,52 @@
 
     white-space: nowrap;
 
+    word-break: normal;
+
+    overflow-wrap: normal;
+
     font-family: Arial, Helvetica, sans-serif;
 
     font-size: 15px;
 
     font-weight: 600;
 
-    letter-spacing: 0.2px;
-
     font-variant-numeric: tabular-nums;
 
     font-feature-settings: "tnum";
+
+    letter-spacing: 0.2px;
 }
 
 
-/* =========================================================
-   ORDER SUMMARY DISCOUNT
-   Example: -₹1,104.00
-========================================================= */
+.cart-price-row a {
+    color: #0b6ebd;
+
+    text-decoration: none;
+
+    font-size: 12px;
+}
+
+
+.cart-price-row a:hover {
+    text-decoration: underline;
+}
+
 
 .cart-discount {
-    font-family: Arial, Helvetica, sans-serif;
+    color: #9c7b1c;
 
     font-weight: 700;
+
+    white-space: nowrap;
+
+    display: inline-block;
+
+    word-break: normal;
+
+    overflow-wrap: normal;
+
+    font-family: Arial, Helvetica, sans-serif;
 
     font-variant-numeric: tabular-nums;
 
@@ -2387,14 +876,20 @@
 }
 
 
-/* =========================================================
-   ORDER SUMMARY FREE
-========================================================= */
-
 .cart-free {
-    font-family: Arial, Helvetica, sans-serif;
+    color: #008000;
 
     font-weight: 700;
+
+    white-space: nowrap;
+
+    display: inline-block;
+
+    word-break: normal;
+
+    overflow-wrap: normal;
+
+    font-family: Arial, Helvetica, sans-serif;
 
     font-variant-numeric: tabular-nums;
 
@@ -2402,11 +897,13 @@
 }
 
 
-/* =========================================================
-   ORDER SUMMARY OLD PRICE
-========================================================= */
-
 .cart-price-row del {
+    color: #444;
+
+    margin-left: 4px;
+
+    white-space: nowrap;
+
     font-family: Arial, Helvetica, sans-serif;
 
     font-weight: 500;
@@ -2420,9 +917,36 @@
 
 
 /* =========================================================
-   TOTAL PRICE
-   Example: ₹1,117.00
+   TOTAL
 ========================================================= */
+
+.cart-total-section {
+    border-top: 1px solid #e5e5e5;
+
+    margin-top: 10px;
+
+    padding-top: 12px;
+}
+
+
+.cart-total-row {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 0 16px 16px;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    color: #202020;
+
+    gap: 15px;
+}
+
 
 .cart-total-row > span:last-child {
     min-width: 110px;
@@ -2430,6 +954,10 @@
     text-align: right;
 
     white-space: nowrap;
+
+    word-break: normal;
+
+    overflow-wrap: normal;
 
     font-family: Arial, Helvetica, sans-serif;
 
@@ -2446,26 +974,181 @@
 
 
 /* =========================================================
-   COUPON SAVINGS
-   Example: Savings ₹218.80
+   SHIPPING BUTTON
 ========================================================= */
 
-.cart-coupon-saving {
-    font-family: Arial, Helvetica, sans-serif;
+.cart-shipping-btn {
+    width: 100%;
+
+    height: 50px;
+
+    border: none;
+
+    outline: none;
+
+    cursor: pointer;
+
+    background: #8d6a20;
+
+    color: #fff;
 
     font-size: 15px;
 
     font-weight: 700;
 
-    color: #202020;
+    text-transform: uppercase;
 
-    letter-spacing: 0.2px;
+    letter-spacing: .4px;
 
-    line-height: 1.4;
+    white-space: nowrap;
 
     font-variant-numeric: tabular-nums;
 
     font-feature-settings: "tnum";
+}
+
+
+.cart-shipping-btn:hover {
+    background: #7a5919;
+}
+
+
+/* =========================================================
+   COUPON
+========================================================= */
+
+.cart-coupon-box {
+    margin-top: 18px;
+
+    width: 88%;
+
+    min-height: 420px;
+
+    border: 1px dashed #d9c9a7;
+
+    background: #fff;
+
+    padding: 16px;
+}
+
+
+.cart-coupon-box h3 {
+    margin: 0 0 18px;
+
+    font-size: 18px;
+
+    color: #202020;
+
+    font-weight: 700;
+}
+
+
+.cart-coupon-input {
+    display: flex;
+
+    margin-bottom: 24px;
+}
+
+
+.cart-coupon-input input {
+    flex: 1;
+
+    height: 40px;
+
+    border: 1px solid #e2e2e2;
+
+    outline: none;
+
+    padding-left: 12px;
+
+    font-size: 14px;
+}
+
+
+.cart-coupon-input button {
+    width: 72px;
+
+    border: none;
+
+    background: #f3f3f3;
+
+    color: #555;
+
+    font-size: 14px;
+
+    cursor: pointer;
+}
+
+
+.cart-coupon-input button:hover {
+    background: #e8e8e8;
+}
+
+
+.cart-coupon-box h4 {
+    margin: 0 0 18px;
+
+    font-size: 15px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   COUPON ITEM
+========================================================= */
+
+.cart-coupon-item {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 12px;
+}
+
+
+.cart-coupon-item input {
+    margin-top: 4px;
+
+    width: 18px;
+
+    height: 18px;
+}
+
+
+.cart-coupon-details {
+    flex: 1;
+
+    min-width: 0;
+}
+
+
+/* =========================================================
+   COUPON SAVING
+========================================================= */
+
+.cart-coupon-saving {
+    margin: 0;
+
+    color: #202020;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    line-height: 1.4;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    font-variant-numeric: tabular-nums;
+
+    font-feature-settings: "tnum";
+
+    letter-spacing: 0.2px;
+
+    word-break: normal;
+
+    overflow-wrap: normal;
 }
 
 
@@ -2483,16 +1166,21 @@
     font-feature-settings: "tnum";
 
     white-space: nowrap;
+
+    display: inline-block;
+
+    word-break: normal;
+
+    overflow-wrap: normal;
 }
 
 
-/* =========================================================
-   COUPON DISCOUNT PERCENTAGE
-   Example: 20%
-========================================================= */
-
 .cart-coupon-details h5 {
+    margin: 6px 0;
+
     font-size: 15px;
+
+    color: #202020;
 
     font-weight: 700;
 
@@ -2502,30 +1190,90 @@
 }
 
 
+.cart-offer {
+    margin: 0;
+
+    color: #555;
+
+    font-size: 14px;
+
+    line-height: 22px;
+
+    word-break: normal;
+
+    overflow-wrap: normal;
+}
+
+
+.cart-coupon-details a {
+    display: inline-block;
+
+    margin-top: 8px;
+
+    color: #0b6ebd;
+
+    text-decoration: none;
+
+    font-size: 14px;
+}
+
+
+.cart-coupon-details a:hover {
+    text-decoration: underline;
+}
+
+
 /* =========================================================
-   GST BENEFIT
-   Example:
-   Save up to 24% with GST benefits
+   GST
 ========================================================= */
+
+.cart-gst-section {
+    width: 88%;
+
+    margin-top: 10px;
+
+    border: 1px solid #e8e8e8;
+
+    background: #fff;
+
+    padding: 16px;
+}
+
 
 .cart-gst-section h4 {
     font-size: 17px;
 
+    color: #222;
+
     font-weight: 700;
 
-    color: #222;
+    margin: 0 0 10px;
 
     line-height: 1.4;
 
     letter-spacing: 0.15px;
 
     font-variant-numeric: proportional-nums;
+
+    word-break: normal;
+
+    overflow-wrap: normal;
 }
 
 
-/* GST percentage if wrapped in span */
+/* =========================================================
+   GST PERCENTAGE
+========================================================= */
 
 .cart-gst-section h4 span {
+    display: inline-block;
+
+    white-space: nowrap;
+
+    word-break: normal;
+
+    overflow-wrap: normal;
+
     font-family: Arial, Helvetica, sans-serif;
 
     font-weight: 700;
@@ -2536,53 +1284,474 @@
 
     font-feature-settings: "tnum";
 
+    vertical-align: baseline;
+}
+
+
+.cart-gst-check {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    cursor: pointer;
+
+    font-size: 16px;
+
+    color: #333;
+
+    word-break: normal;
+
+    overflow-wrap: normal;
+}
+
+
+.cart-gst-check input {
+    width: 18px;
+
+    height: 18px;
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   REFUND POLICY
+========================================================= */
+
+.cart-refund-section {
+    width: 88%;
+
+    margin-top: 20px;
+
+    border: 1px solid #e8e8e8;
+
+    background: #fff;
+
+    padding: 16px;
+}
+
+
+.cart-refund-section h4 {
+    font-size: 16px;
+
+    font-weight: 700;
+
+    color: #222;
+
+    margin: 3px 0 8px;
+}
+
+
+.cart-refund-section p {
+    font-size: 14px;
+
+    color: #666;
+
+    line-height: 22px;
+
+    margin: 0 0 10px;
+
+    word-break: normal;
+
+    overflow-wrap: normal;
+}
+
+
+.cart-refund-section a {
+    display: inline-block;
+
+    margin-top: 8px;
+
+    color: #619dbc;
+
+    text-decoration: none;
+
+    font-size: 16px;
+
+    font-weight: 600;
+}
+
+
+.cart-refund-section a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   SERVICE STRIP
+   DESKTOP - 4 SECTIONS
+========================================================= */
+
+.cart-service-strip {
+    width: 100%;
+
+    min-height: 100px;
+
+    background: #fff;
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    align-items: center;
+
+    justify-items: start;
+
+    /* Increased horizontal gap between 4 sections */
+    column-gap: 75px;
+
+    /* Increased vertical spacing */
+    row-gap: 25px;
+
+    padding: 25px 5%;
+
+    margin-top: 45px;
+
+    border: none;
+}
+
+
+/* =========================================================
+   SERVICE ITEM
+========================================================= */
+
+.cart-service-box {
+    width: 100%;
+
+    min-height: 45px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-start;
+
+    gap: 12px;
+
     white-space: nowrap;
 }
 
 
 /* =========================================================
-   GST CHECKBOX TEXT
+   SERVICE ICON
+   DESKTOP = 36px
 ========================================================= */
 
-.cart-gst-check {
-    font-size: 16px;
+.cart-service-box i {
+    width: 34px;
 
-    line-height: 1.4;
+    flex: 0 0 34px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    font-size: 36px;
+
+    color: #9a6d19;
+}
+
+
+/* =========================================================
+   SERVICE TEXT
+   DESKTOP = 19px
+========================================================= */
+
+.cart-service-box span {
+    font-size: 19px;
+
+    color: #9a6d19;
+
+    font-weight: 500;
+
+    text-transform: uppercase;
+
+    white-space: nowrap;
 
     font-variant-numeric: proportional-nums;
+
+    line-height: 1.3;
 }
 
 
 /* =========================================================
-   SHIPPING BUTTON
-   Number / percentage inside button if present
+   FOOTER
 ========================================================= */
 
-.cart-shipping-btn {
-    font-variant-numeric: tabular-nums;
-
-    font-feature-settings: "tnum";
-
-    letter-spacing: 0.45px;
+.cart-footer {
+    margin-top: 5px;
 }
 
 
 /* =========================================================
-   SERVICE / FOOTER
+   FOOTER TOP
 ========================================================= */
 
-.cart-service-box span,
+.cart-footer-top {
+    display: flex;
+
+    justify-content: space-around;
+
+    align-items: center;
+
+    padding: 45px 0;
+
+    background: #fff;
+}
+
+
+.cart-feature {
+    text-align: center;
+}
+
+
+.cart-feature i {
+    font-size: 45px;
+
+    color: #2d2d2d;
+
+    margin-bottom: 18px;
+}
+
+
 .cart-feature h4 {
+    font-size: 18px;
+
+    font-family: Georgia, serif;
+
+    font-weight: 500;
+
+    color: #2d2d2d;
+
+    margin: 0;
+
     font-variant-numeric: proportional-nums;
 }
 
 
 /* =========================================================
-   TABLET NUMBER / PRICE UPDATE
+   FOOTER BOTTOM
+========================================================= */
+
+.cart-footer-bottom {
+    background: #2c4152;
+
+    margin-top: 0;
+
+    padding: 30px 60px;
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 50px;
+}
+
+
+.cart-footer-column h3 {
+    color: #fff;
+
+    margin-top: 3px;
+
+    font-size: 18px;
+
+    font-weight: 600;
+
+    margin-bottom: 20px;
+
+    text-transform: uppercase;
+}
+
+
+.cart-footer-column ul {
+    list-style: none;
+
+    padding: 0;
+
+    margin: 0;
+}
+
+
+.cart-footer-column li {
+    margin-bottom: 14px;
+}
+
+
+.cart-footer-column a {
+    color: #d9d9d9;
+
+    text-decoration: none;
+
+    font-size: 15px;
+
+    transition: .3s;
+}
+
+
+.cart-footer-column a:hover {
+    color: #fff;
+
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   TABLET VIEW
    768px - 1024px
 ========================================================= */
 
 @media screen and (min-width: 768px) and (max-width: 1024px) {
+
+    /* HEADER */
+
+    .cart-page-header {
+        height: 90px;
+    }
+
+    .cart-checkout-header {
+        transform: scale(.82);
+
+        transform-origin: center;
+    }
+
+    .cart-step {
+        min-width: 110px;
+    }
+
+    .cart-step-line {
+        width: 55px;
+    }
+
+
+    /* MAIN */
+
+    .cart-page-container {
+        width: 95%;
+
+        margin: 20px auto;
+
+        display: grid;
+
+        grid-template-columns: 55% 42%;
+
+        align-items: start;
+
+        gap: 25px;
+    }
+
+    .cart-left-section,
+    .cart-right-section {
+        width: 100%;
+    }
+
+
+    /* BAG */
+
+    .cart-bag-header {
+        margin-bottom: 15px;
+    }
+
+    .cart-bag-header h2 {
+        font-size: 20px;
+    }
+
+    .cart-bag-header h2 span {
+        font-size: 15px;
+    }
+
+    .cart-wishlist-link {
+        font-size: 15px;
+    }
+
+
+    /* PRODUCT */
+
+    .cart-product-card {
+        display: flex;
+
+        gap: 12px;
+
+        padding: 14px;
+
+        margin-bottom: 18px;
+    }
+
+
+    .cart-product-image {
+        width: 95px;
+    }
+
+
+    .cart-product-image img {
+        width: 95px;
+
+        height: 125px;
+    }
+
+
+    .cart-product-info {
+        width: auto;
+
+        flex: 1;
+    }
+
+
+    .cart-product-info h3 {
+        font-size: 15px;
+
+        line-height: 24px;
+
+        margin-bottom: 14px;
+    }
+
+
+    .cart-product-options {
+        gap: 10px;
+
+        font-size: 14px;
+    }
+
+
+    .cart-product-options span,
+    .cart-product-options select {
+        font-size: 14px;
+    }
+
+
+    .cart-product-top {
+        gap: 10px;
+    }
+
+
+    /* TABLET PRICE */
+
+    .cart-product-right {
+        width: 110px;
+    }
+
+    .cart-product-price .cart-price-box,
+    .cart-product-right .cart-price-box {
+        min-width: 105px;
+
+        font-size: 14px;
+
+        padding: 8px 11px;
+
+        min-height: 35px;
+
+        margin-bottom: 30px;
+
+        white-space: nowrap;
+
+        word-break: normal;
+
+        overflow-wrap: normal;
+    }
+
 
     .cart-price-box {
         min-width: 105px;
@@ -2597,39 +1766,57 @@
 
         letter-spacing: 0.2px;
 
+        white-space: nowrap;
+
+        word-break: normal;
+
+        overflow-wrap: normal;
+
         font-variant-numeric: tabular-nums;
 
         font-feature-settings: "tnum";
     }
 
 
-    .cart-old-price {
+    .cart-product-actions {
+        gap: 15px;
+
+        flex-wrap: wrap;
+    }
+
+
+    .cart-product-actions a {
+        font-size: 13px;
+    }
+
+
+    .cart-product-bottom {
+        margin-top: 30px;
+    }
+
+
+    /* RIGHT SIDE */
+
+    .cart-order-summary,
+    .cart-coupon-box,
+    .cart-gst-section,
+    .cart-refund-section {
+        width: 100%;
+    }
+
+
+    .cart-order-summary {
+        padding: 14px;
+    }
+
+
+    .cart-order-summary h3 {
+        font-size: 17px;
+    }
+
+
+    .cart-price-row {
         font-size: 14px;
-
-        font-weight: 500;
-
-        letter-spacing: 0.2px;
-    }
-
-
-    .cart-saving {
-        font-size: 14px;
-
-        font-weight: 700;
-
-        letter-spacing: 0.2px;
-    }
-
-
-    .cart-gift-info h4 {
-        font-size: 16px;
-
-        line-height: 1.35;
-    }
-
-
-    .cart-gift-info h4 span {
-        font-size: 15px;
     }
 
 
@@ -2638,9 +1825,16 @@
 
         font-size: 14px;
 
-        font-weight: 600;
+        white-space: nowrap;
 
-        font-variant-numeric: tabular-nums;
+        word-break: normal;
+
+        overflow-wrap: normal;
+    }
+
+
+    .cart-total-row {
+        font-size: 16px;
     }
 
 
@@ -2649,18 +1843,26 @@
 
         font-size: 16px;
 
-        font-weight: 700;
+        white-space: nowrap;
 
-        font-variant-numeric: tabular-nums;
+        word-break: normal;
+
+        overflow-wrap: normal;
+    }
+
+
+    .cart-shipping-btn {
+        font-size: 14px;
+    }
+
+
+    .cart-coupon-box {
+        min-height: auto;
     }
 
 
     .cart-coupon-saving {
         font-size: 14px;
-
-        font-weight: 700;
-
-        font-variant-numeric: tabular-nums;
     }
 
 
@@ -2668,54 +1870,161 @@
         font-size: 16px;
     }
 
+
+    /* =====================================================
+       TABLET SERVICE
+       2 ITEMS PER ROW
+       INCREASED GAP
+    ===================================================== */
+
+    .cart-service-strip {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+
+        column-gap: 55px;
+
+        row-gap: 30px;
+
+        padding: 30px 8%;
+
+        margin-top: 35px;
+
+        min-height: 120px;
+    }
+
+
+    .cart-service-box {
+        width: 210px;
+
+        min-height: 45px;
+
+        justify-content: flex-start;
+
+        gap: 11px;
+    }
+
+
+    .cart-service-box i {
+        width: 32px;
+
+        flex-basis: 32px;
+
+        font-size: 32px;
+    }
+
+
+    .cart-service-box span {
+        font-size: 17px;
+    }
+
+
+    /* FOOTER */
+
+    .cart-footer-top {
+        padding: 35px 15px;
+    }
+
+
+    .cart-feature i {
+        font-size: 35px;
+    }
+
+
+    .cart-feature h4 {
+        font-size: 15px;
+    }
+
+
+    .cart-footer-bottom {
+        padding: 30px;
+
+        grid-template-columns: repeat(2, 1fr);
+
+        gap: 35px;
+    }
+
 }
 
 
 /* =========================================================
-   MOBILE NUMBER / PRICE UPDATE
+   MOBILE VIEW
    BELOW 767px
 ========================================================= */
 
 @media screen and (max-width: 767px) {
 
-    .cart-price-box {
-        min-width: 108px;
+    /* HEADER */
 
-        min-height: 33px;
+    .cart-page-header {
+        height: 85px;
 
-        padding: 7px 10px;
-
-        font-size: 14px;
-
-        font-weight: 700;
-
-        letter-spacing: 0.2px;
-
-        font-variant-numeric: tabular-nums;
-
-        font-feature-settings: "tnum";
+        padding: 10px;
     }
 
 
-    .cart-old-price {
-        font-size: 13px;
+    .cart-checkout-header {
+        transform: scale(.65);
 
-        font-weight: 500;
-
-        letter-spacing: 0.15px;
-
-        font-variant-numeric: tabular-nums;
+        transform-origin: center;
     }
 
 
-    .cart-saving {
-        font-size: 13px;
+    .cart-step {
+        min-width: 100px;
+    }
 
-        font-weight: 700;
 
-        letter-spacing: 0.15px;
+    .cart-step-line {
+        width: 35px;
+    }
 
-        font-variant-numeric: tabular-nums;
+
+    /* MAIN */
+
+    .cart-page-container {
+        display: flex;
+
+        flex-direction: column;
+
+        width: 95%;
+
+        margin: 15px auto;
+
+        gap: 20px;
+    }
+
+
+    .cart-left-section,
+    .cart-right-section {
+        width: 100%;
+    }
+
+
+    /* GIFT */
+
+    .cart-gift-banner {
+        min-height: 80px;
+
+        gap: 10px;
+
+        padding: 10px;
+    }
+
+
+    .cart-gift-info {
+        gap: 10px;
+
+        flex: 1;
+
+        min-width: 0;
+    }
+
+
+    .cart-gift-info img {
+        width: 45px;
+
+        height: 50px;
+
+        flex-shrink: 0;
     }
 
 
@@ -2723,20 +2032,308 @@
         font-size: 14px;
 
         line-height: 20px;
+
+        word-break: normal;
+
+        overflow-wrap: normal;
     }
 
 
     .cart-gift-info h4 span {
         font-size: 13px;
 
-        font-weight: 700;
+        white-space: nowrap;
+
+        display: inline-block;
     }
 
 
     .cart-gift-banner a {
         font-size: 14px;
 
-        font-weight: 600;
+        white-space: nowrap;
+
+        word-break: normal;
+
+        overflow-wrap: normal;
+    }
+
+
+    /* BAG */
+
+    .cart-bag-header {
+        display: flex;
+
+        justify-content: space-between;
+
+        align-items: center;
+
+        flex-wrap: wrap;
+
+        gap: 10px;
+    }
+
+
+    .cart-bag-header h2 {
+        font-size: 18px;
+
+        margin: 0;
+    }
+
+
+    .cart-bag-header h2 span {
+        font-size: 14px;
+
+        margin-left: 5px;
+
+        white-space: nowrap;
+    }
+
+
+    .cart-wishlist-link {
+        font-size: 14px;
+
+        white-space: nowrap;
+    }
+
+
+    /* PRODUCT */
+
+    .cart-product-card {
+        display: flex;
+
+        align-items: flex-start;
+
+        gap: 12px;
+
+        padding: 12px;
+
+        margin-bottom: 15px;
+    }
+
+
+    .cart-product-image {
+        flex: 0 0 100px;
+
+        width: 100px;
+    }
+
+
+    .cart-product-image img {
+        width: 100px;
+
+        height: 130px;
+
+        object-fit: cover;
+    }
+
+
+    .cart-product-details {
+        flex: 1;
+
+        min-width: 0;
+
+        min-height: 240px;
+    }
+
+
+    .cart-product-top {
+        display: block;
+    }
+
+
+    .cart-product-info {
+        width: 100%;
+    }
+
+
+    .cart-product-info h3 {
+        font-size: 15px;
+
+        line-height: 22px;
+
+        margin: 0 0 12px;
+    }
+
+
+    .cart-product-options {
+        display: flex;
+
+        gap: 8px;
+
+        margin-top: 8px;
+
+        margin-bottom: 12px;
+
+        flex-wrap: wrap;
+    }
+
+
+    .cart-product-options span,
+    .cart-product-options select {
+        font-size: 13px;
+    }
+
+
+    /* SECOND PRODUCT RIGHT */
+
+    .cart-product-right {
+        width: 100%;
+
+        align-items: flex-start;
+
+        margin-top: 8px;
+    }
+
+
+    .cart-saving {
+        font-size: 13px;
+
+        white-space: nowrap;
+
+        word-break: normal;
+
+        overflow-wrap: normal;
+    }
+
+
+    .cart-old-price {
+        font-size: 13px;
+
+        white-space: nowrap;
+
+        word-break: normal;
+
+        overflow-wrap: normal;
+    }
+
+
+    .cart-product-right .cart-price-box {
+        min-width: 108px;
+
+        width: auto;
+
+        font-size: 14px;
+
+        padding: 7px 10px;
+
+        min-height: 33px;
+
+        margin-bottom: 20px;
+
+        white-space: nowrap;
+
+        word-break: normal;
+
+        overflow-wrap: normal;
+    }
+
+
+    /* PRICE */
+
+    .cart-product-price {
+        margin-top: 10px;
+
+        justify-content: flex-start;
+    }
+
+
+    .cart-product-price .cart-price-box {
+        min-width: 108px;
+
+        font-size: 14px;
+
+        padding: 7px 10px;
+
+        min-height: 33px;
+
+        white-space: nowrap;
+
+        word-break: normal;
+
+        overflow-wrap: normal;
+    }
+
+
+    /* BOTTOM */
+
+    .cart-product-bottom {
+        margin-top: 25px;
+    }
+
+
+    /* ACTIONS */
+
+    .cart-product-actions {
+        margin-top: auto;
+
+        display: flex;
+
+        justify-content: flex-start;
+
+        align-items: center;
+
+        gap: 15px;
+
+        flex-wrap: wrap;
+
+        width: 100%;
+    }
+
+
+    .cart-product-actions a {
+        font-size: 13px;
+
+        white-space: nowrap;
+    }
+
+
+    /* WISHLIST */
+
+    .cart-wishlist-bottom {
+        padding: 18px 0;
+    }
+
+
+    .cart-wishlist-bottom a {
+        font-size: 15px;
+
+        white-space: nowrap;
+    }
+
+
+    /* RIGHT */
+
+    .cart-order-summary,
+    .cart-coupon-box,
+    .cart-gst-section,
+    .cart-refund-section {
+        width: 100%;
+    }
+
+
+    /* ORDER */
+
+    .cart-order-summary {
+        padding: 14px;
+    }
+
+
+    .cart-order-summary h3 {
+        font-size: 17px;
+
+        padding: 8px 10px;
+    }
+
+
+    .cart-price-row {
+        padding: 0 10px;
+
+        font-size: 13px;
+
+        margin-bottom: 10px;
+
+        gap: 10px;
     }
 
 
@@ -2745,11 +2342,18 @@
 
         font-size: 13px;
 
-        font-weight: 600;
+        white-space: nowrap;
 
-        letter-spacing: 0.15px;
+        word-break: normal;
 
-        font-variant-numeric: tabular-nums;
+        overflow-wrap: normal;
+    }
+
+
+    .cart-total-row {
+        padding: 0 10px 14px;
+
+        font-size: 16px;
     }
 
 
@@ -2758,22 +2362,53 @@
 
         font-size: 14px;
 
-        font-weight: 700;
+        white-space: nowrap;
 
-        letter-spacing: 0.2px;
+        word-break: normal;
 
-        font-variant-numeric: tabular-nums;
+        overflow-wrap: normal;
+    }
+
+
+    .cart-shipping-btn {
+        height: 48px;
+
+        font-size: 13px;
+
+        white-space: nowrap;
+    }
+
+
+    /* COUPON */
+
+    .cart-coupon-box {
+        min-height: auto;
+
+        padding: 14px;
+    }
+
+
+    .cart-coupon-box h3 {
+        font-size: 17px;
+    }
+
+
+    .cart-coupon-input input {
+        height: 40px;
+    }
+
+
+    .cart-coupon-input button {
+        width: 65px;
     }
 
 
     .cart-coupon-saving {
         font-size: 13px;
 
-        font-weight: 700;
+        word-break: normal;
 
-        letter-spacing: 0.15px;
-
-        font-variant-numeric: tabular-nums;
+        overflow-wrap: normal;
     }
 
 
@@ -2781,6 +2416,32 @@
         font-size: 13px;
 
         font-weight: 700;
+
+        display: inline-block;
+
+        white-space: nowrap;
+
+        word-break: normal;
+
+        overflow-wrap: normal;
+    }
+
+
+    .cart-offer {
+        font-size: 13px;
+
+        line-height: 20px;
+
+        word-break: normal;
+
+        overflow-wrap: normal;
+    }
+
+
+    /* GST */
+
+    .cart-gst-section {
+        padding: 14px;
     }
 
 
@@ -2788,6 +2449,10 @@
         font-size: 15px;
 
         line-height: 20px;
+
+        word-break: normal;
+
+        overflow-wrap: normal;
     }
 
 
@@ -2795,6 +2460,170 @@
         font-size: 14px;
 
         font-weight: 700;
+
+        display: inline-block;
+
+        white-space: nowrap;
+
+        word-break: normal;
+
+        overflow-wrap: normal;
+    }
+
+
+    .cart-gst-check {
+        font-size: 14px;
+
+        word-break: normal;
+
+        overflow-wrap: normal;
+    }
+
+
+    /* REFUND */
+
+    .cart-refund-section {
+        padding: 14px;
+
+        margin-top: 15px;
+    }
+
+
+    .cart-refund-section h4 {
+        font-size: 15px;
+    }
+
+
+    .cart-refund-section p {
+        font-size: 13px;
+
+        line-height: 20px;
+    }
+
+
+    .cart-refund-section a {
+        font-size: 14px;
+    }
+
+
+    /* =====================================================
+       MOBILE SERVICE
+       2 ITEMS PER ROW
+       INCREASED GAP BETWEEN 4 SECTIONS
+    ===================================================== */
+
+    .cart-service-strip {
+        width: 100%;
+
+        min-height: auto;
+
+        display: grid;
+
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+
+        align-items: center;
+
+        justify-items: center;
+
+        /* Increased horizontal gap */
+        column-gap: 22px;
+
+        /* Increased vertical gap */
+        row-gap: 30px;
+
+        /* More breathing space around all 4 sections */
+        padding: 35px 12px;
+
+        margin-top: 30px;
+
+        border: none;
+    }
+
+
+    .cart-service-box {
+        width: 160px;
+
+        min-height: 45px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: flex-start;
+
+        gap: 10px;
+
+        white-space: nowrap;
+    }
+
+
+    .cart-service-box i {
+        width: 29px;
+
+        flex: 0 0 29px;
+
+        font-size: 28px;
+
+        display: flex;
+
+        justify-content: center;
+
+        align-items: center;
+    }
+
+
+    .cart-service-box span {
+        font-size: 15px;
+
+        line-height: 1.3;
+
+        white-space: nowrap;
+    }
+
+
+    /* FOOTER TOP */
+
+    .cart-footer-top {
+        display: grid;
+
+        grid-template-columns: 1fr;
+
+        gap: 30px;
+
+        padding: 30px 15px;
+    }
+
+
+    .cart-feature i {
+        font-size: 35px;
+    }
+
+
+    .cart-feature h4 {
+        font-size: 15px;
+    }
+
+
+    /* FOOTER BOTTOM */
+
+    .cart-footer-bottom {
+        display: grid;
+
+        grid-template-columns: 1fr;
+
+        gap: 30px;
+
+        padding: 25px;
+    }
+
+
+    .cart-footer-column h3 {
+        font-size: 16px;
+    }
+
+
+    .cart-footer-column a {
+        font-size: 14px;
     }
 
 }
@@ -2806,6 +2635,61 @@
 ========================================================= */
 
 @media screen and (max-width: 480px) {
+
+    .cart-page-header {
+        height: 78px;
+    }
+
+
+    .cart-checkout-header {
+        transform: scale(.55);
+    }
+
+
+    .cart-step {
+        min-width: 90px;
+    }
+
+
+    .cart-step-line {
+        width: 25px;
+    }
+
+
+    .cart-product-card {
+        gap: 10px;
+
+        padding: 10px;
+    }
+
+
+    .cart-product-image {
+        flex: 0 0 85px;
+
+        width: 85px;
+    }
+
+
+    .cart-product-image img {
+        width: 85px;
+
+        height: 115px;
+    }
+
+
+    .cart-product-info h3 {
+        font-size: 14px;
+
+        line-height: 20px;
+    }
+
+
+    .cart-product-options {
+        gap: 6px;
+    }
+
+
+    /* VERY SMALL PRICE */
 
     .cart-price-box,
     .cart-product-price .cart-price-box,
@@ -2822,7 +2706,15 @@
 
         letter-spacing: 0.15px;
 
+        white-space: nowrap;
+
+        word-break: normal;
+
+        overflow-wrap: normal;
+
         font-variant-numeric: tabular-nums;
+
+        font-feature-settings: "tnum";
     }
 
 
@@ -2830,6 +2722,12 @@
         font-size: 12px;
 
         letter-spacing: 0.1px;
+
+        white-space: nowrap;
+
+        word-break: normal;
+
+        overflow-wrap: normal;
     }
 
 
@@ -2837,6 +2735,12 @@
         font-size: 12px;
 
         letter-spacing: 0.1px;
+
+        white-space: nowrap;
+
+        word-break: normal;
+
+        overflow-wrap: normal;
     }
 
 
@@ -2844,16 +2748,34 @@
         font-size: 13px;
 
         line-height: 19px;
+
+        word-break: normal;
+
+        overflow-wrap: normal;
     }
 
 
     .cart-gift-info h4 span {
         font-size: 12px;
+
+        white-space: nowrap;
+
+        display: inline-block;
+
+        word-break: normal;
+
+        overflow-wrap: normal;
     }
 
 
     .cart-gift-banner a {
         font-size: 13px;
+
+        white-space: nowrap;
+
+        word-break: normal;
+
+        overflow-wrap: normal;
     }
 
 
@@ -2865,6 +2787,12 @@
         font-weight: 600;
 
         letter-spacing: 0.1px;
+
+        white-space: nowrap;
+
+        word-break: normal;
+
+        overflow-wrap: normal;
     }
 
 
@@ -2876,6 +2804,12 @@
         font-weight: 700;
 
         letter-spacing: 0.15px;
+
+        white-space: nowrap;
+
+        word-break: normal;
+
+        overflow-wrap: normal;
     }
 
 
@@ -2883,11 +2817,23 @@
         font-size: 12px;
 
         letter-spacing: 0.1px;
+
+        word-break: normal;
+
+        overflow-wrap: normal;
     }
 
 
     .cart-coupon-saving span {
         font-size: 12px;
+
+        display: inline-block;
+
+        white-space: nowrap;
+
+        word-break: normal;
+
+        overflow-wrap: normal;
     }
 
 
@@ -2895,11 +2841,149 @@
         font-size: 14px;
 
         line-height: 19px;
+
+        word-break: normal;
+
+        overflow-wrap: normal;
     }
 
 
     .cart-gst-section h4 span {
         font-size: 13px;
+
+        display: inline-block;
+
+        white-space: nowrap;
+
+        word-break: normal;
+
+        overflow-wrap: normal;
+    }
+
+
+    /* =====================================================
+       VERY SMALL MOBILE SERVICE
+       2 ITEMS PER ROW
+       EXTRA GAP BETWEEN 4 SECTIONS
+    ===================================================== */
+
+    .cart-service-strip {
+        width: 100%;
+
+        display: grid;
+
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+
+        align-items: center;
+
+        justify-items: center;
+
+        /* Increased horizontal gap */
+        column-gap: 14px;
+
+        /* Increased vertical gap */
+        row-gap: 25px;
+
+        /* More spacing around service area */
+        padding: 30px 8px;
+
+        margin-top: 25px;
+    }
+
+
+    .cart-service-box {
+        width: 145px;
+
+        min-height: 40px;
+
+        gap: 8px;
+    }
+
+
+    .cart-service-box i {
+        width: 26px;
+
+        flex-basis: 26px;
+
+        font-size: 25px;
+    }
+
+
+    .cart-service-box span {
+        font-size: 14px;
+
+        white-space: nowrap;
     }
 
 }
+
+
+/* =========================================================
+   FINAL NUMBER PROTECTION
+========================================================= */
+
+.cart-page span {
+    word-break: normal;
+
+    overflow-wrap: normal;
+}
+
+
+.cart-gift-info h4 span,
+.cart-gst-section h4 span,
+.cart-coupon-saving span,
+.cart-saving span,
+.cart-price-box,
+.cart-old-price,
+.cart-discount,
+.cart-free,
+.cart-price-row > span:last-child,
+.cart-total-row > span:last-child {
+    white-space: nowrap;
+
+    word-break: normal;
+
+    overflow-wrap: normal;
+
+    hyphens: none;
+}
+
+
+/* =========================================================
+   EXPLICIT NUMBER GROUP PROTECTION
+========================================================= */
+
+.cart-gift-info h4 span,
+.cart-coupon-saving span,
+.cart-gst-section h4 span {
+    display: inline-block;
+
+    white-space: nowrap;
+
+    word-break: normal;
+
+    overflow-wrap: normal;
+
+    hyphens: none;
+}
+
+
+/* =========================================================
+   FINAL PRICE FONT SETTINGS
+========================================================= */
+
+.cart-price-box,
+.cart-old-price,
+.cart-saving,
+.cart-price-row > span:last-child,
+.cart-total-row > span:last-child,
+.cart-coupon-saving span {
+    font-family: Arial, Helvetica, sans-serif;
+
+    font-variant-numeric: tabular-nums;
+
+    font-feature-settings: "tnum";
+
+    hyphens: none;
+}
+

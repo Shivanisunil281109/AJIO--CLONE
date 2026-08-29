@@ -1,3 +1,4 @@
+
 import React from "react";
 import { useNavigate } from "react-router";
 import "../CSS/Cart.css";
@@ -78,17 +79,13 @@ const Cart = () => {
 
                 <section className="cart-page-container">
 
-
                     {/* =================================================
                         LEFT SIDE
                     ================================================= */}
 
                     <div className="cart-left-section">
 
-
-                        {/* =================================================
-                            GIFT BANNER
-                        ================================================= */}
+                        {/* GIFT BANNER */}
 
                         <div className="cart-gift-banner">
 
@@ -100,11 +97,10 @@ const Cart = () => {
                                 />
 
                                 <h4>
-                                    You're Getting Free Gifts Worth ₹1495!
+                                    You're Getting Free Gifts Worth <span>₹1495</span>!
                                 </h4>
 
                             </div>
-
 
                             <a href="#">
                                 View Gifts
@@ -113,24 +109,18 @@ const Cart = () => {
                         </div>
 
 
-                        {/* =================================================
-                            MY BAG
-                        ================================================= */}
+                        {/* MY BAG */}
 
                         <div className="cart-bag-section">
 
                             <div className="cart-bag-header">
 
                                 <h2>
-
                                     My Bag
-
                                     <span>
                                         (2 Items)
                                     </span>
-
                                 </h2>
-
 
                                 <a
                                     href="#"
@@ -148,14 +138,9 @@ const Cart = () => {
                         </div>
 
 
-                        {/* =================================================
-                            PRODUCT 1
-                        ================================================= */}
+                        {/* PRODUCT 1 */}
 
                         <div className="cart-product-card">
-
-
-                            {/* PRODUCT IMAGE */}
 
                             <div className="cart-product-image">
 
@@ -167,12 +152,9 @@ const Cart = () => {
                             </div>
 
 
-                            {/* PRODUCT DETAILS */}
-
                             <div className="cart-product-details">
 
                                 <div className="cart-product-top">
-
 
                                     <div className="cart-product-info">
 
@@ -180,9 +162,6 @@ const Cart = () => {
                                             YOUSTA-Women Embroidered Cotton Straight Kurti
                                         </h3>
 
-
-                                        {/* SIZE & QUANTITY */}
-
                                         <div className="cart-product-options">
 
                                             <span>
@@ -191,142 +170,15 @@ const Cart = () => {
 
                                             <select defaultValue="M">
 
-                                             
-                                        <option value="S">
+                                                <option value="S">
                                                     S
                                                 </option>
-
 
                                                 <option value="M">
                                                     M
                                                 </option>
 
                                                 <option value="L">
-                                                    L
-                                                </option>
-
-                                            </select>
-
-
-                                            <span>
-                                                Qty
-                                            </span>
-
-                                            <select defaultValue="1">
-
-                                                <option value="1">
-                                                    1
-                                                </option>
-
-                                                <option value="2">
-                                                    2
-                                                </option>
-
-                                                 <option value="1">
-                                                    3
-                                                </option> 
-
-                                            </select>
-
-                                        </div>
-
-                                    </div>
-
-
-                                    {/* PRICE */}
-
-                                    <div className="cart-product-price">
-
-                                        <span className="cart-price-box">
-                                            Rs. 499.00
-                                        </span>
-
-                                    </div>
-
-                                </div>
-
-
-                                {/* BOTTOM */}
-
-                                <div className="cart-product-bottom">
-
-                                    <div></div>
-
-                                    <div className="cart-product-actions">
-
-                                        <a href="#">
-                                            Delete
-                                        </a>
-
-
-                                        <a href="#">
-
-                                            <i className="fa-regular fa-heart"></i>
-
-                                            Move to Wishlist
-
-                                        </a>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-                        {/* =================================================
-                            PRODUCT 2
-                        ================================================= */}
-
-                        <div className="cart-product-card">
-
-
-                            {/* PRODUCT IMAGE */}
-
-                            <div className="cart-product-image">
-
-                                <img
-                                    src="https://assets-jiocdn.ajio.com/medias/sys_master/root1/20260312/7q7O/69b28d7daf321a7f921b941a/-288Wx360H-443110691-fuchsia-MODEL.jpg"
-                                    alt="AVAASA Anarkali Kurta"
-                                />
-
-                            </div>
-
-
-                            {/* PRODUCT DETAILS */}
-
-                            <div className="cart-product-details">
-
-                                <div className="cart-product-top">
-
-
-                                    <div className="cart-product-info">
-
-                                        <h3>
-                                            AVAASA MIX N' MATCH Women Embroidered Anarkali Kurta
-                                        </h3>
-
-
-                                        <div className="cart-product-options">
-
-                                            <span>
-                                                Size
-                                            </span>
-
-                                            <select defaultValue="M">
-
-                                            
-                                      <option value="S">
-                                                    S
-                                                </option>
-
-                                                <option value="M">
-                                                    M
-                                                </option>
-
-                                                 <option value="L">
                                                     L
                                                 </option>
 
@@ -358,7 +210,116 @@ const Cart = () => {
                                     </div>
 
 
-                                    {/* PRODUCT RIGHT */}
+                                    <div className="cart-product-price">
+
+                                        <span className="cart-price-box">
+                                            Rs. 499.00
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div className="cart-product-bottom">
+
+                                    <div></div>
+
+                                    <div className="cart-product-actions">
+
+                                        <a href="#">
+                                            Delete
+                                        </a>
+
+                                        <a href="#">
+
+                                            <i className="fa-regular fa-heart"></i>
+
+                                            Move to Wishlist
+
+                                        </a>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        {/* PRODUCT 2 */}
+
+                        <div className="cart-product-card">
+
+                            <div className="cart-product-image">
+
+                                <img
+                                    src="https://assets-jiocdn.ajio.com/medias/sys_master/root1/20260312/7q7O/69b28d7daf321a7f921b941a/-288Wx360H-443110691-fuchsia-MODEL.jpg"
+                                    alt="AVAASA Anarkali Kurta"
+                                />
+
+                            </div>
+
+
+                            <div className="cart-product-details">
+
+                                <div className="cart-product-top">
+
+                                    <div className="cart-product-info">
+
+                                        <h3>
+                                            AVAASA MIX N' MATCH Women Embroidered Anarkali Kurta
+                                        </h3>
+
+
+                                        <div className="cart-product-options">
+
+                                            <span>
+                                                Size
+                                            </span>
+
+                                            <select defaultValue="M">
+
+                                                <option value="S">
+                                                    S
+                                                </option>
+
+                                                <option value="M">
+                                                    M
+                                                </option>
+
+                                                <option value="L">
+                                                    L
+                                                </option>
+
+                                            </select>
+
+
+                                            <span>
+                                                Qty
+                                            </span>
+
+                                            <select defaultValue="1">
+
+                                                <option value="1">
+                                                    1
+                                                </option>
+
+                                                <option value="2">
+                                                    2
+                                                </option>
+
+                                                <option value="3">
+                                                    3
+                                                </option>
+
+                                            </select>
+
+                                        </div>
+
+                                    </div>
+
 
                                     <div className="cart-product-right">
 
@@ -409,9 +370,7 @@ const Cart = () => {
                         </div>
 
 
-                        {/* =================================================
-                            ADD FROM WISHLIST
-                        ================================================= */}
+                        {/* ADD FROM WISHLIST */}
 
                         <div className="cart-wishlist-bottom">
 
@@ -436,10 +395,7 @@ const Cart = () => {
 
                     <div className="cart-right-section">
 
-
-                        {/* =================================================
-                            ORDER SUMMARY
-                        ================================================= */}
+                        {/* ORDER SUMMARY */}
 
                         <div className="cart-order-summary">
 
@@ -477,7 +433,6 @@ const Cart = () => {
                             <div className="cart-price-row">
 
                                 <span>
-
                                     Convenience Fee
 
                                     <a href="#">
@@ -525,8 +480,6 @@ const Cart = () => {
                             </div>
 
 
-                            {/* TOTAL */}
-
                             <div className="cart-total-section">
 
                                 <div className="cart-total-row">
@@ -544,8 +497,6 @@ const Cart = () => {
                             </div>
 
 
-                            {/* SHIPPING BUTTON */}
-
                             <button
                                 className="cart-shipping-btn"
                                 onClick={() => navigate("/Payment")}
@@ -556,9 +507,7 @@ const Cart = () => {
                         </div>
 
 
-                        {/* =================================================
-                            COUPON
-                        ================================================= */}
+                        {/* COUPON */}
 
                         <div className="cart-coupon-box">
 
@@ -613,9 +562,12 @@ const Cart = () => {
 
 
                                     <p className="cart-offer">
-                                        20% off for new users;
-                                        Extra 10% off on
+
+                                        <span>20%</span> off for new users;
+                                        Extra <span>10%</span> off on
+
                                     </p>
+
 
                                     <p className="cart-offer">
                                         app
@@ -633,14 +585,12 @@ const Cart = () => {
                         </div>
 
 
-                        {/* =================================================
-                            GST
-                        ================================================= */}
+                        {/* GST */}
 
                         <div className="cart-gst-section">
 
                             <h4>
-                                Save up to 24% with GST benefits
+                                Save up to <span>24%</span> with GST benefits
                             </h4>
 
 
@@ -657,9 +607,7 @@ const Cart = () => {
                         </div>
 
 
-                        {/* =================================================
-                            REFUND
-                        ================================================= */}
+                        {/* REFUND */}
 
                         <div className="cart-refund-section">
 
@@ -692,6 +640,7 @@ const Cart = () => {
 
             {/* =====================================================
                 SERVICE STRIP
+                NO BOTTOM HORIZONTAL LINE
             ===================================================== */}
 
             <section className="cart-service-strip">
@@ -741,279 +690,9 @@ const Cart = () => {
 
             </section>
 
-
-            {/* =====================================================
-                FOOTER
-            ===================================================== */}
-
-            <footer className="cart-footer">
-
-
-                {/* FOOTER TOP */}
-
-                <div className="cart-footer-top">
-
-                    <div className="cart-feature">
-
-                        <i className="fa-solid fa-bag-shopping"></i>
-
-                        <h4>
-                            EASY EXCHANGE
-                        </h4>
-
-                    </div>
-
-
-                    <div className="cart-feature">
-
-                        <i className="fa-solid fa-hand-holding-heart"></i>
-
-                        <h4>
-                            100% HANDPICKED
-                        </h4>
-
-                    </div>
-
-
-                    <div className="cart-feature">
-
-                        <i className="fa-solid fa-circle-check"></i>
-
-                        <h4>
-                            ASSURED QUALITY
-                        </h4>
-
-                    </div>
-
-                </div>
-
-
-                {/* FOOTER BOTTOM */}
-
-                <div className="cart-footer-bottom">
-
-
-                    {/* AJIO */}
-
-                    <div className="cart-footer-column">
-
-                        <h3>
-                            AJIO
-                        </h3>
-
-                        <ul>
-
-                            <li>
-                                <a href="#">
-                                    Who We Are
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#">
-                                    Join Our Team
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#">
-                                    Terms & Conditions
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#">
-                                    We Respect Your Privacy
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#">
-                                    Fees & Payments
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#">
-                                    Returns & Refunds Policy
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#">
-                                    Promotions Terms & Conditions
-                                </a>
-                            </li>
-
-                        </ul>
-
-                    </div>
-
-
-                    {/* HELP */}
-
-                    <div className="cart-footer-column">
-
-                        <h3>
-                            HELP
-                        </h3>
-
-                        <ul>
-
-                            <li>
-                                <a href="#">
-                                    Track Your Order
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#">
-                                    Frequently Asked Questions
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#">
-                                    Returns
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#">
-                                    Cancellations
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#">
-                                    Payments
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#">
-                                    Customer Care
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#">
-                                    How Do I Redeem My Coupon
-                                </a>
-                            </li>
-
-                        </ul>
-
-                    </div>
-
-
-                    {/* SHOP BY */}
-
-                    <div className="cart-footer-column">
-
-                        <h3>
-                            SHOP BY
-                        </h3>
-
-                        <ul>
-
-                            <li>
-                                <a href="#">
-                                    Men
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#">
-                                    Women
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#">
-                                    Kids
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#">
-                                    Indie
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#">
-                                    Stores
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#">
-                                    New Arrivals
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#">
-                                    Brand Directory
-                                </a>
-                            </li>
-
-                        </ul>
-
-                    </div>
-
-
-                    {/* FOLLOW US */}
-
-                    <div className="cart-footer-column">
-
-                        <h3>
-                            FOLLOW US
-                        </h3>
-
-                        <ul>
-
-                            <li>
-                                <a href="#">
-                                    Facebook
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#">
-                                    Instagram - AJIOlife
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#">
-                                    Instagram - AJIO LUXE
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#">
-                                    Twitter
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#">
-                                    Pinterest
-                                </a>
-                            </li>
-
-                        </ul>
-
-                    </div>
-
-                </div>
-
-            </footer>
-
         </div>
     );
 };
 
 export default Cart;
+
