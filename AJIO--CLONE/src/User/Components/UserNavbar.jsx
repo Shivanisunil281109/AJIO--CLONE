@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
+
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
 import "../CSS/UserNavbar.css";
 
@@ -6,6 +8,32 @@ import "../CSS/UserNavbar.css";
 
 
 const UserNavbar = () => {
+
+const [cartCount, setCartCount] = useState(() => {
+    const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
+    return savedCart.length;
+});
+
+
+
+useEffect(() => {
+
+    const updateCartCount = () => {
+
+        const savedCart =
+            JSON.parse(localStorage.getItem("cart")) || [];
+
+        setCartCount(savedCart.length);
+
+    };
+
+    window.addEventListener("storage", updateCartCount);
+
+    return () => {
+        window.removeEventListener("storage", updateCartCount);
+    };
+
+}, []);
 
 
 
@@ -278,13 +306,29 @@ const UserNavbar = () => {
 
 
                     {/* BAG */}
-                    <div className="icon-circle">
 
-                        <span className="material-symbols-outlined">
-                            local_mall
-                        </span>
+                   
+   
+<div className="icon-circle">
 
-                    </div>
+    <Link to="/Cart">
+
+        <span className="material-symbols-outlined">
+            local_mall
+        </span>
+
+        {cartCount > 0 && (
+            <span className="cart-count">
+                {cartCount}
+            </span>
+        )}
+
+    </Link>
+
+</div>
+
+
+
 
                 </div>
 

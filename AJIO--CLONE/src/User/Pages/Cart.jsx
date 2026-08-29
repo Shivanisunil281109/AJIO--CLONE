@@ -9,6 +9,22 @@ const Cart = () => {
 
     const [cartItems, setCartItems] = useState([]);
 
+const handleDelete = (id) => {
+
+    const updatedCart = cartItems.filter(
+        (item) => item.id !== id
+    );
+
+    setCartItems(updatedCart);
+
+    localStorage.setItem(
+        "cart",
+        JSON.stringify(updatedCart)
+    );
+
+};
+
+
     useEffect(() => {
 
         const savedCart =
@@ -17,6 +33,25 @@ const Cart = () => {
         setCartItems(savedCart);
 
     }, []);
+
+
+const handleSizeChange = (productId, newSize) => {
+
+    const updatedCart = cartItems.map((item) =>
+        item.id === productId
+            ? { ...item, selectedSize: newSize }
+            : item
+    );
+
+    setCartItems(updatedCart);
+
+    localStorage.setItem(
+        "cart",
+        JSON.stringify(updatedCart)
+    );
+};
+
+
 
     return (
         <div className="cart-page">
@@ -192,7 +227,10 @@ const Cart = () => {
                             Size
                         </span>
 
-                        <select defaultValue={item.selectedSize || "M"}>
+                     <select
+    value={item.selectedSize || "M"}
+    onChange={(e) => handleSizeChange(item.id, e.target.value)}
+>
 
                             <option value="S">
                                 S
@@ -213,21 +251,43 @@ const Cart = () => {
                             Qty
                         </span>
 
-                        <select defaultValue={item.quantity || 1}>
 
-                            <option value="1">
-                                1
-                            </option>
 
-                            <option value="2">
-                                2
-                            </option>
+          <select
+    value={item.quantity || 1}
+    onChange={(e) => {
 
-                            <option value="3">
-                                3
-                            </option>
+        const newQuantity = Number(e.target.value);
 
-                        </select>
+        const updatedCart = cartItems.map((cartItem) =>
+            cartItem.id === item.id
+                ? {
+                    ...cartItem,
+                    quantity: newQuantity
+                }
+                : cartItem
+        );
+
+        setCartItems(updatedCart);
+
+        localStorage.setItem(
+            "cart",
+            JSON.stringify(updatedCart)
+        );
+
+    }}
+>
+
+    <option value="1">1</option>
+
+    <option value="2">2</option>
+
+    <option value="3">3</option>
+
+</select>
+
+
+
 
                     </div>
 
@@ -243,9 +303,15 @@ const Cart = () => {
 
                     <div className="cart-product-actions">
 
-                        <a href="#">
-                            Delete
-                        </a>
+                        <a
+    href="#"
+    onClick={(e) => {
+        e.preventDefault();
+        handleDelete(item.id);
+    }}
+>
+    Delete
+</a>
 
 
                         <a href="#">
