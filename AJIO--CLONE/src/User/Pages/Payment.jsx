@@ -1,10 +1,202 @@
+
 import React, { useState } from "react";
 import "../CSS/Payment.css";
 
 const Payment = () => {
 
-const [selectedMode, setSelectedMode] = useState("Credit/ Debit Card");
+    // =====================================================
+    // PAYMENT MODE STATE
+    // =====================================================
 
+    const [selectedMode, setSelectedMode] = useState("Credit/ Debit Card");
+
+
+    // =====================================================
+    // CARD STATES
+    // =====================================================
+
+    const [cardNumber, setCardNumber] = useState("");
+    const [cardName, setCardName] = useState("");
+    const [cardMonth, setCardMonth] = useState("");
+    const [cardYear, setCardYear] = useState("");
+    const [cvv, setCvv] = useState("");
+
+
+    // =====================================================
+    // ERROR STATE
+    // =====================================================
+
+    const [error, setError] = useState("");
+
+
+    // =====================================================
+    // UPI STATE
+    // =====================================================
+
+    const [upiId, setUpiId] = useState("");
+
+
+    // =====================================================
+    // OTHER PAYMENT STATES
+    // =====================================================
+
+    const [selectedBank, setSelectedBank] = useState("");
+    const [selectedWallet, setSelectedWallet] = useState("");
+    const [selectedEMI, setSelectedEMI] = useState("");
+
+
+    // =====================================================
+    // CARD VALIDATION
+    // =====================================================
+
+    const validateCard = () => {
+
+        if (!cardNumber) {
+            setError("Please enter card number.");
+            return false;
+        }
+
+        if (cardNumber.length !== 16) {
+            setError("Card number must contain 16 digits.");
+            return false;
+        }
+
+        if (!cardName.trim()) {
+            setError("Please enter name on card.");
+            return false;
+        }
+
+        if (!cardMonth) {
+            setError("Please select expiration month.");
+            return false;
+        }
+
+        if (!cardYear) {
+            setError("Please select expiration year.");
+            return false;
+        }
+
+        if (!cvv) {
+            setError("Please enter CVV.");
+            return false;
+        }
+
+        if (cvv.length !== 3) {
+            setError("CVV must contain 3 digits.");
+            return false;
+        }
+
+        setError("");
+
+        return true;
+    };
+
+
+    // =====================================================
+    // UPI VALIDATION
+    // =====================================================
+
+    const validateUPI = () => {
+
+        if (!upiId.trim()) {
+            setError("Please enter UPI ID.");
+            return false;
+        }
+
+        if (!upiId.includes("@")) {
+            setError("Please enter a valid UPI ID.");
+            return false;
+        }
+
+        setError("");
+
+        return true;
+    };
+
+
+    // =====================================================
+    // NETBANKING VALIDATION
+    // =====================================================
+
+    const validateNetBanking = () => {
+
+        if (!selectedBank) {
+            setError("Please select a bank.");
+            return false;
+        }
+
+        setError("");
+
+        return true;
+    };
+
+
+    // =====================================================
+    // WALLET VALIDATION
+    // =====================================================
+
+    const validateWallet = () => {
+
+        if (!selectedWallet) {
+            setError("Please select a wallet.");
+            return false;
+        }
+
+        setError("");
+
+        return true;
+    };
+
+
+    // =====================================================
+    // EMI VALIDATION
+    // =====================================================
+
+    const validateEMI = () => {
+
+        if (!selectedEMI) {
+            setError("Please select an EMI plan.");
+            return false;
+        }
+
+        setError("");
+
+        return true;
+    };
+
+
+    // =====================================================
+    // PAY BUTTON HANDLER
+    // =====================================================
+
+    const handlePayment = () => {
+
+        setError("");
+
+        if (selectedMode === "Credit/ Debit Card") {
+            validateCard();
+        }
+
+        if (selectedMode === "UPI") {
+            validateUPI();
+        }
+
+        if (selectedMode === "NetBanking") {
+            validateNetBanking();
+        }
+
+        if (selectedMode === "Wallet") {
+            validateWallet();
+        }
+
+        if (selectedMode === "EMI") {
+            validateEMI();
+        }
+
+        if (selectedMode === "Cash on Delivery") {
+            setError("");
+        }
+    };
 
 
     return (
@@ -54,6 +246,7 @@ const [selectedMode, setSelectedMode] = useState("Credit/ Debit Card");
 
                     <div className="payment-left">
 
+
                         {/* ================= BANK OFFERS ================= */}
 
                         <div className="offers-box">
@@ -63,10 +256,12 @@ const [selectedMode, setSelectedMode] = useState("Credit/ Debit Card");
                             <div className="offer-item">
 
                                 <div className="offer-logo">
+
                                     <img
                                         src="https://assets-jiocdn.ajio.com/cms/LUXE/MOBILE/au%20bank%20luxe-logo.jpg"
                                         alt="AU Bank"
                                     />
+
                                 </div>
 
                                 <div className="offer-text">
@@ -89,6 +284,7 @@ const [selectedMode, setSelectedMode] = useState("Credit/ Debit Card");
                                             src="https://assets-jiocdn.ajio.com/static/peassets/public/icons/open-new-tab-icon.svg"
                                             alt=""
                                         />
+
                                     </a>
 
                                 </div>
@@ -101,10 +297,12 @@ const [selectedMode, setSelectedMode] = useState("Credit/ Debit Card");
                             <div className="offer-item">
 
                                 <div className="offer-logo">
+
                                     <img
                                         src="https://assets-jiocdn.ajio.com/cms/AJIO/MOBILE/HSBC-71x21-NP.jpg"
                                         alt="HSBC"
                                     />
+
                                 </div>
 
                                 <div className="offer-text">
@@ -127,6 +325,7 @@ const [selectedMode, setSelectedMode] = useState("Credit/ Debit Card");
                                             src="https://assets-jiocdn.ajio.com/static/peassets/public/icons/open-new-tab-icon.svg"
                                             alt=""
                                         />
+
                                     </a>
 
                                 </div>
@@ -136,7 +335,7 @@ const [selectedMode, setSelectedMode] = useState("Credit/ Debit Card");
                         </div>
 
 
-                        {/* VIEW MORE */}
+                        {/* ================= VIEW MORE ================= */}
 
                         <a
                             href="#"
@@ -152,9 +351,11 @@ const [selectedMode, setSelectedMode] = useState("Credit/ Debit Card");
                         <div className="payment-redeem-section">
 
                             <div className="payment-redeem-title">
+
                                 <h3>
                                     Select Redeem Option
                                 </h3>
+
                             </div>
 
                             <div className="payment-otp-text">
@@ -162,9 +363,11 @@ const [selectedMode, setSelectedMode] = useState("Credit/ Debit Card");
                             </div>
 
                             <div className="payment-otp-btn">
+
                                 <button>
                                     Verify with OTP
                                 </button>
+
                             </div>
 
                         </div>
@@ -222,212 +425,549 @@ const [selectedMode, setSelectedMode] = useState("Credit/ Debit Card");
 
                             <div className="payment-container">
 
-                                {/* PAYMENT SIDEBAR */}
+
+                                {/* =====================================================
+                                            PAYMENT SIDEBAR
+                                ====================================================== */}
 
                                 <div className="payment-sidebar">
 
 
+                                    {/* CREDIT / DEBIT CARD */}
 
                                     <div
-    className={`payment-tab ${
-        selectedMode === "Credit/ Debit Card" ? "active" : ""
-    }`}
-    onClick={() => setSelectedMode("Credit/ Debit Card")}
->
-    Credit/ Debit Card
-</div>
+                                        className={`payment-tab ${
+                                            selectedMode === "Credit/ Debit Card"
+                                                ? "active"
+                                                : ""
+                                        }`}
+                                        onClick={() => {
+                                            setSelectedMode("Credit/ Debit Card");
+                                            setError("");
+                                        }}
+                                    >
+                                        Credit/ Debit Card
+                                    </div>
 
 
-                                   <div
-    className={`payment-tab ${
-        selectedMode === "NetBanking" ? "active" : ""
-    }`}
-    onClick={() => setSelectedMode("NetBanking")}
->
-    NetBanking
-</div>
-
-
-
+                                    {/* NETBANKING */}
 
                                     <div
-    className={`payment-tab ${
-        selectedMode === "Wallet" ? "active" : ""
-    }`}
-    onClick={() => setSelectedMode("Wallet")}
->
-    Wallet
-</div>
+                                        className={`payment-tab ${
+                                            selectedMode === "NetBanking"
+                                                ? "active"
+                                                : ""
+                                        }`}
+                                        onClick={() => {
+                                            setSelectedMode("NetBanking");
+                                            setError("");
+                                        }}
+                                    >
+                                        NetBanking
+                                    </div>
 
+
+                                    {/* WALLET */}
 
                                     <div
-    className={`payment-tab ${
-        selectedMode === "UPI" ? "active" : ""
-    }`}
-    onClick={() => setSelectedMode("UPI")}
->
-    UPI
-</div>
+                                        className={`payment-tab ${
+                                            selectedMode === "Wallet"
+                                                ? "active"
+                                                : ""
+                                        }`}
+                                        onClick={() => {
+                                            setSelectedMode("Wallet");
+                                            setError("");
+                                        }}
+                                    >
+                                        Wallet
+                                    </div>
 
 
-<div
-    className={`payment-tab ${
-        selectedMode === "EMI" ? "active" : ""
-    }`}
-    onClick={() => setSelectedMode("EMI")}
->
-    EMI
-</div>
+                                    {/* UPI */}
+
+                                    <div
+                                        className={`payment-tab ${
+                                            selectedMode === "UPI"
+                                                ? "active"
+                                                : ""
+                                        }`}
+                                        onClick={() => {
+                                            setSelectedMode("UPI");
+                                            setError("");
+                                        }}
+                                    >
+                                        UPI
+                                    </div>
 
 
+                                    {/* EMI */}
 
-      <div
-    className={`payment-tab ${
-        selectedMode === "Cash on Delivery" ? "active" : ""
-    }`}
-    onClick={() => setSelectedMode("Cash on Delivery")}
->
-    Cash on Delivery
-</div>  
+                                    <div
+                                        className={`payment-tab ${
+                                            selectedMode === "EMI"
+                                                ? "active"
+                                                : ""
+                                        }`}
+                                        onClick={() => {
+                                            setSelectedMode("EMI");
+                                            setError("");
+                                        }}
+                                    >
+                                        EMI
+                                    </div>
 
-</div>
+
+                                    {/* CASH ON DELIVERY */}
+
+                                    <div
+                                        className={`payment-tab ${
+                                            selectedMode === "Cash on Delivery"
+                                                ? "active"
+                                                : ""
+                                        }`}
+                                        onClick={() => {
+                                            setSelectedMode("Cash on Delivery");
+                                            setError("");
+                                        }}
+                                    >
+                                        Cash on Delivery
+                                    </div>
+
+                                </div>
 
 
-                                {/* PAYMENT FORM */}
+                                {/* =====================================================
+                                            PAYMENT FORM
+                                ====================================================== */}
 
                                 <div className="payment-form">
 
 
-                                    <h3>
-                                        Add New Card
-                                    </h3>
+                                    {/* =================================================
+                                                CREDIT / DEBIT CARD
+                                    ================================================== */}
+
+                                    {selectedMode === "Credit/ Debit Card" && (
+
+                                        <>
+
+                                            <h3>
+                                                Add New Card
+                                            </h3>
 
 
-                                    {/* CARD NUMBER */}
+                                            {/* CARD NUMBER */}
 
-                                    <div className="payment-form-group">
+                                            <div className="payment-form-group">
 
-                                        <label>
-                                            Card Number <span>*</span>
-                                        </label>
+                                                <label>
+                                                    Card Number <span>*</span>
+                                                </label>
 
-                                        <input
-                                            type="text"
-                                        />
+                                                <input
+                                                    type="text"
+                                                    value={cardNumber}
+                                                    onChange={(e) =>
+                                                        setCardNumber(
+                                                            e.target.value
+                                                                .replace(/\D/g, "")
+                                                                .slice(0, 16)
+                                                        )
+                                                    }
+                                                />
 
-                                    </div>
-
-
-                                    {/* NAME */}
-
-                                    <div className="payment-form-group">
-
-                                        <label>
-                                            Name on Card <span>*</span>
-                                        </label>
-
-                                        <input
-                                            type="text"
-                                        />
-
-                                    </div>
+                                            </div>
 
 
-                                    {/* EXPIRY + CVV */}
+                                            {/* NAME */}
 
-                                    <div className="payment-card-bottom">
+                                            <div className="payment-form-group">
 
-                                        {/* EXPIRY */}
+                                                <label>
+                                                    Name on Card <span>*</span>
+                                                </label>
 
-                                        <div className="payment-expiry">
+                                                <input
+                                                    type="text"
+                                                    value={cardName}
+                                                    onChange={(e) =>
+                                                        setCardName(e.target.value)
+                                                    }
+                                                />
 
-                                            <label>
-                                                Expiration Date <span>*</span>
-                                            </label>
+                                            </div>
 
-                                            <div className="payment-expiry-select">
 
-                                                <div className="payment-expiry-month">
+                                            {/* EXPIRY + CVV */}
 
-                                                    <select defaultValue="">
+                                            <div className="payment-card-bottom">
 
-                                                        <option
-                                                            value=""
-                                                            disabled
-                                                        >
-                                                            Month
-                                                        </option>
 
-                                                        <option>January</option>
-                                                        <option>February</option>
-                                                        <option>March</option>
-                                                        <option>April</option>
-                                                        <option>May</option>
-                                                        <option>June</option>
-                                                        <option>July</option>
-                                                        <option>August</option>
-                                                        <option>September</option>
-                                                        <option>October</option>
-                                                        <option>November</option>
-                                                        <option>December</option>
+                                                {/* EXPIRY */}
 
-                                                    </select>
+                                                <div className="payment-expiry">
+
+                                                    <label>
+                                                        Expiration Date <span>*</span>
+                                                    </label>
+
+                                                    <div className="payment-expiry-select">
+
+                                                        <div className="payment-expiry-month">
+
+                                                            <select
+                                                                value={cardMonth}
+                                                                onChange={(e) =>
+                                                                    setCardMonth(e.target.value)
+                                                                }
+                                                            >
+
+                                                                <option
+                                                                    value=""
+                                                                    disabled
+                                                                >
+                                                                    Month
+                                                                </option>
+
+                                                                <option>January</option>
+                                                                <option>February</option>
+                                                                <option>March</option>
+                                                                <option>April</option>
+                                                                <option>May</option>
+                                                                <option>June</option>
+                                                                <option>July</option>
+                                                                <option>August</option>
+                                                                <option>September</option>
+                                                                <option>October</option>
+                                                                <option>November</option>
+                                                                <option>December</option>
+
+                                                            </select>
+
+                                                        </div>
+
+
+                                                        <div className="payment-expiry-year">
+
+                                                            <select
+                                                                value={cardYear}
+                                                                onChange={(e) =>
+                                                                    setCardYear(e.target.value)
+                                                                }
+                                                            >
+
+                                                                <option
+                                                                    value=""
+                                                                    disabled
+                                                                >
+                                                                    Year
+                                                                </option>
+
+                                                                <option>2026</option>
+                                                                <option>2027</option>
+                                                                <option>2028</option>
+                                                                <option>2029</option>
+                                                                <option>2030</option>
+
+                                                            </select>
+
+                                                        </div>
+
+                                                    </div>
 
                                                 </div>
 
 
-                                                <div className="payment-expiry-year">
+                                                {/* CVV */}
 
-                                                    <select defaultValue="">
+                                                <div className="payment-cvv">
 
-                                                        <option
-                                                            value=""
-                                                            disabled
-                                                        >
-                                                            Year
-                                                        </option>
+                                                    <label>
+                                                        CVV <span>*</span>
+                                                    </label>
 
-                                                        <option>2026</option>
-                                                        <option>2027</option>
-                                                        <option>2028</option>
-                                                        <option>2029</option>
-                                                        <option>2030</option>
-
-                                                    </select>
+                                                    <input
+                                                        type="password"
+                                                        maxLength="3"
+                                                        value={cvv}
+                                                        onChange={(e) =>
+                                                            setCvv(
+                                                                e.target.value
+                                                                    .replace(/\D/g, "")
+                                                                    .slice(0, 3)
+                                                            )
+                                                        }
+                                                    />
 
                                                 </div>
 
                                             </div>
 
-                                        </div>
+                                        </>
+
+                                    )}
 
 
-                                        {/* CVV */}
+                                    {/* =================================================
+                                                NETBANKING
+                                    ================================================== */}
 
-                                        <div className="payment-cvv">
+                                    {selectedMode === "NetBanking" && (
 
-                                            <label>
-                                                CVV <span>*</span>
-                                            </label>
+                                        <>
 
-                                            <input
-                                                type="password"
-                                                maxLength="3"
-                                            />
+                                            <h3>
+                                                Select Your Bank
+                                            </h3>
 
-                                        </div>
+                                            <div className="payment-form-group">
 
-                                    </div>
+                                                <label>
+                                                    Bank <span>*</span>
+                                                </label>
+
+                                                <select
+                                                    value={selectedBank}
+                                                    onChange={(e) =>
+                                                        setSelectedBank(e.target.value)
+                                                    }
+                                                >
+
+                                                    <option
+                                                        value=""
+                                                        disabled
+                                                    >
+                                                        Select Bank
+                                                    </option>
+
+                                                    <option>
+                                                        HDFC Bank
+                                                    </option>
+
+                                                    <option>
+                                                        ICICI Bank
+                                                    </option>
+
+                                                    <option>
+                                                        State Bank of India
+                                                    </option>
+
+                                                    <option>
+                                                        Axis Bank
+                                                    </option>
+
+                                                    <option>
+                                                        Kotak Mahindra Bank
+                                                    </option>
+
+                                                </select>
+
+                                            </div>
+
+                                        </>
+
+                                    )}
 
 
-                                    {/* PAY BUTTON */}
+                                    {/* =================================================
+                                                WALLET
+                                    ================================================== */}
 
-                                    <button className="payment-pay-btn">
+                                    {selectedMode === "Wallet" && (
+
+                                        <>
+
+                                            <h3>
+                                                Select Wallet
+                                            </h3>
+
+                                            <div className="payment-form-group">
+
+                                                <label>
+                                                    Wallet <span>*</span>
+                                                </label>
+
+                                                <select
+                                                    value={selectedWallet}
+                                                    onChange={(e) =>
+                                                        setSelectedWallet(e.target.value)
+                                                    }
+                                                >
+
+                                                    <option
+                                                        value=""
+                                                        disabled
+                                                    >
+                                                        Select Wallet
+                                                    </option>
+
+                                                    <option>
+                                                        Paytm
+                                                    </option>
+
+                                                    <option>
+                                                        PhonePe
+                                                    </option>
+
+                                                    <option>
+                                                        Amazon Pay
+                                                    </option>
+
+                                                    <option>
+                                                        Mobikwik
+                                                    </option>
+
+                                                </select>
+
+                                            </div>
+
+                                        </>
+
+                                    )}
+
+
+                                    {/* =================================================
+                                                UPI
+                                    ================================================== */}
+
+                                    {selectedMode === "UPI" && (
+
+                                        <>
+
+                                            <h3>
+                                                Pay using UPI
+                                            </h3>
+
+                                            <div className="payment-form-group">
+
+                                                <label>
+                                                    UPI ID <span>*</span>
+                                                </label>
+
+                                                <input
+                                                    type="text"
+                                                    placeholder="example@upi"
+                                                    value={upiId}
+                                                    onChange={(e) =>
+                                                        setUpiId(e.target.value)
+                                                    }
+                                                />
+
+                                            </div>
+
+                                        </>
+
+                                    )}
+
+
+                                    {/* =================================================
+                                                EMI
+                                    ================================================== */}
+
+                                    {selectedMode === "EMI" && (
+
+                                        <>
+
+                                            <h3>
+                                                Select EMI Option
+                                            </h3>
+
+                                            <div className="payment-form-group">
+
+                                                <label>
+                                                    EMI Plan <span>*</span>
+                                                </label>
+
+                                                <select
+                                                    value={selectedEMI}
+                                                    onChange={(e) =>
+                                                        setSelectedEMI(e.target.value)
+                                                    }
+                                                >
+
+                                                    <option
+                                                        value=""
+                                                        disabled
+                                                    >
+                                                        Select EMI Plan
+                                                    </option>
+
+                                                    <option>
+                                                        3 Months EMI
+                                                    </option>
+
+                                                    <option>
+                                                        6 Months EMI
+                                                    </option>
+
+                                                    <option>
+                                                        9 Months EMI
+                                                    </option>
+
+                                                    <option>
+                                                        12 Months EMI
+                                                    </option>
+
+                                                </select>
+
+                                            </div>
+
+                                        </>
+
+                                    )}
+
+
+                                    {/* =================================================
+                                                CASH ON DELIVERY
+                                    ================================================== */}
+
+                                    {selectedMode === "Cash on Delivery" && (
+
+                                        <>
+
+                                            <h3>
+                                                Cash on Delivery
+                                            </h3>
+
+                                            <p>
+                                                Pay ₹1388.00 when your order
+                                                is delivered to you.
+                                            </p>
+
+                                        </>
+
+                                    )}
+
+
+                                    {/* =================================================
+                                                ERROR MESSAGE
+                                    ================================================== */}
+
+                                    {error && (
+
+                                        <p className="payment-error">
+                                            {error}
+                                        </p>
+
+                                    )}
+
+
+                                    {/* =================================================
+                                                PAY BUTTON
+                                    ================================================== */}
+
+                                    <button
+                                        className="payment-pay-btn"
+                                        onClick={handlePayment}
+                                    >
                                         PAY ₹1388.00 SECURELY
                                     </button>
 
 
-                                    {/* TERMS */}
+                                    {/* =================================================
+                                                TERMS
+                                    ================================================== */}
 
                                     <p className="payment-note">
 
@@ -452,13 +992,16 @@ const [selectedMode, setSelectedMode] = useState("Credit/ Debit Card");
                     </div>
 
 
-                    {/* ================= ORDER SUMMARY ================= */}
+                    {/* =====================================================
+                                ORDER SUMMARY
+                    ====================================================== */}
 
                     <div className="payment-order-summary">
 
                         <h2>
                             Order Summary
                         </h2>
+
 
                         <div className="payment-summary-row">
 
@@ -579,3 +1122,4 @@ const [selectedMode, setSelectedMode] = useState("Credit/ Debit Card");
 };
 
 export default Payment;
+
