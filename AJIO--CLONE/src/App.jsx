@@ -9,7 +9,7 @@ import MenProducts from "./User/Pages/MenProducts";
 import SingleProduct from "./User/Pages/SingleProduct";
 import Wishlist from "./User/Pages/Wishlist";
 import Cart from "./User/Pages/Cart";
-
+import Payment from "./User/Pages/Payment";
 
 
 
@@ -41,6 +41,10 @@ function App() {
 
                
               <Route path="/cart" element={<Cart />} />
+
+
+         <Route path="/payment" element={<Payment />} />
+
 
             </Route>
 
