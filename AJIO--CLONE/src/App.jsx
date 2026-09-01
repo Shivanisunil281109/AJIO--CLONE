@@ -10,7 +10,7 @@ import SingleProduct from "./User/Pages/SingleProduct";
 import Wishlist from "./User/Pages/Wishlist";
 import Cart from "./User/Pages/Cart";
 import Payment from "./User/Pages/Payment";
-
+import Orders from "./User/Pages/Orders";
 
 
 
@@ -44,6 +44,11 @@ function App() {
 
 
          <Route path="/payment" element={<Payment />} />
+
+           
+        <Route path="/orders"  element={<Orders />}  />
+
+
 
 
             </Route>
