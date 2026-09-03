@@ -1,9 +1,10 @@
-
+import { useNavigate } from "react-router";
 import React, { useState } from "react";
 import "../CSS/Payment.css";
 
 const Payment = () => {
 
+    const navigate = useNavigate();
     // =====================================================
     // PAYMENT MODE STATE
     // =====================================================
@@ -169,34 +170,57 @@ const Payment = () => {
     // PAY BUTTON HANDLER
     // =====================================================
 
-    const handlePayment = () => {
+  const handlePayment = () => {
 
+    setError("");
+
+    let isValid = false;
+
+    if (selectedMode === "Credit/ Debit Card") {
+        isValid = validateCard();
+    }
+
+    if (selectedMode === "UPI") {
+        isValid = validateUPI();
+    }
+
+    if (selectedMode === "NetBanking") {
+        isValid = validateNetBanking();
+    }
+
+    if (selectedMode === "Wallet") {
+        isValid = validateWallet();
+    }
+
+    if (selectedMode === "EMI") {
+        isValid = validateEMI();
+    }
+
+    if (selectedMode === "Cash on Delivery") {
         setError("");
+        isValid = true;
+    }
 
-        if (selectedMode === "Credit/ Debit Card") {
-            validateCard();
-        }
 
-        if (selectedMode === "UPI") {
-            validateUPI();
-        }
 
-        if (selectedMode === "NetBanking") {
-            validateNetBanking();
-        }
+    // =================================================
+    // PAYMENT SUCCESS
+    // =================================================
+if (isValid) {
 
-        if (selectedMode === "Wallet") {
-            validateWallet();
-        }
+    const cartItems =
+        JSON.parse(localStorage.getItem("cart")) || [];
 
-        if (selectedMode === "EMI") {
-            validateEMI();
-        }
+    localStorage.setItem(
+        "orders",
+        JSON.stringify(cartItems)
+    );
 
-        if (selectedMode === "Cash on Delivery") {
-            setError("");
-        }
-    };
+    navigate("/orders");
+}
+   
+};
+
 
 
     return (
