@@ -1,16 +1,22 @@
 import { useNavigate } from "react-router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../CSS/Payment.css";
 
 const Payment = () => {
 
     const navigate = useNavigate();
+
     // =====================================================
     // PAYMENT MODE STATE
     // =====================================================
 
     const [selectedMode, setSelectedMode] = useState("Credit/ Debit Card");
 
+    // =====================================================
+    // CART STATE
+    // =====================================================
+
+    const [cartItems, setCartItems] = useState([]);
 
     // =====================================================
     // CARD STATES
@@ -22,20 +28,17 @@ const Payment = () => {
     const [cardYear, setCardYear] = useState("");
     const [cvv, setCvv] = useState("");
 
-
     // =====================================================
     // ERROR STATE
     // =====================================================
 
     const [error, setError] = useState("");
 
-
     // =====================================================
     // UPI STATE
     // =====================================================
 
     const [upiId, setUpiId] = useState("");
-
 
     // =====================================================
     // OTHER PAYMENT STATES
@@ -45,6 +48,77 @@ const Payment = () => {
     const [selectedWallet, setSelectedWallet] = useState("");
     const [selectedEMI, setSelectedEMI] = useState("");
 
+    // =====================================================
+    // GET CART ITEMS
+    // =====================================================
+
+    useEffect(() => {
+
+        const savedCart =
+            JSON.parse(localStorage.getItem("cart")) || [];
+
+        setCartItems(savedCart);
+
+    }, []);
+
+    // =====================================================
+    // BAG TOTAL
+    // =====================================================
+
+    const bagTotal = cartItems.reduce((total, item) => {
+
+        const price = Number(
+            String(item.price).replace(/[^\d.]/g, "")
+        );
+
+        const quantity = item.quantity || 1;
+
+        return total + price * quantity;
+
+    }, 0);
+
+    // =====================================================
+    // BAG DISCOUNT
+    // =====================================================
+
+    const bagDiscount = cartItems.reduce((total, item) => {
+
+        const oldPrice = Number(
+            String(item.oldPrice || item.price)
+                .replace(/[^\d.]/g, "")
+        );
+
+        const price = Number(
+            String(item.price)
+                .replace(/[^\d.]/g, "")
+        );
+
+        const quantity = item.quantity || 1;
+
+        return total +
+            Math.max(oldPrice - price, 0) * quantity;
+
+    }, 0);
+
+    // =====================================================
+    // FEES
+    // =====================================================
+
+    const platformFee =
+        cartItems.length > 0 ? 23 : 0;
+
+    const deliveryFee = 0;
+
+    // =====================================================
+    // FINAL ORDER TOTAL
+    // =====================================================
+    // IMPORTANT:
+    // bagTotal is already the actual selling price.
+    // Do NOT subtract bagDiscount again.
+    // =====================================================
+
+    const orderTotal =
+        bagTotal + platformFee + deliveryFee;
 
     // =====================================================
     // CARD VALIDATION
@@ -92,7 +166,6 @@ const Payment = () => {
         return true;
     };
 
-
     // =====================================================
     // UPI VALIDATION
     // =====================================================
@@ -114,7 +187,6 @@ const Payment = () => {
         return true;
     };
 
-
     // =====================================================
     // NETBANKING VALIDATION
     // =====================================================
@@ -130,7 +202,6 @@ const Payment = () => {
 
         return true;
     };
-
 
     // =====================================================
     // WALLET VALIDATION
@@ -148,7 +219,6 @@ const Payment = () => {
         return true;
     };
 
-
     // =====================================================
     // EMI VALIDATION
     // =====================================================
@@ -165,72 +235,92 @@ const Payment = () => {
         return true;
     };
 
-
     // =====================================================
     // PAY BUTTON HANDLER
     // =====================================================
 
-  const handlePayment = () => {
+    const handlePayment = () => {
 
-    setError("");
-
-    let isValid = false;
-
-    if (selectedMode === "Credit/ Debit Card") {
-        isValid = validateCard();
-    }
-
-    if (selectedMode === "UPI") {
-        isValid = validateUPI();
-    }
-
-    if (selectedMode === "NetBanking") {
-        isValid = validateNetBanking();
-    }
-
-    if (selectedMode === "Wallet") {
-        isValid = validateWallet();
-    }
-
-    if (selectedMode === "EMI") {
-        isValid = validateEMI();
-    }
-
-    if (selectedMode === "Cash on Delivery") {
         setError("");
-        isValid = true;
-    }
 
+        let isValid = false;
 
+        if (selectedMode === "Credit/ Debit Card") {
+            isValid = validateCard();
+        }
 
-    // =================================================
-    // PAYMENT SUCCESS
-    // =================================================
-if (isValid) {
+        if (selectedMode === "UPI") {
+            isValid = validateUPI();
+        }
 
-    const cartItems =
-        JSON.parse(localStorage.getItem("cart")) || [];
+        if (selectedMode === "NetBanking") {
+            isValid = validateNetBanking();
+        }
 
-    localStorage.setItem(
-        "orders",
-        JSON.stringify(cartItems)
-    );
+        if (selectedMode === "Wallet") {
+            isValid = validateWallet();
+        }
 
-    navigate("/orders");
-}
-   
-};
+        if (selectedMode === "EMI") {
+            isValid = validateEMI();
+        }
 
+        if (selectedMode === "Cash on Delivery") {
+            setError("");
+            isValid = true;
+        }
 
+        // =================================================
+        // PAYMENT SUCCESS
+        // =================================================
+
+        if (isValid) {
+
+            const cartItems =
+                JSON.parse(localStorage.getItem("cart")) || [];
+
+            const orderDate = new Date();
+
+            const deliveryDate = new Date(orderDate);
+
+            deliveryDate.setDate(
+                orderDate.getDate() + 5
+            );
+
+            const orderData = {
+
+                orderId: "AJIO" + Date.now(),
+
+                orderDate:
+                    orderDate.toLocaleDateString("en-IN"),
+
+                deliveryDate:
+                    deliveryDate.toLocaleDateString("en-IN"),
+
+                paymentMode: selectedMode,
+
+                totalAmount: orderTotal,
+
+                products: cartItems
+            };
+
+            localStorage.setItem(
+                "orders",
+                JSON.stringify(orderData)
+            );
+
+            localStorage.removeItem("cart");
+
+            navigate("/orders");
+        }
+    };
 
     return (
+
         <div className="payment-page">
 
             {/* =====================================================
                         PAYMENT FEATURES
-                    Payment Page Only
-                    Logo Removed
-                    Footer Removed
             ====================================================== */}
 
             <div className="payment-feature-header">
@@ -257,7 +347,6 @@ if (isValid) {
 
             </div>
 
-
             {/* =====================================================
                         MAIN PAYMENT AREA
             ====================================================== */}
@@ -270,12 +359,9 @@ if (isValid) {
 
                     <div className="payment-left">
 
-
                         {/* ================= BANK OFFERS ================= */}
 
                         <div className="offers-box">
-
-                            {/* AU OFFER */}
 
                             <div className="offer-item">
 
@@ -300,7 +386,9 @@ if (isValid) {
                                     <a
                                         href="#"
                                         className="payment-tc-link"
-                                        onClick={(e) => e.preventDefault()}
+                                        onClick={(e) =>
+                                            e.preventDefault()
+                                        }
                                     >
                                         T&C
 
@@ -314,9 +402,6 @@ if (isValid) {
                                 </div>
 
                             </div>
-
-
-                            {/* HSBC OFFER */}
 
                             <div className="offer-item">
 
@@ -341,7 +426,9 @@ if (isValid) {
                                     <a
                                         href="#"
                                         className="payment-tc-link"
-                                        onClick={(e) => e.preventDefault()}
+                                        onClick={(e) =>
+                                            e.preventDefault()
+                                        }
                                     >
                                         T&C
 
@@ -358,28 +445,26 @@ if (isValid) {
 
                         </div>
 
-
                         {/* ================= VIEW MORE ================= */}
 
                         <a
                             href="#"
                             className="payment-view-more"
-                            onClick={(e) => e.preventDefault()}
+                            onClick={(e) =>
+                                e.preventDefault()
+                            }
                         >
                             View 20 More
                         </a>
-
 
                         {/* ================= REDEEM ================= */}
 
                         <div className="payment-redeem-section">
 
                             <div className="payment-redeem-title">
-
                                 <h3>
                                     Select Redeem Option
                                 </h3>
-
                             </div>
 
                             <div className="payment-otp-text">
@@ -395,7 +480,6 @@ if (isValid) {
                             </div>
 
                         </div>
-
 
                         {/* ================= GIFT CARD ================= */}
 
@@ -423,12 +507,13 @@ if (isValid) {
 
                             </div>
 
-
                             <div className="payment-gift-right">
 
                                 <a
                                     href="#"
-                                    onClick={(e) => e.preventDefault()}
+                                    onClick={(e) =>
+                                        e.preventDefault()
+                                    }
                                 >
                                     Add Gift Card
                                 </a>
@@ -436,7 +521,6 @@ if (isValid) {
                             </div>
 
                         </div>
-
 
                         {/* ================= PAYMENT MODE ================= */}
 
@@ -446,73 +530,67 @@ if (isValid) {
                                 Select Payment Mode
                             </h2>
 
-
                             <div className="payment-container">
 
-
-                                {/* =====================================================
-                                            PAYMENT SIDEBAR
-                                ====================================================== */}
+                                {/* ================= SIDEBAR ================= */}
 
                                 <div className="payment-sidebar">
 
-
-                                    {/* CREDIT / DEBIT CARD */}
-
                                     <div
                                         className={`payment-tab ${
-                                            selectedMode === "Credit/ Debit Card"
+                                            selectedMode ===
+                                            "Credit/ Debit Card"
                                                 ? "active"
                                                 : ""
                                         }`}
                                         onClick={() => {
-                                            setSelectedMode("Credit/ Debit Card");
+                                            setSelectedMode(
+                                                "Credit/ Debit Card"
+                                            );
                                             setError("");
                                         }}
                                     >
                                         Credit/ Debit Card
                                     </div>
 
-
-                                    {/* NETBANKING */}
-
                                     <div
                                         className={`payment-tab ${
-                                            selectedMode === "NetBanking"
+                                            selectedMode ===
+                                            "NetBanking"
                                                 ? "active"
                                                 : ""
                                         }`}
                                         onClick={() => {
-                                            setSelectedMode("NetBanking");
+                                            setSelectedMode(
+                                                "NetBanking"
+                                            );
                                             setError("");
                                         }}
                                     >
                                         NetBanking
                                     </div>
 
-
-                                    {/* WALLET */}
-
                                     <div
                                         className={`payment-tab ${
-                                            selectedMode === "Wallet"
+                                            selectedMode ===
+                                            "Wallet"
                                                 ? "active"
                                                 : ""
                                         }`}
                                         onClick={() => {
-                                            setSelectedMode("Wallet");
+                                            setSelectedMode(
+                                                "Wallet"
+                                            );
                                             setError("");
                                         }}
                                     >
                                         Wallet
                                     </div>
 
-
-                                    {/* UPI */}
-
                                     <div
                                         className={`payment-tab ${
-                                            selectedMode === "UPI"
+                                            selectedMode ===
+                                            "UPI"
                                                 ? "active"
                                                 : ""
                                         }`}
@@ -524,12 +602,10 @@ if (isValid) {
                                         UPI
                                     </div>
 
-
-                                    {/* EMI */}
-
                                     <div
                                         className={`payment-tab ${
-                                            selectedMode === "EMI"
+                                            selectedMode ===
+                                            "EMI"
                                                 ? "active"
                                                 : ""
                                         }`}
@@ -541,17 +617,17 @@ if (isValid) {
                                         EMI
                                     </div>
 
-
-                                    {/* CASH ON DELIVERY */}
-
                                     <div
                                         className={`payment-tab ${
-                                            selectedMode === "Cash on Delivery"
+                                            selectedMode ===
+                                            "Cash on Delivery"
                                                 ? "active"
                                                 : ""
                                         }`}
                                         onClick={() => {
-                                            setSelectedMode("Cash on Delivery");
+                                            setSelectedMode(
+                                                "Cash on Delivery"
+                                            );
                                             setError("");
                                         }}
                                     >
@@ -560,33 +636,25 @@ if (isValid) {
 
                                 </div>
 
-
-                                {/* =====================================================
-                                            PAYMENT FORM
-                                ====================================================== */}
+                                {/* ================= PAYMENT FORM ================= */}
 
                                 <div className="payment-form">
 
+                                    {/* CREDIT / DEBIT CARD */}
 
-                                    {/* =================================================
-                                                CREDIT / DEBIT CARD
-                                    ================================================== */}
-
-                                    {selectedMode === "Credit/ Debit Card" && (
+                                    {selectedMode ===
+                                        "Credit/ Debit Card" && (
 
                                         <>
-
                                             <h3>
                                                 Add New Card
                                             </h3>
 
-
-                                            {/* CARD NUMBER */}
-
                                             <div className="payment-form-group">
 
                                                 <label>
-                                                    Card Number <span>*</span>
+                                                    Card Number{" "}
+                                                    <span>*</span>
                                                 </label>
 
                                                 <input
@@ -603,37 +671,32 @@ if (isValid) {
 
                                             </div>
 
-
-                                            {/* NAME */}
-
                                             <div className="payment-form-group">
 
                                                 <label>
-                                                    Name on Card <span>*</span>
+                                                    Name on Card{" "}
+                                                    <span>*</span>
                                                 </label>
 
                                                 <input
                                                     type="text"
                                                     value={cardName}
                                                     onChange={(e) =>
-                                                        setCardName(e.target.value)
+                                                        setCardName(
+                                                            e.target.value
+                                                        )
                                                     }
                                                 />
 
                                             </div>
 
-
-                                            {/* EXPIRY + CVV */}
-
                                             <div className="payment-card-bottom">
-
-
-                                                {/* EXPIRY */}
 
                                                 <div className="payment-expiry">
 
                                                     <label>
-                                                        Expiration Date <span>*</span>
+                                                        Expiration Date{" "}
+                                                        <span>*</span>
                                                     </label>
 
                                                     <div className="payment-expiry-select">
@@ -643,7 +706,9 @@ if (isValid) {
                                                             <select
                                                                 value={cardMonth}
                                                                 onChange={(e) =>
-                                                                    setCardMonth(e.target.value)
+                                                                    setCardMonth(
+                                                                        e.target.value
+                                                                    )
                                                                 }
                                                             >
 
@@ -671,13 +736,14 @@ if (isValid) {
 
                                                         </div>
 
-
                                                         <div className="payment-expiry-year">
 
                                                             <select
                                                                 value={cardYear}
                                                                 onChange={(e) =>
-                                                                    setCardYear(e.target.value)
+                                                                    setCardYear(
+                                                                        e.target.value
+                                                                    )
                                                                 }
                                                             >
 
@@ -702,13 +768,11 @@ if (isValid) {
 
                                                 </div>
 
-
-                                                {/* CVV */}
-
                                                 <div className="payment-cvv">
 
                                                     <label>
-                                                        CVV <span>*</span>
+                                                        CVV{" "}
+                                                        <span>*</span>
                                                     </label>
 
                                                     <input
@@ -727,20 +791,14 @@ if (isValid) {
                                                 </div>
 
                                             </div>
-
                                         </>
-
                                     )}
 
-
-                                    {/* =================================================
-                                                NETBANKING
-                                    ================================================== */}
+                                    {/* NETBANKING */}
 
                                     {selectedMode === "NetBanking" && (
 
                                         <>
-
                                             <h3>
                                                 Select Your Bank
                                             </h3>
@@ -754,7 +812,9 @@ if (isValid) {
                                                 <select
                                                     value={selectedBank}
                                                     onChange={(e) =>
-                                                        setSelectedBank(e.target.value)
+                                                        setSelectedBank(
+                                                            e.target.value
+                                                        )
                                                     }
                                                 >
 
@@ -765,43 +825,23 @@ if (isValid) {
                                                         Select Bank
                                                     </option>
 
-                                                    <option>
-                                                        HDFC Bank
-                                                    </option>
-
-                                                    <option>
-                                                        ICICI Bank
-                                                    </option>
-
-                                                    <option>
-                                                        State Bank of India
-                                                    </option>
-
-                                                    <option>
-                                                        Axis Bank
-                                                    </option>
-
-                                                    <option>
-                                                        Kotak Mahindra Bank
-                                                    </option>
+                                                    <option>HDFC Bank</option>
+                                                    <option>ICICI Bank</option>
+                                                    <option>State Bank of India</option>
+                                                    <option>Axis Bank</option>
+                                                    <option>Kotak Mahindra Bank</option>
 
                                                 </select>
 
                                             </div>
-
                                         </>
-
                                     )}
 
-
-                                    {/* =================================================
-                                                WALLET
-                                    ================================================== */}
+                                    {/* WALLET */}
 
                                     {selectedMode === "Wallet" && (
 
                                         <>
-
                                             <h3>
                                                 Select Wallet
                                             </h3>
@@ -815,7 +855,9 @@ if (isValid) {
                                                 <select
                                                     value={selectedWallet}
                                                     onChange={(e) =>
-                                                        setSelectedWallet(e.target.value)
+                                                        setSelectedWallet(
+                                                            e.target.value
+                                                        )
                                                     }
                                                 >
 
@@ -826,39 +868,22 @@ if (isValid) {
                                                         Select Wallet
                                                     </option>
 
-                                                    <option>
-                                                        Paytm
-                                                    </option>
-
-                                                    <option>
-                                                        PhonePe
-                                                    </option>
-
-                                                    <option>
-                                                        Amazon Pay
-                                                    </option>
-
-                                                    <option>
-                                                        Mobikwik
-                                                    </option>
+                                                    <option>Paytm</option>
+                                                    <option>PhonePe</option>
+                                                    <option>Amazon Pay</option>
+                                                    <option>Mobikwik</option>
 
                                                 </select>
 
                                             </div>
-
                                         </>
-
                                     )}
 
-
-                                    {/* =================================================
-                                                UPI
-                                    ================================================== */}
+                                    {/* UPI */}
 
                                     {selectedMode === "UPI" && (
 
                                         <>
-
                                             <h3>
                                                 Pay using UPI
                                             </h3>
@@ -874,25 +899,21 @@ if (isValid) {
                                                     placeholder="example@upi"
                                                     value={upiId}
                                                     onChange={(e) =>
-                                                        setUpiId(e.target.value)
+                                                        setUpiId(
+                                                            e.target.value
+                                                        )
                                                     }
                                                 />
 
                                             </div>
-
                                         </>
-
                                     )}
 
-
-                                    {/* =================================================
-                                                EMI
-                                    ================================================== */}
+                                    {/* EMI */}
 
                                     {selectedMode === "EMI" && (
 
                                         <>
-
                                             <h3>
                                                 Select EMI Option
                                             </h3>
@@ -906,7 +927,9 @@ if (isValid) {
                                                 <select
                                                     value={selectedEMI}
                                                     onChange={(e) =>
-                                                        setSelectedEMI(e.target.value)
+                                                        setSelectedEMI(
+                                                            e.target.value
+                                                        )
                                                     }
                                                 >
 
@@ -917,81 +940,54 @@ if (isValid) {
                                                         Select EMI Plan
                                                     </option>
 
-                                                    <option>
-                                                        3 Months EMI
-                                                    </option>
-
-                                                    <option>
-                                                        6 Months EMI
-                                                    </option>
-
-                                                    <option>
-                                                        9 Months EMI
-                                                    </option>
-
-                                                    <option>
-                                                        12 Months EMI
-                                                    </option>
+                                                    <option>3 Months EMI</option>
+                                                    <option>6 Months EMI</option>
+                                                    <option>9 Months EMI</option>
+                                                    <option>12 Months EMI</option>
 
                                                 </select>
 
                                             </div>
-
                                         </>
-
                                     )}
 
+                                    {/* CASH ON DELIVERY */}
 
-                                    {/* =================================================
-                                                CASH ON DELIVERY
-                                    ================================================== */}
-
-                                    {selectedMode === "Cash on Delivery" && (
+                                    {selectedMode ===
+                                        "Cash on Delivery" && (
 
                                         <>
-
                                             <h3>
                                                 Cash on Delivery
                                             </h3>
 
                                             <p>
-                                                Pay ₹1388.00 when your order
+                                                Pay ₹{orderTotal.toFixed(2)}
+                                                {" "}when your order
                                                 is delivered to you.
                                             </p>
-
                                         </>
-
                                     )}
 
-
-                                    {/* =================================================
-                                                ERROR MESSAGE
-                                    ================================================== */}
+                                    {/* ERROR */}
 
                                     {error && (
 
                                         <p className="payment-error">
                                             {error}
                                         </p>
-
                                     )}
 
-
-                                    {/* =================================================
-                                                PAY BUTTON
-                                    ================================================== */}
+                                    {/* PAY BUTTON */}
 
                                     <button
                                         className="payment-pay-btn"
                                         onClick={handlePayment}
                                     >
-                                        PAY ₹1388.00 SECURELY
+                                        PAY ₹{orderTotal.toFixed(2)} SECURELY
                                     </button>
 
-
-                                    {/* =================================================
-                                                TERMS
-                                    ================================================== */}
+                                    {/* TERMS */}
 
                                     <p className="payment-note">
 
@@ -1000,7 +996,9 @@ if (isValid) {
 
                                         <a
                                             href="#"
-                                            onClick={(e) => e.preventDefault()}
+                                            onClick={(e) =>
+                                                e.preventDefault()
+                                            }
                                         >
                                             T&C
                                         </a>
@@ -1015,7 +1013,6 @@ if (isValid) {
 
                     </div>
 
-
                     {/* =====================================================
                                 ORDER SUMMARY
                     ====================================================== */}
@@ -1026,7 +1023,6 @@ if (isValid) {
                             Order Summary
                         </h2>
 
-
                         <div className="payment-summary-row">
 
                             <span>
@@ -1034,11 +1030,10 @@ if (isValid) {
                             </span>
 
                             <span>
-                                ₹ 2198.00
+                                ₹ {bagTotal.toFixed(2)}
                             </span>
 
                         </div>
-
 
                         <div className="payment-summary-row">
 
@@ -1047,31 +1042,29 @@ if (isValid) {
                             </span>
 
                             <span className="payment-discount">
-                                - ₹ 833.00
+                                - ₹ {bagDiscount.toFixed(2)}
                             </span>
 
                         </div>
 
-
                         <div className="payment-summary-row">
 
                             <span>
-
                                 Convenience Fee{" "}
 
                                 <a
                                     href="#"
-                                    onClick={(e) => e.preventDefault()}
+                                    onClick={(e) =>
+                                        e.preventDefault()
+                                    }
                                 >
                                     What's this?
                                 </a>
-
                             </span>
 
                             <span></span>
 
                         </div>
-
 
                         <div className="payment-summary-row payment-sub-row">
 
@@ -1093,7 +1086,6 @@ if (isValid) {
 
                         </div>
 
-
                         <div className="payment-summary-row payment-sub-row">
 
                             <span>
@@ -1101,14 +1093,12 @@ if (isValid) {
                             </span>
 
                             <span>
-                                ₹23
+                                ₹{platformFee}
                             </span>
 
                         </div>
 
-
                         <hr />
-
 
                         <div className="payment-summary-row payment-total">
 
@@ -1117,11 +1107,10 @@ if (isValid) {
                             </span>
 
                             <span>
-                                ₹1388.00
+                                ₹{orderTotal.toFixed(2)}
                             </span>
 
                         </div>
-
 
                         <div className="payment-summary-row payment-payable">
 
@@ -1130,7 +1119,7 @@ if (isValid) {
                             </span>
 
                             <span>
-                                ₹1388.00
+                                ₹{orderTotal.toFixed(2)}
                             </span>
 
                         </div>
@@ -1146,4 +1135,3 @@ if (isValid) {
 };
 
 export default Payment;
-

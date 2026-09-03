@@ -2,18 +2,24 @@ import React, { useEffect, useState } from "react";
 import "../CSS/Orders.css";
 
 const Orders = () => {
+
     const [cartItems, setCartItems] = useState([]);
+    const [orderData, setOrderData] = useState({});
 
     // =====================================================
-    // GET CART ITEMS
+    // GET ORDER ITEMS
     // =====================================================
 
     useEffect(() => {
-        const savedCart =
-            JSON.parse(localStorage.getItem("orders")) || [];
 
-        setCartItems(savedCart);
+        const savedOrder =
+            JSON.parse(localStorage.getItem("orders")) || {};
+
+        setOrderData(savedOrder);
+        setCartItems(savedOrder.products || []);
+
     }, []);
+
 
     // =====================================================
     // CUSTOMER RATING STATE
@@ -22,40 +28,56 @@ const Orders = () => {
     const [rating, setRating] = useState(null);
     const [ratingMessage, setRatingMessage] = useState("");
 
+
     // =====================================================
     // RATING HANDLER
     // =====================================================
 
     const handleRating = (value) => {
+
         setRating(value);
         setRatingMessage("");
+
     };
+
 
     // =====================================================
     // SUBMIT RATING
     // =====================================================
 
     const handleSubmitRating = () => {
+
         if (!rating) {
-            setRatingMessage("Please select a rating.");
+
+            setRatingMessage(
+                "Please select a rating."
+            );
+
             return;
         }
 
         setRatingMessage(
             `Thank you for rating AJIO ${rating}/10.`
         );
+
     };
+
 
     // =====================================================
     // CONTINUE SHOPPING
     // =====================================================
 
     const handleContinueShopping = () => {
+
         window.location.href = "/products";
+
     };
 
+
     return (
+
         <div className="orders-page">
+
 
             {/* =====================================================
                         ORDER SUCCESS BAR
@@ -68,30 +90,40 @@ const Orders = () => {
                     <div className="success-message">
 
                         <p>
+
                             Thank you{" "}
+
                             <strong>
                                 Shivani Sonawane
                             </strong>
+
                             , for placing an order with us.
 
                             Your order{" "}
 
                             <span className="order-id">
-                                FN4461305956
+
+                                {orderData.orderId}
+
                             </span>{" "}
 
                             is confirmed.
+
                         </p>
 
+
                         <p className="delivery-text">
+
                             We expect to deliver your order by{" "}
+
                             <strong>
-                                18 July
+                                {orderData.deliveryDate}
                             </strong>
-                            .
+
                         </p>
 
                     </div>
+
 
                     <div className="shopping-btn">
 
@@ -129,11 +161,13 @@ const Orders = () => {
 
                 <div className="order-main">
 
+
                     {/* =================================================
                                 LEFT SIDE
                     ================================================== */}
 
                     <div className="order-left">
+
 
                         {/* =================================================
                                     DYNAMIC ORDER PRODUCTS
@@ -146,17 +180,26 @@ const Orders = () => {
                                 key={item.id}
                             >
 
+
                                 {/* PRODUCT IMAGE */}
 
                                 <div className="product-image">
 
                                     <img
-                                        src={item.mainImage || item.image}
+                                        src={
+                                            item.mainImage ||
+                                            item.image
+                                        }
                                         alt={item.name}
                                     />
 
+
                                     <p className="delivery-date">
-                                        Expected Delivery : 18 July
+
+                                        Expected Delivery :{" "}
+
+                                        {orderData.deliveryDate}
+
                                     </p>
 
                                 </div>
@@ -172,18 +215,26 @@ const Orders = () => {
                                             {item.name}
                                         </h3>
 
+
                                         <p className="size">
+
                                             Size :{" "}
+
                                             <strong>
                                                 {item.selectedSize || "M"}
                                             </strong>
+
                                         </p>
 
+
                                         <p className="size">
+
                                             Qty :{" "}
+
                                             <strong>
-                                                {item.quantity || 1}
+                                                {Number(item.quantity) || 1}
                                             </strong>
+
                                         </p>
 
                                     </div>
@@ -194,15 +245,23 @@ const Orders = () => {
                                     <div className="price-section">
 
                                         <p className="old-price">
+
                                             {item.oldPrice || item.price}
+
                                         </p>
+
 
                                         <p className="discount">
+
                                             {item.discount}
+
                                         </p>
 
+
                                         <h4>
+
                                             {item.price}
+
                                         </h4>
 
                                     </div>
@@ -222,6 +281,7 @@ const Orders = () => {
 
                     <div className="cart-right">
 
+
                         {/* WHAT HAPPENS NEXT */}
 
                         <div className="info-card">
@@ -231,14 +291,18 @@ const Orders = () => {
                             </h3>
 
                             <p>
+
                                 Your order has been confirmed
                                 and is being processed.
+
                             </p>
 
                             <p>
+
                                 You'll receive updates via SMS
                                 and email as your order moves
                                 through different stages.
+
                             </p>
 
                         </div>
@@ -255,14 +319,18 @@ const Orders = () => {
                             <div className="earned-box">
 
                                 <span className="earned-points">
+
                                     138 AJIO Points
+
                                 </span>
 
                             </div>
 
                             <p>
+
                                 AJIO Points will be credited
                                 after successful delivery.
+
                             </p>
 
                         </div>
@@ -276,6 +344,7 @@ const Orders = () => {
                                 Order Details
                             </h3>
 
+
                             <div className="detail-row">
 
                                 <span>
@@ -283,7 +352,7 @@ const Orders = () => {
                                 </span>
 
                                 <span>
-                                    FN4461305956
+                                    {orderData.orderId}
                                 </span>
 
                             </div>
@@ -296,7 +365,7 @@ const Orders = () => {
                                 </span>
 
                                 <span>
-                                    18 July 2026
+                                    {orderData.orderDate}
                                 </span>
 
                             </div>
@@ -309,7 +378,7 @@ const Orders = () => {
                                 </span>
 
                                 <span>
-                                    Credit Card
+                                    {orderData.paymentMode}
                                 </span>
 
                             </div>
@@ -372,10 +441,13 @@ const Orders = () => {
                     </h2>
 
                     <p>
+
                         Based on your shopping experience,
                         <br />
+
                         how likely are you to recommend AJIO
                         to Friends and Family?
+
                     </p>
 
 
@@ -407,7 +479,9 @@ const Orders = () => {
                     {ratingMessage && (
 
                         <p className="rating-message">
+
                             {ratingMessage}
+
                         </p>
 
                     )}
@@ -425,7 +499,10 @@ const Orders = () => {
             </main>
 
         </div>
+
     );
+
 };
+
 
 export default Orders;

@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import "../CSS/Cart.css";
@@ -9,21 +8,35 @@ const Cart = () => {
 
     const [cartItems, setCartItems] = useState([]);
 
-const handleDelete = (id) => {
 
-    const updatedCart = cartItems.filter(
-        (item) => item.id !== id
-    );
+    // =====================================================
+    // CONVERT PRICE INTO NUMBER
+    // Handles values like:
+    // 499
+    // "499"
+    // "₹499"
+    // "₹1,299"
+    // =====================================================
 
-    setCartItems(updatedCart);
+    const getPrice = (price) => {
 
-    localStorage.setItem(
-        "cart",
-        JSON.stringify(updatedCart)
-    );
+        if (typeof price === "number") {
+            return price;
+        }
 
-};
+        if (!price) {
+            return 0;
+        }
 
+        return Number(
+            String(price).replace(/[₹,\s]/g, "")
+        ) || 0;
+    };
+
+
+    // =====================================================
+    // LOAD CART
+    // =====================================================
 
     useEffect(() => {
 
@@ -35,35 +48,184 @@ const handleDelete = (id) => {
     }, []);
 
 
-const handleSizeChange = (productId, newSize) => {
+    // =====================================================
+    // BAG TOTAL
+    // =====================================================
 
-    const updatedCart = cartItems.map((item) =>
-        item.id === productId
-            ? { ...item, selectedSize: newSize }
-            : item
+    const bagTotal = cartItems.reduce(
+        (total, item) => {
+
+            const price = getPrice(item.price);
+
+            const quantity =
+                Number(item.quantity) || 1;
+
+            return total + (price * quantity);
+
+        },
+        0
     );
 
-    setCartItems(updatedCart);
 
-    localStorage.setItem(
-        "cart",
-        JSON.stringify(updatedCart)
+    // =====================================================
+    // BAG DISCOUNT
+    // oldPrice - price
+    // =====================================================
+
+    const bagDiscount = cartItems.reduce(
+        (total, item) => {
+
+            const price = getPrice(item.price);
+
+            const oldPrice = getPrice(item.oldPrice);
+
+            const quantity =
+                Number(item.quantity) || 1;
+
+            const discount =
+                Math.max(oldPrice - price, 0);
+
+            return total + (discount * quantity);
+
+        },
+        0
     );
-};
 
+
+    // =====================================================
+    // DELIVERY FEE
+    // =====================================================
+
+    const deliveryFee = 0;
+
+
+    // =====================================================
+    // PLATFORM FEE
+    // =====================================================
+
+    const platformFee =
+        cartItems.length > 0 ? 23 : 0;
+
+
+    // =====================================================
+    // ORDER TOTAL
+    // =====================================================
+    // IMPORTANT:
+    // bagTotal already contains the current/selling price.
+    // Therefore bagDiscount must NOT be subtracted again.
+    // =====================================================
+
+    const orderTotal =
+        bagTotal +
+        deliveryFee +
+        platformFee;
+
+
+    // =====================================================
+    // DELETE PRODUCT
+    // =====================================================
+
+    const handleDelete = (id) => {
+
+        const updatedCart =
+            cartItems.filter(
+                (item) => item.id !== id
+            );
+
+        setCartItems(updatedCart);
+
+        localStorage.setItem(
+            "cart",
+            JSON.stringify(updatedCart)
+        );
+
+    };
+
+
+    // =====================================================
+    // SIZE CHANGE
+    // =====================================================
+
+    const handleSizeChange = (
+        productId,
+        newSize
+    ) => {
+
+        const updatedCart =
+            cartItems.map((item) =>
+                item.id === productId
+                    ? {
+                        ...item,
+                        selectedSize: newSize
+                    }
+                    : item
+            );
+
+        setCartItems(updatedCart);
+
+        localStorage.setItem(
+            "cart",
+            JSON.stringify(updatedCart)
+        );
+
+    };
+
+
+    // =====================================================
+    // QUANTITY CHANGE
+    // =====================================================
+
+    const handleQuantityChange = (
+        productId,
+        newQuantity
+    ) => {
+
+        const updatedCart =
+            cartItems.map((cartItem) =>
+                cartItem.id === productId
+                    ? {
+                        ...cartItem,
+                        quantity: newQuantity
+                    }
+                    : cartItem
+            );
+
+        setCartItems(updatedCart);
+
+        localStorage.setItem(
+            "cart",
+            JSON.stringify(updatedCart)
+        );
+
+    };
+
+
+    // =====================================================
+    // FORMAT CURRENCY
+    // =====================================================
+
+    const formatPrice = (amount) => {
+
+        return `₹${Number(amount).toLocaleString("en-IN", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        })}`;
+    };
 
 
     return (
+
         <div className="cart-page">
+
 
             {/* =====================================================
                 HEADER
-                Only Checkout Steps
             ===================================================== */}
 
             <header className="cart-page-header">
 
                 <div className="cart-checkout-header">
+
 
                     {/* BAG */}
 
@@ -126,11 +288,13 @@ const handleSizeChange = (productId, newSize) => {
 
                 <section className="cart-page-container">
 
+
                     {/* =================================================
                         LEFT SIDE
                     ================================================= */}
 
                     <div className="cart-left-section">
+
 
                         {/* GIFT BANNER */}
 
@@ -144,7 +308,8 @@ const handleSizeChange = (productId, newSize) => {
                                 />
 
                                 <h4>
-                                    You're Getting Free Gifts Worth <span>₹1495</span>!
+                                    You're Getting Free Gifts Worth{" "}
+                                    <span>₹1495</span>!
                                 </h4>
 
                             </div>
@@ -156,25 +321,34 @@ const handleSizeChange = (productId, newSize) => {
                         </div>
 
 
-                        {/* MY BAG */}
+                        {/* =================================================
+                            MY BAG
+                        ================================================= */}
 
                         <div className="cart-bag-section">
 
                             <div className="cart-bag-header">
 
                                 <h2>
+
                                     My Bag
+
                                     <span>
-                                        (2 Items)
+                                        ({cartItems.length} Items)
                                     </span>
+
                                 </h2>
+
 
                                 <a
                                     href="#"
                                     className="cart-wishlist-link"
                                     onClick={(e) => {
+
                                         e.preventDefault();
+
                                         navigate("/Wishlist");
+
                                     }}
                                 >
                                     + Add from Wishlist
@@ -185,167 +359,199 @@ const handleSizeChange = (productId, newSize) => {
                         </div>
 
 
-                        {/* PRODUCT 1 */}
+                        {/* =================================================
+                            DYNAMIC CART PRODUCTS
+                        ================================================= */}
 
-                        
+                        {cartItems.map((item) => (
 
+                            <div
+                                className="cart-product-card"
+                                key={item.id}
+                            >
 
-                        {/* PRODUCT 2 */}
 
+                                {/* PRODUCT IMAGE */}
 
+                                <div className="cart-product-image">
 
-{/* ================= DYNAMIC CART PRODUCTS ================= */}
+                                    <img
+                                        src={
+                                            item.mainImage ||
+                                            item.image
+                                        }
+                                        alt={item.name}
+                                    />
 
-{cartItems.map((item) => (
+                                </div>
 
-    <div className="cart-product-card" key={item.id}>
 
-        <div className="cart-product-image">
+                                {/* PRODUCT DETAILS */}
 
-            <img
-                src={item.mainImage || item.image}
-                alt={item.name}
-            />
+                                <div className="cart-product-details">
 
-        </div>
+                                    <div className="cart-product-top">
 
 
-        <div className="cart-product-details">
+                                        {/* PRODUCT INFO */}
 
-            <div className="cart-product-top">
+                                        <div className="cart-product-info">
 
-                <div className="cart-product-info">
+                                            <h3>
+                                                {item.name}
+                                            </h3>
 
-                    <h3>
-                        {item.name}
-                    </h3>
 
+                                            <div className="cart-product-options">
 
-                    <div className="cart-product-options">
 
-                        <span>
-                            Size
-                        </span>
+                                                {/* SIZE */}
 
-                     <select
-    value={item.selectedSize || "M"}
-    onChange={(e) => handleSizeChange(item.id, e.target.value)}
->
+                                                <span>
+                                                    Size
+                                                </span>
 
-                            <option value="S">
-                                S
-                            </option>
 
-                            <option value="M">
-                                M
-                            </option>
+                                                <select
+                                                    value={
+                                                        item.selectedSize ||
+                                                        "M"
+                                                    }
+                                                    onChange={(e) =>
+                                                        handleSizeChange(
+                                                            item.id,
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                >
 
-                            <option value="L">
-                                L
-                            </option>
+                                                    <option value="S">
+                                                        S
+                                                    </option>
 
-                        </select>
+                                                    <option value="M">
+                                                        M
+                                                    </option>
 
+                                                    <option value="L">
+                                                        L
+                                                    </option>
 
-                        <span>
-                            Qty
-                        </span>
+                                                </select>
 
 
+                                                {/* QUANTITY */}
 
-          <select
-    value={item.quantity || 1}
-    onChange={(e) => {
+                                                <span>
+                                                    Qty
+                                                </span>
 
-        const newQuantity = Number(e.target.value);
 
-        const updatedCart = cartItems.map((cartItem) =>
-            cartItem.id === item.id
-                ? {
-                    ...cartItem,
-                    quantity: newQuantity
-                }
-                : cartItem
-        );
+                                                <select
+                                                    value={
+                                                        item.quantity || 1
+                                                    }
+                                                    onChange={(e) =>
+                                                        handleQuantityChange(
+                                                            item.id,
+                                                            Number(e.target.value)
+                                                        )
+                                                    }
+                                                >
 
-        setCartItems(updatedCart);
+                                                    <option value="1">
+                                                        1
+                                                    </option>
 
-        localStorage.setItem(
-            "cart",
-            JSON.stringify(updatedCart)
-        );
+                                                    <option value="2">
+                                                        2
+                                                    </option>
 
-    }}
->
+                                                    <option value="3">
+                                                        3
+                                                    </option>
 
-    <option value="1">1</option>
+                                                </select>
 
-    <option value="2">2</option>
+                                            </div>
 
-    <option value="3">3</option>
+                                        </div>
 
-</select>
 
+                                        {/* PRODUCT RIGHT */}
 
+                                        <div className="cart-product-right">
 
 
-                    </div>
+                                            {/* PRODUCT PRICE */}
 
-                </div>
+                                            <div className="cart-price-box">
 
+                                                {formatPrice(
+                                                    getPrice(item.price)
+                                                )}
 
-                <div className="cart-product-right">
+                                            </div>
 
-                    <div className="cart-price-box">
-                      {item.price}
-                    </div>
 
+                                            {/* ACTIONS */}
 
-                    <div className="cart-product-actions">
+                                            <div className="cart-product-actions">
 
-                        <a
-    href="#"
-    onClick={(e) => {
-        e.preventDefault();
-        handleDelete(item.id);
-    }}
->
-    Delete
-</a>
 
+                                                {/* DELETE */}
 
-                        <a href="#">
+                                                <a
+                                                    href="#"
+                                                    onClick={(e) => {
 
-                            <i className="fa-regular fa-heart"></i>
+                                                        e.preventDefault();
 
-                            Move to Wishlist
+                                                        handleDelete(item.id);
 
-                        </a>
+                                                    }}
+                                                >
+                                                    Delete
+                                                </a>
 
-                    </div>
 
-                </div>
+                                                {/* WISHLIST */}
 
-            </div>
+                                                <a href="#">
 
-        </div>
+                                                    <i className="fa-regular fa-heart"></i>
 
-    </div>
+                                                    Move to Wishlist
 
-))}
+                                                </a>
 
+                                            </div>
 
+                                        </div>
 
+                                    </div>
 
-                        {/* ADD FROM WISHLIST */}
+                                </div>
+
+                            </div>
+
+                        ))}
+
+
+                        {/* =================================================
+                            ADD FROM WISHLIST
+                        ================================================= */}
 
                         <div className="cart-wishlist-bottom">
 
                             <a
                                 href="#"
                                 onClick={(e) => {
+
                                     e.preventDefault();
+
                                     navigate("/Wishlist");
+
                                 }}
                             >
                                 + Add from Wishlist
@@ -362,7 +568,10 @@ const handleSizeChange = (productId, newSize) => {
 
                     <div className="cart-right-section">
 
-                        {/* ORDER SUMMARY */}
+
+                        {/* =================================================
+                            ORDER SUMMARY
+                        ================================================= */}
 
                         <div className="cart-order-summary">
 
@@ -371,6 +580,8 @@ const handleSizeChange = (productId, newSize) => {
                             </h3>
 
 
+                            {/* BAG TOTAL */}
+
                             <div className="cart-price-row">
 
                                 <span>
@@ -378,11 +589,13 @@ const handleSizeChange = (productId, newSize) => {
                                 </span>
 
                                 <span>
-                                    ₹2,198.00
+                                    {formatPrice(bagTotal)}
                                 </span>
 
                             </div>
 
+
+                            {/* BAG DISCOUNT */}
 
                             <div className="cart-price-row">
 
@@ -391,15 +604,18 @@ const handleSizeChange = (productId, newSize) => {
                                 </span>
 
                                 <span className="cart-discount">
-                                    -₹1,104.00
+                                    -{formatPrice(bagDiscount)}
                                 </span>
 
                             </div>
 
 
+                            {/* CONVENIENCE FEE */}
+
                             <div className="cart-price-row">
 
-                                <span>
+                                <span className="cart-convenience-fee">
+
                                     Convenience Fee
 
                                     <a href="#">
@@ -408,10 +624,10 @@ const handleSizeChange = (productId, newSize) => {
 
                                 </span>
 
-                                <span></span>
-
                             </div>
 
+
+                            {/* DELIVERY FEE */}
 
                             <div className="cart-price-row">
 
@@ -419,7 +635,7 @@ const handleSizeChange = (productId, newSize) => {
                                     Delivery Fee
                                 </span>
 
-                                <span>
+                                <span className="cart-delivery-fee">
 
                                     <span className="cart-free">
                                         Free
@@ -434,6 +650,8 @@ const handleSizeChange = (productId, newSize) => {
                             </div>
 
 
+                            {/* PLATFORM FEE */}
+
                             <div className="cart-price-row">
 
                                 <span>
@@ -441,11 +659,15 @@ const handleSizeChange = (productId, newSize) => {
                                 </span>
 
                                 <span>
-                                    ₹23.00
+                                    {formatPrice(platformFee)}
                                 </span>
 
                             </div>
 
+
+                            {/* =================================================
+                                ORDER TOTAL
+                            ================================================= */}
 
                             <div className="cart-total-section">
 
@@ -456,7 +678,7 @@ const handleSizeChange = (productId, newSize) => {
                                     </span>
 
                                     <span>
-                                        ₹1,117.00
+                                        {formatPrice(orderTotal)}
                                     </span>
 
                                 </div>
@@ -464,9 +686,13 @@ const handleSizeChange = (productId, newSize) => {
                             </div>
 
 
+                            {/* PROCEED BUTTON */}
+
                             <button
                                 className="cart-shipping-btn"
-                                onClick={() => navigate("/Payment")}
+                                onClick={() =>
+                                    navigate("/Payment")
+                                }
                             >
                                 PROCEED TO SHIPPING
                             </button>
@@ -474,7 +700,9 @@ const handleSizeChange = (productId, newSize) => {
                         </div>
 
 
-                        {/* COUPON */}
+                        {/* =================================================
+                            COUPON
+                        ================================================= */}
 
                         <div className="cart-coupon-box">
 
@@ -530,8 +758,15 @@ const handleSizeChange = (productId, newSize) => {
 
                                     <p className="cart-offer">
 
-                                        <span>20%</span> off for new users;
-                                        Extra <span>10%</span> off on
+                                        <span>
+                                            20%
+                                        </span>{" "}
+                                        off for new users;
+                                        Extra{" "}
+                                        <span>
+                                            10%
+                                        </span>{" "}
+                                        off on
 
                                     </p>
 
@@ -552,18 +787,28 @@ const handleSizeChange = (productId, newSize) => {
                         </div>
 
 
-                        {/* GST */}
+                        {/* =================================================
+                            GST
+                        ================================================= */}
 
                         <div className="cart-gst-section">
 
                             <h4>
-                                Save up to <span>24%</span> with GST benefits
+
+                                Save up to{" "}
+                                <span>
+                                    24%
+                                </span>{" "}
+                                with GST benefits
+
                             </h4>
 
 
                             <label className="cart-gst-check">
 
-                                <input type="checkbox" />
+                                <input
+                                    type="checkbox"
+                                />
 
                                 <span>
                                     Use GST Invoice
@@ -574,7 +819,9 @@ const handleSizeChange = (productId, newSize) => {
                         </div>
 
 
-                        {/* REFUND */}
+                        {/* =================================================
+                            REFUND
+                        ================================================= */}
 
                         <div className="cart-refund-section">
 
@@ -584,11 +831,15 @@ const handleSizeChange = (productId, newSize) => {
 
 
                             <p>
+
                                 In case of return, we ensure quick
                                 <br />
+
                                 refunds Full amount will be refunded
                                 <br />
+
                                 excluding Convenience Fee.
+
                             </p>
 
 
@@ -607,10 +858,10 @@ const handleSizeChange = (productId, newSize) => {
 
             {/* =====================================================
                 SERVICE STRIP
-                NO BOTTOM HORIZONTAL LINE
             ===================================================== */}
 
             <section className="cart-service-strip">
+
 
                 <div className="cart-service-box">
 
@@ -658,7 +909,10 @@ const handleSizeChange = (productId, newSize) => {
             </section>
 
         </div>
+
     );
+
 };
+
 
 export default Cart;
