@@ -301,6 +301,9 @@ const Payment = () => {
 
                 totalAmount: orderTotal,
 
+
+                  status: "Confirmed",
+                  
                 products: cartItems
             };
 

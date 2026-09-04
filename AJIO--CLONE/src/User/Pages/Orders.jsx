@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import "../CSS/Orders.css";
 
@@ -5,6 +6,17 @@ const Orders = () => {
 
     const [cartItems, setCartItems] = useState([]);
     const [orderData, setOrderData] = useState({});
+
+    const hasOrder = Boolean(orderData.orderId);
+
+    const [orderStatus, setOrderStatus] = useState("Confirmed");
+
+    const [returnMessage, setReturnMessage] = useState("");
+
+    // CUSTOMER RATING
+    const [rating, setRating] = useState(null);
+    const [ratingMessage, setRatingMessage] = useState("");
+
 
     // =====================================================
     // GET ORDER ITEMS
@@ -16,27 +28,151 @@ const Orders = () => {
             JSON.parse(localStorage.getItem("orders")) || {};
 
         setOrderData(savedOrder);
+
         setCartItems(savedOrder.products || []);
+
+
+        // =====================================================
+        // LOAD SAVED RATING
+        // =====================================================
+
+        if (savedOrder.rating) {
+
+            setRating(savedOrder.rating);
+
+        }
+
+
+        let status = savedOrder.status || "Confirmed";
+
+
+        // =====================================================
+        // CHECK DELIVERY DATE
+        // =====================================================
+
+        if (savedOrder.deliveryDate) {
+
+            const today = new Date();
+
+            const [day, month, year] =
+                savedOrder.deliveryDate.split("/");
+
+            const deliveryDate = new Date(
+                year,
+                month - 1,
+                day
+            );
+
+
+            if (
+                today >= deliveryDate &&
+                status === "Confirmed"
+            ) {
+
+                status = "Delivered";
+
+
+                const updatedOrder = {
+                    ...savedOrder,
+                    status: "Delivered"
+                };
+
+
+                localStorage.setItem(
+                    "orders",
+                    JSON.stringify(updatedOrder)
+                );
+
+
+                setOrderData(updatedOrder);
+
+            }
+
+        }
+
+
+        setOrderStatus(status);
+
+
+        // =====================================================
+        // SHOW RETURN MESSAGE IF ALREADY REQUESTED
+        // =====================================================
+
+        if (status === "Return Requested") {
+
+            setReturnMessage(
+                "Your return request has been successfully submitted."
+            );
+
+        }
 
     }, []);
 
 
     // =====================================================
-    // CUSTOMER RATING STATE
-    // =====================================================
-
-    const [rating, setRating] = useState(null);
-    const [ratingMessage, setRatingMessage] = useState("");
-
-
-    // =====================================================
-    // RATING HANDLER
+    // CUSTOMER RATING
     // =====================================================
 
     const handleRating = (value) => {
 
         setRating(value);
+
         setRatingMessage("");
+
+    };
+
+
+    // =====================================================
+    // CANCEL ORDER
+    // =====================================================
+
+    const handleCancelOrder = () => {
+
+        const updatedOrder = {
+            ...orderData,
+            status: "Cancelled"
+        };
+
+
+        setOrderData(updatedOrder);
+
+        setOrderStatus("Cancelled");
+
+
+        localStorage.setItem(
+            "orders",
+            JSON.stringify(updatedOrder)
+        );
+
+    };
+
+
+    // =====================================================
+    // RETURN ORDER
+    // =====================================================
+
+    const handleReturnOrder = () => {
+
+        const updatedOrder = {
+            ...orderData,
+            status: "Return Requested"
+        };
+
+
+        setOrderData(updatedOrder);
+
+        setOrderStatus("Return Requested");
+
+
+        localStorage.setItem(
+            "orders",
+            JSON.stringify(updatedOrder)
+        );
+
+
+        setReturnMessage(
+            "Your return request has been successfully submitted."
+        );
 
     };
 
@@ -54,7 +190,24 @@ const Orders = () => {
             );
 
             return;
+
         }
+
+
+        const updatedOrder = {
+            ...orderData,
+            rating: rating
+        };
+
+
+        setOrderData(updatedOrder);
+
+
+        localStorage.setItem(
+            "orders",
+            JSON.stringify(updatedOrder)
+        );
+
 
         setRatingMessage(
             `Thank you for rating AJIO ${rating}/10.`
@@ -80,423 +233,524 @@ const Orders = () => {
 
 
             {/* =====================================================
-                        ORDER SUCCESS BAR
+                        EMPTY ORDERS
             ====================================================== */}
 
-            <section className="order-success">
+            {!hasOrder && (
 
-                <div className="success-container">
+                <div className="empty-orders">
 
-                    <div className="success-message">
+                    <h2>
+                        No Orders Yet
+                    </h2>
 
-                        <p>
+                    <p>
+                        You haven't placed any orders yet.
+                    </p>
 
-                            Thank you{" "}
-
-                            <strong>
-                                Shivani Sonawane
-                            </strong>
-
-                            , for placing an order with us.
-
-                            Your order{" "}
-
-                            <span className="order-id">
-
-                                {orderData.orderId}
-
-                            </span>{" "}
-
-                            is confirmed.
-
-                        </p>
-
-
-                        <p className="delivery-text">
-
-                            We expect to deliver your order by{" "}
-
-                            <strong>
-                                {orderData.deliveryDate}
-                            </strong>
-
-                        </p>
-
-                    </div>
-
-
-                    <div className="shopping-btn">
-
-                        <button
-                            onClick={handleContinueShopping}
-                        >
-                            CONTINUE SHOPPING
-                        </button>
-
-                    </div>
+                    <button
+                        onClick={handleContinueShopping}
+                    >
+                        CONTINUE SHOPPING
+                    </button>
 
                 </div>
 
-            </section>
+            )}
 
 
             {/* =====================================================
-                        ORDER SUMMARY TITLE
+                        SHOW ORDER ONLY IF ORDER EXISTS
             ====================================================== */}
 
-            <main>
+            {hasOrder && (
 
-                <div className="order-info">
-
-                    <h2>
-                        Order Summary
-                    </h2>
-
-                </div>
+                <>
 
 
-                {/* =====================================================
-                            MAIN ORDER LAYOUT
-                ====================================================== */}
+                    {/* =====================================================
+                                ORDER SUCCESS BAR
+                    ====================================================== */}
 
-                <div className="order-main">
+                    <section className="order-success">
 
+                        <div className="success-container">
 
-                    {/* =================================================
-                                LEFT SIDE
-                    ================================================== */}
+                            <div className="success-message">
 
-                    <div className="order-left">
+                                <p>
 
+                                    Thank you{" "}
 
-                        {/* =================================================
-                                    DYNAMIC ORDER PRODUCTS
-                        ================================================== */}
+                                    <strong>
+                                        Shivani Sonawane
+                                    </strong>
 
-                        {cartItems.map((item) => (
+                                    , for placing an order with us.
 
-                            <div
-                                className="order-product-card"
-                                key={item.id}
-                            >
+                                    Your order{" "}
 
+                                    <span className="order-id">
 
-                                {/* PRODUCT IMAGE */}
+                                        {orderData.orderId}
 
-                                <div className="product-image">
+                                    </span>{" "}
 
-                                    <img
-                                        src={
-                                            item.mainImage ||
-                                            item.image
-                                        }
-                                        alt={item.name}
-                                    />
+                                    is confirmed.
+
+                                </p>
 
 
-                                    <p className="delivery-date">
+                                <p className="delivery-text">
 
-                                        Expected Delivery :{" "}
+                                    We expect to deliver your order by{" "}
 
+                                    <strong>
                                         {orderData.deliveryDate}
+                                    </strong>
+
+                                </p>
+
+                            </div>
+
+
+                            <div className="shopping-btn">
+
+                                <button
+                                    onClick={handleContinueShopping}
+                                >
+                                    CONTINUE SHOPPING
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+
+                    {/* =====================================================
+                                ORDER SUMMARY TITLE
+                    ====================================================== */}
+
+                    <main>
+
+                        <div className="order-info">
+
+                            <h2>
+                                Order Summary
+                            </h2>
+
+                        </div>
+
+
+                        {/* =====================================================
+                                    MAIN ORDER LAYOUT
+                        ====================================================== */}
+
+                        <div className="order-main">
+
+
+                            {/* =================================================
+                                        LEFT SIDE
+                            ================================================== */}
+
+                            <div className="order-left">
+
+
+                                {/* =================================================
+                                            DYNAMIC ORDER PRODUCTS
+                                ================================================== */}
+
+                                {cartItems.map((item) => (
+
+                                    <div
+                                        className="order-product-card"
+                                        key={item.id}
+                                    >
+
+
+                                        {/* PRODUCT IMAGE */}
+
+                                        <div className="product-image">
+
+                                            <img
+                                                src={
+                                                    item.mainImage ||
+                                                    item.image
+                                                }
+                                                alt={item.name}
+                                            />
+
+
+                                            <p className="delivery-date">
+
+                                                Expected Delivery :{" "}
+
+                                                {orderData.deliveryDate}
+
+                                            </p>
+
+                                        </div>
+
+
+                                        {/* PRODUCT DETAILS */}
+
+                                        <div className="order-product-details">
+
+                                            <div className="product-info">
+
+                                                <h3>
+                                                    {item.name}
+                                                </h3>
+
+
+                                                <p className="size">
+
+                                                    Size :{" "}
+
+                                                    <strong>
+                                                        {item.selectedSize || "M"}
+                                                    </strong>
+
+                                                </p>
+
+
+                                                <p className="size">
+
+                                                    Qty :{" "}
+
+                                                    <strong>
+                                                        {Number(item.quantity) || 1}
+                                                    </strong>
+
+                                                </p>
+
+                                            </div>
+
+
+                                            {/* PRICE */}
+
+                                            <div className="price-section">
+
+                                                <p className="old-price">
+
+                                                    {item.oldPrice || item.price}
+
+                                                </p>
+
+
+                                                <p className="discount">
+
+                                                    {item.discount}
+
+                                                </p>
+
+
+                                                <h4>
+
+                                                    {item.price}
+
+                                                </h4>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                ))}
+
+                            </div>
+
+
+                            {/* =====================================================
+                                        RIGHT SIDE
+                            ====================================================== */}
+
+                            <div className="cart-right">
+
+
+                                {/* WHAT HAPPENS NEXT */}
+
+                                <div className="info-card">
+
+                                    <h3>
+                                        What Happens Next
+                                    </h3>
+
+                                    <p>
+
+                                        Your order has been confirmed
+                                        and is being processed.
+
+                                    </p>
+
+                                    <p>
+
+                                        You'll receive updates via SMS
+                                        and email as your order moves
+                                        through different stages.
 
                                     </p>
 
                                 </div>
 
 
-                                {/* PRODUCT DETAILS */}
+                                {/* YOU HAVE EARNED */}
 
-                                <div className="order-product-details">
+                                <div className="info-card">
 
-                                    <div className="product-info">
+                                    <h3>
+                                        You Have Earned
+                                    </h3>
 
-                                        <h3>
-                                            {item.name}
-                                        </h3>
+                                    <div className="earned-box">
+
+                                        <span className="earned-points">
+
+                                            138 AJIO Points
+
+                                        </span>
+
+                                    </div>
+
+                                    <p>
+
+                                        AJIO Points will be credited
+                                        after successful delivery.
+
+                                    </p>
+
+                                </div>
 
 
-                                        <p className="size">
+                                {/* ORDER DETAILS */}
 
-                                            Size :{" "}
+                                <div className="info-card">
 
-                                            <strong>
-                                                {item.selectedSize || "M"}
-                                            </strong>
-
-                                        </p>
+                                    <h3>
+                                        Order Details
+                                    </h3>
 
 
-                                        <p className="size">
+                                    <div className="detail-row">
 
-                                            Qty :{" "}
+                                        <span>
+                                            Order ID
+                                        </span>
 
-                                            <strong>
-                                                {Number(item.quantity) || 1}
-                                            </strong>
-
-                                        </p>
+                                        <span>
+                                            {orderData.orderId}
+                                        </span>
 
                                     </div>
 
 
-                                    {/* PRICE */}
+                                    <div className="detail-row">
 
-                                    <div className="price-section">
+                                        <span>
+                                            Order Date
+                                        </span>
 
-                                        <p className="old-price">
-
-                                            {item.oldPrice || item.price}
-
-                                        </p>
-
-
-                                        <p className="discount">
-
-                                            {item.discount}
-
-                                        </p>
-
-
-                                        <h4>
-
-                                            {item.price}
-
-                                        </h4>
+                                        <span>
+                                            {orderData.orderDate}
+                                        </span>
 
                                     </div>
+
+
+                                    <div className="detail-row">
+
+                                        <span>
+                                            Payment Mode
+                                        </span>
+
+                                        <span>
+                                            {orderData.paymentMode}
+                                        </span>
+
+                                    </div>
+
+
+                                    <div className="detail-row">
+
+                                        <span>
+                                            Delivery Address
+                                        </span>
+
+                                        <span className="address">
+
+                                            Shivani Sonawane
+                                            <br />
+
+                                            Opposite Central Bank of India,
+                                            <br />
+
+                                            Usar, Tal. Alibag,
+                                            <br />
+
+                                            Dist. Raigad - 402203,
+                                            <br />
+
+                                            Maharashtra
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div className="detail-row">
+
+                                        <span>
+                                            Mobile Number
+                                        </span>
+
+                                        <span>
+                                            +91 91680 77927
+                                        </span>
+
+                                    </div>
+
+
+                                    {/* ORDER STATUS */}
+
+                                    <div className="detail-row">
+
+                                        <span>
+                                            Order Status
+                                        </span>
+
+                                        <span>
+                                            {orderStatus}
+                                        </span>
+
+                                    </div>
+
+
+                                    {/* RETURN MESSAGE */}
+
+                                    {returnMessage && (
+
+                                        <p className="return-message">
+
+                                            {returnMessage}
+
+                                        </p>
+
+                                    )}
+
+
+                                    {/* CANCEL ORDER BUTTON */}
+
+                                    {orderStatus === "Confirmed" && (
+
+                                        <button
+                                            className="cancel-order-btn"
+                                            onClick={handleCancelOrder}
+                                        >
+                                            CANCEL ORDER
+                                        </button>
+
+                                    )}
+
+
+                                    {/* RETURN ORDER BUTTON */}
+
+                                    {orderStatus === "Delivered" && (
+
+                                        <button
+                                            className="return-order-btn"
+                                            onClick={handleReturnOrder}
+                                        >
+                                            RETURN ORDER
+                                        </button>
+
+                                    )}
 
                                 </div>
 
                             </div>
 
-                        ))}
-
-                    </div>
-
-
-                    {/* =====================================================
-                                RIGHT SIDE
-                    ====================================================== */}
-
-                    <div className="cart-right">
-
-
-                        {/* WHAT HAPPENS NEXT */}
-
-                        <div className="info-card">
-
-                            <h3>
-                                What Happens Next
-                            </h3>
-
-                            <p>
-
-                                Your order has been confirmed
-                                and is being processed.
-
-                            </p>
-
-                            <p>
-
-                                You'll receive updates via SMS
-                                and email as your order moves
-                                through different stages.
-
-                            </p>
-
                         </div>
 
 
-                        {/* YOU HAVE EARNED */}
+                        {/* =====================================================
+                                    CUSTOMER RATING
+                        ====================================================== */}
 
-                        <div className="info-card">
+                        <section className="customer-rating">
 
-                            <h3>
-                                You Have Earned
-                            </h3>
-
-                            <div className="earned-box">
-
-                                <span className="earned-points">
-
-                                    138 AJIO Points
-
-                                </span>
-
-                            </div>
+                            <h2>
+                                Loving AJIO?
+                            </h2>
 
                             <p>
 
-                                AJIO Points will be credited
-                                after successful delivery.
+                                Based on your shopping experience,
+                                <br />
+
+                                how likely are you to recommend AJIO
+                                to Friends and Family?
 
                             </p>
 
-                        </div>
 
+                            <div className="rating-numbers">
 
-                        {/* ORDER DETAILS */}
+                                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(
+                                    (number) => (
 
-                        <div className="info-card">
+                                        <button
+                                            key={number}
+                                            className={
+                                                rating === number
+                                                    ? "selected-rating"
+                                                    : ""
+                                            }
+                                            onClick={() =>
+                                                handleRating(number)
+                                            }
+                                        >
 
-                            <h3>
-                                Order Details
-                            </h3>
+                                            {number}
 
+                                        </button>
 
-                            <div className="detail-row">
-
-                                <span>
-                                    Order ID
-                                </span>
-
-                                <span>
-                                    {orderData.orderId}
-                                </span>
-
-                            </div>
-
-
-                            <div className="detail-row">
-
-                                <span>
-                                    Order Date
-                                </span>
-
-                                <span>
-                                    {orderData.orderDate}
-                                </span>
+                                    )
+                                )}
 
                             </div>
 
 
-                            <div className="detail-row">
+                            {/* RATING MESSAGE */}
 
-                                <span>
-                                    Payment Mode
-                                </span>
+                            {ratingMessage && (
 
-                                <span>
-                                    {orderData.paymentMode}
-                                </span>
+                                <p className="rating-message">
 
-                            </div>
+                                    {ratingMessage}
 
+                                </p>
 
-                            <div className="detail-row">
-
-                                <span>
-                                    Delivery Address
-                                </span>
-
-                                <span className="address">
-
-                                    Shivani Sonawane
-                                    <br />
-
-                                    Opposite Central Bank of India,
-                                    <br />
-
-                                    Usar, Tal. Alibag,
-                                    <br />
-
-                                    Dist. Raigad - 402203,
-                                    <br />
-
-                                    Maharashtra
-
-                                </span>
-
-                            </div>
+                            )}
 
 
-                            <div className="detail-row">
+                            <button
+                                className="submit-rating"
+                                onClick={handleSubmitRating}
+                            >
+                                SUBMIT & CONTINUE
+                            </button>
 
-                                <span>
-                                    Mobile Number
-                                </span>
-
-                                <span>
-                                    +91 91680 77927
-                                </span>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
+                        </section>
 
 
-                {/* =====================================================
-                            CUSTOMER RATING
-                ====================================================== */}
+                    </main>
 
-                <section className="customer-rating">
+                </>
 
-                    <h2>
-                        Loving AJIO?
-                    </h2>
-
-                    <p>
-
-                        Based on your shopping experience,
-                        <br />
-
-                        how likely are you to recommend AJIO
-                        to Friends and Family?
-
-                    </p>
-
-
-                    <div className="rating-numbers">
-
-                        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(
-                            (number) => (
-
-                                <button
-                                    key={number}
-                                    className={
-                                        rating === number
-                                            ? "selected-rating"
-                                            : ""
-                                    }
-                                    onClick={() =>
-                                        handleRating(number)
-                                    }
-                                >
-                                    {number}
-                                </button>
-
-                            )
-                        )}
-
-                    </div>
-
-
-                    {ratingMessage && (
-
-                        <p className="rating-message">
-
-                            {ratingMessage}
-
-                        </p>
-
-                    )}
-
-
-                    <button
-                        className="submit-rating"
-                        onClick={handleSubmitRating}
-                    >
-                        SUBMIT & CONTINUE
-                    </button>
-
-                </section>
-
-            </main>
+            )}
 
         </div>
 
@@ -506,3 +760,4 @@ const Orders = () => {
 
 
 export default Orders;
+
