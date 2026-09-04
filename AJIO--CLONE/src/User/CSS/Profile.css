@@ -1,0 +1,1018 @@
+/* =========================================================
+   PROFILE PAGE
+   ========================================================= */
+
+.profile-container {
+    width: 90%;
+    margin: 30px auto;
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+
+/* =========================================================
+   PROFILE SIDEBAR
+   ========================================================= */
+
+.profile-sidebar {
+    width: 300px;
+    flex-shrink: 0;
+    background: #ffffff;
+    border: 1px solid #ececec;
+    box-sizing: border-box;
+}
+
+
+/* My Account Heading */
+
+.profile-sidebar > h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #222222;
+    padding: 20px 25px 18px;
+    margin: 0;
+}
+
+
+/* =========================================================
+   SIDEBAR SECTION
+   ========================================================= */
+
+.profile-sidebar .sidebar-section {
+    padding: 0 25px 25px;
+    border-bottom: 1px solid #ececec;
+}
+
+.profile-sidebar .sidebar-section:last-of-type {
+    border-bottom: none;
+}
+
+
+/* Section Heading */
+
+.profile-sidebar .sidebar-section h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #24364b;
+    margin: 0 0 18px;
+}
+
+
+/* Sidebar List */
+
+.profile-sidebar .sidebar-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+
+/* Sidebar List Item */
+
+.profile-sidebar .sidebar-section ul li {
+    margin-bottom: 14px;
+}
+
+
+/* Sidebar Links */
+
+.profile-sidebar .sidebar-section ul li a {
+    text-decoration: none;
+    color: #444444;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.3s;
+}
+
+.profile-sidebar .sidebar-section ul li a:hover {
+    color: #000000;
+}
+
+
+/* Active Link */
+
+.profile-sidebar .sidebar-section ul li.active {
+    border-left: 3px solid #9b7a27;
+    padding-left: 12px;
+}
+
+.profile-sidebar .sidebar-section ul li.active a {
+    color: #222222;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   NEW BADGE
+   ========================================================= */
+
+.profile-sidebar .new-badge {
+    background: #d80000;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 5px;
+    border-radius: 2px;
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   INVITE TEXT
+   ========================================================= */
+
+.profile-sidebar .invite-text {
+    display: block;
+    margin: 4px 0 0;
+    font-size: 11px;
+    color: #777777;
+    line-height: 17px;
+}
+
+
+/* =========================================================
+   AJIO LUXE CARD
+   ========================================================= */
+
+.profile-sidebar .luxe-card {
+    margin: 20px;
+    padding: 30px 20px;
+    border: 1px solid #e5e5e5;
+    background: #ffffff;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+
+/* AJIO LUXE Heading */
+
+.profile-sidebar .luxe-card h3 {
+    margin: 5px 0 10px;
+    font-size: 28px;
+    font-weight: 300;
+    letter-spacing: 4px;
+    color: #22334d;
+    font-family: Georgia, serif;
+}
+
+
+/* Description */
+
+.profile-sidebar .luxe-card p {
+    font-size: 13px;
+    color: #666666;
+    line-height: 20px;
+    margin: 0 0 10px;
+}
+
+
+/* Explore */
+
+.profile-sidebar .luxe-card a {
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    color: #22334d;
+    letter-spacing: 1px;
+    transition: 0.3s;
+}
+
+.profile-sidebar .luxe-card a:hover {
+    color: #9b7a27;
+}
+
+
+/* =========================================================
+   LOGOUT
+   ========================================================= */
+
+.profile-sidebar .logout-section {
+    margin: 25px;
+    padding-top: 22px;
+    border-top: 1px solid #e5e5e5;
+}
+
+
+/* Logout Button */
+
+.profile-sidebar .logout-section button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 0;
+
+    background: none;
+    border: none;
+
+    text-decoration: none;
+    color: #444444;
+
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.profile-sidebar .logout-section button:hover {
+    color: #9b7a27;
+}
+
+
+/* Logout Icon */
+
+.profile-sidebar .logout-section .material-symbols-outlined {
+    font-size: 22px;
+    color: #666666;
+}
+
+.profile-sidebar .logout-section button:hover .material-symbols-outlined {
+    color: #9b7a27;
+}
+
+
+/* =========================================================
+   PROFILE CONTENT
+   ========================================================= */
+
+.profile-content {
+    flex: 1;
+    min-width: 0;
+}
+
+
+/* =========================================================
+   PERSONAL INFORMATION
+   ========================================================= */
+
+.profile-content .personal-information {
+    width: 100%;
+    background: #ffffff;
+    border: 1px solid #ececec;
+    padding: 24px 35px;
+    box-sizing: border-box;
+}
+
+
+/* Heading */
+
+.profile-content .personal-information > h2 {
+    margin: 10px 0 35px;
+
+    font-size: 28px;
+    font-weight: 600;
+    color: #222222;
+}
+
+
+/* =========================================================
+   FORM ROW
+   ========================================================= */
+
+.profile-content .form-row {
+    display: flex;
+    gap: 50px;
+    margin-bottom: 30px;
+}
+
+
+/* =========================================================
+   FORM GROUP
+   ========================================================= */
+
+.profile-content .form-group {
+    flex: 1;
+    min-width: 0;
+}
+
+
+/* Labels */
+
+.profile-content .form-group > label {
+    display: block;
+
+    font-size: 14px;
+    color: #555555;
+
+    margin-bottom: 10px;
+}
+
+
+/* Inputs */
+
+.profile-content .form-group > input {
+    width: 100%;
+    height: 46px;
+
+    border: 1px solid #d9d9d9;
+
+    padding: 0 15px;
+
+    font-size: 15px;
+
+    outline: none;
+
+    box-sizing: border-box;
+}
+
+.profile-content .form-group > input:focus {
+    border-color: #9b7a27;
+}
+
+
+/* =========================================================
+   GENDER
+   ========================================================= */
+
+.profile-content .gender-group {
+    margin-bottom: 30px;
+}
+
+
+.profile-content .gender-options {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+    margin-top: 12px;
+}
+
+
+/* Gender Label */
+
+.profile-content .gender-options label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    font-size: 15px;
+    color: #444444;
+
+    cursor: pointer;
+}
+
+
+/* Radio */
+
+.profile-content .gender-options input {
+    width: 18px;
+    height: 18px;
+
+    accent-color: #9b7a27;
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   DATE OF BIRTH
+   ========================================================= */
+
+.profile-content .dob-group {
+    max-width: 470px;
+    margin-bottom: 28px;
+}
+
+
+.profile-content .dob-group input {
+    width: 100%;
+    height: 46px;
+
+    border: 1px solid #d9d9d9;
+
+    padding: 0 15px;
+
+    font-size: 15px;
+
+    outline: none;
+
+    box-sizing: border-box;
+}
+
+.profile-content .dob-group input:focus {
+    border-color: #9b7a27;
+}
+
+
+/* =========================================================
+   SAVE BUTTON
+   ========================================================= */
+
+.profile-content .save-btn {
+    margin-top: 15px;
+}
+
+
+.profile-content .save-btn button {
+    width: 220px;
+    height: 48px;
+
+    border: none;
+
+    background: #9b7a27;
+    color: #ffffff;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    letter-spacing: 0.5px;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.profile-content .save-btn button:hover {
+    background: #86641f;
+}
+
+
+/* =========================================================
+   PROFILE MESSAGE
+   ========================================================= */
+
+.profile-content .profile-message {
+    margin: 15px 0 0;
+    padding: 10px 15px;
+
+    background: #f6f6f6;
+    border: 1px solid #dddddd;
+
+    color: #333333;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   DIVIDER
+   ========================================================= */
+
+.profile-content .profile-divider {
+    margin: 30px 0;
+
+    border: none;
+    border-top: 1px solid #ececec;
+}
+
+
+/* =========================================================
+   CHANGE PASSWORD
+   ========================================================= */
+
+.profile-content .password-heading {
+    font-size: 33px;
+    font-weight: 500;
+
+    color: #2d3b4d;
+
+    margin: 0 0 30px;
+}
+
+
+/* Password Row */
+
+.profile-content .password-row {
+    display: flex;
+    gap: 30px;
+
+    margin-bottom: 35px;
+
+    align-items: flex-start;
+}
+
+
+/* Password Group */
+
+.profile-content .password-group {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+}
+
+
+/* Password Label */
+
+.profile-content .password-group label {
+    font-size: 13px;
+    font-weight: 600;
+
+    color: #333333;
+
+    text-transform: uppercase;
+
+    margin-bottom: 10px;
+
+    letter-spacing: 0.5px;
+}
+
+
+/* Password Input */
+
+.profile-content .password-group input {
+    width: 100%;
+    height: 46px;
+
+    padding: 0 15px;
+
+    border: 1px solid #d9d9d9;
+
+    font-size: 15px;
+
+    outline: none;
+
+    box-sizing: border-box;
+
+    transition: 0.3s;
+}
+
+.profile-content .password-group input:focus {
+    border-color: #a88427;
+}
+
+
+/* =========================================================
+   UPDATE PASSWORD BUTTON
+   ========================================================= */
+
+.profile-content .update-btn {
+    margin-top: 27px;
+
+    width: 180px;
+    height: 45px;
+
+    flex-shrink: 0;
+
+    border: 1px solid #24364b;
+
+    background: #ffffff;
+    color: #24364b;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.profile-content .update-btn:hover {
+    background: #24364b;
+    color: #ffffff;
+}
+
+
+/* Clear */
+
+.profile-content .clear {
+    clear: both;
+}
+
+
+/* =========================================================
+   TABLET VIEW
+   577px - 900px
+   ========================================================= */
+
+@media (min-width: 577px) and (max-width: 900px) {
+
+    /* =========================
+       PROFILE LAYOUT
+       ========================= */
+
+    .profile-container {
+        width: 94%;
+        margin: 25px auto;
+        display: flex;
+        gap: 18px;
+        align-items: flex-start;
+    }
+
+
+    /* =========================
+       SIDEBAR
+       ========================= */
+
+    .profile-sidebar {
+        width: 220px;
+        flex-shrink: 0;
+    }
+
+    .profile-sidebar > h2 {
+        font-size: 16px;
+        padding: 18px 18px 15px;
+    }
+
+    .profile-sidebar .sidebar-section {
+        padding: 0 18px 20px;
+    }
+
+    .profile-sidebar .sidebar-section h3 {
+        font-size: 15px;
+        margin-bottom: 14px;
+    }
+
+    .profile-sidebar .sidebar-section ul li {
+        margin-bottom: 11px;
+    }
+
+    .profile-sidebar .sidebar-section ul li a {
+        font-size: 13px;
+        gap: 6px;
+    }
+
+    .profile-sidebar .invite-text {
+        font-size: 10px;
+        line-height: 14px;
+    }
+
+
+    /* =========================
+       LUXE CARD
+       ========================= */
+
+    .profile-sidebar .luxe-card {
+        margin: 16px;
+        padding: 22px 12px;
+    }
+
+    .profile-sidebar .luxe-card h3 {
+        font-size: 22px;
+        letter-spacing: 3px;
+    }
+
+    .profile-sidebar .luxe-card p {
+        font-size: 11px;
+        line-height: 16px;
+    }
+
+    .profile-sidebar .luxe-card a {
+        font-size: 11px;
+    }
+
+
+    /* =========================
+       LOGOUT
+       ========================= */
+
+    .profile-sidebar .logout-section {
+        margin: 18px;
+        padding-top: 18px;
+    }
+
+    .profile-sidebar .logout-section button {
+        font-size: 13px;
+    }
+
+    .profile-sidebar .logout-section .material-symbols-outlined {
+        font-size: 19px;
+    }
+
+
+    /* =========================
+       PROFILE CONTENT
+       ========================= */
+
+    .profile-content {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .profile-content .personal-information {
+        padding: 22px 20px;
+    }
+
+
+    /* =========================
+       MAIN HEADING
+       ========================= */
+
+    .profile-content .personal-information > h2 {
+        font-size: 24px;
+        margin: 5px 0 28px;
+    }
+
+
+    /* =========================
+       FORM ROW
+       ========================= */
+
+    .profile-content .form-row {
+        display: flex;
+        gap: 18px;
+        margin-bottom: 22px;
+    }
+
+    .profile-content .form-group > label {
+        font-size: 12px;
+        margin-bottom: 7px;
+    }
+
+    .profile-content .form-group > input {
+        height: 40px;
+        padding: 0 10px;
+        font-size: 13px;
+    }
+
+
+    /* =========================
+       GENDER
+       ========================= */
+
+    .profile-content .gender-group {
+        margin-bottom: 22px;
+    }
+
+    .profile-content .gender-options {
+        gap: 20px;
+        margin-top: 9px;
+    }
+
+    .profile-content .gender-options label {
+        font-size: 13px;
+        gap: 5px;
+    }
+
+    .profile-content .gender-options input {
+        width: 15px;
+        height: 15px;
+    }
+
+
+    /* =========================
+       DATE OF BIRTH
+       ========================= */
+
+    .profile-content .dob-group {
+        max-width: 100%;
+        margin-bottom: 22px;
+    }
+
+    .profile-content .dob-group input {
+        height: 40px;
+        padding: 0 10px;
+        font-size: 13px;
+    }
+
+
+    /* =========================
+       SAVE BUTTON
+       ========================= */
+
+    .profile-content .save-btn {
+        margin-top: 10px;
+    }
+
+    .profile-content .save-btn button {
+        width: 160px;
+        height: 42px;
+        font-size: 12px;
+    }
+
+
+    /* =========================
+       MESSAGE
+       ========================= */
+
+    .profile-content .profile-message {
+        margin: 12px 0 0;
+        padding: 8px 10px;
+        font-size: 11px;
+    }
+
+
+    /* =========================
+       DIVIDER
+       ========================= */
+
+    .profile-content .profile-divider {
+        margin: 22px 0;
+    }
+
+
+    /* =========================
+       CHANGE PASSWORD
+       ========================= */
+
+    .profile-content .password-heading {
+        font-size: 24px;
+        margin: 0 0 22px;
+    }
+
+
+    /* =========================
+       PASSWORD ROW
+       ========================= */
+
+    .profile-content .password-row {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        align-items: end;
+        margin-bottom: 25px;
+    }
+
+
+    /* =========================
+       PASSWORD GROUP
+       ========================= */
+
+    .profile-content .password-group {
+        min-width: 0;
+    }
+
+    .profile-content .password-group label {
+        font-size: 10px;
+        margin-bottom: 7px;
+        letter-spacing: 0.3px;
+    }
+
+    .profile-content .password-group input {
+        height: 40px;
+        padding: 0 8px;
+        font-size: 12px;
+    }
+
+
+    /* =========================
+       UPDATE PASSWORD
+       ========================= */
+
+    .profile-content .update-btn {
+        width: 150px;
+        height: 40px;
+        margin-top: 0;
+        font-size: 11px;
+    }
+
+    .profile-content .clear {
+        display: none;
+    }
+}
+
+
+/* =========================================================
+   MOBILE VIEW
+   ========================================================= */
+
+@media (max-width: 576px) {
+
+    /* Profile Layout */
+
+    .profile-container {
+        width: 95%;
+
+        margin: 20px auto;
+
+        flex-direction: column;
+
+        gap: 20px;
+    }
+
+
+    /* Sidebar */
+
+    .profile-sidebar {
+        width: 100%;
+    }
+
+
+    /* Content */
+
+    .profile-content {
+        width: 100%;
+    }
+
+
+    /* Personal Information */
+
+    .profile-content .personal-information {
+        padding: 20px;
+    }
+
+
+    .profile-content .personal-information > h2 {
+        font-size: 24px;
+
+        margin-bottom: 25px;
+    }
+
+
+    /* Form Row */
+
+    .profile-content .form-row {
+        flex-direction: column;
+
+        gap: 18px;
+
+        margin-bottom: 20px;
+    }
+
+
+    /* Form Group */
+
+    .profile-content .form-group {
+        width: 100%;
+    }
+
+
+    .profile-content .form-group > input {
+        width: 100%;
+    }
+
+
+    /* Gender */
+
+    .profile-content .gender-options {
+        flex-wrap: wrap;
+
+        gap: 18px;
+    }
+
+
+    /* Date of Birth */
+
+    .profile-content .dob-group {
+        max-width: 100%;
+    }
+
+
+    .profile-content .dob-group input {
+        width: 100%;
+    }
+
+
+    /* Save Button */
+
+    .profile-content .save-btn button {
+        width: 100%;
+    }
+
+
+    /* Password Heading */
+
+    .profile-content .password-heading {
+        font-size: 24px;
+    }
+
+
+    /* Password Row */
+
+    .profile-content .password-row {
+        flex-direction: column;
+
+        gap: 18px;
+    }
+
+
+    /* Password Group */
+
+    .profile-content .password-group {
+        width: 100%;
+    }
+
+
+    .profile-content .password-group input {
+        width: 100%;
+    }
+
+
+    /* Update Button */
+
+    .profile-content .update-btn {
+        width: 100%;
+
+        margin-top: 5px;
+    }
+
+
+    .profile-content .clear {
+        display: none;
+    }
+
+
+    /* Luxe Card */
+
+    .profile-sidebar .luxe-card {
+        margin: 20px;
+    }
+
+
+    /* Logout */
+
+    .profile-sidebar .logout-section {
+        margin: 20px;
+    }
+
+}

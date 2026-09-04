@@ -11,7 +11,7 @@ import Wishlist from "./User/Pages/Wishlist";
 import Cart from "./User/Pages/Cart";
 import Payment from "./User/Pages/Payment";
 import Orders from "./User/Pages/Orders";
-
+import Profile from "./User/Pages/Profile";
 
 
 function App() {
@@ -49,6 +49,7 @@ function App() {
         <Route path="/orders"  element={<Orders />}  />
 
 
+      <Route path="/profile"  element={<Profile />} />
 
 
             </Route>
