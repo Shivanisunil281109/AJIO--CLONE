@@ -1,0 +1,752 @@
+/*==================================== 
+    CREATE PRODUCT PAGE 
+====================================*/ 
+
+.dashboard-content { 
+    width: 100%; 
+    padding: 18px 30px 30px; 
+    box-sizing: border-box; 
+} 
+
+
+/*==================================== 
+    PAGE TITLE 
+====================================*/ 
+
+.page-title { 
+    font-size: 34px; 
+    font-weight: 600; 
+    color: #222; 
+    margin: 0 0 25px; 
+} 
+
+
+/*==================================== 
+    MAIN LAYOUT 
+====================================*/ 
+
+.create-product-container { 
+    display: grid; 
+    grid-template-columns: 2fr 1fr; 
+    gap: 25px; 
+    align-items: start; 
+} 
+
+
+/*==================================== 
+    LEFT PRODUCT FORM 
+====================================*/ 
+
+.product-form { 
+    background: #ffffff; 
+    border: 1px solid #e2e2e2; 
+    border-radius: 10px; 
+    padding: 30px; 
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); 
+} 
+
+
+/*==================================== 
+    RIGHT PRODUCT UPLOAD 
+====================================*/ 
+
+.product-upload { 
+    background: #ffffff; 
+    border: 1px solid #e2e2e2; 
+    border-radius: 10px; 
+    padding: 30px; 
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); 
+} 
+
+
+/*==================================== 
+    FORM HEADING 
+====================================*/ 
+
+.form-heading { 
+    font-size: 28px; 
+    font-weight: 600; 
+    color: #222; 
+    margin: 0 0 35px; 
+} 
+
+
+/*==================================== 
+    FORM GROUP 
+====================================*/ 
+
+.form-group { 
+    margin-bottom: 28px; 
+} 
+
+.form-group label { 
+    display: block; 
+    font-size: 15px; 
+    font-weight: 500; 
+    color: #333; 
+    margin-bottom: 10px; 
+} 
+
+
+/*==================================== 
+    INPUT 
+====================================*/ 
+
+.form-group input { 
+    width: 100%; 
+    height: 48px; 
+    border: 1px solid #d9d9d9; 
+    border-radius: 6px; 
+    padding: 0 16px; 
+    font-size: 15px; 
+    outline: none; 
+    transition: 0.3s; 
+    box-sizing: border-box; 
+} 
+
+.form-group input:focus { 
+    border-color: #16212d; 
+} 
+
+
+/*==================================== 
+    SELECT 
+====================================*/ 
+
+.form-group select { 
+    width: 100%; 
+    height: 48px; 
+    border: 1px solid #d9d9d9; 
+    border-radius: 6px; 
+    padding: 0 15px; 
+    font-size: 15px; 
+    background: #ffffff; 
+    color: #555; 
+    outline: none; 
+    cursor: pointer; 
+    transition: 0.3s; 
+    box-sizing: border-box; 
+} 
+
+.form-group select:focus { 
+    border-color: #16212d; 
+} 
+
+
+/*==================================== 
+    PRICE ROW 
+====================================*/ 
+
+.price-row { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 20px; 
+    margin-bottom: 28px; 
+} 
+
+.price-row .form-group { 
+    margin-bottom: 0; 
+} 
+
+
+/*==================================== 
+    DESCRIPTION TOOLBAR 
+====================================*/ 
+
+.editor-toolbar { 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+    padding: 10px; 
+    border: 1px solid #d9d9d9; 
+    border-bottom: none; 
+    background: #f8f8f8; 
+    border-radius: 6px 6px 0 0; 
+} 
+
+.editor-toolbar button { 
+    width: 34px; 
+    height: 34px; 
+    border: 1px solid #d9d9d9; 
+    background: #ffffff; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    font-size: 15px; 
+    transition: 0.3s; 
+} 
+
+.editor-toolbar button:hover { 
+    background: #16212d; 
+    color: #ffffff; 
+} 
+
+
+/*==================================== 
+    DESCRIPTION TEXTAREA 
+====================================*/ 
+
+.form-group textarea { 
+    width: 100%; 
+    height: 160px; 
+    resize: none; 
+    border: 1px solid #d9d9d9; 
+    border-top: none; 
+    border-radius: 0 0 6px 6px; 
+    padding: 18px; 
+    font-size: 15px; 
+    outline: none; 
+    line-height: 24px; 
+    box-sizing: border-box; 
+} 
+
+.form-group textarea:focus { 
+    border-color: #16212d; 
+} 
+
+
+/*==================================== 
+    PRODUCT IMAGE SECTION 
+====================================*/ 
+
+.upload-section { 
+    margin-bottom: 30px; 
+} 
+
+.upload-section h3 { 
+    font-size: 18px; 
+    font-weight: 600; 
+    color: #222; 
+    margin: 0 0 15px; 
+} 
+
+
+/*==================================== 
+    UPLOAD BOX 
+====================================*/ 
+
+.upload-box { 
+    width: 100%; 
+    height: 340px; 
+    border: 2px dashed #cfcfcf; 
+    border-radius: 8px; 
+    background: #ffffff; 
+
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+
+    cursor: pointer; 
+    transition: 0.3s; 
+    box-sizing: border-box; 
+} 
+
+.upload-box:hover { 
+    border-color: #1f2937; 
+    background: #fafafa; 
+} 
+
+
+/*==================================== 
+    UPLOAD ICON 
+====================================*/ 
+
+.upload-icon { 
+    font-size: 50px !important; 
+    color: #666; 
+    margin-bottom: 18px; 
+} 
+
+
+/*==================================== 
+    UPLOAD TEXT 
+====================================*/ 
+
+.upload-title { 
+    font-size: 18px; 
+    font-weight: 500; 
+    color: #333; 
+    margin: 0 0 8px; 
+} 
+
+.upload-subtitle { 
+    font-size: 15px; 
+    color: #666; 
+    margin: 0 0 8px; 
+} 
+
+.upload-box small { 
+    color: #888; 
+    font-size: 14px; 
+} 
+
+
+/*==================================== 
+    PRODUCT STATUS 
+====================================*/ 
+
+.status-box { 
+    margin-top: 30px; 
+} 
+
+.status-box label { 
+    display: block; 
+    font-size: 15px; 
+    font-weight: 500; 
+    color: #333; 
+    margin-bottom: 10px; 
+} 
+
+.status-box select { 
+    width: 100%; 
+    height: 48px; 
+    border: 1px solid #d9d9d9; 
+    border-radius: 6px; 
+    padding: 0 15px; 
+    font-size: 15px; 
+    outline: none; 
+    background: #ffffff; 
+    cursor: pointer; 
+    box-sizing: border-box; 
+} 
+
+.status-box select:focus { 
+    border-color: #16212d; 
+} 
+
+
+/*==================================== 
+    ACTION BUTTONS 
+====================================*/ 
+
+.action-buttons { 
+    display: flex; 
+    justify-content: flex-end; 
+    gap: 15px; 
+    margin-top: 40px; 
+} 
+
+
+/*==================================== 
+    RESET BUTTON 
+====================================*/ 
+
+.reset-btn { 
+    padding: 12px 28px; 
+    background: #ffffff; 
+    color: #333; 
+    border: 1px solid #cfcfcf; 
+    border-radius: 6px; 
+    font-size: 15px; 
+    font-weight: 500; 
+    cursor: pointer; 
+    transition: 0.3s; 
+} 
+
+.reset-btn:hover { 
+    background: #f5f5f5; 
+} 
+
+
+/*==================================== 
+    SUBMIT BUTTON 
+====================================*/ 
+
+.submit-btn { 
+    padding: 12px 30px; 
+    background: #16212d; 
+    color: #ffffff; 
+    border: none; 
+    border-radius: 6px; 
+    font-size: 15px; 
+    font-weight: 500; 
+    cursor: pointer; 
+    transition: 0.3s; 
+} 
+
+.submit-btn:hover { 
+    background: #0f1722; 
+} 
+
+
+/*==================================== 
+    TABLET 
+====================================*/ 
+
+@media screen and (max-width: 1024px) { 
+
+    .dashboard-content { 
+        padding: 18px 25px 25px; 
+    } 
+
+    .page-title { 
+        font-size: 30px; 
+        margin-bottom: 22px; 
+    } 
+
+    .create-product-container { 
+        grid-template-columns: 1.6fr 1fr; 
+        gap: 20px; 
+    } 
+
+    .product-form, 
+    .product-upload { 
+        padding: 22px; 
+    } 
+
+    .form-heading { 
+        font-size: 24px; 
+        margin-bottom: 28px; 
+    } 
+
+    .form-group { 
+        margin-bottom: 22px; 
+    } 
+
+    .form-group label { 
+        font-size: 14px; 
+    } 
+
+    .form-group input, 
+    .form-group select { 
+        height: 46px; 
+        font-size: 14px; 
+    } 
+
+    .price-row { 
+        gap: 15px; 
+        margin-bottom: 22px; 
+    } 
+
+    .form-group textarea { 
+        height: 140px; 
+        font-size: 14px; 
+    } 
+
+    .upload-box { 
+        height: 250px; 
+    } 
+
+    .upload-title { 
+        font-size: 16px; 
+    } 
+
+    .upload-subtitle { 
+        font-size: 14px; 
+    } 
+
+    .action-buttons { 
+        gap: 12px; 
+        margin-top: 25px; 
+    } 
+
+    .reset-btn, 
+    .submit-btn { 
+        padding: 11px 20px; 
+        font-size: 14px; 
+    } 
+} 
+
+
+/*==================================== 
+    MOBILE 
+====================================*/ 
+
+@media screen and (max-width: 767px) { 
+
+    .dashboard-content { 
+        width: 100%; 
+        padding: 18px 15px 25px; 
+        box-sizing: border-box; 
+    } 
+
+    .page-title { 
+        font-size: 26px; 
+        margin: 0 0 22px; 
+    } 
+
+
+    /* Main Layout */ 
+
+    .create-product-container { 
+        display: grid; 
+        grid-template-columns: 1fr; 
+        gap: 20px; 
+    } 
+
+
+    /* Cards */ 
+
+    .product-form, 
+    .product-upload { 
+        width: 100%; 
+        padding: 20px; 
+        box-sizing: border-box; 
+        border: 1px solid #e2e2e2; 
+    } 
+
+
+    /* Form Heading */ 
+
+    .form-heading { 
+        font-size: 22px; 
+        margin-bottom: 25px; 
+    } 
+
+
+    /* Form */ 
+
+    .form-group { 
+        margin-bottom: 20px; 
+    } 
+
+    .form-group label { 
+        font-size: 14px; 
+        margin-bottom: 8px; 
+    } 
+
+    .form-group input, 
+    .form-group select { 
+        height: 46px; 
+        font-size: 14px; 
+    } 
+
+
+    /* Price */ 
+
+    .price-row { 
+        grid-template-columns: 1fr; 
+        gap: 20px; 
+        margin-bottom: 20px; 
+    } 
+
+    .price-row .form-group { 
+        margin-bottom: 0; 
+    } 
+
+
+    /* Description */ 
+
+    .editor-toolbar { 
+        gap: 6px; 
+        padding: 8px; 
+    } 
+
+    .editor-toolbar button { 
+        width: 32px; 
+        height: 32px; 
+        font-size: 14px; 
+    } 
+
+    .form-group textarea { 
+        height: 130px; 
+        padding: 14px; 
+        font-size: 14px; 
+        line-height: 21px; 
+    } 
+
+
+    /* Upload */ 
+
+    .upload-section { 
+        margin-bottom: 25px; 
+    } 
+
+    .upload-section h3 { 
+        font-size: 17px; 
+    } 
+
+    .upload-box { 
+        height: 240px; 
+    } 
+
+    .upload-icon { 
+        font-size: 45px !important; 
+        margin-bottom: 15px; 
+    } 
+
+    .upload-title { 
+        font-size: 16px; 
+    } 
+
+    .upload-subtitle { 
+        font-size: 13px; 
+    } 
+
+    .upload-box small { 
+        font-size: 12px; 
+    } 
+
+
+    /* Product Status */ 
+
+    .status-box { 
+        margin-top: 25px; 
+    } 
+
+    .status-box label { 
+        font-size: 14px; 
+    } 
+
+    .status-box select { 
+        height: 46px; 
+        font-size: 14px; 
+    } 
+
+
+    /* Buttons */ 
+
+    .action-buttons { 
+        justify-content: flex-end; 
+        gap: 10px; 
+        margin-top: 25px; 
+    } 
+
+    .reset-btn, 
+    .submit-btn { 
+        height: 42px; 
+        padding: 0 18px; 
+        font-size: 13px; 
+    } 
+} 
+
+
+/*==================================== 
+    SMALL MOBILE 
+====================================*/ 
+
+@media screen and (max-width: 480px) { 
+
+    .dashboard-content { 
+        padding: 16px 12px 22px; 
+    } 
+
+    .page-title { 
+        font-size: 23px; 
+        margin-bottom: 20px; 
+    } 
+
+
+    /* Cards */ 
+
+    .product-form, 
+    .product-upload { 
+        padding: 16px; 
+        border-radius: 9px; 
+        border: 1px solid #e2e2e2; 
+    } 
+
+
+    /* Form Heading */ 
+
+    .form-heading { 
+        font-size: 20px; 
+        margin-bottom: 22px; 
+    } 
+
+
+    /* Form */ 
+
+    .form-group { 
+        margin-bottom: 18px; 
+    } 
+
+    .form-group label { 
+        font-size: 13px; 
+        margin-bottom: 7px; 
+    } 
+
+    .form-group input, 
+    .form-group select { 
+        height: 44px; 
+        padding: 0 12px; 
+        font-size: 13px; 
+    } 
+
+
+    /* Price */ 
+
+    .price-row { 
+        gap: 18px; 
+        margin-bottom: 18px; 
+    } 
+
+
+    /* Description */ 
+
+    .editor-toolbar { 
+        gap: 5px; 
+        padding: 7px; 
+    } 
+
+    .editor-toolbar button { 
+        width: 30px; 
+        height: 30px; 
+        font-size: 13px; 
+    } 
+
+    .form-group textarea { 
+        height: 120px; 
+        padding: 12px; 
+        font-size: 13px; 
+    } 
+
+
+    /* Upload */ 
+
+    .upload-section h3 { 
+        font-size: 16px; 
+    } 
+
+    .upload-box { 
+        height: 220px; 
+    } 
+
+    .upload-icon { 
+        font-size: 42px !important; 
+    } 
+
+    .upload-title { 
+        font-size: 15px; 
+    } 
+
+    .upload-subtitle { 
+        font-size: 12px; 
+    } 
+
+    .upload-box small { 
+        font-size: 11px; 
+    } 
+
+
+    /* Status */ 
+
+    .status-box { 
+        margin-top: 20px; 
+    } 
+
+    .status-box label { 
+        font-size: 13px; 
+    } 
+
+    .status-box select { 
+        height: 44px; 
+        font-size: 13px; 
+        padding: 0 12px; 
+    } 
+
+
+    /* Buttons */ 
+
+    .action-buttons { 
+        gap: 8px; 
+        margin-top: 22px; 
+    } 
+
+    .reset-btn, 
+    .submit-btn { 
+        height: 40px; 
+        padding: 0 14px; 
+        font-size: 12px; 
+    } 
+}

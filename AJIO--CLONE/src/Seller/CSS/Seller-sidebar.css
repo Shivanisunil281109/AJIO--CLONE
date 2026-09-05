@@ -1,0 +1,313 @@
+/*====================================
+    SELLER SIDEBAR
+====================================*/
+
+.sidebar {
+    width: 250px;
+    min-width: 250px;
+    min-height: 100vh;
+
+    background: #16212d;
+    color: #ffffff;
+
+    display: flex;
+    flex-direction: column;
+
+    flex-shrink: 0;
+}
+
+
+/*====================================
+    LOGO
+====================================*/
+
+.sidebar-logo {
+    padding: 25px;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sidebar-logo img {
+    width: 120px;
+    display: block;
+
+    filter: brightness(0) invert(1);
+}
+
+
+/*====================================
+    SELLER TITLE
+====================================*/
+
+.seller-title {
+    padding: 20px 25px;
+
+    font-size: 18px;
+    font-weight: 500;
+
+    color: #d5dbe3;
+}
+
+
+/*====================================
+    MENU
+====================================*/
+
+.sidebar-menu {
+    list-style: none;
+
+    padding: 0;
+    margin: 0;
+}
+
+
+/* Menu Item */
+
+.sidebar-menu li {
+    margin: 5px 12px;
+}
+
+
+/* Menu Link */
+
+.sidebar-menu li a {
+    display: flex;
+    align-items: center;
+
+    gap: 14px;
+
+    padding: 14px 16px;
+
+    color: #d9d9d9;
+
+    text-decoration: none;
+
+    border-radius: 8px;
+
+    font-size: 15px;
+
+    transition: 0.3s;
+}
+
+
+/*====================================
+    HOVER
+====================================*/
+
+.sidebar-menu li a:hover {
+    background: #243446;
+    color: #ffffff;
+}
+
+
+/*====================================
+    ACTIVE MENU
+====================================*/
+
+.sidebar-menu li.active a {
+    background: #243446;
+
+    color: #ffffff;
+
+    font-weight: 600;
+}
+
+
+/*====================================
+    MENU ICONS
+====================================*/
+
+.sidebar-menu .material-symbols-outlined {
+    font-size: 22px;
+
+    color: #ffffff;
+
+    flex-shrink: 0;
+}
+
+
+/*====================================
+    LOGOUT
+====================================*/
+
+.sidebar-logout {
+    margin-top: auto;
+
+    padding: 20px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+
+/* Logout Link */
+
+.sidebar-logout a {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    color: #d9d9d9;
+
+    text-decoration: none;
+
+    font-size: 15px;
+
+    transition: 0.3s;
+}
+
+
+/* Logout Hover */
+
+.sidebar-logout a:hover {
+    color: #ffffff;
+}
+
+
+/* Logout Icon */
+
+.sidebar-logout .material-symbols-outlined {
+    font-size: 22px;
+}
+
+
+/*====================================
+    TABLET VIEW
+    768px - 1024px
+====================================*/
+
+@media screen and (max-width: 1024px) {
+
+    .sidebar {
+        width: 220px;
+        min-width: 220px;
+    }
+
+    .sidebar-logo {
+        padding: 20px;
+    }
+
+    .sidebar-logo img {
+        width: 110px;
+    }
+
+    .seller-title {
+        padding: 18px 20px;
+        font-size: 17px;
+    }
+
+    .sidebar-menu li {
+        margin: 5px 10px;
+    }
+
+    .sidebar-menu li a {
+        padding: 13px 14px;
+        gap: 12px;
+        font-size: 14px;
+    }
+
+    .sidebar-menu .material-symbols-outlined {
+        font-size: 21px;
+    }
+
+    .sidebar-logout {
+        padding: 18px;
+    }
+
+    .sidebar-logout a {
+        font-size: 14px;
+    }
+}
+
+
+/*====================================
+    MOBILE VIEW
+    0px - 767px
+====================================*/
+
+@media screen and (max-width: 767px) {
+
+    .sidebar {
+        width: 153px;
+        min-width: 153px;
+        min-height: 100vh;
+
+        position: sticky;
+        top: 0;
+        left: 0;
+
+        flex-shrink: 0;
+
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+
+    /* Logo */
+
+    .sidebar-logo {
+        padding: 15px 10px;
+    }
+
+    .sidebar-logo img {
+        width: 85px;
+    }
+
+
+    /* Seller Title */
+
+    .seller-title {
+        padding: 12px 10px;
+
+        text-align: left;
+
+        font-size: 13px;
+    }
+
+
+    /* Menu */
+
+    .sidebar-menu {
+        padding: 0 8px;
+    }
+
+    .sidebar-menu li {
+        margin: 5px 0;
+    }
+
+    .sidebar-menu li a {
+        padding: 10px 8px;
+
+        gap: 10px;
+
+        font-size: 12px;
+
+        white-space: nowrap;
+    }
+
+
+    /* Icons */
+
+    .sidebar-menu .material-symbols-outlined {
+        font-size: 20px;
+    }
+
+
+    /* Logout */
+
+    .sidebar-logout {
+        padding: 15px 10px;
+    }
+
+    .sidebar-logout a {
+        gap: 8px;
+
+        font-size: 12px;
+
+        white-space: nowrap;
+    }
+
+    .sidebar-logout .material-symbols-outlined {
+        font-size: 20px;
+    }
+}

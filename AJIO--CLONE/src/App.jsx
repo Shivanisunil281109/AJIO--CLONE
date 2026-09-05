@@ -14,6 +14,28 @@ import Orders from "./User/Pages/Orders";
 import Profile from "./User/Pages/Profile";
 
 
+
+
+
+
+// Seller Pages
+import SellerLayout from "./Seller/Components/SellerLayout";
+import SellerDashboard from "./Seller/Pages/SellerDashboard";
+import CreateProduct from "./Seller/Pages/CreateProduct";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function App() {
 
     return (
@@ -53,6 +75,32 @@ function App() {
 
 
             </Route>
+
+
+
+
+
+
+{/* ==========================
+                SELLER ROUTES
+            =========================== */}
+<Route element={<SellerLayout />}>
+
+    <Route  path="/seller/dashboard"  element={<SellerDashboard />}  />
+
+<Route path="/seller/create-product" element={<CreateProduct />} />
+
+
+
+
+</Route>
+
+
+
+
+
+
+
 
         </Routes>
     );
