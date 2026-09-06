@@ -1,7 +1,14 @@
 import React from "react";
+import { useNavigate } from "react-router";
 import "../CSS/SellerProducts.css";
 
+
+
+
 const SellerProducts = () => {
+
+  const navigate = useNavigate();
+
   const products = [
     {
       id: 1,
@@ -93,13 +100,26 @@ const SellerProducts = () => {
                     </td>
 
                     <td>
-                      <button className="view-product-btn">
-                        View
-                      </button>
 
-                      <button className="edit-product-btn">
-                        Edit
-                      </button>
+                     <button
+  className="view-product-btn"
+  onClick={() => navigate(`/seller/products/${product.id}`)}
+>    
+  View
+</button>
+
+
+
+<button
+  className="edit-product-btn"
+  onClick={() => navigate(`/seller/products/${product.id}/edit`)}
+>
+  Edit
+</button>
+
+
+
+
                     </td>
 
                   </tr>
