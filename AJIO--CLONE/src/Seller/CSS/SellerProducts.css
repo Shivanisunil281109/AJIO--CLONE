@@ -1,0 +1,157 @@
+.seller-products-page {
+  min-height: 100vh;
+  background: #f5f6f8;
+}
+
+.seller-products-content {
+  padding: 30px;
+}
+
+.seller-products-header {
+  margin-bottom: 25px;
+}
+
+.seller-products-header h1 {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 700;
+  color: #1f1f1f;
+}
+
+.seller-products-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+.products-card-header {
+  margin-bottom: 20px;
+}
+
+.products-card-header h2 {
+  margin: 0;
+  font-size: 24px;
+  color: #1f1f1f;
+}
+
+.products-table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.products-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 850px;
+}
+
+.products-table thead {
+  background: #f2f4f7;
+}
+
+.products-table th {
+  text-align: left;
+  padding: 16px 14px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #333333;
+  border-bottom: 1px solid #dddddd;
+}
+
+.products-table td {
+  padding: 16px 14px;
+  font-size: 15px;
+  color: #444444;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.products-table tbody tr:hover {
+  background: #fafafa;
+}
+
+.product-status {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.product-status.approved {
+  background: #e7f7ed;
+  color: #1f8a4c;
+}
+
+.product-status.pending {
+  background: #fff4d6;
+  color: #a86d00;
+}
+
+.product-status.not-approved {
+  background: #fde8e8;
+  color: #c62828;
+}
+
+.view-product-btn,
+.edit-product-btn {
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+.view-product-btn {
+  background: #162636;
+  color: #ffffff;
+}
+
+.edit-product-btn {
+  background: #e8edf2;
+  color: #162636;
+}
+
+.view-product-btn:hover {
+  background: #23394d;
+}
+
+.edit-product-btn:hover {
+  background: #dbe2e8;
+}
+
+/* Tablet */
+@media (max-width: 992px) {
+  .seller-products-content {
+    padding: 22px;
+  }
+
+  .seller-products-header h1 {
+    font-size: 28px;
+  }
+
+  .seller-products-card {
+    padding: 20px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .seller-products-content {
+    padding: 15px;
+  }
+
+  .seller-products-header h1 {
+    font-size: 24px;
+  }
+
+  .seller-products-card {
+    padding: 15px;
+    border-radius: 8px;
+  }
+
+  .products-card-header h2 {
+    font-size: 20px;
+  }
+}
