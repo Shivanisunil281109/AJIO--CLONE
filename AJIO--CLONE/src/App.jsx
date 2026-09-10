@@ -27,7 +27,7 @@ import CreateProduct from "./Seller/Pages/CreateProduct";
 import SellerProducts from "./Seller/Pages/SellerProducts";
 import SellerProductDetails from "./Seller/Pages/SellerProductDetails";
 import SellerProfile from "./Seller/Pages/SellerProfile";
-
+import SellerOrders from "./Seller/Pages/SellerOrders";
 
 
 
@@ -100,6 +100,10 @@ function App() {
 
 
 <Route path="/seller/products/:productId/edit"   element={<SellerProductDetails />} />
+
+
+
+ <Route path="/seller/orders" element={<SellerOrders />}  />
 
 
 <Route path="/seller/profile" element={<SellerProfile />} />

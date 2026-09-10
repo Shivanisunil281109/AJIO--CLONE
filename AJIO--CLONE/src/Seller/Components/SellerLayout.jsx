@@ -1,29 +1,21 @@
 import React from "react";
 import { Outlet } from "react-router";
 
-import SellerSidebar from "./Seller-Sidebar";
 import SellerHeader from "./SellerHeader";
 import "../CSS/Seller-layout.css";
 
 const SellerLayout = () => {
+
     return (
-        <div className="dashboard-container">
+        <div className="seller-layout">
 
-            {/* Seller Sidebar */}
-            <SellerSidebar />
+            {/* Top Seller Navbar */}
+            <SellerHeader />
 
-            {/* Right Side */}
-            <div className="seller-main">
-
-                {/* Seller Header */}
-                <SellerHeader />
-
-                {/* Seller Page */}
-                <main className="main-content">
-                    <Outlet />
-                </main>
-
-            </div>
+            {/* Seller Page Content */}
+            <main className="seller-main-content">
+                <Outlet />
+            </main>
 
         </div>
     );

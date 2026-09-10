@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLocation, useParams, useNavigate } from "react-router";
 import "../CSS/SellerProductDetails.css";
 
@@ -24,6 +24,7 @@ const SellerProductDetails = () => {
       description:
         "Men regular fit cotton casual shirt suitable for everyday wear.",
     },
+
     {
       id: 2,
       name: "Slim Fit Jeans",
@@ -38,6 +39,7 @@ const SellerProductDetails = () => {
       description:
         "Dark blue mid-wash slim fit jeans for men with a stylish casual look.",
     },
+
     {
       id: 3,
       name: "Running Sneakers",
@@ -52,6 +54,7 @@ const SellerProductDetails = () => {
       description:
         "Men colourblock running shoes designed for comfort and daily activity.",
     },
+
     {
       id: 4,
       name: "Wireless Headphones",
@@ -66,11 +69,175 @@ const SellerProductDetails = () => {
       description:
         "Sony wireless on-ear Bluetooth headphones with microphone and long battery life.",
     },
+
+    {
+      id: 5,
+      name: "Men Polo T-Shirt",
+      category: "Clothing",
+      brand: "U.S. Polo Assn.",
+      sellingPrice: 799,
+      mfgPrice: 1199,
+      stock: 25,
+      status: "Approved",
+      image:
+        "https://assets-jiocdn.ajio.com/medias/sys_master/root1/20260527/Yjo5/6a16ceb714d0c217190753ac/u.s._polo_assn._navy_blue_men_patterned_regular_fit_polo_t-shirt.jpg",
+      description:
+        "Men patterned regular fit polo T-shirt suitable for casual and everyday wear.",
+    },
+
+    {
+      id: 6,
+      name: "Women Printed Top",
+      category: "Clothing",
+      brand: "Niya Art",
+      sellingPrice: 899,
+      mfgPrice: 1299,
+      stock: 18,
+      status: "Approved",
+      image:
+        "https://assets-jiocdn.ajio.com/medias/sys_master/root/20250108/BxLJ/677dd2ec663dbe1c5fc4092f/niya_art_green_womens_cotton_printed_top.jpg",
+      description:
+        "Women cotton printed top with a comfortable fit for casual and daily wear.",
+    },
+
+    {
+      id: 7,
+      name: "Women Embroidered Kurta",
+      category: "Clothing",
+      brand: "Svaraa",
+      sellingPrice: 1299,
+      mfgPrice: 1799,
+      stock: 12,
+      status: "Pending",
+      image:
+        "https://assets-jiocdn.ajio.com/medias/sys_master/root1/20260408/zjiW/69d6a77e9e784a25d5cf613f/svaraa_brown_women_embroidery_straight_kurta_set.jpg",
+      description:
+        "Women embroidered straight kurta set with an elegant ethnic design.",
+    },
   ];
 
-  const product = products.find(
-    (item) => item.id === Number(productId)
-  );
+
+// =========================
+// GET CREATED PRODUCTS
+// =========================
+
+const createdProducts =
+  JSON.parse(
+    localStorage.getItem("sellerCreatedProducts")
+  ) || [];
+
+
+
+
+
+
+// =========================
+// COMBINE ALL PRODUCTS
+// =========================
+
+const allProducts = [
+  ...products,
+  ...createdProducts
+];
+
+
+
+
+
+
+
+// =========================
+// FIND CURRENT PRODUCT
+// =========================
+
+const originalProduct = allProducts.find(
+  (item) => item.id === Number(productId)
+);
+
+
+// =========================
+// GET EDITED PRODUCT
+// =========================
+
+const savedProduct = localStorage.getItem(
+  `sellerProduct_${productId}`
+);
+
+
+// =========================
+// FINAL PRODUCT
+// =========================
+
+const product = savedProduct
+  ? JSON.parse(savedProduct)
+  : originalProduct;
+
+
+
+
+
+
+
+  const [editedProduct, setEditedProduct] = useState({
+    name: product?.name || "",
+    category: product?.category || "",
+    brand: product?.brand || "",
+    sellingPrice: product?.sellingPrice || "",
+    mfgPrice: product?.mfgPrice || "",
+    stock: product?.stock || "",
+    description: product?.description || "",
+  });
+
+  const handleUpdateProduct = () => {
+  
+
+
+  // =========================
+  // VALIDATION
+  // =========================
+
+  if (
+    !editedProduct.name.trim() ||
+    !editedProduct.brand.trim() ||
+    !editedProduct.description.trim()
+  ) {
+    alert("Please fill all product fields.");
+    return;
+  }
+
+  if (
+    Number(editedProduct.sellingPrice) <= 0 ||
+    Number(editedProduct.mfgPrice) <= 0
+  ) {
+    alert("Product price must be greater than 0.");
+    return;
+  }
+
+  if (Number(editedProduct.stock) < 0) {
+    alert("Stock cannot be negative.");
+    return;
+  }
+
+
+
+
+    const updatedProduct = {
+      ...product,
+      ...editedProduct,
+      sellingPrice: Number(editedProduct.sellingPrice),
+      mfgPrice: Number(editedProduct.mfgPrice),
+      stock: Number(editedProduct.stock),
+    };
+
+    localStorage.setItem(
+      `sellerProduct_${product.id}`,
+      JSON.stringify(updatedProduct)
+    );
+
+    alert("Product updated successfully!");
+
+    navigate(`/seller/products/${product.id}`);
+  };
 
   if (!product) {
     return (
@@ -86,29 +253,27 @@ const SellerProductDetails = () => {
     <div className="seller-product-details-page">
       <main className="seller-product-details-content">
 
-        {/* Page Title */}
+        {/* PAGE HEADER */}
         <div className="seller-product-details-header">
 
+          <button
+            type="button"
+            className="seller-back-products-button"
+            onClick={() => navigate("/seller/products")}
+          >
+            ← Back to Products
+          </button>
 
+          <h1>
+            {isEditMode ? "Edit Product" : "Product Details"}
+          </h1>
 
-  <button
-    className="seller-back-products-button"
-    onClick={() => navigate("/seller/products")}
-  >
-    ← Back to Products
-  </button>
+        </div>
 
-  <h1>{isEditMode ? "Edit Product" : "Product Details"}</h1>
-
-</div>
-
-
-
-
-        {/* Product Card */}
+        {/* PRODUCT CARD */}
         <div className="seller-product-details-card">
 
-          {/* Product Image */}
+          {/* PRODUCT IMAGE */}
           <div className="seller-product-image-section">
             <img
               src={product.image}
@@ -117,12 +282,14 @@ const SellerProductDetails = () => {
             />
           </div>
 
-          {/* Product Information */}
+          {/* PRODUCT INFORMATION */}
           <div className="seller-product-info-section">
 
             {!isEditMode ? (
               <>
-                {/* VIEW MODE */}
+                {/* =========================
+                    VIEW MODE
+                ========================= */}
 
                 <h2>{product.name}</h2>
 
@@ -165,49 +332,75 @@ const SellerProductDetails = () => {
                 </div>
 
                 <button
-  className="seller-edit-product-button"
-  onClick={() => navigate(`/seller/products/${product.id}/edit`)}
->
-  Edit Product
-</button>
-
-
-
+                  type="button"
+                  className="seller-edit-product-button"
+                  onClick={() =>
+                    navigate(`/seller/products/${product.id}/edit`)
+                  }
+                >
+                  Edit Product
+                </button>
               </>
             ) : (
               <>
-                {/* EDIT MODE */}
+                {/* =========================
+                    EDIT MODE
+                ========================= */}
 
                 <div className="seller-edit-form">
 
+                  {/* PRODUCT NAME */}
                   <div className="seller-edit-form-group">
                     <label>Product Name</label>
 
                     <input
                       type="text"
-                      defaultValue={product.name}
+                      value={editedProduct.name}
+                      onChange={(e) =>
+                        setEditedProduct({
+                          ...editedProduct,
+                          name: e.target.value,
+                        })
+                      }
                     />
                   </div>
 
+                  {/* CATEGORY */}
                   <div className="seller-edit-form-group">
                     <label>Category</label>
 
-                    <select defaultValue={product.category}>
+                    <select
+                      value={editedProduct.category}
+                      onChange={(e) =>
+                        setEditedProduct({
+                          ...editedProduct,
+                          category: e.target.value,
+                        })
+                      }
+                    >
                       <option value="Clothing">Clothing</option>
                       <option value="Footwear">Footwear</option>
                       <option value="Electronics">Electronics</option>
                     </select>
                   </div>
 
+                  {/* BRAND */}
                   <div className="seller-edit-form-group">
                     <label>Brand</label>
 
                     <input
                       type="text"
-                      defaultValue={product.brand}
+                      value={editedProduct.brand}
+                      onChange={(e) =>
+                        setEditedProduct({
+                          ...editedProduct,
+                          brand: e.target.value,
+                        })
+                      }
                     />
                   </div>
 
+                  {/* PRICES */}
                   <div className="seller-edit-form-row">
 
                     <div className="seller-edit-form-group">
@@ -215,7 +408,13 @@ const SellerProductDetails = () => {
 
                       <input
                         type="number"
-                        defaultValue={product.sellingPrice}
+                        value={editedProduct.sellingPrice}
+                        onChange={(e) =>
+                          setEditedProduct({
+                            ...editedProduct,
+                            sellingPrice: e.target.value,
+                          })
+                        }
                       />
                     </div>
 
@@ -224,31 +423,56 @@ const SellerProductDetails = () => {
 
                       <input
                         type="number"
-                        defaultValue={product.mfgPrice}
+                        value={editedProduct.mfgPrice}
+                        onChange={(e) =>
+                          setEditedProduct({
+                            ...editedProduct,
+                            mfgPrice: e.target.value,
+                          })
+                        }
                       />
                     </div>
 
                   </div>
 
+                  {/* STOCK */}
                   <div className="seller-edit-form-group">
                     <label>Stock</label>
 
                     <input
                       type="number"
-                      defaultValue={product.stock}
+                      value={editedProduct.stock}
+                      onChange={(e) =>
+                        setEditedProduct({
+                          ...editedProduct,
+                          stock: e.target.value,
+                        })
+                      }
                     />
                   </div>
 
+                  {/* DESCRIPTION */}
                   <div className="seller-edit-form-group">
                     <label>Description</label>
 
                     <textarea
                       rows="5"
-                      defaultValue={product.description}
+                      value={editedProduct.description}
+                      onChange={(e) =>
+                        setEditedProduct({
+                          ...editedProduct,
+                          description: e.target.value,
+                        })
+                      }
                     ></textarea>
                   </div>
 
-                  <button className="seller-update-product-button">
+                  {/* UPDATE BUTTON */}
+                  <button
+                    type="button"
+                    className="seller-update-product-button"
+                    onClick={handleUpdateProduct}
+                  >
                     Update Product
                   </button>
 
@@ -259,6 +483,7 @@ const SellerProductDetails = () => {
           </div>
 
         </div>
+
       </main>
     </div>
   );

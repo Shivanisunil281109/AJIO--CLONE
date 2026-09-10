@@ -1,0 +1,726 @@
+/* ========================================
+   SELLER ORDERS PAGE ONLY
+======================================== */
+
+.seller-orders-page .orders-container {
+    background: #ffffff;
+
+    padding: 30px;
+
+    border-radius: 10px;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+
+/* ========================================
+   ORDERS FILTER
+======================================== */
+
+.seller-orders-page .orders-filter {
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 15px;
+
+    flex-wrap: nowrap;
+}
+
+
+/* ========================================
+   COMMON FILTER BOX
+======================================== */
+
+.seller-orders-page .filter-item {
+    height: 52px;
+
+    border: 1px solid #e0e0e0;
+
+    border-radius: 6px;
+
+    background: #ffffff;
+
+    display: flex;
+
+    align-items: center;
+
+    box-sizing: border-box;
+}
+
+
+/* ========================================
+   ALL ORDERS DROPDOWN
+======================================== */
+
+.seller-orders-page .order-filter {
+    width: 440px;
+
+    flex-shrink: 1;
+}
+
+
+.seller-orders-page .order-filter select {
+    width: 100%;
+
+    height: 100%;
+
+    border: none;
+
+    outline: none;
+
+    padding: 0 18px;
+
+    font-size: 16px;
+
+    font-weight: 400;
+
+    color: #222222;
+
+    background: transparent;
+
+    cursor: pointer;
+}
+
+
+/* ========================================
+   DATE BOX
+======================================== */
+
+.seller-orders-page .date-box {
+    width: 310px;
+
+    display: flex;
+
+    align-items: center;
+
+    padding: 0 15px;
+
+    gap: 10px;
+
+    flex-shrink: 1;
+}
+
+
+.seller-orders-page .date-box .material-symbols-outlined {
+    font-size: 22px !important;
+
+    color: #7c8792 !important;
+
+    flex-shrink: 0;
+}
+
+
+.seller-orders-page .date-box input {
+    width: 100%;
+
+    min-width: 0;
+
+    height: 100%;
+
+    border: none;
+
+    outline: none;
+
+    background: transparent;
+
+    font-size: 16px;
+
+    font-weight: 400;
+
+    color: #333333;
+}
+
+
+.seller-orders-page .date-box input::placeholder {
+    color: #8f8f8f;
+
+    font-size: 16px;
+}
+
+
+/* ========================================
+   TO TEXT
+======================================== */
+
+.seller-orders-page .to-text {
+    min-width: 25px;
+
+    text-align: center;
+
+    font-size: 16px;
+
+    font-weight: 500;
+
+    color: #444444;
+
+    flex-shrink: 0;
+}
+
+
+/* ========================================
+   SEARCH BOX
+======================================== */
+
+.seller-orders-page .search-box {
+    width: 285px;
+
+    height: 52px;
+
+    display: flex;
+
+    align-items: center;
+
+    background: #ffffff;
+
+    border: 1px solid #e0e0e0;
+
+    border-radius: 6px;
+
+    box-sizing: border-box;
+
+    flex-shrink: 1;
+}
+
+
+.seller-orders-page .search-box input {
+    width: 100%;
+
+    height: 100%;
+
+    border: none;
+
+    outline: none;
+
+    padding: 0 18px;
+
+    background: transparent;
+
+    font-size: 16px;
+
+    font-weight: 400;
+
+    color: #333333;
+
+    box-sizing: border-box;
+}
+
+
+.seller-orders-page .search-box input::placeholder {
+    color: #8f8f8f;
+
+    font-size: 16px;
+
+    font-weight: 400;
+}
+
+
+/* ========================================
+   FILTER FOCUS EFFECT
+======================================== */
+
+.seller-orders-page .filter-item:focus-within {
+    border-color: #9aa7b2;
+
+    box-shadow: 0 0 0 2px rgba(23, 50, 74, 0.05);
+}
+
+
+/* ========================================
+   ORDERS TABLE
+======================================== */
+
+.seller-orders-page .orders-table {
+    margin-top: 25px;
+
+    overflow-x: auto;
+}
+
+
+.seller-orders-page .orders-table table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    background: #ffffff;
+}
+
+
+/* ========================================
+   TABLE HEADER
+======================================== */
+
+.seller-orders-page .orders-table thead {
+    border-bottom: 1px solid #e7e7e7;
+}
+
+
+.seller-orders-page .orders-table th {
+    padding: 18px 16px;
+
+    text-align: left;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    color: #222222;
+}
+
+
+/* ========================================
+   TABLE DATA
+======================================== */
+
+.seller-orders-page .orders-table td {
+    padding: 18px 16px;
+
+    font-size: 14px;
+
+    color: #555555;
+
+    border-bottom: 1px solid #f0f0f0;
+}
+
+
+/* ========================================
+   TABLE ROW HOVER
+======================================== */
+
+.seller-orders-page .orders-table tbody tr {
+    transition: background 0.25s ease;
+}
+
+
+.seller-orders-page .orders-table tbody tr:hover {
+    background: #fafafa;
+}
+
+
+/* ========================================
+   STATUS BADGES
+======================================== */
+
+.seller-orders-page .status {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 90px;
+
+    padding: 6px 14px;
+
+    font-size: 12px;
+
+    font-weight: 500;
+
+    border-radius: 6px;
+
+    text-align: center;
+}
+
+
+/* ========================================
+   PROCESSING STATUS
+======================================== */
+
+.seller-orders-page .processing {
+    background: #fff3d9;
+
+    color: #c68600;
+}
+
+
+/* ========================================
+   SHIPPED STATUS
+======================================== */
+
+.seller-orders-page .shipped {
+    background: #e5f0ff;
+
+    color: #2f73d9;
+}
+
+
+/* ========================================
+   DELIVERED STATUS
+======================================== */
+
+.seller-orders-page .delivered {
+    background: #e7f8ea;
+
+    color: #2e9b46;
+}
+
+
+/* ========================================
+   CANCELLED STATUS
+======================================== */
+
+.seller-orders-page .cancelled {
+    background: #ffe7e7;
+
+    color: #d83c3c;
+}
+
+
+/* ========================================
+   VIEW BUTTON
+   SAME DARK STYLE AS PRODUCTS PAGE
+======================================== */
+
+/* ========================================
+   VIEW BUTTON
+======================================== */
+
+.seller-orders-page .view-btn {
+    width: 58px;
+    height: 34px;
+
+    background: #2B4052;
+    color: #ffffff;
+
+    border: none;
+    border-radius: 5px;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition:
+        background 0.25s ease,
+        transform 0.25s ease;
+}
+
+.seller-orders-page .view-btn:hover {
+    background: #1f3242;
+    color: #ffffff;
+
+    transform: translateY(-1px);
+}
+
+.seller-orders-page .view-btn:hover {
+    background: #1d4059;
+
+    color: #ffffff;
+
+    transform: translateY(-1px);
+}
+
+
+/* ========================================
+   ORDER DETAILS MODAL
+======================================== */
+
+.seller-orders-page .order-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0, 0, 0, 0.45);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 2000;
+}
+
+
+.seller-orders-page .order-modal {
+    width: 480px;
+    max-width: 90%;
+
+    background: #ffffff;
+
+    border-radius: 10px;
+
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.18);
+
+    overflow: hidden;
+}
+
+
+.seller-orders-page .order-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 20px 24px;
+
+    border-bottom: 1px solid #eeeeee;
+}
+
+
+.seller-orders-page .order-modal-header h2 {
+    margin: 0;
+
+    font-size: 22px;
+
+    color: #2B4052;
+}
+
+
+.seller-orders-page .order-modal-close {
+    background: transparent;
+
+    border: none;
+
+    font-size: 30px;
+
+    color: #555555;
+
+    cursor: pointer;
+}
+
+
+.seller-orders-page .order-modal-content {
+    padding: 22px 24px;
+}
+
+
+.seller-orders-page .order-detail-row {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 13px 0;
+
+    border-bottom: 1px solid #f0f0f0;
+
+    font-size: 14px;
+}
+
+
+.seller-orders-page .order-detail-row span:first-child {
+    color: #777777;
+}
+
+
+.seller-orders-page .order-detail-row strong {
+    color: #222222;
+}
+
+
+.seller-orders-page .order-modal-footer {
+    display: flex;
+
+    justify-content: flex-end;
+
+    padding: 18px 24px;
+
+    background: #fafafa;
+}
+
+
+.seller-orders-page .order-modal-done {
+    background: #2B4052;
+
+    color: #ffffff;
+
+    border: none;
+
+    border-radius: 5px;
+
+    padding: 9px 24px;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+
+.seller-orders-page .order-modal-done:hover {
+    background: #1f3242;
+}
+
+
+/* ========================================
+   MEDIUM LAPTOP
+======================================== */
+
+@media screen and (max-width: 1350px) {
+
+    .seller-orders-page .orders-container {
+        padding: 25px;
+    }
+
+
+    .seller-orders-page .orders-filter {
+        gap: 12px;
+    }
+
+
+    .seller-orders-page .order-filter {
+        width: 330px;
+    }
+
+
+    .seller-orders-page .date-box {
+        width: 230px;
+    }
+
+
+    .seller-orders-page .search-box {
+        width: 220px;
+    }
+
+
+    .seller-orders-page .order-filter select,
+    .seller-orders-page .date-box input,
+    .seller-orders-page .search-box input {
+        font-size: 14px;
+    }
+
+}
+
+
+/* ========================================
+   TABLET VIEW
+======================================== */
+
+@media screen and (max-width: 1024px) {
+
+    .seller-orders-page .orders-filter {
+        display: flex;
+
+        flex-wrap: wrap;
+
+        gap: 12px;
+    }
+
+
+    .seller-orders-page .order-filter {
+        width: 260px;
+    }
+
+
+    .seller-orders-page .date-box {
+        width: 220px;
+    }
+
+
+    .seller-orders-page .search-box {
+        width: 230px;
+    }
+
+
+    .seller-orders-page .orders-table {
+        overflow-x: auto;
+    }
+
+
+    .seller-orders-page .orders-table table {
+        min-width: 980px;
+    }
+
+}
+
+
+/* ========================================
+   MOBILE VIEW
+======================================== */
+
+@media screen and (max-width: 767px) {
+
+    .seller-orders-page .orders-container {
+        padding: 18px;
+    }
+
+
+    .seller-orders-page .orders-filter {
+        display: flex;
+
+        flex-wrap: wrap;
+
+        align-items: center;
+
+        gap: 10px;
+    }
+
+
+    .seller-orders-page .order-filter {
+        width: 220px;
+    }
+
+
+    .seller-orders-page .date-box {
+        width: 190px;
+    }
+
+
+    .seller-orders-page .to-text {
+        min-width: 20px;
+
+        font-size: 14px;
+    }
+
+
+    .seller-orders-page .search-box {
+        width: 220px;
+    }
+
+
+    .seller-orders-page .filter-item,
+    .seller-orders-page .search-box {
+        height: 46px;
+    }
+
+
+    .seller-orders-page .order-filter select,
+    .seller-orders-page .date-box input,
+    .seller-orders-page .search-box input {
+        font-size: 13px;
+    }
+
+
+    .seller-orders-page .orders-table {
+        overflow-x: auto;
+    }
+
+
+    .seller-orders-page .orders-table table {
+        min-width: 1000px;
+    }
+
+
+    .seller-orders-page .orders-table th,
+    .seller-orders-page .orders-table td {
+        padding: 16px 14px;
+
+        font-size: 13px;
+    }
+
+
+    .seller-orders-page .status {
+        min-width: 80px;
+
+        font-size: 11px;
+
+        padding: 6px 12px;
+    }
+
+
+    .seller-orders-page .view-btn {
+        width: 58px;
+
+        height: 34px;
+
+        font-size: 12px;
+    }
+
+}

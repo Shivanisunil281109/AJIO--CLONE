@@ -1,7 +1,28 @@
 import React from "react";
+import { useNavigate } from "react-router";
 import "../CSS/Seller-dashboard.css";
 
 const SellerDashboard = () => {
+
+    // =========================
+    // NAVIGATION
+    // =========================
+
+    const navigate = useNavigate();
+
+
+    // =========================
+    // TOTAL PRODUCTS
+    // =========================
+
+    const createdProducts =
+        JSON.parse(
+            localStorage.getItem("sellerCreatedProducts")
+        ) || [];
+
+    const totalProducts = 7 + createdProducts.length;
+
+
     return (
         <div className="seller-dashboard">
 
@@ -11,32 +32,73 @@ const SellerDashboard = () => {
 
             <section className="dashboard-content">
 
-                <h2 className="page-title">Dashboard</h2>
+                <h2 className="page-title"> Dashboard</h2>
 
                 <div className="dashboard-cards">
 
+                    {/* TOTAL PRODUCTS */}
+
                     <div className="card">
+
                         <h4>Total Products</h4>
-                        <h2>152</h2>
-                        <a href="#">View all products</a>
+
+                        <h2>{totalProducts}</h2>
+
+                        <a
+                            href="#"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                navigate("/seller/products");
+                            }}
+                        >
+                            View all products
+                        </a>
+
                     </div>
 
+
+                    {/* SOLD PRODUCTS */}
+
                     <div className="card">
+
                         <h4>Sold Products</h4>
+
                         <h2>98</h2>
-                        <a href="#">View sold products</a>
+
+                        <a href="#">
+                            View sold products
+                        </a>
+
                     </div>
 
+
+                    {/* TOTAL ORDERS */}
+
                     <div className="card">
+
                         <h4>Total Orders</h4>
+
                         <h2>245</h2>
-                        <a href="#">View all orders</a>
+
+                        <a href="#">
+                            View all orders
+                        </a>
+
                     </div>
 
+
+                    {/* TOTAL REVENUE */}
+
                     <div className="card">
+
                         <h4>Total Revenue</h4>
+
                         <h2>₹1,25,430</h2>
-                        <a href="#">View all payments</a>
+
+                        <a href="#">
+                            View all payments
+                        </a>
+
                     </div>
 
                 </div>
@@ -52,6 +114,7 @@ const SellerDashboard = () => {
 
                 <div className="dashboard-bottom">
 
+
                     {/* =========================
                         LATEST ORDERS
                     ========================== */}
@@ -59,57 +122,92 @@ const SellerDashboard = () => {
                     <div className="orders-panel">
 
                         <div className="panel-header">
+
                             <h3>Latest Orders</h3>
-                            <a href="#">View All</a>
+
+                            <a href="#">
+                                View All
+                            </a>
+
                         </div>
+
 
                         <table className="orders-table">
 
                             <tbody>
 
                                 <tr>
+
                                     <td>#ORD12345</td>
+
                                     <td>Soniya Datarkar</td>
+
                                     <td>₹1,499</td>
+
                                     <td className="seller-status-processing">
                                         Processing
                                     </td>
+
                                 </tr>
 
+
                                 <tr>
+
                                     <td>#ORD12344</td>
+
                                     <td>Neha Patel</td>
+
                                     <td>₹999</td>
+
                                     <td className="seller-status-shipped">
                                         Shipped
                                     </td>
+
                                 </tr>
 
+
                                 <tr>
+
                                     <td>#ORD12343</td>
+
                                     <td>Amit Verma</td>
+
                                     <td>₹2,299</td>
+
                                     <td className="seller-status-delivered">
                                         Delivered
                                     </td>
+
                                 </tr>
 
+
                                 <tr>
+
                                     <td>#ORD12342</td>
+
                                     <td>Pooja Singh</td>
+
                                     <td>₹1,199</td>
+
                                     <td className="seller-status-processing">
                                         Processing
                                     </td>
+
                                 </tr>
 
+
                                 <tr>
+
                                     <td>#ORD12341</td>
+
                                     <td>Karan Mehta</td>
+
                                     <td>₹799</td>
+
                                     <td className="seller-status-cancelled">
                                         Cancelled
                                     </td>
+
                                 </tr>
 
                             </tbody>
@@ -126,12 +224,17 @@ const SellerDashboard = () => {
                     <div className="products-panel">
 
                         <div className="panel-header">
+
                             <h3>Top Selling Products</h3>
-                            <a href="#">View All</a>
+
+                            <a href="#">
+                                View All
+                            </a>
+
                         </div>
 
 
-                        {/* Product 1 */}
+                        {/* PRODUCT 1 */}
 
                         <div className="product-item">
 
@@ -141,12 +244,21 @@ const SellerDashboard = () => {
                             />
 
                             <div className="product-info">
-                                <h4>Men Solid Shirt</h4>
+
+                                <h4>
+                                    Men Solid Shirt
+                                </h4>
+
                             </div>
 
                             <div className="sold-info">
+
                                 <span>120</span>
-                                <small>Sold</small>
+
+                                <small>
+                                    Sold
+                                </small>
+
                             </div>
 
                             <span className="price">
@@ -156,7 +268,7 @@ const SellerDashboard = () => {
                         </div>
 
 
-                        {/* Product 2 */}
+                        {/* PRODUCT 2 */}
 
                         <div className="product-item">
 
@@ -166,12 +278,21 @@ const SellerDashboard = () => {
                             />
 
                             <div className="product-info">
-                                <h4>Women Printed Kurta</h4>
+
+                                <h4>
+                                    Women Printed Kurta
+                                </h4>
+
                             </div>
 
                             <div className="sold-info">
+
                                 <span>98</span>
-                                <small>Sold</small>
+
+                                <small>
+                                    Sold
+                                </small>
+
                             </div>
 
                             <span className="price">
@@ -181,7 +302,7 @@ const SellerDashboard = () => {
                         </div>
 
 
-                        {/* Product 3 */}
+                        {/* PRODUCT 3 */}
 
                         <div className="product-item">
 
@@ -191,12 +312,21 @@ const SellerDashboard = () => {
                             />
 
                             <div className="product-info">
-                                <h4>Men Slim Fit Jeans</h4>
+
+                                <h4>
+                                    Men Slim Fit Jeans
+                                </h4>
+
                             </div>
 
                             <div className="sold-info">
+
                                 <span>85</span>
-                                <small>Sold</small>
+
+                                <small>
+                                    Sold
+                                </small>
+
                             </div>
 
                             <span className="price">
@@ -206,7 +336,7 @@ const SellerDashboard = () => {
                         </div>
 
 
-                        {/* Product 4 */}
+                        {/* PRODUCT 4 */}
 
                         <div className="product-item">
 
@@ -216,12 +346,21 @@ const SellerDashboard = () => {
                             />
 
                             <div className="product-info">
-                                <h4>Women Casual Top</h4>
+
+                                <h4>
+                                    Women Casual Top
+                                </h4>
+
                             </div>
 
                             <div className="sold-info">
+
                                 <span>72</span>
-                                <small>Sold</small>
+
+                                <small>
+                                    Sold
+                                </small>
+
                             </div>
 
                             <span className="price">
