@@ -1,0 +1,921 @@
+/* ==========================================
+   SELLER PROFIT PAGE
+   SAFE SCOPED CSS
+========================================== */
+
+.seller-profit-page {
+    width: 100%;
+    padding: 30px;
+    background: #f5f5f5;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+/* ==========================================
+   PROFIT HEADER
+========================================== */
+
+.seller-profit-page .profit-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.seller-profit-page .page-title {
+    font-size: 34px;
+    font-weight: 600;
+    color: #222222;
+    margin: 0;
+}
+
+
+/* ==========================================
+   MONTH FILTER
+========================================== */
+
+.seller-profit-page .month-filter select {
+    width: 170px;
+    height: 42px;
+    border: 1px solid #e4e4e4;
+    border-radius: 8px;
+    padding: 0 15px;
+    font-size: 14px;
+    background: #ffffff;
+    color: #333333;
+    cursor: pointer;
+    outline: none;
+}
+
+.seller-profit-page .month-filter select:hover {
+    border-color: #bfc7d1;
+}
+
+.seller-profit-page .month-filter select:focus {
+    border-color: #4c7cf5;
+}
+
+
+/* ==========================================
+   PROFIT CARDS
+   UNCHANGED
+========================================== */
+
+.seller-profit-page .profit-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+    margin-bottom: 30px;
+}
+
+.seller-profit-page .profit-card {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 24px 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 150px;
+}
+
+.seller-profit-page .profit-card h4 {
+    font-size: 15px;
+    color: #666666;
+    font-weight: 500;
+    margin: 0 0 14px;
+    text-align: center;
+}
+
+.seller-profit-page .profit-card h2 {
+    font-size: 30px;
+    font-weight: 700;
+    color: #111111;
+    margin: 0 0 14px;
+    text-align: center;
+}
+
+
+/* ==========================================
+   GROWTH
+========================================== */
+
+.seller-profit-page .growth {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    font-size: 14px;
+    margin: 0;
+    text-align: center;
+}
+
+.seller-profit-page .growth.positive {
+    color: #28a745;
+}
+
+.seller-profit-page .growth.negative {
+    color: #dc3545;
+}
+
+.seller-profit-page .growth .material-symbols-outlined {
+    font-size: 17px;
+}
+
+
+/* ==========================================
+   BOTTOM SECTION
+========================================== */
+
+.seller-profit-page .profit-bottom {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.45fr)
+        minmax(430px, 1fr);
+
+    gap: 25px;
+
+    margin-top: 30px;
+
+    align-items: stretch;
+}
+
+
+/* ==========================================
+   REVENUE CARD
+========================================== */
+
+.seller-profit-page .revenue-card {
+    width: 100%;
+    min-width: 0;
+
+    background: #ffffff;
+
+    border-radius: 12px;
+
+    padding: 30px;
+
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+}
+
+.seller-profit-page .revenue-card h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #222222;
+    margin: 0 0 20px;
+}
+
+
+/* ==========================================
+   OLD CHART CSS
+========================================== */
+
+.seller-profit-page .chart-box {
+    width: 100%;
+}
+
+.seller-profit-page .graph-wrapper {
+    display: flex;
+    gap: 18px;
+    align-items: flex-end;
+    width: 100%;
+}
+
+.seller-profit-page .y-axis {
+    width: 45px;
+    height: 320px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    flex-shrink: 0;
+
+    font-size: 14px;
+    color: #666666;
+}
+
+.seller-profit-page .graph {
+    flex: 1;
+    min-width: 0;
+    height: 320px;
+
+    position: relative;
+
+    border-left: 2px solid #dddddd;
+    border-bottom: 2px solid #dddddd;
+
+    overflow: hidden;
+}
+
+
+/* ==========================================
+   HORIZONTAL LINES
+========================================== */
+
+.seller-profit-page .line {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: #ececec;
+    z-index: 1;
+}
+
+.seller-profit-page .line1 {
+    top: 16%;
+}
+
+.seller-profit-page .line2 {
+    top: 32%;
+}
+
+.seller-profit-page .line3 {
+    top: 48%;
+}
+
+.seller-profit-page .line4 {
+    top: 64%;
+}
+
+.seller-profit-page .line5 {
+    top: 80%;
+}
+
+.seller-profit-page .line6 {
+    top: 96%;
+}
+
+
+/* ==========================================
+   OLD SVG GRAPH
+========================================== */
+
+.seller-profit-page .graph svg {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    z-index: 2;
+}
+
+.seller-profit-page .graph svg polyline {
+    stroke: #4c7cf5;
+    stroke-width: 5;
+    fill: none;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+}
+
+.seller-profit-page .graph svg polygon {
+    fill: rgba(76, 124, 245, 0.22);
+}
+
+.seller-profit-page .graph svg circle {
+    fill: #3b6ef5;
+    stroke: #ffffff;
+    stroke-width: 3;
+}
+
+
+/* ==========================================
+   OLD MONTHS
+========================================== */
+
+.seller-profit-page .months {
+    margin-left: 68px;
+
+    width: calc(100% - 68px);
+
+    display: flex;
+    justify-content: space-between;
+
+    padding-right: 10px;
+
+    margin-top: 12px;
+
+    font-size: 15px;
+
+    color: #666666;
+
+    box-sizing: border-box;
+}
+
+
+/* ==========================================
+   TOP SELLING PRODUCTS CARD
+========================================== */
+
+.seller-profit-page .top-products-card {
+    width: 100%;
+    min-width: 0;
+
+    background: #ffffff;
+
+    border-radius: 12px;
+
+    padding: 28px;
+
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+
+    overflow: hidden;
+}
+
+.seller-profit-page .top-products-card h3 {
+    font-size: 22px;
+    font-weight: 600;
+    color: #222222;
+
+    margin: 0 0 28px;
+}
+
+
+/* ==========================================
+   PIE + PRODUCT LIST
+========================================== */
+
+.seller-profit-page .products-content {
+    display: grid;
+
+    grid-template-columns:
+        165px auto;
+
+    align-items: center;
+
+    justify-content: start;
+
+    gap: 28px;
+
+    width: 100%;
+}
+
+
+/* ==========================================
+   PIE CHART
+========================================== */
+
+.seller-profit-page .pie-chart {
+    width: 160px;
+    height: 160px;
+
+    border-radius: 50%;
+
+    flex-shrink: 0;
+
+    background:
+        conic-gradient(
+            #2e3b4e 0% 32%,
+            #4c7cf5 32% 55%,
+            #79b7f8 55% 73%,
+            #a5d9f6 73% 86%,
+            #d4d4d4 86% 100%
+        );
+
+    position: relative;
+
+    margin: auto;
+}
+
+.seller-profit-page .pie-chart::after {
+    content: "";
+
+    position: absolute;
+
+    width: 68px;
+    height: 68px;
+
+    background: #ffffff;
+
+    border-radius: 50%;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+}
+
+
+/* ==========================================
+   PRODUCT LIST
+========================================== */
+
+.seller-profit-page .product-list {
+    width: auto;
+    min-width: 0;
+}
+
+
+/* ==========================================
+   PRODUCT ITEM
+========================================== */
+
+.seller-profit-page .product-item {
+    display: grid;
+
+    grid-template-columns:
+        10px
+        175px
+        auto;
+
+    align-items: center;
+
+    column-gap: 14px;
+
+    width: fit-content;
+
+    min-width: 330px;
+
+    padding: 15px 0;
+
+    margin: 0;
+
+    border-bottom: 1px solid #eeeeee;
+}
+
+.seller-profit-page .product-item:last-child {
+    border-bottom: none;
+}
+
+
+/* ==========================================
+   DOT
+========================================== */
+
+.seller-profit-page .dot {
+    width: 10px;
+    height: 10px;
+
+    border-radius: 50%;
+
+    margin: 0;
+
+    flex-shrink: 0;
+}
+
+
+/* ==========================================
+   PRODUCT NAME
+========================================== */
+
+.seller-profit-page .product-item .name {
+    width: 145px;
+
+    min-width: 0;
+
+    font-size: 17px;
+
+    line-height: 27px;
+
+    color: #333333;
+
+    white-space: normal;
+
+    padding: 0;
+}
+
+
+/* ==========================================
+   PRODUCT PRICE
+========================================== */
+
+.seller-profit-page .product-item .price {
+    font-size: 16px;
+
+    font-weight: 600;
+
+    color: #222222;
+
+    white-space: nowrap;
+
+    text-align: left;
+
+    justify-self: start;
+}
+
+
+/* ==========================================
+   PIE CHART COLORS
+========================================== */
+
+.seller-profit-page .black {
+    background: #2e3b4e;
+}
+
+.seller-profit-page .blue {
+    background: #4c7cf5;
+}
+
+.seller-profit-page .lightblue {
+    background: #79b7f8;
+}
+
+.seller-profit-page .sky {
+    background: #a5d9f6;
+}
+
+.seller-profit-page .gray {
+    background: #d4d4d4;
+}
+
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media screen and (max-width: 1100px) {
+
+    .seller-profit-page {
+        padding: 24px;
+    }
+
+    .seller-profit-page .profit-cards {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+    }
+
+    .seller-profit-page .profit-bottom {
+        grid-template-columns: 1fr;
+        gap: 22px;
+    }
+
+    .seller-profit-page .products-content {
+        grid-template-columns:
+            180px auto;
+
+        gap: 35px;
+
+        justify-content: center;
+    }
+
+    .seller-profit-page .pie-chart {
+        width: 170px;
+        height: 170px;
+    }
+
+    .seller-profit-page .pie-chart::after {
+        width: 72px;
+        height: 72px;
+    }
+
+    .seller-profit-page .product-item .name {
+        font-size: 14px;
+    }
+
+    .seller-profit-page .product-item .price {
+        font-size: 14px;
+    }
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media screen and (max-width: 767px) {
+
+    .seller-profit-page {
+        padding: 18px;
+    }
+
+    .seller-profit-page .profit-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .seller-profit-page .page-title {
+        font-size: 28px;
+    }
+
+    .seller-profit-page .month-filter select {
+        width: 160px;
+    }
+
+    .seller-profit-page .profit-cards {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .seller-profit-page .profit-card {
+        min-height: 135px;
+    }
+
+    .seller-profit-page .profit-bottom {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .seller-profit-page .revenue-card {
+        padding: 20px;
+        overflow-x: auto;
+    }
+
+    .seller-profit-page .chart-box {
+        min-width: 650px;
+    }
+
+    .seller-profit-page .top-products-card {
+        padding: 20px;
+    }
+
+    .seller-profit-page .products-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 28px;
+    }
+
+    .seller-profit-page .pie-chart {
+        width: 145px;
+        height: 145px;
+        margin: auto;
+    }
+
+    .seller-profit-page .pie-chart::after {
+        width: 62px;
+        height: 62px;
+    }
+
+    .seller-profit-page .product-list {
+        width: 100%;
+    }
+
+    .seller-profit-page .product-item {
+        grid-template-columns:
+            10px
+            135px
+            auto;
+
+        column-gap: 10px;
+
+        width: fit-content;
+
+        min-width: 310px;
+
+        padding: 12px 0;
+    }
+
+    .seller-profit-page .product-item .name {
+        width: 135px;
+
+        font-size: 13px;
+
+        line-height: 18px;
+    }
+
+    .seller-profit-page .product-item .price {
+        font-size: 12px;
+    }
+}
+
+
+/* ==========================================
+   NEW REVENUE BAR CHART
+========================================== */
+
+.seller-profit-page .revenue-bar-chart {
+    width: 100%;
+    height: 350px;
+
+    display: flex;
+
+    gap: 18px;
+
+    margin-top: 25px;
+}
+
+
+/* ==========================================
+   REVENUE Y AXIS
+========================================== */
+
+.seller-profit-page .revenue-y-axis {
+    width: 45px;
+
+    height: 300px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-between;
+
+    font-size: 13px;
+
+    color: #777777;
+
+    flex-shrink: 0;
+}
+
+
+/* ==========================================
+   REVENUE BARS AREA
+========================================== */
+
+.seller-profit-page .revenue-bars-area {
+    position: relative;
+
+    flex: 1;
+
+    height: 300px;
+
+    border-left: 1px solid #dddddd;
+
+    border-bottom: 1px solid #dddddd;
+
+    min-width: 0;
+}
+
+
+/* ==========================================
+   REVENUE GRID LINES
+========================================== */
+
+.seller-profit-page .revenue-grid-lines {
+    position: absolute;
+
+    top: 0;
+
+    left: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-between;
+
+    pointer-events: none;
+}
+
+.seller-profit-page .revenue-grid-lines span {
+    display: block;
+
+    width: 100%;
+
+    height: 1px;
+
+    background: #eeeeee;
+}
+
+
+/* ==========================================
+   REVENUE BARS CONTAINER
+========================================== */
+
+.seller-profit-page .revenue-bars {
+    position: absolute;
+
+    left: 0;
+
+    bottom: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: space-around;
+
+    padding: 0 20px;
+
+    box-sizing: border-box;
+}
+
+
+/* ==========================================
+   SINGLE REVENUE BAR ITEM
+========================================== */
+
+.seller-profit-page .revenue-bar-item {
+    height: 100%;
+
+    width: 60px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: flex-end;
+
+    align-items: center;
+
+    position: relative;
+}
+
+
+/* ==========================================
+   VALUE ABOVE BAR
+========================================== */
+
+.seller-profit-page .revenue-value {
+    position: absolute;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    color: #333333;
+
+    white-space: nowrap;
+}
+
+
+/* ==========================================
+   REVENUE BAR
+   AJIO HOME PAGE MATCHING COLOR
+========================================== */
+
+.seller-profit-page .revenue-bar {
+    width: 44px;
+
+    background: #2F4154;
+
+    border-radius: 7px 7px 0 0;
+
+    position: relative;
+
+    z-index: 2;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+/* ==========================================
+   REVENUE BAR HOVER
+========================================== */
+
+.seller-profit-page .revenue-bar:hover {
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 5px 12px rgba(47, 65, 84, 0.30);
+}
+
+
+/* ==========================================
+   REVENUE MONTH
+========================================== */
+
+.seller-profit-page .revenue-month {
+    position: absolute;
+
+    bottom: -30px;
+
+    font-size: 14px;
+
+    color: #555555;
+
+    font-weight: 500;
+}
+
+
+/* ==========================================
+   NEW BAR CHART TABLET
+========================================== */
+
+@media screen and (max-width: 1100px) {
+
+    .seller-profit-page .revenue-bar-item {
+        width: 55px;
+    }
+
+    .seller-profit-page .revenue-bar {
+        width: 40px;
+    }
+}
+
+
+/* ==========================================
+   NEW BAR CHART MOBILE
+========================================== */
+
+@media screen and (max-width: 767px) {
+
+    .seller-profit-page .revenue-bar-chart {
+        min-width: 600px;
+    }
+
+    .seller-profit-page .revenue-bar {
+        width: 36px;
+    }
+}

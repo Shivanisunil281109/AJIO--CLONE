@@ -1,5 +1,7 @@
 import { Routes, Route } from "react-router";
 
+
+// User Pages
 import UserLayout from "./User/Components/UserLayout";
 import Home from "./User/Pages/Home";
 import Login from "./User/Pages/Login";
@@ -28,7 +30,7 @@ import SellerProducts from "./Seller/Pages/SellerProducts";
 import SellerProductDetails from "./Seller/Pages/SellerProductDetails";
 import SellerProfile from "./Seller/Pages/SellerProfile";
 import SellerOrders from "./Seller/Pages/SellerOrders";
-
+import SellerProfit from "./Seller/Pages/SellerProfit";
 
 
 
@@ -55,15 +57,11 @@ function App() {
 
                 <Route path="/MenProducts" element={<MenProducts />} />
 
-                <Route
-                    path="/single-product/:productId"
-                    element={<SingleProduct />}
-                />
-
+                <Route  path="/single-product/:productId" element={<SingleProduct />}  />
 
                 <Route path="/wishlist" element={<Wishlist />} />
 
-               
+            
               <Route path="/cart" element={<Cart />} />
 
 
@@ -88,32 +86,28 @@ function App() {
             =========================== */}
 <Route element={<SellerLayout />}>
 
-    <Route  path="/seller/dashboard"  element={<SellerDashboard />}  />
+           <Route  path="/seller/dashboard"  element={<SellerDashboard />}  />
 
-<Route path="/seller/create-product" element={<CreateProduct />} />
+           <Route path="/seller/create-product" element={<CreateProduct />} />
+
+           <Route path="/seller/products" element={<SellerProducts />} />
+
+           <Route  path="/seller/products/:productId" element={<SellerProductDetails />} />
+
+           <Route path="/seller/products/:productId/edit"   element={<SellerProductDetails />} />
+
+           <Route path="/seller/orders" element={<SellerOrders />}  />
+           
+           <Route path="/seller/profit"  element={<SellerProfit />}  />
+
+        <Route path="/seller/profile" element={<SellerProfile />} />
 
 
-<Route path="/seller/products" element={<SellerProducts />} />
 
-<Route
-  path="/seller/products/:productId" element={<SellerProductDetails />} />
-
-
-<Route path="/seller/products/:productId/edit"   element={<SellerProductDetails />} />
-
-
-
- <Route path="/seller/orders" element={<SellerOrders />}  />
-
-
-<Route path="/seller/profile" element={<SellerProfile />} />
+ 
 
 
 </Route>
-
-
-
-
 
 
 

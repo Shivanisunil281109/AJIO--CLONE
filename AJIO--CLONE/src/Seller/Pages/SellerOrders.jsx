@@ -25,7 +25,16 @@ const SellerOrders = () => {
     // ORDERS DATA
     // =========================
 
-    const [orders, setOrders] = useState([
+  const [orders, setOrders] = useState(() => {
+
+    const savedOrders =
+        JSON.parse(localStorage.getItem("sellerOrders"));
+
+    if (savedOrders) {
+        return savedOrders;
+    }
+
+    return [
         {
             id: "#ORD12345",
             customer: "Soniya Datarkar",
@@ -89,7 +98,8 @@ const SellerOrders = () => {
             payment: "COD",
             status: "Delivered"
         }
-    ]);
+    ];
+});
 
 
     // =========================
@@ -136,6 +146,7 @@ const SellerOrders = () => {
 
 
 
+
 const handleUpdateStatus = () => {
 
     const updatedOrders = orders.map((order) => {
@@ -152,10 +163,13 @@ const handleUpdateStatus = () => {
 
     setOrders(updatedOrders);
 
+    localStorage.setItem(
+        "sellerOrders",
+        JSON.stringify(updatedOrders)
+    );
+
     setSelectedOrder(null);
 };
-
-
 
 
 
