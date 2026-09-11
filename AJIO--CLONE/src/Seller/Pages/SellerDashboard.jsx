@@ -23,6 +23,127 @@ const SellerDashboard = () => {
     const totalProducts = 7 + createdProducts.length;
 
 
+    // =========================
+    // TOTAL ORDERS
+    // =========================
+
+    const sellerOrders =
+        JSON.parse(
+            localStorage.getItem("sellerOrders")
+        ) || [];
+
+    const totalOrders = sellerOrders.length;
+
+
+    // =========================
+    // SOLD PRODUCTS
+    // =========================
+
+    const soldProducts = sellerOrders.filter(
+        (order) => order.status === "Delivered"
+    ).length;
+
+
+    // =========================
+    // TOTAL REVENUE
+    // =========================
+
+    const totalRevenue = sellerOrders
+        .filter(
+            (order) => order.status === "Delivered"
+        )
+        .reduce((total, order) => {
+
+            const amount = Number(
+                String(order.amount)
+                    .replace("₹", "")
+                    .replace(/,/g, "")
+                    .trim()
+            );
+
+            return total + amount;
+
+        }, 0);
+
+
+    // =========================
+    // LATEST ORDERS
+    // =========================
+
+    const latestOrders = sellerOrders.slice(0, 5);
+
+
+    // =========================
+    // TOP SELLING PRODUCTS
+    // =========================
+
+    const topSellingProducts = [
+
+        {
+            id: 1,
+            name: "Men Solid Shirt",
+            sold: 120,
+            price: "₹999",
+            image:
+                "https://assets-jiocdn.ajio.com/medias/sys_master/root1/20260511/tg0D/6a01bba414d0c21719d110d7/buda_jeans_co_black_men_regular_fit_polo-neck_t-shirt.jpg"
+        },
+
+        {
+            id: 2,
+            name: "Women Printed Kurta",
+            sold: 98,
+            price: "₹899",
+            image:
+                "https://assets-jiocdn.ajio.com/medias/sys_master/root1/20260511/BLIR/6a01c69f14d0c21719d2899a/svaraa_orange_women_printed_2-piece_straight_kurta_set.jpg"
+        },
+
+        {
+            id: 3,
+            name: "Men Slim Fit Jeans",
+            sold: 85,
+            price: "₹1,499",
+            image:
+                "https://assets-jiocdn.ajio.com/medias/sys_master/root/20230623/AA8r/6495d398a9b42d15c9cb61ed/produkt_by_jack_%26_jones_grey_men_lightly_washed_slim_fit_jeans.jpg"
+        },
+
+        {
+            id: 4,
+            name: "Women Casual Top",
+            sold: 72,
+            price: "₹699",
+            image:
+                "https://assets-jiocdn.ajio.com/medias/sys_master/root1/20250720/EXXc/687cc85f6034bf77f0df551c/revangi_lavender_women_regular_fit_top.jpg"
+        }
+
+    ];
+
+
+    // =========================
+    // ORDER STATUS CLASS
+    // =========================
+
+    const getStatusClass = (status) => {
+
+        if (status === "Processing") {
+            return "seller-status-processing";
+        }
+
+        if (status === "Shipped") {
+            return "seller-status-shipped";
+        }
+
+        if (status === "Delivered") {
+            return "seller-status-delivered";
+        }
+
+        if (status === "Cancelled") {
+            return "seller-status-cancelled";
+        }
+
+        return "";
+    };
+
+
     return (
         <div className="seller-dashboard">
 
@@ -32,7 +153,9 @@ const SellerDashboard = () => {
 
             <section className="dashboard-content">
 
-                <h2 className="page-title"> Dashboard</h2>
+                <h2 className="page-title">
+                    Dashboard
+                </h2>
 
                 <div className="dashboard-cards">
 
@@ -42,7 +165,9 @@ const SellerDashboard = () => {
 
                         <h4>Total Products</h4>
 
-                        <h2>{totalProducts}</h2>
+                        <h2>
+                            {totalProducts}
+                        </h2>
 
                         <a
                             href="#"
@@ -63,9 +188,17 @@ const SellerDashboard = () => {
 
                         <h4>Sold Products</h4>
 
-                        <h2>98</h2>
+                        <h2>
+                            {soldProducts}
+                        </h2>
 
-                        <a href="#">
+                        <a
+                            href="#"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                navigate("/seller/products");
+                            }}
+                        >
                             View sold products
                         </a>
 
@@ -78,9 +211,17 @@ const SellerDashboard = () => {
 
                         <h4>Total Orders</h4>
 
-                        <h2>245</h2>
+                        <h2>
+                            {totalOrders}
+                        </h2>
 
-                        <a href="#">
+                        <a
+                            href="#"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                navigate("/seller/orders");
+                            }}
+                        >
                             View all orders
                         </a>
 
@@ -93,9 +234,17 @@ const SellerDashboard = () => {
 
                         <h4>Total Revenue</h4>
 
-                        <h2>₹1,25,430</h2>
+                        <h2>
+                            ₹{totalRevenue.toLocaleString("en-IN")}
+                        </h2>
 
-                        <a href="#">
+                        <a
+                            href="#"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                navigate("/seller/profit");
+                            }}
+                        >
                             View all payments
                         </a>
 
@@ -123,9 +272,17 @@ const SellerDashboard = () => {
 
                         <div className="panel-header">
 
-                            <h3>Latest Orders</h3>
+                            <h3>
+                                Latest Orders
+                            </h3>
 
-                            <a href="#">
+                            <a
+                                href="#"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    navigate("/seller/orders");
+                                }}
+                            >
                                 View All
                             </a>
 
@@ -136,79 +293,33 @@ const SellerDashboard = () => {
 
                             <tbody>
 
-                                <tr>
+                                {latestOrders.map((order) => (
 
-                                    <td>#ORD12345</td>
+                                    <tr key={order.id}>
 
-                                    <td>Soniya Datarkar</td>
+                                        <td>
+                                            {order.id}
+                                        </td>
 
-                                    <td>₹1,499</td>
+                                        <td>
+                                            {order.customer}
+                                        </td>
 
-                                    <td className="seller-status-processing">
-                                        Processing
-                                    </td>
+                                        <td>
+                                            {order.amount}
+                                        </td>
 
-                                </tr>
+                                        <td
+                                            className={
+                                                getStatusClass(order.status)
+                                            }
+                                        >
+                                            {order.status}
+                                        </td>
 
+                                    </tr>
 
-                                <tr>
-
-                                    <td>#ORD12344</td>
-
-                                    <td>Neha Patel</td>
-
-                                    <td>₹999</td>
-
-                                    <td className="seller-status-shipped">
-                                        Shipped
-                                    </td>
-
-                                </tr>
-
-
-                                <tr>
-
-                                    <td>#ORD12343</td>
-
-                                    <td>Amit Verma</td>
-
-                                    <td>₹2,299</td>
-
-                                    <td className="seller-status-delivered">
-                                        Delivered
-                                    </td>
-
-                                </tr>
-
-
-                                <tr>
-
-                                    <td>#ORD12342</td>
-
-                                    <td>Pooja Singh</td>
-
-                                    <td>₹1,199</td>
-
-                                    <td className="seller-status-processing">
-                                        Processing
-                                    </td>
-
-                                </tr>
-
-
-                                <tr>
-
-                                    <td>#ORD12341</td>
-
-                                    <td>Karan Mehta</td>
-
-                                    <td>₹799</td>
-
-                                    <td className="seller-status-cancelled">
-                                        Cancelled
-                                    </td>
-
-                                </tr>
+                                ))}
 
                             </tbody>
 
@@ -225,149 +336,62 @@ const SellerDashboard = () => {
 
                         <div className="panel-header">
 
-                            <h3>Top Selling Products</h3>
+                            <h3>
+                                Top Selling Products
+                            </h3>
 
-                            <a href="#">
+                            <a
+                                href="#"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    navigate("/seller/products");
+                                }}
+                            >
                                 View All
                             </a>
 
                         </div>
 
 
-                        {/* PRODUCT 1 */}
+                        {topSellingProducts.map((product) => (
 
-                        <div className="product-item">
+                            <div
+                                className="product-item"
+                                key={product.id}
+                            >
 
-                            <img
-                                src="https://assets-jiocdn.ajio.com/medias/sys_master/root1/20260511/tg0D/6a01bba414d0c21719d110d7/buda_jeans_co_black_men_regular_fit_polo-neck_t-shirt.jpg"
-                                alt="Men Solid Shirt"
-                            />
+                                <img
+                                    src={product.image}
+                                    alt={product.name}
+                                />
 
-                            <div className="product-info">
+                                <div className="product-info">
 
-                                <h4>
-                                    Men Solid Shirt
-                                </h4>
+                                    <h4>
+                                        {product.name}
+                                    </h4>
 
-                            </div>
+                                </div>
 
-                            <div className="sold-info">
+                                <div className="sold-info">
 
-                                <span>120</span>
+                                    <span>
+                                        {product.sold}
+                                    </span>
 
-                                <small>
-                                    Sold
-                                </small>
+                                    <small>
+                                        Sold
+                                    </small>
 
-                            </div>
+                                </div>
 
-                            <span className="price">
-                                ₹999
-                            </span>
-
-                        </div>
-
-
-                        {/* PRODUCT 2 */}
-
-                        <div className="product-item">
-
-                            <img
-                                src="https://assets-jiocdn.ajio.com/medias/sys_master/root1/20260511/BLIR/6a01c69f14d0c21719d2899a/svaraa_orange_women_printed_2-piece_straight_kurta_set.jpg"
-                                alt="Women Printed Kurta"
-                            />
-
-                            <div className="product-info">
-
-                                <h4>
-                                    Women Printed Kurta
-                                </h4>
+                                <span className="price">
+                                    {product.price}
+                                </span>
 
                             </div>
 
-                            <div className="sold-info">
-
-                                <span>98</span>
-
-                                <small>
-                                    Sold
-                                </small>
-
-                            </div>
-
-                            <span className="price">
-                                ₹899
-                            </span>
-
-                        </div>
-
-
-                        {/* PRODUCT 3 */}
-
-                        <div className="product-item">
-
-                            <img
-                                src="https://assets-jiocdn.ajio.com/medias/sys_master/root/20230623/AA8r/6495d398a9b42d15c9cb61ed/produkt_by_jack_%26_jones_grey_men_lightly_washed_slim_fit_jeans.jpg"
-                                alt="Men Slim Fit Jeans"
-                            />
-
-                            <div className="product-info">
-
-                                <h4>
-                                    Men Slim Fit Jeans
-                                </h4>
-
-                            </div>
-
-                            <div className="sold-info">
-
-                                <span>85</span>
-
-                                <small>
-                                    Sold
-                                </small>
-
-                            </div>
-
-                            <span className="price">
-                                ₹1,499
-                            </span>
-
-                        </div>
-
-
-                        {/* PRODUCT 4 */}
-
-                        <div className="product-item">
-
-                            <img
-                                src="https://assets-jiocdn.ajio.com/medias/sys_master/root1/20250720/EXXc/687cc85f6034bf77f0df551c/revangi_lavender_women_regular_fit_top.jpg"
-                                alt="Women Casual Top"
-                            />
-
-                            <div className="product-info">
-
-                                <h4>
-                                    Women Casual Top
-                                </h4>
-
-                            </div>
-
-                            <div className="sold-info">
-
-                                <span>72</span>
-
-                                <small>
-                                    Sold
-                                </small>
-
-                            </div>
-
-                            <span className="price">
-                                ₹699
-                            </span>
-
-                        </div>
+                        ))}
 
                     </div>
 

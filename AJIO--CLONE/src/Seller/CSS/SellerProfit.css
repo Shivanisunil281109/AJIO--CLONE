@@ -919,3 +919,146 @@
         width: 36px;
     }
 }
+
+
+/* ==========================================
+   PRODUCT PROFIT DETAILS
+========================================== */
+
+.seller-profit-page .product-profit-details-card {
+    background: #ffffff;
+
+    border-radius: 10px;
+
+    padding: 25px;
+
+    margin-top: 30px;
+
+    box-shadow:
+        0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+.seller-profit-page .product-profit-details-card h3 {
+    margin: 0 0 22px;
+
+    font-size: 21px;
+
+    font-weight: 600;
+
+    color: #222222;
+}
+
+
+/* ==========================================
+   PRODUCT PROFIT DETAILS GRID
+========================================== */
+
+.seller-profit-page .product-profit-details-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 20px;
+}
+
+
+/* ==========================================
+   PRODUCT PROFIT DETAIL ITEM
+========================================== */
+
+.seller-profit-page .product-profit-detail-item {
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+
+    padding: 20px;
+
+    background: #f7f8fa;
+
+    border-radius: 8px;
+}
+
+
+/* ==========================================
+   PRODUCT PROFIT ICON
+========================================== */
+
+.seller-profit-page .product-profit-detail-icon {
+    width: 48px;
+
+    height: 48px;
+
+    border-radius: 8px;
+
+    background: #edf1f5;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+}
+
+.seller-profit-page
+.product-profit-detail-icon
+.material-symbols-outlined {
+    font-size: 25px;
+
+    color: #2F4154;
+}
+
+
+/* ==========================================
+   PRODUCT PROFIT TEXT
+========================================== */
+
+.seller-profit-page .product-profit-detail-item p {
+    margin: 0 0 6px;
+
+    font-size: 14px;
+
+    color: #777777;
+}
+
+.seller-profit-page .product-profit-detail-item h4 {
+    margin: 0;
+
+    font-size: 21px;
+
+    font-weight: 700;
+
+    color: #222222;
+}
+
+
+/* ==========================================
+   PRODUCT PROFIT TABLET
+========================================== */
+
+@media screen and (max-width: 900px) {
+
+    .seller-profit-page .product-profit-details-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* ==========================================
+   PRODUCT PROFIT MOBILE
+========================================== */
+
+@media screen and (max-width: 600px) {
+
+    .seller-profit-page .product-profit-details-card {
+        padding: 18px;
+    }
+
+    .seller-profit-page .product-profit-detail-item {
+        padding: 16px;
+    }
+}

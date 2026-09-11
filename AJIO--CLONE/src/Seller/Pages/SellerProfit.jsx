@@ -1,8 +1,307 @@
-import React from "react";
+import React, { useState } from "react";
 import "../CSS/SellerProfit.css";
 
+
 const SellerProfit = () => {
+
+    const [selectedPeriod, setSelectedPeriod] = useState("This Month");
+
+
+    const profitData = {
+
+        "This Month": {
+            revenue: "₹1,25,430",
+            expenses: "₹45,230",
+            netProfit: "₹80,200",
+            profitMargin: "64.02%",
+            revenueGrowth: "+12.5%",
+            expensesGrowth: "-8.3%",
+            profitGrowth: "+15.7%",
+            marginGrowth: "+4.2%",
+
+            graph: [
+                {
+                    month: "Jan",
+                    value: "₹15K",
+                    height: "10%"
+                },
+                {
+                    month: "Feb",
+                    value: "₹50K",
+                    height: "33%"
+                },
+                {
+                    month: "Mar",
+                    value: "₹95K",
+                    height: "63%"
+                },
+                {
+                    month: "Apr",
+                    value: "₹70K",
+                    height: "47%"
+                },
+                {
+                    month: "May",
+                    value: "₹95K",
+                    height: "63%"
+                },
+                {
+                    month: "Jun",
+                    value: "₹140K",
+                    height: "93%"
+                }
+            ],
+
+            topProducts: [
+                {
+                    name: "Men Solid Shirt",
+                    price: "₹40,430",
+                    percent: "32%",
+                    dotClass: "black"
+                },
+                {
+                    name: "Women Printed Kurta",
+                    price: "₹28,750",
+                    percent: "23%",
+                    dotClass: "blue"
+                },
+                {
+                    name: "Men Slim Fit Jeans",
+                    price: "₹22,300",
+                    percent: "18%",
+                    dotClass: "lightblue"
+                },
+                {
+                    name: "Women Casual Top",
+                    price: "₹16,250",
+                    percent: "13%",
+                    dotClass: "sky"
+                },
+                {
+                    name: "Others",
+                    price: "₹17,700",
+                    percent: "14%",
+                    dotClass: "gray"
+                }
+            ]
+        },
+
+
+        "Last Month": {
+            revenue: "₹1,10,000",
+            expenses: "₹42,500",
+            netProfit: "₹67,500",
+            profitMargin: "61.36%",
+            revenueGrowth: "+8.4%",
+            expensesGrowth: "-5.2%",
+            profitGrowth: "+10.1%",
+            marginGrowth: "+2.8%",
+
+            graph: [
+                {
+                    month: "Week 1",
+                    value: "₹18K",
+                    height: "20%"
+                },
+                {
+                    month: "Week 2",
+                    value: "₹32K",
+                    height: "35%"
+                },
+                {
+                    month: "Week 3",
+                    value: "₹27K",
+                    height: "30%"
+                },
+                {
+                    month: "Week 4",
+                    value: "₹33K",
+                    height: "37%"
+                }
+            ],
+
+            topProducts: [
+                {
+                    name: "Women Printed Kurta",
+                    price: "₹30,500",
+                    percent: "28%",
+                    dotClass: "black"
+                },
+                {
+                    name: "Men Solid Shirt",
+                    price: "₹25,300",
+                    percent: "23%",
+                    dotClass: "blue"
+                },
+                {
+                    name: "Men Slim Fit Jeans",
+                    price: "₹20,900",
+                    percent: "19%",
+                    dotClass: "lightblue"
+                },
+                {
+                    name: "Women Casual Top",
+                    price: "₹17,600",
+                    percent: "16%",
+                    dotClass: "sky"
+                },
+                {
+                    name: "Others",
+                    price: "₹15,700",
+                    percent: "14%",
+                    dotClass: "gray"
+                }
+            ]
+        },
+
+
+        "Last 3 Months": {
+            revenue: "₹3,45,800",
+            expenses: "₹1,28,400",
+            netProfit: "₹2,17,400",
+            profitMargin: "62.87%",
+            revenueGrowth: "+18.6%",
+            expensesGrowth: "-6.5%",
+            profitGrowth: "+21.3%",
+            marginGrowth: "+5.1%",
+
+            graph: [
+                {
+                    month: "Apr",
+                    value: "₹95K",
+                    height: "63%"
+                },
+                {
+                    month: "May",
+                    value: "₹110K",
+                    height: "73%"
+                },
+                {
+                    month: "Jun",
+                    value: "₹140K",
+                    height: "93%"
+                }
+            ],
+
+            topProducts: [
+                {
+                    name: "Men Solid Shirt",
+                    price: "₹95,200",
+                    percent: "28%",
+                    dotClass: "black"
+                },
+                {
+                    name: "Women Printed Kurta",
+                    price: "₹79,500",
+                    percent: "23%",
+                    dotClass: "blue"
+                },
+                {
+                    name: "Men Slim Fit Jeans",
+                    price: "₹65,700",
+                    percent: "19%",
+                    dotClass: "lightblue"
+                },
+                {
+                    name: "Women Casual Top",
+                    price: "₹55,300",
+                    percent: "16%",
+                    dotClass: "sky"
+                },
+                {
+                    name: "Others",
+                    price: "₹50,100",
+                    percent: "14%",
+                    dotClass: "gray"
+                }
+            ]
+        },
+
+
+        "This Year": {
+            revenue: "₹12,80,500",
+            expenses: "₹4,75,300",
+            netProfit: "₹8,05,200",
+            profitMargin: "62.88%",
+            revenueGrowth: "+24.8%",
+            expensesGrowth: "-9.4%",
+            profitGrowth: "+28.2%",
+            marginGrowth: "+6.7%",
+
+            graph: [
+                {
+                    month: "Jan",
+                    value: "₹75K",
+                    height: "50%"
+                },
+                {
+                    month: "Feb",
+                    value: "₹90K",
+                    height: "60%"
+                },
+                {
+                    month: "Mar",
+                    value: "₹95K",
+                    height: "63%"
+                },
+                {
+                    month: "Apr",
+                    value: "₹110K",
+                    height: "73%"
+                },
+                {
+                    month: "May",
+                    value: "₹120K",
+                    height: "80%"
+                },
+                {
+                    month: "Jun",
+                    value: "₹140K",
+                    height: "93%"
+                }
+            ],
+
+            topProducts: [
+                {
+                    name: "Men Solid Shirt",
+                    price: "₹3,85,000",
+                    percent: "30%",
+                    dotClass: "black"
+                },
+                {
+                    name: "Women Printed Kurta",
+                    price: "₹2,95,000",
+                    percent: "23%",
+                    dotClass: "blue"
+                },
+                {
+                    name: "Men Slim Fit Jeans",
+                    price: "₹2,30,500",
+                    percent: "18%",
+                    dotClass: "lightblue"
+                },
+                {
+                    name: "Women Casual Top",
+                    price: "₹1,66,500",
+                    percent: "13%",
+                    dotClass: "sky"
+                },
+                {
+                    name: "Others",
+                    price: "₹2,03,500",
+                    percent: "16%",
+                    dotClass: "gray"
+                }
+            ]
+        }
+    };
+
+
+    const currentProfit = profitData[selectedPeriod];
+
+
     return (
+
         <section className="dashboard-content seller-profit-page">
 
             {/* ==========================================
@@ -15,13 +314,34 @@ const SellerProfit = () => {
                     Profit Overview
                 </h1>
 
+
                 <div className="month-filter">
-                    <select>
-                        <option>This Month</option>
-                        <option>Last Month</option>
-                        <option>Last 3 Months</option>
-                        <option>This Year</option>
+
+                    <select
+                        value={selectedPeriod}
+                        onChange={(e) =>
+                            setSelectedPeriod(e.target.value)
+                        }
+                    >
+
+                        <option value="This Month">
+                            This Month
+                        </option>
+
+                        <option value="Last Month">
+                            Last Month
+                        </option>
+
+                        <option value="Last 3 Months">
+                            Last 3 Months
+                        </option>
+
+                        <option value="This Year">
+                            This Year
+                        </option>
+
                     </select>
+
                 </div>
 
             </div>
@@ -33,13 +353,18 @@ const SellerProfit = () => {
 
             <div className="profit-cards">
 
+
                 {/* TOTAL REVENUE */}
 
                 <div className="profit-card">
 
-                    <h4>Total Revenue</h4>
+                    <h4>
+                        Total Revenue
+                    </h4>
 
-                    <h2>₹1,25,430</h2>
+                    <h2>
+                        {currentProfit.revenue}
+                    </h2>
 
                     <p className="growth positive">
 
@@ -47,7 +372,7 @@ const SellerProfit = () => {
                             trending_up
                         </span>
 
-                        +12.5%
+                        {currentProfit.revenueGrowth}
 
                     </p>
 
@@ -58,9 +383,13 @@ const SellerProfit = () => {
 
                 <div className="profit-card">
 
-                    <h4>Total Expenses</h4>
+                    <h4>
+                        Total Expenses
+                    </h4>
 
-                    <h2>₹45,230</h2>
+                    <h2>
+                        {currentProfit.expenses}
+                    </h2>
 
                     <p className="growth negative">
 
@@ -68,7 +397,7 @@ const SellerProfit = () => {
                             trending_down
                         </span>
 
-                        - 8.3%
+                        {currentProfit.expensesGrowth}
 
                     </p>
 
@@ -79,9 +408,13 @@ const SellerProfit = () => {
 
                 <div className="profit-card">
 
-                    <h4>Net Profit</h4>
+                    <h4>
+                        Net Profit
+                    </h4>
 
-                    <h2>₹80,200</h2>
+                    <h2>
+                        {currentProfit.netProfit}
+                    </h2>
 
                     <p className="growth positive">
 
@@ -89,7 +422,7 @@ const SellerProfit = () => {
                             trending_up
                         </span>
 
-                        +15.7%
+                        {currentProfit.profitGrowth}
 
                     </p>
 
@@ -100,9 +433,13 @@ const SellerProfit = () => {
 
                 <div className="profit-card">
 
-                    <h4>Profit Margin</h4>
+                    <h4>
+                        Profit Margin
+                    </h4>
 
-                    <h2>64.02%</h2>
+                    <h2>
+                        {currentProfit.profitMargin}
+                    </h2>
 
                     <p className="growth positive">
 
@@ -110,7 +447,7 @@ const SellerProfit = () => {
                             trending_up
                         </span>
 
-                        +4.2%
+                        {currentProfit.marginGrowth}
 
                     </p>
 
@@ -132,7 +469,10 @@ const SellerProfit = () => {
 
                 <div className="revenue-card">
 
-                    <h3>Revenue Overview</h3>
+                    <h3>
+                        Revenue Overview
+                    </h3>
+
 
                     <div className="revenue-bar-chart">
 
@@ -172,171 +512,44 @@ const SellerProfit = () => {
                             </div>
 
 
-                            {/* BARS */}
+                            {/* DYNAMIC REVENUE BARS */}
 
                             <div className="revenue-bars">
 
+                                {currentProfit.graph.map(
+                                    (item, index) => (
 
-                                {/* JANUARY */}
+                                        <div
+                                            className="revenue-bar-item"
+                                            key={index}
+                                        >
 
-                                <div className="revenue-bar-item">
-
-                                    <span
-                                        className="revenue-value"
-                                        style={{
-                                            bottom: "calc(10% + 8px)"
-                                        }}
-                                    >
-                                        ₹15K
-                                    </span>
-
-                                    <div
-                                        className="revenue-bar"
-                                        style={{
-                                            height: "10%"
-                                        }}
-                                    ></div>
-
-                                    <span className="revenue-month">
-                                        Jan
-                                    </span>
-
-                                </div>
+                                            <span
+                                                className="revenue-value"
+                                                style={{
+                                                    bottom: `calc(${item.height} + 8px)`
+                                                }}
+                                            >
+                                                {item.value}
+                                            </span>
 
 
-                                {/* FEBRUARY */}
-
-                                <div className="revenue-bar-item">
-
-                                    <span
-                                        className="revenue-value"
-                                        style={{
-                                            bottom: "calc(33% + 8px)"
-                                        }}
-                                    >
-                                        ₹50K
-                                    </span>
-
-                                    <div
-                                        className="revenue-bar"
-                                        style={{
-                                            height: "33%"
-                                        }}
-                                    ></div>
-
-                                    <span className="revenue-month">
-                                        Feb
-                                    </span>
-
-                                </div>
+                                            <div
+                                                className="revenue-bar"
+                                                style={{
+                                                    height: item.height
+                                                }}
+                                            ></div>
 
 
-                                {/* MARCH */}
+                                            <span className="revenue-month">
+                                                {item.month}
+                                            </span>
 
-                                <div className="revenue-bar-item">
+                                        </div>
 
-                                    <span
-                                        className="revenue-value"
-                                        style={{
-                                            bottom: "calc(63% + 8px)"
-                                        }}
-                                    >
-                                        ₹95K
-                                    </span>
-
-                                    <div
-                                        className="revenue-bar"
-                                        style={{
-                                            height: "63%"
-                                        }}
-                                    ></div>
-
-                                    <span className="revenue-month">
-                                        Mar
-                                    </span>
-
-                                </div>
-
-
-                                {/* APRIL */}
-
-                                <div className="revenue-bar-item">
-
-                                    <span
-                                        className="revenue-value"
-                                        style={{
-                                            bottom: "calc(47% + 8px)"
-                                        }}
-                                    >
-                                        ₹70K
-                                    </span>
-
-                                    <div
-                                        className="revenue-bar"
-                                        style={{
-                                            height: "47%"
-                                        }}
-                                    ></div>
-
-                                    <span className="revenue-month">
-                                        Apr
-                                    </span>
-
-                                </div>
-
-
-                                {/* MAY */}
-
-                                <div className="revenue-bar-item">
-
-                                    <span
-                                        className="revenue-value"
-                                        style={{
-                                            bottom: "calc(63% + 8px)"
-                                        }}
-                                    >
-                                        ₹95K
-                                    </span>
-
-                                    <div
-                                        className="revenue-bar"
-                                        style={{
-                                            height: "63%"
-                                        }}
-                                    ></div>
-
-                                    <span className="revenue-month">
-                                        May
-                                    </span>
-
-                                </div>
-
-
-                                {/* JUNE */}
-
-                                <div className="revenue-bar-item">
-
-                                    <span
-                                        className="revenue-value"
-                                        style={{
-                                            bottom: "calc(93% + 8px)"
-                                        }}
-                                    >
-                                        ₹140K
-                                    </span>
-
-                                    <div
-                                        className="revenue-bar"
-                                        style={{
-                                            height: "93%"
-                                        }}
-                                    ></div>
-
-                                    <span className="revenue-month">
-                                        Jun
-                                    </span>
-
-                                </div>
+                                    )
+                                )}
 
                             </div>
 
@@ -366,94 +579,36 @@ const SellerProfit = () => {
                         <div className="pie-chart"></div>
 
 
-                        {/* PRODUCT LIST */}
+                        {/* DYNAMIC PRODUCT LIST */}
 
                         <div className="product-list">
 
+                            {currentProfit.topProducts.map(
+                                (product, index) => (
 
-                            {/* PRODUCT 1 */}
+                                    <div
+                                        className="product-item"
+                                        key={index}
+                                    >
 
-                            <div className="product-item">
-
-                                <span className="dot black"></span>
-
-                                <span className="name">
-                                    Men Solid Shirt
-                                </span>
-
-                                <span className="price">
-                                    ₹40,430 (32%)
-                                </span>
-
-                            </div>
+                                        <span
+                                            className={`dot ${product.dotClass}`}
+                                        ></span>
 
 
-                            {/* PRODUCT 2 */}
-
-                            <div className="product-item">
-
-                                <span className="dot blue"></span>
-
-                                <span className="name">
-                                    Women Printed Kurta
-                                </span>
-
-                                <span className="price">
-                                    ₹28,750 (23%)
-                                </span>
-
-                            </div>
+                                        <span className="name">
+                                            {product.name}
+                                        </span>
 
 
-                            {/* PRODUCT 3 */}
+                                        <span className="price">
+                                            {product.price} ({product.percent})
+                                        </span>
 
-                            <div className="product-item">
+                                    </div>
 
-                                <span className="dot lightblue"></span>
-
-                                <span className="name">
-                                    Men Slim Fit Jeans
-                                </span>
-
-                                <span className="price">
-                                    ₹22,300 (18%)
-                                </span>
-
-                            </div>
-
-
-                            {/* PRODUCT 4 */}
-
-                            <div className="product-item">
-
-                                <span className="dot sky"></span>
-
-                                <span className="name">
-                                    Women Casual Top
-                                </span>
-
-                                <span className="price">
-                                    ₹16,250 (13%)
-                                </span>
-
-                            </div>
-
-
-                            {/* PRODUCT 5 */}
-
-                            <div className="product-item">
-
-                                <span className="dot gray"></span>
-
-                                <span className="name">
-                                    Others
-                                </span>
-
-                                <span className="price">
-                                    ₹17,700 (14%)
-                                </span>
-
-                            </div>
+                                )
+                            )}
 
                         </div>
 
@@ -462,6 +617,99 @@ const SellerProfit = () => {
                 </div>
 
             </div>
+
+
+
+
+
+
+
+
+
+{/* ==========================================
+    PRODUCT PROFIT DETAILS
+========================================== */}
+
+<div className="product-profit-details-card">
+
+    <h3>
+        Product Profit Details
+    </h3>
+
+    <div className="product-profit-details-grid">
+
+
+        <div className="product-profit-detail-item">
+
+            <div className="product-profit-detail-icon">
+                <span className="material-symbols-outlined">
+                    payments
+                </span>
+            </div>
+
+            <div>
+                <p>
+                    Total Profit
+                </p>
+
+                <h4>
+                    ₹20,000
+                </h4>
+            </div>
+
+        </div>
+
+
+        <div className="product-profit-detail-item">
+
+            <div className="product-profit-detail-icon">
+                <span className="material-symbols-outlined">
+                    sell
+                </span>
+            </div>
+
+            <div>
+                <p>
+                    Product Selling Price
+                </p>
+
+                <h4>
+                    ₹12,000
+                </h4>
+            </div>
+
+        </div>
+
+
+        <div className="product-profit-detail-item">
+
+            <div className="product-profit-detail-icon">
+                <span className="material-symbols-outlined">
+                    inventory
+                </span>
+            </div>
+
+            <div>
+                <p>
+                    MFG Price
+                </p>
+
+                <h4>
+                    ₹10,000
+                </h4>
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+
+
 
         </section>
     );
