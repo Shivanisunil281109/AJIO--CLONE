@@ -2,33 +2,29 @@
     SELLER LAYOUT
 ====================================*/
 
-.dashboard-container {
-    display: flex;
+.seller-layout {
     width: 100%;
     min-height: 100vh;
-}
 
-
-/*====================================
-    SELLER MAIN
-====================================*/
-
-.seller-main {
-    flex: 1;
-    min-width: 0;
     display: flex;
     flex-direction: column;
+
+    background: #f5f6f8;
+
+    box-sizing: border-box;
 }
 
 
 /*====================================
-    MAIN CONTENT
+    SELLER MAIN CONTENT
 ====================================*/
 
-.main-content {
+.seller-layout .seller-main-content {
     flex: 1;
-    padding: 30px;
+
     width: 100%;
+    min-width: 0;
+
     box-sizing: border-box;
 }
 
@@ -40,8 +36,9 @@
 
 @media screen and (max-width: 1024px) {
 
-    .main-content {
-        padding: 25px;
+    .seller-layout .seller-main-content {
+        width: 100%;
+        min-width: 0;
     }
 
 }
@@ -54,17 +51,14 @@
 
 @media screen and (max-width: 767px) {
 
-    .dashboard-container {
+    .seller-layout {
         width: 100%;
         min-height: 100vh;
     }
 
-    .seller-main {
-        width: calc(100% - 153px);
-    }
-
-    .main-content {
-        padding: 20px 15px;
+    .seller-layout .seller-main-content {
+        width: 100%;
+        min-width: 0;
     }
 
 }
@@ -77,12 +71,9 @@
 
 @media screen and (max-width: 480px) {
 
-    .seller-main {
-        width: calc(100% - 153px);
-    }
-
-    .main-content {
-        padding: 15px 10px;
+    .seller-layout .seller-main-content {
+        width: 100%;
+        min-width: 0;
     }
 
 }

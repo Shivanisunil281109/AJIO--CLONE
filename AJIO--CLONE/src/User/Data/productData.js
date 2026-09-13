@@ -1,47 +1,50 @@
+import product1Image from "../../assets/products/product1-shirt.jpg";
+
+
 const products = [
 
     // =====================================================
     // PRODUCT 1
     // =====================================================
-    {
-        id: 1,
+// =====================================================
+// PRODUCT 1
+// =====================================================
 
-        mainImage:
-            "https://assets-jiocdn.ajio.com/medias/sys_master/root1/20260526/Nn9M/6a15a4e6fcb5bb61d2ea6d06/buda_jeans_co_pink_men_checked_regular_fit_shirt_with_patch_pocket.jpg",
+{
+    id: 1,
 
-        image:
-            "https://assets-jiocdn.ajio.com/medias/sys_master/root1/20260526/Nn9M/6a15a4e6fcb5bb61d2ea6d06/buda_jeans_co_pink_men_checked_regular_fit_shirt_with_patch_pocket.jpg",
+    mainImage: product1Image,
 
-        images: [
-            "https://assets-jiocdn.ajio.com/medias/sys_master/root1/20260727/iZGc/6a67511f5d467f347a86709e/-78Wx98H-703275479-pink-MODEL.jpg",
-            "https://assets-jiocdn.ajio.com/medias/sys_master/root1/20260727/s83j/6a67511f5d467f347a866ffb/-78Wx98H-703275479-pink-MODEL2.jpg",
-            "https://assets-jiocdn.ajio.com/medias/sys_master/root1/20260727/iLzR/6a67511f5d467f347a866ffc/-78Wx98H-703275479-pink-MODEL3.jpg",
-            "https://assets-jiocdn.ajio.com/medias/sys_master/root1/20260727/eFir/6a67511f5d467f347a866ffe/-78Wx98H-703275479-pink-MODEL4.jpg",
-            "https://assets-jiocdn.ajio.com/medias/sys_master/root1/20260727/cFmW/6a67511f5d467f347a866fff/-78Wx98H-703275479-pink-MODEL5.jpg"
-        ],
+    image: product1Image,
 
-        tag: "NEW",
-        brand: "Buda Jeans Co",
-        name: "Men Checked Regular Fit Shirt with Pocket",
-        rating: "2.5",
-        reviews: "101",
-        price: "₹494",
-        oldPrice: "₹2,599",
-        discount: "(81% Off)",
-        offer: "Offer Price: ₹432",
-        color: "Pink",
-        fit: "Regular Fit",
-        packageContains: "1 Shirt",
-        washCare: "Machine wash cold",
-        transparency: "Opaque",
-        sizeWorn: "M",
-        mood: "Casual",
-        fabric: "100% Cotton",
-        sizes: ["S", "M", "L", "XL", "XXL"],
-        category: "Shirts"
-    },
+    images: [
+        product1Image,
+        "https://assets-jiocdn.ajio.com/medias/sys_master/root1/20260727/s83j/6a67511f5d467f347a866ffb/-78Wx98H-703275479-pink-MODEL2.jpg",
+        "https://assets-jiocdn.ajio.com/medias/sys_master/root1/20260727/iLzR/6a67511f5d467f347a866ffc/-78Wx98H-703275479-pink-MODEL3.jpg",
+        "https://assets-jiocdn.ajio.com/medias/sys_master/root1/20260727/eFir/6a67511f5d467f347a866ffe/-78Wx98H-703275479-pink-MODEL4.jpg",
+        "https://assets-jiocdn.ajio.com/medias/sys_master/root1/20260727/cFmW/6a67511f5d467f347a866fff/-78Wx98H-703275479-pink-MODEL5.jpg"
+    ],
 
-
+    tag: "NEW",
+    brand: "Buda Jeans Co",
+    name: "Men Checked Regular Fit Shirt with Pocket",
+    rating: "2.5",
+    reviews: "101",
+    price: "₹494",
+    oldPrice: "₹2,599",
+    discount: "(81% Off)",
+    offer: "Offer Price: ₹432",
+    color: "Pink",
+    fit: "Regular Fit",
+    packageContains: "1 Shirt",
+    washCare: "Machine wash cold",
+    transparency: "Opaque",
+    sizeWorn: "M",
+    mood: "Casual",
+    fabric: "100% Cotton",
+    sizes: ["S", "M", "L", "XL", "XXL"],
+    category: "Shirts"
+},
     // =====================================================
     // PRODUCT 2
     // =====================================================

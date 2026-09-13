@@ -440,6 +440,61 @@
 }
 
 
+
+
+
+
+
+
+
+
+/* =========================
+   PROFILE EDIT ACTIONS
+========================= */
+
+.seller-profile-edit-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+
+/* =========================
+   CANCEL BUTTON
+========================= */
+
+.seller-profile-cancel-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid #d1d5db;
+
+  background: #ffffff;
+  color: #4b5563;
+
+  padding: 10px 18px;
+
+  border-radius: 7px;
+
+  font-size: 15px;
+  font-weight: 500;
+  font-family: inherit;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.seller-profile-cancel-button:hover {
+  background: #f3f4f6;
+  border-color: #9ca3af;
+  color: #1f2937;
+}
+
+
+
+
 /* =========================
    TABLET
 ========================= */
@@ -601,5 +656,17 @@
 
     gap: 5px;
   }
+
+
+
+  .seller-profile-edit-actions {
+  width: 100%;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.seller-profile-cancel-button {
+  width: 100%;
+}
 
 }

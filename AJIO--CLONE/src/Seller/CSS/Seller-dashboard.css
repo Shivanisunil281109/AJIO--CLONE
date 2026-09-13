@@ -1,8 +1,8 @@
 /*====================================
-    SELLER DASHBOARD
+    SELLER DASHBOARD PAGE
 ====================================*/
 
-.seller-dashboard {
+.seller-dashboard-page {
     width: 100%;
     background: #f7f8fa;
 }
@@ -12,7 +12,7 @@
     DASHBOARD CONTENT
 ====================================*/
 
-.dashboard-content {
+.seller-dashboard-page .seller-dashboard-content {
     padding: 30px;
 }
 
@@ -21,10 +21,10 @@
     PAGE TITLE
 ====================================*/
 
-.page-title {
+.seller-dashboard-page .seller-dashboard-page-title {
     font-size: 34px;
     font-weight: 600;
-    color: #222;
+    color: #222222;
     margin: 0 0 25px;
 }
 
@@ -33,45 +33,62 @@
     DASHBOARD CARDS
 ====================================*/
 
-.dashboard-cards {
+.seller-dashboard-page .seller-dashboard-cards {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 25px;
 }
 
-.card {
+
+.seller-dashboard-page .seller-dashboard-card {
     background: #ffffff;
+
     padding: 25px;
+
     border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.08);
+
     transition: 0.3s;
 }
 
-.card:hover {
+
+.seller-dashboard-page .seller-dashboard-card:hover {
     transform: translateY(-5px);
 }
 
-.card h4 {
+
+.seller-dashboard-page .seller-dashboard-card h4 {
     font-size: 15px;
     font-weight: 500;
-    color: #777;
+
+    color: #777777;
+
     margin: 0 0 15px;
 }
 
-.card h2 {
+
+.seller-dashboard-page .seller-dashboard-card h2 {
     font-size: 36px;
     font-weight: 600;
-    color: #222;
+
+    color: #222222;
+
     margin: 0 0 18px;
 }
 
-.card a {
+
+.seller-dashboard-page .seller-dashboard-card a {
     text-decoration: none;
+
     color: #3366cc;
+
     font-size: 14px;
 }
 
-.card a:hover {
+
+.seller-dashboard-page .seller-dashboard-card a:hover {
     text-decoration: underline;
 }
 
@@ -80,24 +97,39 @@
     DASHBOARD BOTTOM
 ====================================*/
 
-.dashboard-bottom {
+.seller-dashboard-page .seller-dashboard-bottom {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
     gap: 25px;
+
     margin-top: 15px;
 }
 
 
 /*====================================
-    PANELS
+    ORDERS + PRODUCTS PANELS
 ====================================*/
 
-.orders-panel,
-.products-panel {
+.seller-dashboard-page
+.seller-dashboard-orders-panel,
+
+.seller-dashboard-page
+.seller-dashboard-products-panel {
+
     background: #ffffff;
+
     border-radius: 10px;
+
     padding: 25px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.08);
+
+    min-width: 0;
 }
 
 
@@ -105,27 +137,46 @@
     PANEL HEADER
 ====================================*/
 
-.panel-header {
+.seller-dashboard-page
+.seller-dashboard-panel-header {
+
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
+
     margin-bottom: 20px;
 }
 
-.panel-header h3 {
+
+.seller-dashboard-page
+.seller-dashboard-panel-header h3 {
+
     font-size: 22px;
+
     font-weight: 600;
-    color: #222;
+
+    color: #222222;
+
     margin: 0;
 }
 
-.panel-header a {
+
+.seller-dashboard-page
+.seller-dashboard-panel-header a {
+
     text-decoration: none;
+
     color: #3366cc;
+
     font-size: 14px;
 }
 
-.panel-header a:hover {
+
+.seller-dashboard-page
+.seller-dashboard-panel-header a:hover {
+
     text-decoration: underline;
 }
 
@@ -134,80 +185,145 @@
     ORDERS TABLE
 ====================================*/
 
-.orders-table {
+.seller-dashboard-page
+.seller-dashboard-orders-table {
+
     width: 100%;
+
     border-collapse: collapse;
 }
 
-.orders-table td {
+
+.seller-dashboard-page
+.seller-dashboard-orders-table td {
+
     padding: 16px 8px;
-    border-bottom: 1px solid #ececec;
+
+    border-bottom:
+        1px solid #ececec;
+
     font-size: 15px;
-    color: #444;
+
+    color: #444444;
 }
 
-.orders-table tr:last-child td {
+
+.seller-dashboard-page
+.seller-dashboard-orders-table
+tr:last-child td {
+
     border-bottom: none;
 }
 
 
 /*====================================
-    SELLER ORDER STATUS
+    ORDER STATUS
 ====================================*/
 
-.seller-status-processing {
-    color: #777 !important;
+.seller-dashboard-page
+.seller-dashboard-status-processing {
+
+    color: #777777 !important;
+
     font-weight: 600;
 }
 
-.seller-status-shipped {
+
+.seller-dashboard-page
+.seller-dashboard-status-shipped {
+
     color: #1ca94c !important;
+
     font-weight: 600;
 }
 
-.seller-status-delivered {
+
+.seller-dashboard-page
+.seller-dashboard-status-delivered {
+
     color: #009933 !important;
+
     font-weight: 600;
 }
 
-.seller-status-cancelled {
+
+.seller-dashboard-page
+.seller-dashboard-status-cancelled {
+
     color: #d62828 !important;
+
     font-weight: 600;
 }
 
 
 /*====================================
-    TOP SELLING PRODUCTS
+    TOP SELLING PRODUCT ITEM
 ====================================*/
 
-.product-item {
+.seller-dashboard-page
+.seller-dashboard-product-item {
+
     display: flex;
+
     align-items: center;
+
     padding: 16px 0;
-    border-bottom: 1px solid #ececec;
+
+    border-bottom:
+        1px solid #ececec;
 }
 
-.product-item:last-child {
+
+.seller-dashboard-page
+.seller-dashboard-product-item:last-child {
+
     border-bottom: none;
 }
 
-.product-item img {
+
+/*====================================
+    PRODUCT IMAGE
+====================================*/
+
+.seller-dashboard-page
+.seller-dashboard-product-image {
+
     width: 50px;
+
     height: 60px;
+
     object-fit: cover;
+
     border-radius: 4px;
+
     margin-right: 18px;
+
+    flex-shrink: 0;
 }
 
-.product-info {
+
+/*====================================
+    PRODUCT INFORMATION
+====================================*/
+
+.seller-dashboard-page
+.seller-dashboard-product-info {
+
     flex: 1;
+
     min-width: 0;
 }
 
-.product-info h4 {
+
+.seller-dashboard-page
+.seller-dashboard-product-info h4 {
+
     font-size: 15px;
+
     font-weight: 500;
-    color: #222;
+
+    color: #222222;
+
     margin: 0;
 }
 
@@ -216,25 +332,43 @@
     SOLD INFORMATION
 ====================================*/
 
-.sold-info {
+.seller-dashboard-page
+.seller-dashboard-sold-info {
+
     width: 70px;
+
     display: flex;
+
     flex-direction: column;
+
     align-items: center;
+
     justify-content: center;
+
     margin-right: 30px;
 }
 
-.sold-info span {
+
+.seller-dashboard-page
+.seller-dashboard-sold-info span {
+
     font-size: 17px;
+
     font-weight: 600;
-    color: #333;
+
+    color: #333333;
+
     line-height: 18px;
 }
 
-.sold-info small {
+
+.seller-dashboard-page
+.seller-dashboard-sold-info small {
+
     font-size: 12px;
-    color: #777;
+
+    color: #777777;
+
     margin-top: 2px;
 }
 
@@ -243,12 +377,20 @@
     PRODUCT PRICE
 ====================================*/
 
-.price {
+.seller-dashboard-page
+.seller-dashboard-product-price {
+
     width: 65px;
+
     text-align: right;
+
     font-size: 15px;
+
     font-weight: 600;
-    color: #222;
+
+    color: #222222;
+
+    white-space: nowrap;
 }
 
 
@@ -258,71 +400,112 @@
 
 @media screen and (max-width: 1024px) {
 
-    .dashboard-content {
+    .seller-dashboard-page
+    .seller-dashboard-content {
+
         padding: 25px;
     }
 
-    .page-title {
+
+    .seller-dashboard-page
+    .seller-dashboard-page-title {
+
         font-size: 30px;
+
         margin-bottom: 22px;
     }
 
-    .dashboard-cards {
-        grid-template-columns: repeat(2, 1fr);
+
+    .seller-dashboard-page
+    .seller-dashboard-cards {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
         gap: 20px;
     }
 
-    .card {
+
+    .seller-dashboard-page
+    .seller-dashboard-card {
+
         padding: 22px;
     }
 
-    .card h2 {
+
+    .seller-dashboard-page
+    .seller-dashboard-card h2 {
+
         font-size: 30px;
     }
 
-    .dashboard-bottom {
+
+    .seller-dashboard-page
+    .seller-dashboard-bottom {
+
         grid-template-columns: 1fr;
+
         gap: 20px;
     }
 
-    .orders-panel,
-    .products-panel {
+
+    .seller-dashboard-page
+    .seller-dashboard-orders-panel,
+
+    .seller-dashboard-page
+    .seller-dashboard-products-panel {
+
         padding: 22px;
     }
 
-    .orders-table td {
+
+    .seller-dashboard-page
+    .seller-dashboard-orders-table td {
+
         font-size: 14px;
+
         padding: 14px 6px;
     }
 
-    .product-item {
+
+    .seller-dashboard-page
+    .seller-dashboard-product-item {
+
         gap: 12px;
     }
 
-    .product-item img {
+
+    .seller-dashboard-page
+    .seller-dashboard-product-image {
+
         width: 45px;
+
         height: 55px;
+
         margin-right: 8px;
     }
 
-    .product-info h4 {
+
+    .seller-dashboard-page
+    .seller-dashboard-product-info h4 {
+
         font-size: 14px;
     }
 
-    .sold-info {
+
+    .seller-dashboard-page
+    .seller-dashboard-sold-info {
+
         margin-right: 15px;
     }
 
-    .price {
+
+    .seller-dashboard-page
+    .seller-dashboard-product-price {
+
         font-size: 14px;
     }
 }
-
-
-
-
-
-
 
 
 /*====================================
@@ -331,231 +514,322 @@
 
 @media screen and (max-width: 767px) {
 
-    .seller-dashboard {
+    .seller-dashboard-page {
+
         width: 100%;
+
         min-width: 0;
+
         overflow: hidden;
     }
 
-    .dashboard-content {
+
+    .seller-dashboard-page
+    .seller-dashboard-content {
+
         width: 100%;
+
         min-width: 0;
+
         padding: 20px 12px;
+
         box-sizing: border-box;
     }
 
-    .page-title {
+
+    .seller-dashboard-page
+    .seller-dashboard-page-title {
+
         font-size: 26px;
+
         margin-bottom: 20px;
     }
 
 
-    /*====================================
-        DASHBOARD CARDS
-    ====================================*/
+    /* DASHBOARD CARDS */
 
-    .dashboard-cards {
+    .seller-dashboard-page
+    .seller-dashboard-cards {
+
         display: grid;
+
         grid-template-columns: 1fr;
+
         gap: 15px;
+
         width: 100%;
     }
 
-    .card {
+
+    .seller-dashboard-page
+    .seller-dashboard-card {
+
         width: 100%;
+
         padding: 20px;
+
         box-sizing: border-box;
     }
 
-    .card h4 {
+
+    .seller-dashboard-page
+    .seller-dashboard-card h4 {
+
         font-size: 14px;
+
         margin-bottom: 12px;
     }
 
-    .card h2 {
+
+    .seller-dashboard-page
+    .seller-dashboard-card h2 {
+
         font-size: 28px;
+
         margin-bottom: 15px;
     }
 
-    .card a {
+
+    .seller-dashboard-page
+    .seller-dashboard-card a {
+
         font-size: 13px;
     }
 
 
-    /*====================================
-        DASHBOARD BOTTOM
-    ====================================*/
+    /* DASHBOARD BOTTOM */
 
-    .dashboard-bottom {
+    .seller-dashboard-page
+    .seller-dashboard-bottom {
+
         display: grid;
+
         grid-template-columns: 1fr;
+
         gap: 15px;
+
         margin-top: 10px;
+
         width: 100%;
+
         min-width: 0;
     }
 
 
-    /*====================================
-        PANELS
-    ====================================*/
+    /* PANELS */
 
-    .orders-panel,
-    .products-panel {
+    .seller-dashboard-page
+    .seller-dashboard-orders-panel,
+
+    .seller-dashboard-page
+    .seller-dashboard-products-panel {
+
         width: 100%;
+
         min-width: 0;
+
         padding: 18px;
+
         box-sizing: border-box;
     }
 
 
-    /*====================================
-        PANEL HEADER
-    ====================================*/
+    /* PANEL HEADER */
 
-    .panel-header {
+    .seller-dashboard-page
+    .seller-dashboard-panel-header {
+
         margin-bottom: 15px;
     }
 
-    .panel-header h3 {
+
+    .seller-dashboard-page
+    .seller-dashboard-panel-header h3 {
+
         font-size: 18px;
     }
 
-    .panel-header a {
+
+    .seller-dashboard-page
+    .seller-dashboard-panel-header a {
+
         font-size: 13px;
     }
 
 
-    /*====================================
-        LATEST ORDERS
-    ====================================*/
+    /* LATEST ORDERS */
 
-    .orders-panel {
+    .seller-dashboard-page
+    .seller-dashboard-orders-panel {
+
         overflow-x: auto;
+
         overflow-y: hidden;
     }
 
-    .orders-table {
+
+    .seller-dashboard-page
+    .seller-dashboard-orders-table {
+
         width: 100%;
+
         min-width: 450px;
     }
 
-    .orders-table td {
+
+    .seller-dashboard-page
+    .seller-dashboard-orders-table td {
+
         padding: 13px 6px;
+
         font-size: 13px;
+
         white-space: nowrap;
     }
 
 
-    /*====================================
-        TOP SELLING PRODUCTS
-    ====================================*/
+    /* TOP SELLING PRODUCTS */
 
-    .products-panel {
+    .seller-dashboard-page
+    .seller-dashboard-products-panel {
+
         overflow: hidden;
     }
 
-    .product-item {
+
+    .seller-dashboard-page
+    .seller-dashboard-product-item {
+
         display: grid;
 
-        /*
-            Image | Product info | Price
-        */
-        grid-template-columns: 45px minmax(0, 1fr) 55px;
+        grid-template-columns:
+            45px
+            minmax(0, 1fr)
+            55px;
 
-        /*
-            Product name
-            Sold information below name
-        */
-        grid-template-rows: auto auto;
+        grid-template-rows:
+            auto
+            auto;
 
         column-gap: 10px;
+
         row-gap: 3px;
 
         align-items: center;
 
         width: 100%;
+
         padding: 13px 0;
 
         box-sizing: border-box;
     }
 
 
-    /* Product Image */
+    /* PRODUCT IMAGE */
 
-    .product-item img {
+    .seller-dashboard-page
+    .seller-dashboard-product-image {
+
         grid-column: 1;
+
         grid-row: 1 / 3;
 
         width: 40px;
+
         height: 50px;
 
         margin: 0;
+
         object-fit: cover;
+
         border-radius: 4px;
     }
 
 
-    /* Product Name */
+    /* PRODUCT NAME */
 
-    .product-info {
+    .seller-dashboard-page
+    .seller-dashboard-product-info {
+
         grid-column: 2;
+
         grid-row: 1;
 
         width: 100%;
+
         min-width: 0;
     }
 
-    .product-info h4 {
+
+    .seller-dashboard-page
+    .seller-dashboard-product-info h4 {
+
         font-size: 13px;
+
         line-height: 18px;
 
-        /*
-            Normal word wrapping.
-            It will NOT show one letter per line.
-        */
         white-space: normal;
+
         word-break: normal;
+
         overflow-wrap: normal;
 
         margin: 0;
     }
 
 
-    /* Sold Information */
+    /* SOLD */
 
-    .sold-info {
+    .seller-dashboard-page
+    .seller-dashboard-sold-info {
+
         grid-column: 2;
+
         grid-row: 2;
 
         width: auto;
+
         margin: 0;
 
         display: flex;
+
         flex-direction: row;
 
         align-items: center;
+
         justify-content: flex-start;
 
         gap: 4px;
     }
 
-    .sold-info span {
+
+    .seller-dashboard-page
+    .seller-dashboard-sold-info span {
+
         font-size: 14px;
+
         line-height: 16px;
+
         font-weight: 600;
     }
 
-    .sold-info small {
+
+    .seller-dashboard-page
+    .seller-dashboard-sold-info small {
+
         font-size: 10px;
+
         margin: 0;
     }
 
 
-    /* Price */
+    /* PRICE */
 
-    .price {
+    .seller-dashboard-page
+    .seller-dashboard-product-price {
+
         grid-column: 3;
+
         grid-row: 1 / 3;
 
         width: 55px;
@@ -563,6 +837,7 @@
         text-align: right;
 
         font-size: 12px;
+
         font-weight: 600;
 
         white-space: nowrap;
@@ -576,194 +851,278 @@
 
 @media screen and (max-width: 480px) {
 
-    .dashboard-content {
+    .seller-dashboard-page
+    .seller-dashboard-content {
+
         width: 100%;
+
         padding: 15px 10px;
+
         box-sizing: border-box;
     }
 
 
-    /* Page Title */
+    .seller-dashboard-page
+    .seller-dashboard-page-title {
 
-    .page-title {
         font-size: 23px;
+
         margin-bottom: 18px;
     }
 
 
-    /* Dashboard Cards */
+    /* CARDS */
 
-    .dashboard-cards {
+    .seller-dashboard-page
+    .seller-dashboard-cards {
+
         grid-template-columns: 1fr;
+
         gap: 12px;
     }
 
-    .card {
+
+    .seller-dashboard-page
+    .seller-dashboard-card {
+
         width: 100%;
+
         padding: 18px;
     }
 
-    .card h4 {
+
+    .seller-dashboard-page
+    .seller-dashboard-card h4 {
+
         font-size: 14px;
+
         margin-bottom: 10px;
     }
 
-    .card h2 {
+
+    .seller-dashboard-page
+    .seller-dashboard-card h2 {
+
         font-size: 25px;
+
         margin-bottom: 13px;
     }
 
-    .card a {
+
+    .seller-dashboard-page
+    .seller-dashboard-card a {
+
         font-size: 13px;
     }
 
 
-    /* Dashboard Bottom */
+    /* BOTTOM */
 
-    .dashboard-bottom {
+    .seller-dashboard-page
+    .seller-dashboard-bottom {
+
         grid-template-columns: 1fr;
+
         gap: 12px;
+
         margin-top: 10px;
     }
 
 
-    /* Panels */
+    /* PANELS */
 
-    .orders-panel,
-    .products-panel {
+    .seller-dashboard-page
+    .seller-dashboard-orders-panel,
+
+    .seller-dashboard-page
+    .seller-dashboard-products-panel {
+
         width: 100%;
+
         padding: 15px;
+
         box-sizing: border-box;
     }
 
 
-    /* Panel Header */
+    /* PANEL HEADER */
 
-    .panel-header {
+    .seller-dashboard-page
+    .seller-dashboard-panel-header {
+
         margin-bottom: 14px;
     }
 
-    .panel-header h3 {
+
+    .seller-dashboard-page
+    .seller-dashboard-panel-header h3 {
+
         font-size: 17px;
     }
 
-    .panel-header a {
+
+    .seller-dashboard-page
+    .seller-dashboard-panel-header a {
+
         font-size: 12px;
     }
 
 
-    /*====================================
-        LATEST ORDERS SCROLL
-    ====================================*/
+    /* ORDERS */
 
-    .orders-panel {
+    .seller-dashboard-page
+    .seller-dashboard-orders-panel {
+
         overflow-x: auto;
+
         overflow-y: hidden;
     }
 
-    .orders-table {
+
+    .seller-dashboard-page
+    .seller-dashboard-orders-table {
+
         min-width: 450px;
     }
 
-    .orders-table td {
+
+    .seller-dashboard-page
+    .seller-dashboard-orders-table td {
+
         padding: 12px 6px;
+
         font-size: 12px;
+
         white-space: nowrap;
     }
 
 
-    /*====================================
-        TOP SELLING PRODUCTS
-    ====================================*/
+    /* TOP PRODUCTS */
 
-    .products-panel {
+    .seller-dashboard-page
+    .seller-dashboard-products-panel {
+
         overflow: hidden;
     }
 
-    .product-item {
+
+    .seller-dashboard-page
+    .seller-dashboard-product-item {
+
         display: grid;
 
-        grid-template-columns: 42px minmax(0, 1fr) 55px;
-        grid-template-rows: auto auto;
+        grid-template-columns:
+            42px
+            minmax(0, 1fr)
+            55px;
+
+        grid-template-rows:
+            auto
+            auto;
 
         column-gap: 9px;
+
         row-gap: 3px;
 
         width: 100%;
+
         padding: 12px 0;
     }
 
 
-    /* Image */
+    .seller-dashboard-page
+    .seller-dashboard-product-image {
 
-    .product-item img {
         grid-column: 1;
+
         grid-row: 1 / 3;
 
         width: 38px;
+
         height: 48px;
 
         margin: 0;
     }
 
 
-    /* Product Name */
+    .seller-dashboard-page
+    .seller-dashboard-product-info {
 
-    .product-info {
         grid-column: 2;
+
         grid-row: 1;
 
         min-width: 0;
     }
 
-    .product-info h4 {
+
+    .seller-dashboard-page
+    .seller-dashboard-product-info h4 {
+
         font-size: 12px;
+
         line-height: 17px;
 
         white-space: normal;
+
         word-break: normal;
+
         overflow-wrap: normal;
     }
 
 
-    /* Sold */
+    .seller-dashboard-page
+    .seller-dashboard-sold-info {
 
-    .sold-info {
         grid-column: 2;
+
         grid-row: 2;
 
         width: auto;
+
         margin: 0;
 
         display: flex;
+
         flex-direction: row;
 
         align-items: center;
+
         justify-content: flex-start;
 
         gap: 4px;
     }
 
-    .sold-info span {
+
+    .seller-dashboard-page
+    .seller-dashboard-sold-info span {
+
         font-size: 13px;
+
         line-height: 15px;
     }
 
-    .sold-info small {
+
+    .seller-dashboard-page
+    .seller-dashboard-sold-info small {
+
         font-size: 9px;
+
         margin: 0;
     }
 
 
-    /* Price */
+    .seller-dashboard-page
+    .seller-dashboard-product-price {
 
-    .price {
         grid-column: 3;
+
         grid-row: 1 / 3;
 
         width: 55px;
 
         font-size: 12px;
+
         text-align: right;
 
         white-space: nowrap;

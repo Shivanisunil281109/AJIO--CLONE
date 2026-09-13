@@ -125,19 +125,19 @@ const SellerDashboard = () => {
     const getStatusClass = (status) => {
 
         if (status === "Processing") {
-            return "seller-status-processing";
+            return "seller-dashboard-status-processing";
         }
 
         if (status === "Shipped") {
-            return "seller-status-shipped";
+            return "seller-dashboard-status-shipped";
         }
 
         if (status === "Delivered") {
-            return "seller-status-delivered";
+            return "seller-dashboard-status-delivered";
         }
 
         if (status === "Cancelled") {
-            return "seller-status-cancelled";
+            return "seller-dashboard-status-cancelled";
         }
 
         return "";
@@ -145,25 +145,29 @@ const SellerDashboard = () => {
 
 
     return (
-        <div className="seller-dashboard">
+
+        <div className="seller-dashboard-page">
 
             {/* =========================
                 DASHBOARD CARDS
             ========================== */}
 
-            <section className="dashboard-content">
+            <section className="seller-dashboard-content">
 
-                <h2 className="page-title">
+                <h2 className="seller-dashboard-page-title">
                     Dashboard
                 </h2>
 
-                <div className="dashboard-cards">
+
+                <div className="seller-dashboard-cards">
 
                     {/* TOTAL PRODUCTS */}
 
-                    <div className="card">
+                    <div className="seller-dashboard-card">
 
-                        <h4>Total Products</h4>
+                        <h4>
+                            Total Products
+                        </h4>
 
                         <h2>
                             {totalProducts}
@@ -184,9 +188,11 @@ const SellerDashboard = () => {
 
                     {/* SOLD PRODUCTS */}
 
-                    <div className="card">
+                    <div className="seller-dashboard-card">
 
-                        <h4>Sold Products</h4>
+                        <h4>
+                            Sold Products
+                        </h4>
 
                         <h2>
                             {soldProducts}
@@ -207,9 +213,11 @@ const SellerDashboard = () => {
 
                     {/* TOTAL ORDERS */}
 
-                    <div className="card">
+                    <div className="seller-dashboard-card">
 
-                        <h4>Total Orders</h4>
+                        <h4>
+                            Total Orders
+                        </h4>
 
                         <h2>
                             {totalOrders}
@@ -230,9 +238,11 @@ const SellerDashboard = () => {
 
                     {/* TOTAL REVENUE */}
 
-                    <div className="card">
+                    <div className="seller-dashboard-card">
 
-                        <h4>Total Revenue</h4>
+                        <h4>
+                            Total Revenue
+                        </h4>
 
                         <h2>
                             ₹{totalRevenue.toLocaleString("en-IN")}
@@ -259,18 +269,18 @@ const SellerDashboard = () => {
                 LATEST ORDERS + PRODUCTS
             ========================== */}
 
-            <section className="dashboard-content">
+            <section className="seller-dashboard-content">
 
-                <div className="dashboard-bottom">
+                <div className="seller-dashboard-bottom">
 
 
                     {/* =========================
                         LATEST ORDERS
                     ========================== */}
 
-                    <div className="orders-panel">
+                    <div className="seller-dashboard-orders-panel">
 
-                        <div className="panel-header">
+                        <div className="seller-dashboard-panel-header">
 
                             <h3>
                                 Latest Orders
@@ -289,7 +299,7 @@ const SellerDashboard = () => {
                         </div>
 
 
-                        <table className="orders-table">
+                        <table className="seller-dashboard-orders-table">
 
                             <tbody>
 
@@ -311,7 +321,9 @@ const SellerDashboard = () => {
 
                                         <td
                                             className={
-                                                getStatusClass(order.status)
+                                                getStatusClass(
+                                                    order.status
+                                                )
                                             }
                                         >
                                             {order.status}
@@ -332,9 +344,9 @@ const SellerDashboard = () => {
                         TOP SELLING PRODUCTS
                     ========================== */}
 
-                    <div className="products-panel">
+                    <div className="seller-dashboard-products-panel">
 
-                        <div className="panel-header">
+                        <div className="seller-dashboard-panel-header">
 
                             <h3>
                                 Top Selling Products
@@ -356,16 +368,17 @@ const SellerDashboard = () => {
                         {topSellingProducts.map((product) => (
 
                             <div
-                                className="product-item"
+                                className="seller-dashboard-product-item"
                                 key={product.id}
                             >
 
                                 <img
+                                    className="seller-dashboard-product-image"
                                     src={product.image}
                                     alt={product.name}
                                 />
 
-                                <div className="product-info">
+                                <div className="seller-dashboard-product-info">
 
                                     <h4>
                                         {product.name}
@@ -373,7 +386,8 @@ const SellerDashboard = () => {
 
                                 </div>
 
-                                <div className="sold-info">
+
+                                <div className="seller-dashboard-sold-info">
 
                                     <span>
                                         {product.sold}
@@ -385,7 +399,8 @@ const SellerDashboard = () => {
 
                                 </div>
 
-                                <span className="price">
+
+                                <span className="seller-dashboard-product-price">
                                     {product.price}
                                 </span>
 
@@ -400,6 +415,7 @@ const SellerDashboard = () => {
             </section>
 
         </div>
+
     );
 };
 

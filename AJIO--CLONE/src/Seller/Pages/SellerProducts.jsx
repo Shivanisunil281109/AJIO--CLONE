@@ -89,17 +89,19 @@ const SellerProducts = () => {
   ];
 
 
+  // =========================
+  // CREATED PRODUCTS
+  // =========================
 
+  const createdProducts =
+    JSON.parse(
+      localStorage.getItem("sellerCreatedProducts")
+    ) || [];
 
-const createdProducts =
-    JSON.parse(localStorage.getItem("sellerCreatedProducts")) || [];
-
-const allProducts = [
+  const allProducts = [
     ...products,
     ...createdProducts
-];
-
-
+  ];
 
 
   // =========================
@@ -107,28 +109,62 @@ const allProducts = [
   // FROM LOCAL STORAGE
   // =========================
 
-const updatedProducts = allProducts.map((product) => {
+  const updatedProducts = allProducts.map((product) => {
+
     const savedProduct = localStorage.getItem(
       `sellerProduct_${product.id}`
     );
 
     if (savedProduct) {
-      const parsedProduct = JSON.parse(savedProduct);
+
+      const parsedProduct =
+        JSON.parse(savedProduct);
 
       return {
         ...product,
 
-        name: parsedProduct.name,
-        category: parsedProduct.category,
-        price: parsedProduct.sellingPrice,
-        stock: parsedProduct.stock,
+        name:
+          parsedProduct.name,
+
+        category:
+          parsedProduct.category,
+
+        price:
+          parsedProduct.sellingPrice,
+
+        stock:
+          parsedProduct.stock,
       };
     }
 
     return product;
   });
 
+
+  // =========================
+  // STATUS CLASS
+  // =========================
+
+  const getStatusClass = (status) => {
+
+    if (status === "Approved") {
+      return "seller-products-status-approved";
+    }
+
+    if (status === "Pending") {
+      return "seller-products-status-pending";
+    }
+
+    if (status === "Not Approved") {
+      return "seller-products-status-not-approved";
+    }
+
+    return "";
+  };
+
+
   return (
+
     <div className="seller-products-page">
 
       <main className="seller-products-content">
@@ -138,8 +174,13 @@ const updatedProducts = allProducts.map((product) => {
         ========================= */}
 
         <div className="seller-products-header">
-          <h1>All Products</h1>
+
+          <h1>
+            All Products
+          </h1>
+
         </div>
+
 
         {/* =========================
             PRODUCTS CARD
@@ -147,28 +188,43 @@ const updatedProducts = allProducts.map((product) => {
 
         <div className="seller-products-card">
 
-          <div className="products-card-header">
-            <h2>My Products</h2>
+          <div className="seller-products-card-header">
+
+            <h2>
+              My Products
+            </h2>
+
           </div>
+
 
           {/* =========================
               PRODUCTS TABLE
           ========================= */}
 
-          <div className="products-table-container">
+          <div className="seller-products-table-container">
 
-            <table className="products-table">
+            <table className="seller-products-table">
 
               <thead>
+
                 <tr>
+
                   <th>Product</th>
+
                   <th>Category</th>
+
                   <th>Selling Price</th>
+
                   <th>Stock</th>
+
                   <th>Status</th>
+
                   <th>Action</th>
+
                 </tr>
+
               </thead>
+
 
               <tbody>
 
@@ -180,7 +236,7 @@ const updatedProducts = allProducts.map((product) => {
 
                     <td>
 
-                      <div className="seller-product-table-info">
+                      <div className="seller-products-table-product">
 
                         {product.image &&
                         !product.image.startsWith("YOUR_") ? (
@@ -188,12 +244,12 @@ const updatedProducts = allProducts.map((product) => {
                           <img
                             src={product.image}
                             alt={product.name}
-                            className="seller-product-table-image"
+                            className="seller-products-table-image"
                           />
 
                         ) : (
 
-                          <div className="seller-product-table-no-image">
+                          <div className="seller-products-no-image">
 
                             <span className="material-symbols-outlined">
                               image
@@ -203,13 +259,17 @@ const updatedProducts = allProducts.map((product) => {
 
                         )}
 
-                        <span className="seller-product-table-name">
+
+                        <span className="seller-products-table-name">
+
                           {product.name}
+
                         </span>
 
                       </div>
 
                     </td>
+
 
                     {/* CATEGORY */}
 
@@ -217,11 +277,15 @@ const updatedProducts = allProducts.map((product) => {
                       {product.category}
                     </td>
 
+
                     {/* SELLING PRICE */}
 
                     <td>
+
                       ₹{product.price}
+
                     </td>
+
 
                     {/* STOCK */}
 
@@ -229,47 +293,56 @@ const updatedProducts = allProducts.map((product) => {
                       {product.stock}
                     </td>
 
+
                     {/* STATUS */}
 
                     <td>
 
                       <span
-                        className={`product-status ${product.status
-                          .toLowerCase()
-                          .replace(" ", "-")}`}
+                        className={`seller-products-status ${getStatusClass(
+                          product.status
+                        )}`}
                       >
+
                         {product.status}
+
                       </span>
 
                     </td>
+
 
                     {/* ACTION */}
 
                     <td>
 
-                      <button
-                        type="button"
-                        className="view-product-btn"
-                        onClick={() =>
-                          navigate(
-                            `/seller/products/${product.id}`
-                          )
-                        }
-                      >
-                        View
-                      </button>
+                      <div className="seller-products-actions">
 
-                      <button
-                        type="button"
-                        className="edit-product-btn"
-                        onClick={() =>
-                          navigate(
-                            `/seller/products/${product.id}/edit`
-                          )
-                        }
-                      >
-                        Edit
-                      </button>
+                        <button
+                          type="button"
+                          className="seller-products-view-btn"
+                          onClick={() =>
+                            navigate(
+                              `/seller/products/${product.id}`
+                            )
+                          }
+                        >
+                          View
+                        </button>
+
+
+                        <button
+                          type="button"
+                          className="seller-products-edit-btn"
+                          onClick={() =>
+                            navigate(
+                              `/seller/products/${product.id}/edit`
+                            )
+                          }
+                        >
+                          Edit
+                        </button>
+
+                      </div>
 
                     </td>
 
@@ -288,6 +361,7 @@ const updatedProducts = allProducts.map((product) => {
       </main>
 
     </div>
+
   );
 };
 
