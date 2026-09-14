@@ -2,6 +2,32 @@
    SELLER ORDERS PAGE ONLY
 ======================================== */
 
+.seller-orders-page {
+    width: 100%;
+    min-height: 100vh;
+    background: #f5f6f8;
+    box-sizing: border-box;
+}
+
+
+/* ========================================
+   ORDERS PAGE HEADING
+======================================== */
+
+.seller-orders-page > h1 {
+    margin: 20px 0 20px 30px;
+
+    font-size: 34px;
+    font-weight: 700;
+
+    color: #1f1f1f;
+}
+
+
+/* ========================================
+   ORDERS CONTAINER
+======================================== */
+
 .seller-orders-page .orders-container {
     background: #ffffff;
 
@@ -372,11 +398,6 @@
 
 /* ========================================
    VIEW BUTTON
-   SAME DARK STYLE AS PRODUCTS PAGE
-======================================== */
-
-/* ========================================
-   VIEW BUTTON
 ======================================== */
 
 .seller-orders-page .view-btn {
@@ -399,15 +420,9 @@
         transform 0.25s ease;
 }
 
+
 .seller-orders-page .view-btn:hover {
     background: #1f3242;
-    color: #ffffff;
-
-    transform: translateY(-1px);
-}
-
-.seller-orders-page .view-btn:hover {
-    background: #1d4059;
 
     color: #ffffff;
 
@@ -421,6 +436,7 @@
 
 .seller-orders-page .order-modal-overlay {
     position: fixed;
+
     top: 0;
     left: 0;
 
@@ -430,7 +446,9 @@
     background: rgba(0, 0, 0, 0.45);
 
     display: flex;
+
     align-items: center;
+
     justify-content: center;
 
     z-index: 2000;
@@ -439,6 +457,7 @@
 
 .seller-orders-page .order-modal {
     width: 480px;
+
     max-width: 90%;
 
     background: #ffffff;
@@ -453,7 +472,9 @@
 
 .seller-orders-page .order-modal-header {
     display: flex;
+
     align-items: center;
+
     justify-content: space-between;
 
     padding: 20px 24px;

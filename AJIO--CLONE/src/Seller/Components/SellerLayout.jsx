@@ -2,6 +2,8 @@ import React from "react";
 import { Outlet } from "react-router";
 
 import SellerHeader from "./SellerHeader";
+import SellerFooter from "./SellerFooter";
+
 import "../CSS/Seller-layout.css";
 
 const SellerLayout = () => {
@@ -16,6 +18,9 @@ const SellerLayout = () => {
             <main className="seller-main-content">
                 <Outlet />
             </main>
+
+            {/* Seller Footer */}
+            <SellerFooter />
 
         </div>
     );

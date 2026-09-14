@@ -4,11 +4,8 @@
 
 .seller-products-page {
     min-height: 100vh;
-
     width: 100%;
-
     background: #f5f6f8;
-
     box-sizing: border-box;
 }
 
@@ -19,9 +16,7 @@
 
 .seller-products-page
 .seller-products-content {
-
     padding: 30px;
-
     box-sizing: border-box;
 }
 
@@ -32,20 +27,15 @@
 
 .seller-products-page
 .seller-products-header {
-
     margin-bottom: 25px;
 }
 
 
 .seller-products-page
 .seller-products-header h1 {
-
     margin: 0;
-
     font-size: 32px;
-
     font-weight: 700;
-
     color: #1f1f1f;
 }
 
@@ -56,19 +46,12 @@
 
 .seller-products-page
 .seller-products-card {
-
     width: 100%;
-
     background: #ffffff;
-
     border-radius: 12px;
-
     padding: 25px;
-
     box-sizing: border-box;
-
-    box-shadow:
-        0 2px 10px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
 }
 
 
@@ -78,20 +61,15 @@
 
 .seller-products-page
 .seller-products-card-header {
-
     margin-bottom: 20px;
 }
 
 
 .seller-products-page
 .seller-products-card-header h2 {
-
     margin: 0;
-
     font-size: 24px;
-
     font-weight: 600;
-
     color: #1f1f1f;
 }
 
@@ -102,9 +80,7 @@
 
 .seller-products-page
 .seller-products-table-container {
-
     width: 100%;
-
     overflow-x: auto;
 }
 
@@ -115,14 +91,80 @@
 
 .seller-products-page
 .seller-products-table {
-
     width: 100%;
-
     border-collapse: collapse;
-
     min-width: 900px;
+    table-layout: fixed;
+}
 
-    table-layout: auto;
+
+/* ==========================================
+   TABLE COLUMN WIDTHS
+========================================== */
+
+/* PRODUCT */
+
+.seller-products-page
+.seller-products-table th:nth-child(1),
+
+.seller-products-page
+.seller-products-table td:nth-child(1) {
+    width: 28%;
+}
+
+
+/* CATEGORY */
+
+.seller-products-page
+.seller-products-table th:nth-child(2),
+
+.seller-products-page
+.seller-products-table td:nth-child(2) {
+    width: 14%;
+}
+
+
+/* SELLING PRICE */
+
+.seller-products-page
+.seller-products-table th:nth-child(3),
+
+.seller-products-page
+.seller-products-table td:nth-child(3) {
+    width: 14%;
+}
+
+
+/* STOCK */
+
+.seller-products-page
+.seller-products-table th:nth-child(4),
+
+.seller-products-page
+.seller-products-table td:nth-child(4) {
+    width: 10%;
+}
+
+
+/* STATUS */
+
+.seller-products-page
+.seller-products-table th:nth-child(5),
+
+.seller-products-page
+.seller-products-table td:nth-child(5) {
+    width: 16%;
+}
+
+
+/* ACTION */
+
+.seller-products-page
+.seller-products-table th:nth-child(6),
+
+.seller-products-page
+.seller-products-table td:nth-child(6) {
+    width: 18%;
 }
 
 
@@ -132,30 +174,37 @@
 
 .seller-products-page
 .seller-products-table thead {
-
     background: #f2f4f7;
 }
 
 
 .seller-products-page
 .seller-products-table th {
-
-    text-align: left;
-
-    padding: 16px 14px;
-
+    text-align: center;
+    padding: 16px 12px;
     font-size: 15px;
-
     font-weight: 600;
-
     color: #333333;
-
-    border-bottom:
-        1px solid #dddddd;
-
+    border-bottom: 1px solid #dddddd;
     white-space: nowrap;
 }
 
+
+/* ==========================================
+   PRODUCT HEADING POSITION
+   Move Product heading slightly left
+========================================== */
+
+
+/* ==========================================
+   ONLY PRODUCT HEADING POSITION
+========================================== */
+
+.seller-products-page
+.seller-products-table th:first-child {
+    text-align: left;
+    padding-left: 35px;
+}
 
 /* ==========================================
    TABLE DATA
@@ -163,17 +212,23 @@
 
 .seller-products-page
 .seller-products-table td {
-
-    padding: 16px 14px;
-
+    padding: 16px 12px;
     font-size: 15px;
-
     color: #444444;
-
-    border-bottom:
-        1px solid #eeeeee;
-
+    border-bottom: 1px solid #eeeeee;
     vertical-align: middle;
+    text-align: center;
+}
+
+
+/* ==========================================
+   PRODUCT COLUMN DATA
+========================================== */
+
+.seller-products-page
+.seller-products-table td:first-child {
+    text-align: left;
+    padding-left: 28px;
 }
 
 
@@ -183,7 +238,6 @@
 
 .seller-products-page
 .seller-products-table tbody tr:hover {
-
     background: #fafafa;
 }
 
@@ -194,14 +248,12 @@
 
 .seller-products-page
 .seller-products-table-product {
-
     display: flex;
-
     align-items: center;
-
     gap: 14px;
-
-    min-width: 250px;
+    min-width: 0;
+    text-align: left;
+    padding-left: 4px;
 }
 
 
@@ -211,17 +263,11 @@
 
 .seller-products-page
 .seller-products-table-image {
-
     width: 58px;
-
     height: 72px;
-
     object-fit: cover;
-
     display: block;
-
     border-radius: 6px;
-
     flex-shrink: 0;
 }
 
@@ -232,23 +278,14 @@
 
 .seller-products-page
 .seller-products-no-image {
-
     width: 58px;
-
     height: 72px;
-
     flex-shrink: 0;
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     border-radius: 6px;
-
     background: #f2f4f7;
-
     color: #888888;
 }
 
@@ -256,7 +293,6 @@
 .seller-products-page
 .seller-products-no-image
 .material-symbols-outlined {
-
     font-size: 28px;
 }
 
@@ -267,13 +303,9 @@
 
 .seller-products-page
 .seller-products-table-name {
-
     font-size: 15px;
-
     font-weight: 500;
-
     color: #222222;
-
     line-height: 21px;
 }
 
@@ -284,58 +316,48 @@
 
 .seller-products-page
 .seller-products-status {
-
     display: inline-flex;
-
     align-items: center;
-
     justify-content: center;
-
     min-width: 90px;
-
     padding: 6px 12px;
-
     border-radius: 20px;
-
     font-size: 13px;
-
     font-weight: 600;
-
     line-height: 1.2;
-
     white-space: nowrap;
 }
 
 
-/* APPROVED */
+/* ==========================================
+   APPROVED STATUS
+========================================== */
 
 .seller-products-page
 .seller-products-status-approved {
-
     background: #e7f7ed;
-
     color: #1f8a4c;
 }
 
 
-/* PENDING */
+/* ==========================================
+   PENDING STATUS
+========================================== */
 
 .seller-products-page
 .seller-products-status-pending {
-
     background: #fff4d6;
-
     color: #a86d00;
 }
 
 
-/* NOT APPROVED */
+/* ==========================================
+   NOT APPROVED STATUS
+========================================== */
 
 .seller-products-page
 .seller-products-status-not-approved {
-
     background: #fde8e8;
-
     color: #c62828;
 }
 
@@ -346,13 +368,11 @@
 
 .seller-products-page
 .seller-products-actions {
-
     display: flex;
-
     align-items: center;
-
+    justify-content: center;
     gap: 8px;
-
+    width: 100%;
     white-space: nowrap;
 }
 
@@ -363,21 +383,14 @@
 
 .seller-products-page
 .seller-products-view-btn {
-
     border: none;
-
     padding: 8px 14px;
-
     border-radius: 6px;
-
     font-size: 14px;
-
     font-weight: 500;
-
     cursor: pointer;
 
-    background: #162636;
-
+    background: #2B4052;
     color: #ffffff;
 
     transition: 0.2s ease;
@@ -386,8 +399,7 @@
 
 .seller-products-page
 .seller-products-view-btn:hover {
-
-    background: #23394d;
+    background: #1f3344;
 }
 
 
@@ -397,21 +409,14 @@
 
 .seller-products-page
 .seller-products-edit-btn {
-
     border: none;
-
     padding: 8px 14px;
-
     border-radius: 6px;
-
     font-size: 14px;
-
     font-weight: 500;
-
     cursor: pointer;
 
     background: #e8edf2;
-
     color: #162636;
 
     transition: 0.2s ease;
@@ -420,7 +425,6 @@
 
 .seller-products-page
 .seller-products-edit-btn:hover {
-
     background: #dbe2e8;
 }
 
@@ -433,39 +437,32 @@
 
     .seller-products-page
     .seller-products-content {
-
         padding: 22px;
     }
 
 
     .seller-products-page
     .seller-products-header h1 {
-
         font-size: 28px;
     }
 
 
     .seller-products-page
     .seller-products-card {
-
         padding: 20px;
     }
 
 
     .seller-products-page
     .seller-products-table-image {
-
         width: 52px;
-
         height: 66px;
     }
 
 
     .seller-products-page
     .seller-products-no-image {
-
         width: 52px;
-
         height: 66px;
     }
 }
@@ -479,37 +476,31 @@
 
     .seller-products-page
     .seller-products-content {
-
         padding: 15px;
     }
 
 
     .seller-products-page
     .seller-products-header h1 {
-
         font-size: 24px;
     }
 
 
     .seller-products-page
     .seller-products-card {
-
         padding: 15px;
-
         border-radius: 8px;
     }
 
 
     .seller-products-page
     .seller-products-card-header h2 {
-
         font-size: 20px;
     }
 
 
     .seller-products-page
     .seller-products-table {
-
         min-width: 850px;
     }
 
@@ -519,43 +510,34 @@
 
     .seller-products-page
     .seller-products-table td {
-
         padding: 13px 12px;
-
         font-size: 13px;
     }
 
 
     .seller-products-page
     .seller-products-table-image {
-
         width: 48px;
-
         height: 60px;
     }
 
 
     .seller-products-page
     .seller-products-no-image {
-
         width: 48px;
-
         height: 60px;
     }
 
 
     .seller-products-page
     .seller-products-table-name {
-
         font-size: 13px;
     }
 
 
     .seller-products-page
     .seller-products-status {
-
         min-width: 82px;
-
         font-size: 11px;
     }
 
@@ -565,9 +547,7 @@
 
     .seller-products-page
     .seller-products-edit-btn {
-
         padding: 7px 11px;
-
         font-size: 12px;
     }
 }

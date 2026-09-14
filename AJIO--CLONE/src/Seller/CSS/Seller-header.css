@@ -4,6 +4,7 @@
 
 .seller-header {
     width: 100%;
+    min-width: 0;
     height: 92px;
 
     background: #ffffff;
@@ -11,17 +12,24 @@
     display: grid;
 
     /* Logo | Center Navigation | Right Profile */
-    grid-template-columns: 190px minmax(700px, 1fr) 235px;
+    grid-template-columns:
+        190px
+        minmax(0, 1fr)
+        235px;
 
     align-items: center;
 
     padding: 0 35px;
 
+    box-sizing: border-box;
+
     border-bottom: 1px solid #e4e9ee;
 
-    box-shadow: 0 3px 13px rgba(0, 0, 0, 0.06);
+    box-shadow:
+        0 3px 13px rgba(0, 0, 0, 0.06);
 
     position: sticky;
+
     top: 0;
 
     z-index: 1000;
@@ -32,17 +40,21 @@
    AJIO LOGO
 ========================================= */
 
-.seller-header .seller-navbar-left {
+.seller-header
+.seller-navbar-left {
     display: flex;
+
     align-items: center;
     justify-content: flex-start;
 
-    margin: 0;
+    min-width: 0;
 }
 
 
-.seller-header .seller-navbar-logo {
+.seller-header
+.seller-navbar-logo {
     width: 130px;
+
     height: auto;
 
     display: block;
@@ -55,10 +67,14 @@
    CENTER NAVIGATION
 ========================================= */
 
-.seller-header .seller-navbar-menu {
+.seller-header
+.seller-navbar-menu {
     width: 100%;
 
+    min-width: 0;
+
     display: flex;
+
     align-items: center;
     justify-content: center;
 
@@ -74,10 +90,12 @@
    NAVIGATION LINKS
 ========================================= */
 
-.seller-header .seller-nav-link {
+.seller-header
+.seller-nav-link {
     position: relative;
 
     display: inline-flex;
+
     align-items: center;
     justify-content: center;
 
@@ -114,7 +132,8 @@
    NAVIGATION ICON
 ========================================= */
 
-.seller-header .seller-nav-icon {
+.seller-header
+.seller-nav-icon {
     font-size: 25px !important;
 
     flex-shrink: 0;
@@ -126,30 +145,35 @@
 
 
 /* =========================================
-   DIFFERENT ICON COLORS
+   ICON COLORS
 ========================================= */
 
-.seller-header .dashboard-icon {
+.seller-header
+.dashboard-icon {
     color: #2563eb !important;
 }
 
 
-.seller-header .create-icon {
+.seller-header
+.create-icon {
     color: #16a34a !important;
 }
 
 
-.seller-header .products-icon {
+.seller-header
+.products-icon {
     color: #7c3aed !important;
 }
 
 
-.seller-header .orders-icon {
+.seller-header
+.orders-icon {
     color: #e05f2c !important;
 }
 
 
-.seller-header .profit-icon {
+.seller-header
+.profit-icon {
     color: #0891b2 !important;
 }
 
@@ -158,7 +182,8 @@
    NAVIGATION HOVER
 ========================================= */
 
-.seller-header .seller-nav-link:hover {
+.seller-header
+.seller-nav-link:hover {
     color: #0d2539;
 
     background: #f4f7fa;
@@ -167,7 +192,9 @@
 }
 
 
-.seller-header .seller-nav-link:hover .seller-nav-icon {
+.seller-header
+.seller-nav-link:hover
+.seller-nav-icon {
     transform: scale(1.08);
 }
 
@@ -176,7 +203,8 @@
    ACTIVE NAVIGATION
 ========================================= */
 
-.seller-header .seller-nav-link.active {
+.seller-header
+.seller-nav-link.active {
     color: #102a43;
 
     font-weight: 700;
@@ -185,14 +213,10 @@
 }
 
 
-/* REMOVE ACTIVE UNDERLINE */
-
-.seller-header .seller-nav-link.active::after {
-    display: none;
-}
-
-
-.seller-header .seller-nav-link.active::before {
+.seller-header
+.seller-nav-link.active::after,
+.seller-header
+.seller-nav-link.active::before {
     display: none;
 }
 
@@ -201,14 +225,16 @@
    RIGHT SIDE
 ========================================= */
 
-.seller-header .seller-navbar-right {
+.seller-header
+.seller-navbar-right {
     display: flex;
+
     align-items: center;
     justify-content: flex-end;
 
     gap: 22px;
 
-    margin: 0;
+    min-width: 0;
 
     flex-shrink: 0;
 }
@@ -218,7 +244,8 @@
    NOTIFICATION
 ========================================= */
 
-.seller-header .seller-notification {
+.seller-header
+.seller-notification {
     font-size: 28px !important;
 
     color: #17324a !important;
@@ -233,7 +260,8 @@
 }
 
 
-.seller-header .seller-notification:hover {
+.seller-header
+.seller-notification:hover {
     color: #2563eb !important;
 
     transform: translateY(-2px);
@@ -244,8 +272,10 @@
    SELLER PROFILE
 ========================================= */
 
-.seller-header .seller-profile {
+.seller-header
+.seller-profile {
     display: flex;
+
     align-items: center;
 
     gap: 11px;
@@ -266,7 +296,8 @@
    PROFILE ICON
 ========================================= */
 
-.seller-header .seller-profile-icon {
+.seller-header
+.seller-profile-icon {
     font-size: 43px !important;
 
     color: #17324a !important;
@@ -281,7 +312,8 @@
    PROFILE TEXT
 ========================================= */
 
-.seller-header .seller-profile-text {
+.seller-header
+.seller-profile-text {
     display: flex;
 
     flex-direction: column;
@@ -294,7 +326,8 @@
 }
 
 
-.seller-header .seller-profile-name {
+.seller-header
+.seller-profile-name {
     font-size: 15px;
 
     font-weight: 700;
@@ -303,14 +336,15 @@
 }
 
 
-.seller-header .seller-profile-role {
+.seller-header
+.seller-profile-role {
+    margin-top: 3px;
+
     font-size: 12px;
 
     font-weight: 500;
 
     color: #77828c;
-
-    margin-top: 3px;
 }
 
 
@@ -318,13 +352,304 @@
    PROFILE HOVER
 ========================================= */
 
-.seller-header .seller-profile:hover .seller-profile-icon {
+.seller-header
+.seller-profile:hover
+.seller-profile-icon {
     color: #2563eb !important;
 }
 
 
-.seller-header .seller-profile:hover .seller-profile-name {
+.seller-header
+.seller-profile:hover
+.seller-profile-name {
     color: #2563eb;
+}
+
+
+
+
+
+
+
+
+/* =========================================
+   SELLER NOTIFICATION DROPDOWN
+========================================= */
+
+.seller-notification-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.seller-notification {
+    cursor: pointer;
+}
+
+.seller-notification-dropdown {
+    position: absolute;
+
+    top: 45px;
+    right: 0;
+
+    width: 320px;
+
+    background: #ffffff;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.15);
+
+    padding: 18px;
+
+    z-index: 9999;
+}
+
+
+/* DROPDOWN HEADING */
+
+.seller-notification-dropdown h3 {
+    margin: 0 0 15px 0;
+
+    font-size: 18px;
+    font-weight: 700;
+
+    color: #1f1f1f;
+
+    padding-bottom: 10px;
+
+    border-bottom: 1px solid #e5e7eb;
+}
+
+
+/* NOTIFICATION ITEMS */
+
+.seller-notification-dropdown p {
+    margin: 0;
+
+    padding: 12px 5px;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+
+    color: #374151;
+
+    border-bottom: 1px solid #eeeeee;
+}
+
+
+/* LAST ITEM */
+
+.seller-notification-dropdown p:last-child {
+    border-bottom: none;
+}
+
+
+/* HOVER */
+
+.seller-notification-dropdown p:hover {
+    background: #f5f7fa;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+/* =========================================
+   NOTIFICATION COUNT BADGE
+========================================= */
+
+.seller-notification-icon-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.seller-notification-count {
+    position: absolute;
+
+    top: -7px;
+    right: -8px;
+
+    min-width: 18px;
+    height: 18px;
+
+    padding: 0 5px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #e53935;
+
+    color: #ffffff;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    border-radius: 50px;
+
+    border: 2px solid #ffffff;
+
+    box-sizing: border-box;
+}
+
+
+
+
+
+
+
+/* =========================================
+   NOTIFICATION HEADER
+========================================= */
+
+.seller-notification-dropdown-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding-bottom: 10px;
+    margin-bottom: 5px;
+
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.seller-notification-dropdown-header h3 {
+    margin: 0;
+
+    font-size: 18px;
+    font-weight: 700;
+
+    color: #1f1f1f;
+
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+
+/* MARK ALL AS READ */
+
+.seller-mark-read-btn {
+    border: none;
+    background: transparent;
+
+    color: #2B4052;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    padding: 4px 6px;
+}
+
+.seller-mark-read-btn:hover {
+    text-decoration: underline;
+}
+
+
+
+
+
+
+
+/* =========================================
+   NOTIFICATION ITEMS
+========================================= */
+
+.seller-notification-item {
+    padding: 12px 5px;
+
+    border-bottom: 1px solid #eeeeee;
+}
+
+.seller-notification-item:last-child {
+    border-bottom: none;
+}
+
+.seller-notification-item p {
+    margin: 0 0 4px 0;
+
+    padding: 0;
+
+    border: none;
+
+    font-size: 14px;
+
+    color: #374151;
+}
+
+.seller-notification-item span {
+    font-size: 11px;
+
+    color: #9ca3af;
+}
+
+.seller-notification-item:hover {
+    background: #f5f7fa;
+
+    border-radius: 5px;
+}
+
+
+
+
+
+
+
+
+/* =========================================
+   CLEAR ALL BUTTON
+========================================= */
+
+.seller-clear-notification-btn {
+    border: none;
+    background: transparent;
+
+    color: #d32f2f;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    padding: 4px 6px;
+}
+
+.seller-clear-notification-btn:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================
+   EMPTY NOTIFICATION MESSAGE
+========================================= */
+
+.seller-no-notifications {
+    margin: 0;
+
+    padding: 22px 10px;
+
+    text-align: center;
+
+    font-size: 14px;
+
+    color: #777777;
+
+    border-bottom: none;
 }
 
 
@@ -336,47 +661,65 @@
 
     .seller-header {
         grid-template-columns:
-            150px
-            minmax(650px, 1fr)
-            205px;
+            140px
+            minmax(0, 1fr)
+            190px;
 
-        padding: 0 25px;
+        height: 84px;
+
+        padding:
+            0
+            22px;
     }
 
 
-    .seller-header .seller-navbar-logo {
-        width: 115px;
+    .seller-header
+    .seller-navbar-logo {
+        width: 110px;
     }
 
 
-    .seller-header .seller-navbar-menu {
-        gap: 25px;
+    .seller-header
+    .seller-navbar-menu {
+        gap: 18px;
     }
 
 
-    .seller-header .seller-nav-link {
-        font-size: 16px;
+    .seller-header
+    .seller-nav-link {
+        height: 52px;
 
-        font-weight: 700;
+        padding:
+            0
+            7px;
 
-        padding: 0 8px;
+        gap: 6px;
 
-        gap: 7px;
+        font-size: 15px;
     }
 
 
-    .seller-header .seller-nav-icon {
-        font-size: 22px !important;
+    .seller-header
+    .seller-nav-icon {
+        font-size: 21px !important;
     }
 
 
-    .seller-header .seller-profile {
-        padding-left: 15px;
+    .seller-header
+    .seller-navbar-right {
+        gap: 14px;
     }
 
 
-    .seller-header .seller-profile-name {
-        font-size: 14px;
+    .seller-header
+    .seller-profile {
+        padding-left: 14px;
+    }
+
+
+    .seller-header
+    .seller-profile-name {
+        font-size: 13px;
     }
 
 }
@@ -384,84 +727,146 @@
 
 /* =========================================
    TABLET
+   HEADER BECOMES TWO ROWS
 ========================================= */
 
 @media screen and (max-width: 1050px) {
 
     .seller-header {
-        display: flex;
+        height: auto;
 
-        width: 100%;
+        min-height: 118px;
 
-        min-width: 900px;
+        display: grid;
 
-        height: 82px;
+        grid-template-columns:
+            1fr
+            auto;
 
-        padding: 0 20px;
+        grid-template-rows:
+            58px
+            52px;
 
-        overflow-x: auto;
+        padding:
+            4px
+            18px
+            6px;
+
+        row-gap: 0;
+
+        overflow: visible;
     }
 
 
-    .seller-header .seller-navbar-left {
-        width: 120px;
+    /* LOGO TOP LEFT */
 
-        flex-shrink: 0;
+    .seller-header
+    .seller-navbar-left {
+        grid-column: 1;
+        grid-row: 1;
+
+        width: auto;
     }
 
 
-    .seller-header .seller-navbar-logo {
+    .seller-header
+    .seller-navbar-logo {
         width: 95px;
     }
 
 
-    .seller-header .seller-navbar-menu {
-        flex: 1;
+    /* RIGHT TOP */
 
-        justify-content: center;
+    .seller-header
+    .seller-navbar-right {
+        grid-column: 2;
+        grid-row: 1;
 
-        gap: 16px;
+        margin: 0;
 
-        flex-wrap: nowrap;
-
-        white-space: nowrap;
+        gap: 13px;
     }
 
 
-    .seller-header .seller-nav-link {
-        height: 52px;
+    .seller-header
+    .seller-profile-text {
+        display: none;
+    }
 
-        padding: 0 6px;
 
-        font-size: 14px;
+    .seller-header
+    .seller-profile {
+        min-height: auto;
 
-        font-weight: 700;
+        padding-left: 12px;
+    }
 
-        gap: 6px;
+
+    .seller-header
+    .seller-profile-icon {
+        font-size: 35px !important;
+    }
+
+
+    .seller-header
+    .seller-notification {
+        font-size: 23px !important;
+    }
+
+
+    /* NAVIGATION SECOND ROW */
+
+    .seller-header
+    .seller-navbar-menu {
+        grid-column:
+            1 / -1;
+
+        grid-row: 2;
+
+        width: 100%;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: space-between;
+
+        gap: 8px;
+
+        overflow-x: auto;
+
+        overflow-y: hidden;
+
+        white-space: nowrap;
+
+        scrollbar-width: none;
+    }
+
+
+    .seller-header
+    .seller-navbar-menu::-webkit-scrollbar {
+        display: none;
+    }
+
+
+    .seller-header
+    .seller-nav-link {
+        height: 42px;
+
+        padding:
+            0
+            10px;
+
+        gap: 5px;
+
+        font-size: 13px;
 
         flex-shrink: 0;
     }
 
 
-    .seller-header .seller-nav-icon {
-        font-size: 20px !important;
-    }
-
-
-    .seller-header .seller-navbar-right {
-        margin-left: 18px;
-
-        gap: 15px;
-    }
-
-
-    .seller-header .seller-profile-text {
-        display: none;
-    }
-
-
-    .seller-header .seller-profile {
-        padding-left: 15px;
+    .seller-header
+    .seller-nav-icon {
+        font-size: 18px !important;
     }
 
 }
@@ -474,70 +879,174 @@
 @media screen and (max-width: 767px) {
 
     .seller-header {
-        min-width: 850px;
+        width: 100%;
 
-        height: 76px;
+        min-width: 0;
 
-        padding: 0 15px;
+        min-height: 106px;
+
+        grid-template-columns:
+            1fr
+            auto;
+
+        grid-template-rows:
+            52px
+            46px;
+
+        padding:
+            4px
+            10px
+            4px;
+
+        box-sizing: border-box;
     }
 
 
-    .seller-header .seller-navbar-left {
-        width: 100px;
+    /* LOGO */
+
+    .seller-header
+    .seller-navbar-logo {
+        width: 78px;
     }
 
 
-    .seller-header .seller-navbar-logo {
-        width: 82px;
+    /* RIGHT SIDE */
+
+    .seller-header
+    .seller-navbar-right {
+        gap: 9px;
     }
 
 
-    .seller-header .seller-navbar-menu {
-        gap: 12px;
-
-        flex-wrap: nowrap;
-
-        white-space: nowrap;
+    .seller-header
+    .seller-notification {
+        font-size: 21px !important;
     }
 
 
-    .seller-header .seller-nav-link {
-        height: 48px;
+    .seller-header
+    .seller-profile {
+        min-height: auto;
 
-        padding: 0 5px;
+        padding-left: 9px;
+    }
 
-        font-size: 13px;
 
-        font-weight: 700;
+    .seller-header
+    .seller-profile-icon {
+        font-size: 31px !important;
+    }
+
+
+    /* NAV MENU */
+
+    .seller-header
+    .seller-navbar-menu {
+        justify-content: flex-start;
 
         gap: 5px;
+
+        padding-bottom: 2px;
     }
 
 
-    .seller-header .seller-nav-icon {
-        font-size: 18px !important;
+    .seller-header
+    .seller-nav-link {
+        height: 38px;
+
+        padding:
+            0
+            7px;
+
+        gap: 4px;
+
+        border-radius: 6px;
+
+        font-size: 11px;
     }
 
 
-    .seller-header .seller-navbar-right {
-        margin-left: 15px;
+    .seller-header
+    .seller-nav-icon {
+        font-size: 16px !important;
+    }
 
-        gap: 12px;
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media screen and (max-width: 480px) {
+
+    .seller-header {
+        min-height: 100px;
+
+        grid-template-rows:
+            50px
+            43px;
+
+        padding:
+            3px
+            8px
+            4px;
     }
 
 
-    .seller-header .seller-notification {
-        font-size: 23px !important;
+    .seller-header
+    .seller-navbar-logo {
+        width: 72px;
     }
 
 
-    .seller-header .seller-profile {
-        padding-left: 12px;
+    .seller-header
+    .seller-navbar-right {
+        gap: 7px;
     }
 
 
-    .seller-header .seller-profile-icon {
-        font-size: 34px !important;
+    .seller-header
+    .seller-notification {
+        font-size: 19px !important;
+    }
+
+
+    .seller-header
+    .seller-profile {
+        padding-left: 7px;
+    }
+
+
+    .seller-header
+    .seller-profile-icon {
+        font-size: 28px !important;
+    }
+
+
+    .seller-header
+    .seller-navbar-menu {
+        gap: 3px;
+    }
+
+
+    .seller-header
+    .seller-nav-link {
+        height: 36px;
+
+        padding:
+            0
+            6px;
+
+        gap: 3px;
+
+        font-size: 10px;
+    }
+
+
+    .seller-header
+    .seller-nav-icon {
+        font-size: 15px !important;
     }
 
 }

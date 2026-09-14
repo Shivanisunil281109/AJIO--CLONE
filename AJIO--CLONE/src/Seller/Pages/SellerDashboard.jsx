@@ -155,7 +155,7 @@ const SellerDashboard = () => {
             <section className="seller-dashboard-content">
 
                 <h2 className="seller-dashboard-page-title">
-                    Dashboard
+                    Seller Dashboard
                 </h2>
 
 
@@ -269,7 +269,12 @@ const SellerDashboard = () => {
                 LATEST ORDERS + PRODUCTS
             ========================== */}
 
-            <section className="seller-dashboard-content">
+            <section
+                className="
+                    seller-dashboard-content
+                    seller-dashboard-lower-section
+                "
+            >
 
                 <div className="seller-dashboard-bottom">
 
@@ -377,6 +382,7 @@ const SellerDashboard = () => {
                                     src={product.image}
                                     alt={product.name}
                                 />
+
 
                                 <div className="seller-dashboard-product-info">
 
