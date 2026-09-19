@@ -37,6 +37,22 @@ import SellerProfit from "./Seller/Pages/SellerProfit";
 
 
 
+// Admin Pages
+import AdminLayout from "./Admin/Components/AdminLayout";
+import AdminDashboard from "./Admin/Pages/AdminDashboard";
+import ProductReview from "./Admin/Pages/ProductReview";
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -103,11 +119,37 @@ function App() {
         <Route path="/seller/profile" element={<SellerProfile />} />
 
 
+</Route>
 
- 
+
+
+
+
+
+
+
+{/* ==========================
+    ADMIN ROUTES
+=========================== */}
+
+
+<Route element={<AdminLayout />}>
+
+
+<Route path="/admin/dashboard" element={<AdminDashboard />} />
+
+<Route  path="/admin/product-review"  element={<ProductReview />} />
+
 
 
 </Route>
+
+
+
+
+
+
+
 
 
 

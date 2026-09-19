@@ -1,0 +1,378 @@
+/* =========================================
+   PRODUCT REVIEW PAGE
+========================================= */
+
+.admin-product-review-page {
+    width: 100%;
+    min-height: 100vh;
+    padding: 32px 40px;
+    background: #f5f7f9;
+    box-sizing: border-box;
+}
+
+
+/* =========================================
+   PAGE HEADING
+========================================= */
+
+.admin-review-heading {
+    margin-bottom: 28px;
+}
+
+.admin-review-heading h1 {
+    margin: 0 0 8px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #2B4052;
+}
+
+.admin-review-heading p {
+    margin: 0;
+    font-size: 14px;
+    color: #6b7280;
+}
+
+
+/* =========================================
+   STATUS TABS
+========================================= */
+
+.admin-review-tabs {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 22px;
+    flex-wrap: wrap;
+}
+
+.admin-review-tab {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 11px 18px;
+
+    background: #ffffff;
+    border: 1px solid #dfe5ea;
+    border-radius: 8px;
+
+    color: #53606c;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+.admin-review-tab:hover {
+    background: #eef3f7;
+    color: #2B4052;
+}
+
+.admin-review-tab.active {
+    background: #2B4052;
+    color: #ffffff;
+    border-color: #2B4052;
+}
+
+.admin-review-tab span {
+    min-width: 22px;
+    height: 22px;
+
+    padding: 0 6px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #edf1f4;
+
+    color: #53606c;
+
+    border-radius: 20px;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.admin-review-tab.active span {
+    background: #ffffff;
+    color: #2B4052;
+}
+
+
+/* =========================================
+   FILTER SECTION
+========================================= */
+
+.admin-review-filters {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 14px;
+
+    margin-bottom: 20px;
+}
+
+.admin-review-filters select {
+    min-width: 190px;
+
+    padding: 11px 14px;
+
+    background: #ffffff;
+
+    border: 1px solid #dfe5ea;
+    border-radius: 8px;
+
+    color: #404a54;
+
+    font-size: 14px;
+
+    outline: none;
+
+    cursor: pointer;
+}
+
+.admin-review-filters select:focus {
+    border-color: #2B4052;
+}
+
+
+/* =========================================
+   TABLE CARD
+========================================= */
+
+.admin-review-table-card {
+    width: 100%;
+
+    background: #ffffff;
+
+    border: 1px solid #e7ebef;
+    border-radius: 12px;
+
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+
+    overflow: hidden;
+}
+
+.admin-review-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+
+/* =========================================
+   TABLE
+========================================= */
+
+.admin-review-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admin-review-table th {
+    padding: 15px 16px;
+
+    text-align: left;
+
+    background: #f5f7f9;
+
+    color: #53606c;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    white-space: nowrap;
+
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.admin-review-table td {
+    padding: 17px 16px;
+
+    color: #404a54;
+
+    font-size: 14px;
+
+    vertical-align: middle;
+
+    border-bottom: 1px solid #edf0f2;
+}
+
+.admin-review-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.admin-review-table tbody tr:hover {
+    background: #fafbfc;
+}
+
+.admin-review-table td > strong {
+    color: #2B4052;
+    font-weight: 650;
+}
+
+
+/* =========================================
+   SELLER INFORMATION
+========================================= */
+
+.admin-review-seller {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.admin-review-seller strong {
+    color: #2B4052;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.admin-review-seller span {
+    color: #8a939c;
+    font-size: 12px;
+}
+
+
+/* =========================================
+   STATUS BADGES
+========================================= */
+
+.admin-review-status {
+    display: inline-block;
+
+    padding: 6px 11px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.admin-review-status.pending {
+    background: #fff4dd;
+    color: #b7791f;
+}
+
+.admin-review-status.approved {
+    background: #e7f7ed;
+    color: #1f8a4c;
+}
+
+.admin-review-status.rejected {
+    background: #fdecec;
+    color: #d14343;
+}
+
+
+/* =========================================
+   ACTION BUTTONS
+========================================= */
+
+.admin-review-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.admin-approve-btn,
+.admin-reject-btn {
+    padding: 7px 12px;
+
+    border-radius: 6px;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+.admin-approve-btn {
+    background: #e7f7ed;
+    color: #1f8a4c;
+
+    border: 1px solid #bde8cc;
+}
+
+.admin-approve-btn:hover {
+    background: #1f8a4c;
+    color: #ffffff;
+}
+
+.admin-reject-btn {
+    background: #fdecec;
+    color: #d14343;
+
+    border: 1px solid #f3c5c5;
+}
+
+.admin-reject-btn:hover {
+    background: #d14343;
+    color: #ffffff;
+}
+
+
+/* =========================================
+   REVIEWED TEXT
+========================================= */
+
+.admin-review-completed {
+    color: #8a939c;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 900px) {
+
+    .admin-product-review-page {
+        padding: 25px 20px;
+    }
+
+    .admin-review-filters {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .admin-product-review-page {
+        padding: 20px 15px;
+    }
+
+    .admin-review-heading h1 {
+        font-size: 24px;
+    }
+
+    .admin-review-tabs {
+        gap: 7px;
+    }
+
+    .admin-review-tab {
+        padding: 9px 12px;
+        font-size: 13px;
+    }
+
+    .admin-review-filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .admin-review-filters select {
+        width: 100%;
+    }
+
+}
