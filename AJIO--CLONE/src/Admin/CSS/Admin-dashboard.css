@@ -52,30 +52,19 @@
 .admin-stat-card {
     min-width: 0;
     height: 235px;
-
     background: #ffffff;
-
     border: 1px solid #e7ebef;
     border-radius: 16px;
-
     padding: 22px 18px 16px;
-
     box-sizing: border-box;
-
     display: block;
-
     box-shadow: 0 5px 18px rgba(0, 0, 0, 0.06);
-
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .admin-stat-card:hover {
     transform: translateY(-3px);
-
-    box-shadow:
-        0 8px 22px rgba(0, 0, 0, 0.09);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.09);
 }
 
 
@@ -85,10 +74,8 @@
 
 .admin-stat-top {
     width: 100%;
-
     display: flex;
     align-items: center;
-
     gap: 14px;
 }
 
@@ -100,18 +87,13 @@
 .admin-stat-card .admin-stat-icon {
     width: 48px;
     height: 48px;
-
     flex: 0 0 48px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     border-radius: 10px;
-
     background: #edf3ff;
     color: #356df3;
-
     font-size: 27px;
 }
 
@@ -127,23 +109,17 @@
 
 .admin-stat-card .admin-stat-info p {
     margin: 0 0 6px;
-
     font-size: 13px;
     font-weight: 500;
-
     line-height: 1.2;
-
     color: #747d87;
 }
 
 .admin-stat-card .admin-stat-info h2 {
     margin: 0;
-
     font-size: 23px;
     font-weight: 700;
-
     line-height: 1.2;
-
     color: #17212b;
 }
 
@@ -154,14 +130,10 @@
 
 .admin-stat-growth {
     display: block;
-
     margin-top: 22px;
-
     font-size: 14px;
     font-weight: 700;
-
     line-height: 1;
-
     color: #16a34a;
 }
 
@@ -172,11 +144,8 @@
 
 .admin-stat-period {
     display: block;
-
     margin-top: 9px;
-
     font-size: 12px;
-
     color: #8a939c;
 }
 
@@ -187,14 +156,10 @@
 
 .admin-mini-chart {
     display: block;
-
     width: 100%;
     height: 48px;
-
     margin-top: 12px;
-
     color: #356df3;
-
     overflow: visible;
 }
 
@@ -212,7 +177,6 @@
     color: #356df3;
 }
 
-
 .admin-stat-card:nth-child(2) .admin-stat-icon {
     background: #e9f9f3;
     color: #16a085;
@@ -221,7 +185,6 @@
 .admin-stat-card:nth-child(2) .admin-mini-chart {
     color: #16a085;
 }
-
 
 .admin-stat-card:nth-child(3) .admin-stat-icon {
     background: #f5ecff;
@@ -232,7 +195,6 @@
     color: #9333ea;
 }
 
-
 .admin-stat-card:nth-child(4) .admin-stat-icon {
     background: #fff4e6;
     color: #f59e0b;
@@ -241,7 +203,6 @@
 .admin-stat-card:nth-child(4) .admin-mini-chart {
     color: #f59e0b;
 }
-
 
 .admin-stat-card:nth-child(5) .admin-stat-icon {
     background: #eef2ff;
@@ -259,37 +220,27 @@
 
 .admin-analytics-grid {
     width: 100%;
-
     display: grid;
-
     grid-template-columns:
         minmax(0, 1.65fr)
         minmax(320px, 0.85fr);
-
     gap: 22px;
 }
 
 
 /* =========================================
-   SALES OVERVIEW
+   ANALYTICS CARDS
 ========================================= */
 
 .admin-sales-overview,
 .admin-order-status-card {
     min-width: 0;
-
     background: #ffffff;
-
     border: 1px solid #e7ebef;
-
     border-radius: 16px;
-
     padding: 24px;
-
     box-sizing: border-box;
-
-    box-shadow:
-        0 5px 18px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.06);
 }
 
 
@@ -299,48 +250,34 @@
 
 .admin-analytics-heading {
     display: flex;
-
     align-items: flex-start;
     justify-content: space-between;
-
     gap: 20px;
-
     margin-bottom: 25px;
 }
 
 .admin-analytics-heading h2 {
     margin: 0 0 6px;
-
     font-size: 21px;
     font-weight: 700;
-
     color: #17212b;
 }
 
 .admin-analytics-heading p {
     margin: 0;
-
     font-size: 13px;
-
     color: #7b8490;
 }
 
 .admin-analytics-heading button {
     flex-shrink: 0;
-
     padding: 9px 15px;
-
     background: #ffffff;
-
     border: 1px solid #dfe4e8;
-
     border-radius: 8px;
-
     font-size: 13px;
     font-weight: 600;
-
     color: #2B4052;
-
     cursor: pointer;
 }
 
@@ -355,11 +292,8 @@
 
 .admin-sales-chart-wrapper {
     width: 100%;
-
     height: 330px;
-
     display: flex;
-
     gap: 12px;
 }
 
@@ -371,24 +305,17 @@
 .admin-sales-y-axis {
     width: 45px;
     height: 260px;
-
     display: flex;
-
     flex-direction: column;
     justify-content: space-between;
-
     padding-top: 1px;
-
     box-sizing: border-box;
 }
 
 .admin-sales-y-axis span {
     display: block;
-
     text-align: right;
-
     font-size: 11px;
-
     color: #7b8490;
 }
 
@@ -399,11 +326,8 @@
 
 .admin-sales-chart {
     position: relative;
-
     flex: 1;
-
     min-width: 0;
-
     height: 300px;
 }
 
@@ -414,14 +338,10 @@
 
 .admin-chart-grid-line {
     position: absolute;
-
     left: 0;
     right: 0;
-
     height: 1px;
-
     background: #e9edf1;
-
     border-top: 1px dashed #e2e7ec;
 }
 
@@ -452,39 +372,56 @@
 
 .admin-main-sales-svg {
     position: relative;
-
     z-index: 2;
-
     display: block;
-
     width: 100%;
     height: 260px;
-
     overflow: visible;
 }
 
 
 /* =========================================
-   DAYS
+   SALES GRAPH
+========================================= */
+
+.admin-sales-gradient-start {
+    stop-color: #356df3;
+    stop-opacity: 0.28;
+}
+
+.admin-sales-gradient-end {
+    stop-color: #356df3;
+    stop-opacity: 0.02;
+}
+
+.admin-sales-line {
+    fill: none;
+    stroke: #356df3;
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.admin-sales-point {
+    fill: #356df3;
+}
+
+
+/* =========================================
+   SALES DAYS
 ========================================= */
 
 .admin-sales-days {
     width: 100%;
-
     display: flex;
-
     justify-content: space-between;
-
     margin-top: 12px;
-
     padding: 0 4px;
-
     box-sizing: border-box;
 }
 
 .admin-sales-days span {
     font-size: 11px;
-
     color: #69737d;
 }
 
@@ -497,19 +434,11 @@
     min-height: 430px;
 }
 
-
-/* =========================================
-   ORDER STATUS CONTENT
-========================================= */
-
 .admin-order-status-content {
     min-height: 300px;
-
     display: flex;
-
     align-items: center;
     justify-content: center;
-
     gap: 30px;
 }
 
@@ -520,9 +449,7 @@
 
 .admin-donut-wrapper {
     flex-shrink: 0;
-
     display: flex;
-
     align-items: center;
     justify-content: center;
 }
@@ -534,118 +461,85 @@
 
 .admin-donut-chart {
     position: relative;
-
     width: 180px;
     height: 180px;
-
     border-radius: 50%;
 
-    background:
-        conic-gradient(
-            #22c55e 0% 51%,
-            #356df3 51% 73.4%,
-            #f59e0b 73.4% 91.8%,
-            #ef4444 91.8% 100%
-        );
+    background: conic-gradient(
+        #22c55e 0% 51%,
+        #356df3 51% 73.4%,
+        #f59e0b 73.4% 91.8%,
+        #ef4444 91.8% 100%
+    );
 }
-
-
-/* White center */
 
 .admin-donut-chart::after {
     content: "";
-
     position: absolute;
-
     width: 105px;
     height: 105px;
-
     top: 50%;
     left: 50%;
-
     transform: translate(-50%, -50%);
-
     border-radius: 50%;
-
     background: #ffffff;
 }
 
 
 /* =========================================
-   DONUT CENTER TEXT
+   DONUT CENTER
 ========================================= */
 
 .admin-donut-center {
     position: absolute;
-
     top: 50%;
     left: 50%;
-
     z-index: 2;
-
     transform: translate(-50%, -50%);
-
     display: flex;
-
     flex-direction: column;
-
     align-items: center;
     justify-content: center;
 }
 
 .admin-donut-center strong {
     font-size: 24px;
-
     color: #17212b;
 }
 
 .admin-donut-center span {
     margin-top: 2px;
-
     font-size: 11px;
-
     color: #7b8490;
 }
 
 
 /* =========================================
-   STATUS LIST
+   ORDER STATUS LIST
 ========================================= */
 
 .admin-order-status-list {
     display: flex;
-
     flex-direction: column;
-
     gap: 20px;
 }
 
-
-/* =========================================
-   STATUS ITEM
-========================================= */
-
 .admin-order-status-item {
     display: flex;
-
     align-items: flex-start;
-
     gap: 10px;
 }
 
 
 /* =========================================
-   STATUS DOT
+   STATUS DOTS
 ========================================= */
 
 .admin-status-dot {
     width: 11px;
     height: 11px;
-
     flex: 0 0 11px;
-
     margin-top: 5px;
-
     border-radius: 50%;
 }
 
@@ -672,28 +566,263 @@
 
 .admin-status-details {
     display: flex;
-
     flex-direction: column;
-
     gap: 4px;
 }
 
 .admin-status-details strong {
     font-size: 14px;
     font-weight: 700;
-
     color: #17212b;
 }
 
 .admin-status-details span {
     font-size: 12px;
-
     color: #6b7280;
 }
 
 
 /* =========================================
-   RESPONSIVE
+   LATEST ORDERS
+========================================= */
+
+.admin-dashboard-page .admin-latest-orders-card {
+    width: 100%;
+    margin-top: 25px;
+    padding: 24px;
+    background: #ffffff;
+    border: 1px solid #e7ebef;
+    border-radius: 16px;
+    box-sizing: border-box;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.06);
+}
+
+
+/* =========================================
+   LATEST ORDERS TITLE
+========================================= */
+
+.admin-dashboard-page .admin-latest-orders-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 22px;
+}
+
+.admin-dashboard-page .admin-latest-orders-header h2 {
+    margin: 0 0 6px;
+    font-size: 21px;
+    font-weight: 700;
+    color: #17212b;
+}
+
+.admin-dashboard-page .admin-latest-orders-header p {
+    margin: 0;
+    font-size: 13px;
+    color: #7b8490;
+}
+
+
+/* =========================================
+   TABLE WRAPPER
+========================================= */
+
+.admin-dashboard-page .admin-latest-orders-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+
+/* =========================================
+   TABLE
+========================================= */
+
+.admin-dashboard-page .admin-latest-orders-table {
+    width: 100%;
+    min-width: 900px;
+    border-collapse: collapse;
+    table-layout: auto;
+}
+
+
+/* =========================================
+   TABLE HEADER
+========================================= */
+
+.admin-dashboard-page .admin-latest-orders-table thead {
+    background: #f7f9fb;
+}
+
+.admin-dashboard-page .admin-latest-orders-table th {
+    padding: 15px 18px;
+    text-align: left;
+    vertical-align: middle;
+    font-size: 13px;
+    font-weight: 600;
+    color: #6b7280;
+    border-bottom: 1px solid #e7ebef;
+    white-space: nowrap;
+}
+
+
+/* =========================================
+   PRODUCT & STATUS HEADING POSITION
+========================================= */
+
+/* Product heading slightly right */
+
+.admin-dashboard-page
+.admin-latest-orders-table
+thead
+th:first-child {
+    padding-left: 80px;
+}
+
+
+/* Status heading slightly right */
+
+.admin-dashboard-page
+.admin-latest-orders-table
+thead
+th:last-child {
+    padding-left: 35px;
+}
+
+
+/* =========================================
+   TABLE BODY
+========================================= */
+
+.admin-dashboard-page .admin-latest-orders-table td {
+    padding: 17px 18px;
+    text-align: left;
+    vertical-align: middle;
+    font-size: 14px;
+    color: #374151;
+    border-bottom: 1px solid #edf0f2;
+}
+
+.admin-dashboard-page .admin-latest-orders-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.admin-dashboard-page .admin-latest-orders-table tbody tr:hover {
+    background: #fafbfc;
+}
+
+
+/* =========================================
+   PRODUCT COLUMN
+========================================= */
+
+.admin-dashboard-page .admin-latest-orders-table th:first-child,
+.admin-dashboard-page .admin-latest-orders-table td:first-child {
+    width: 300px;
+}
+
+
+/* =========================================
+   PRODUCT DETAILS
+========================================= */
+
+.admin-dashboard-page .admin-latest-product {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 190px;
+}
+
+.admin-dashboard-page .admin-latest-product-image {
+    width: 55px;
+    height: 65px;
+
+    min-width: 55px;
+    max-width: 55px;
+
+    min-height: 65px;
+    max-height: 65px;
+
+    object-fit: cover;
+    object-position: top;
+
+    border-radius: 6px;
+    border: 1px solid #e7ebef;
+
+    background: #f7f8fa;
+
+    display: block;
+    flex-shrink: 0;
+}
+
+.admin-dashboard-page .admin-latest-product span {
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: #2B4052;
+}
+
+
+/* =========================================
+   ORDER ID
+========================================= */
+
+.admin-dashboard-page .admin-order-id {
+    font-weight: 700;
+    color: #2B4052;
+    white-space: nowrap;
+}
+
+
+/* =========================================
+   AMOUNT
+========================================= */
+
+.admin-dashboard-page .admin-order-amount {
+    font-weight: 700;
+    color: #17212b;
+    white-space: nowrap;
+}
+
+
+/* =========================================
+   STATUS BADGES
+========================================= */
+
+.admin-dashboard-page .admin-order-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 95px;
+    padding: 7px 13px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.admin-dashboard-page .admin-order-delivered {
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+.admin-dashboard-page .admin-order-processing {
+    background: #dbeafe;
+    color: #2563eb;
+}
+
+.admin-dashboard-page .admin-order-shipped {
+    background: #ffedd5;
+    color: #ea580c;
+}
+
+.admin-dashboard-page .admin-order-cancelled {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+
+/* =========================================
+   RESPONSIVE - 1250PX
 ========================================= */
 
 @media (max-width: 1250px) {
@@ -705,9 +834,12 @@
     .admin-analytics-grid {
         grid-template-columns: 1fr;
     }
-
 }
 
+
+/* =========================================
+   RESPONSIVE - 800PX
+========================================= */
 
 @media (max-width: 800px) {
 
@@ -721,12 +853,22 @@
 
     .admin-order-status-content {
         flex-direction: column;
-
         padding: 20px 0;
     }
 
+    .admin-dashboard-page .admin-latest-orders-card {
+        padding: 18px;
+    }
+
+    .admin-dashboard-page .admin-latest-orders-header h2 {
+        font-size: 19px;
+    }
 }
 
+
+/* =========================================
+   RESPONSIVE - 520PX
+========================================= */
 
 @media (max-width: 520px) {
 
@@ -769,4 +911,23 @@
         height: 95px;
     }
 
+    .admin-dashboard-page .admin-latest-orders-card {
+        padding: 16px;
+    }
+
+    .admin-dashboard-page .admin-latest-orders-table th,
+    .admin-dashboard-page .admin-latest-orders-table td {
+        padding: 14px;
+    }
+
+    .admin-dashboard-page .admin-latest-product-image {
+        width: 48px;
+        height: 58px;
+
+        min-width: 48px;
+        max-width: 48px;
+
+        min-height: 58px;
+        max-height: 58px;
+    }
 }

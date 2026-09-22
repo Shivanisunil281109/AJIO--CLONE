@@ -4,7 +4,7 @@ import "../CSS/Admin-dashboard.css";
 const AdminDashboard = () => {
 
     // =========================================
-    // DASHBOARD STATISTICS DATA
+    // DASHBOARD STATISTICS
     // =========================================
 
     const [dashboardStats] = useState(() => {
@@ -33,10 +33,17 @@ const AdminDashboard = () => {
 
 
     // =========================================
-    // SALES OVERVIEW DATA
+    // SALES FILTER STATE
     // =========================================
 
-    const salesData = [
+    const [selectedWeek, setSelectedWeek] = useState("thisWeek");
+
+
+    // =========================================
+    // THIS WEEK SALES DATA
+    // =========================================
+
+    const thisWeekSales = [
         { day: "Mon", sales: 15000 },
         { day: "Tue", sales: 22000 },
         { day: "Wed", sales: 20000 },
@@ -48,7 +55,46 @@ const AdminDashboard = () => {
 
 
     // =========================================
-    // DYNAMIC SALES GRAPH CALCULATION
+    // LAST WEEK SALES DATA
+    // =========================================
+
+    const lastWeekSales = [
+        { day: "Mon", sales: 12000 },
+        { day: "Tue", sales: 18000 },
+        { day: "Wed", sales: 26000 },
+        { day: "Thu", sales: 23000 },
+        { day: "Fri", sales: 30000 },
+        { day: "Sat", sales: 39000 },
+        { day: "Sun", sales: 42000 }
+    ];
+
+
+    // =========================================
+    // SELECT SALES DATA
+    // =========================================
+
+    const salesData =
+        selectedWeek === "thisWeek"
+            ? thisWeekSales
+            : lastWeekSales;
+
+
+    // =========================================
+    // CHANGE WEEK FUNCTION
+    // =========================================
+
+    const handleWeekChange = () => {
+
+        if (selectedWeek === "thisWeek") {
+            setSelectedWeek("lastWeek");
+        } else {
+            setSelectedWeek("thisWeek");
+        }
+    };
+
+
+    // =========================================
+    // SALES GRAPH CALCULATION
     // =========================================
 
     const chartWidth = 700;
@@ -74,18 +120,10 @@ const AdminDashboard = () => {
     });
 
 
-    // =========================================
-    // CREATE LINE POINTS
-    // =========================================
-
     const salesLinePoints = salesPoints
         .map((point) => `${point.x},${point.y}`)
         .join(" ");
 
-
-    // =========================================
-    // CREATE AREA POINTS
-    // =========================================
 
     const salesAreaPoints = `
         20,${chartHeight}
@@ -101,23 +139,106 @@ const AdminDashboard = () => {
     const orderStatusData = [
         {
             status: "Delivered",
-            count: 125,
-            percentage: "51.0%"
+            count: 125
         },
         {
             status: "Processing",
-            count: 55,
-            percentage: "22.4%"
+            count: 55
         },
         {
             status: "Shipped",
-            count: 45,
-            percentage: "18.4%"
+            count: 45
         },
         {
             status: "Cancelled",
-            count: 20,
-            percentage: "8.2%"
+            count: 20
+        }
+    ];
+
+
+    // =========================================
+    // TOTAL ORDERS
+    // =========================================
+
+    const totalStatusOrders = orderStatusData.reduce(
+        (total, item) => total + item.count,
+        0
+    );
+
+
+    // =========================================
+    // AUTOMATIC PERCENTAGES
+    // =========================================
+
+    const orderStatusWithPercentage = orderStatusData.map((item) => ({
+        ...item,
+
+        percentage:
+            totalStatusOrders === 0
+                ? "0.0"
+                : ((item.count / totalStatusOrders) * 100).toFixed(1)
+    }));
+
+
+    // =========================================
+    // LATEST ORDERS - ALL SELLERS
+    // =========================================
+
+    const latestOrders = [
+        {
+            orderId: "#AJ1245786",
+            productName: "Men Casual Shirt",
+            image:
+                "https://assets-jiocdn.ajio.com/medias/sys_master/root1/20251110/hpeH/69120e5e88d6d62ff8da2a5a/urbano_fashion_pink_men_cotton_regular_fit_shirt.jpg",
+            customer: "Rohit",
+            seller: "Fashion Studio",
+            date: "May 31, 2026",
+            amount: 2499,
+            status: "Delivered"
+        },
+        {
+            orderId: "#AJ1245785",
+            productName: "Running Shoes",
+            image:
+                "https://assets-jiocdn.ajio.com/medias/sys_master/root/20230629/T4Ec/649cce75a9b42d15c91b8114/asian_white_low-top_lace-up_running_shoes.jpg",
+            customer: "Rahul",
+            seller: "Sports Hub",
+            date: "May 31, 2026",
+            amount: 1799,
+            status: "Processing"
+        },
+        {
+            orderId: "#AJ1245784",
+            productName: "Smart Watch",
+            image:
+                "https://assets-jiocdn.ajio.com/medias/sys_master/root1/20260602/01z6/6a1e4294fcb5bb61d2ffbbf3/noise_black_bluetooth_calling_smartwatch-pulse2_pro_m_bk.jpg",
+            customer: "Sneha",
+            seller: "Tech World",
+            date: "May 30, 2026",
+            amount: 2999,
+            status: "Shipped"
+        },
+        {
+            orderId: "#AJ1245783",
+            productName: "Women Kurta",
+            image:
+                "https://assets-jiocdn.ajio.com/medias/sys_master/root1/20260523/mJPl/6a10b6ecfcb5bb61d2e103e5/forkey_maroon_women_embroidered_round-neck_straight_kurta.jpg",
+            customer: "Priya",
+            seller: "Beauty Glam",
+            date: "May 30, 2026",
+            amount: 1299,
+            status: "Delivered"
+        },
+        {
+            orderId: "#AJ1245782",
+            productName: "Slim Fit Jeans",
+            image:
+                "https://assets-jiocdn.ajio.com/medias/sys_master/root1/20251210/xNGA/6939a9498945db77cf242b54/van_heusen_black_men_slim_fit_mid-rise_jeans.jpg",
+            customer: "Amit",
+            seller: "Denim Store",
+            date: "May 29, 2026",
+            amount: 2099,
+            status: "Cancelled"
         }
     ];
 
@@ -126,9 +247,7 @@ const AdminDashboard = () => {
 
         <div className="admin-dashboard-page">
 
-            {/* =========================================
-                PAGE HEADING
-            ========================================= */}
+            {/* PAGE HEADING */}
 
             <div className="admin-dashboard-heading">
 
@@ -148,9 +267,7 @@ const AdminDashboard = () => {
             <div className="admin-stats-grid">
 
 
-                {/* =====================================
-                    ALL PRODUCTS
-                ===================================== */}
+                {/* ALL PRODUCTS */}
 
                 <div className="admin-stat-card">
 
@@ -161,17 +278,11 @@ const AdminDashboard = () => {
                         </span>
 
                         <div className="admin-stat-info">
-
                             <p>All Products</p>
-
-                            <h2>
-                                {dashboardStats.allProducts}
-                            </h2>
-
+                            <h2>{dashboardStats.allProducts}</h2>
                         </div>
 
                     </div>
-
 
                     <div className="admin-stat-growth">
                         ↑ 5.3%
@@ -180,7 +291,6 @@ const AdminDashboard = () => {
                     <div className="admin-stat-period">
                         vs previous week
                     </div>
-
 
                     <svg
                         className="admin-mini-chart"
@@ -209,9 +319,7 @@ const AdminDashboard = () => {
                 </div>
 
 
-                {/* =====================================
-                    ALL SELLERS
-                ===================================== */}
+                {/* ALL SELLERS */}
 
                 <div className="admin-stat-card">
 
@@ -222,17 +330,11 @@ const AdminDashboard = () => {
                         </span>
 
                         <div className="admin-stat-info">
-
                             <p>All Sellers</p>
-
-                            <h2>
-                                {dashboardStats.allSellers}
-                            </h2>
-
+                            <h2>{dashboardStats.allSellers}</h2>
                         </div>
 
                     </div>
-
 
                     <div className="admin-stat-growth">
                         ↑ 8.7%
@@ -241,7 +343,6 @@ const AdminDashboard = () => {
                     <div className="admin-stat-period">
                         vs previous week
                     </div>
-
 
                     <svg
                         className="admin-mini-chart"
@@ -270,9 +371,7 @@ const AdminDashboard = () => {
                 </div>
 
 
-                {/* =====================================
-                    ALL USERS
-                ===================================== */}
+                {/* ALL USERS */}
 
                 <div className="admin-stat-card">
 
@@ -283,17 +382,11 @@ const AdminDashboard = () => {
                         </span>
 
                         <div className="admin-stat-info">
-
                             <p>All Users</p>
-
-                            <h2>
-                                {dashboardStats.allUsers.toLocaleString()}
-                            </h2>
-
+                            <h2>{dashboardStats.allUsers.toLocaleString()}</h2>
                         </div>
 
                     </div>
-
 
                     <div className="admin-stat-growth">
                         ↑ 20.5%
@@ -302,7 +395,6 @@ const AdminDashboard = () => {
                     <div className="admin-stat-period">
                         vs previous week
                     </div>
-
 
                     <svg
                         className="admin-mini-chart"
@@ -331,9 +423,7 @@ const AdminDashboard = () => {
                 </div>
 
 
-                {/* =====================================
-                    TOTAL SOLD PRODUCTS
-                ===================================== */}
+                {/* TOTAL SOLD PRODUCTS */}
 
                 <div className="admin-stat-card">
 
@@ -344,17 +434,11 @@ const AdminDashboard = () => {
                         </span>
 
                         <div className="admin-stat-info">
-
                             <p>Total Sold Products</p>
-
-                            <h2>
-                                {dashboardStats.soldProducts}
-                            </h2>
-
+                            <h2>{dashboardStats.soldProducts}</h2>
                         </div>
 
                     </div>
-
 
                     <div className="admin-stat-growth">
                         ↑ 14.2%
@@ -363,7 +447,6 @@ const AdminDashboard = () => {
                     <div className="admin-stat-period">
                         vs previous week
                     </div>
-
 
                     <svg
                         className="admin-mini-chart"
@@ -392,9 +475,7 @@ const AdminDashboard = () => {
                 </div>
 
 
-                {/* =====================================
-                    TOTAL ORDERS
-                ===================================== */}
+                {/* TOTAL ORDERS */}
 
                 <div className="admin-stat-card">
 
@@ -405,17 +486,11 @@ const AdminDashboard = () => {
                         </span>
 
                         <div className="admin-stat-info">
-
                             <p>Total Orders</p>
-
-                            <h2>
-                                {dashboardStats.totalOrders}
-                            </h2>
-
+                            <h2>{dashboardStats.totalOrders}</h2>
                         </div>
 
                     </div>
-
 
                     <div className="admin-stat-growth">
                         ↑ 12.4%
@@ -424,7 +499,6 @@ const AdminDashboard = () => {
                     <div className="admin-stat-period">
                         vs previous week
                     </div>
-
 
                     <svg
                         className="admin-mini-chart"
@@ -456,15 +530,13 @@ const AdminDashboard = () => {
 
 
             {/* =========================================
-                ANALYTICS SECTION
+                ANALYTICS
             ========================================= */}
 
             <div className="admin-analytics-grid">
 
 
-                {/* =====================================
-                    SALES OVERVIEW
-                ===================================== */}
+                {/* SALES OVERVIEW */}
 
                 <div className="admin-sales-overview">
 
@@ -472,19 +544,28 @@ const AdminDashboard = () => {
 
                         <div>
                             <h2>Sales Overview</h2>
-                            <p>Weekly sales performance</p>
+
+                            <p>
+                                {selectedWeek === "thisWeek"
+                                    ? "This week's sales performance"
+                                    : "Last week's sales performance"}
+                            </p>
                         </div>
 
-                        <button type="button">
-                            This Week
+
+                        <button
+                            type="button"
+                            onClick={handleWeekChange}
+                        >
+                            {selectedWeek === "thisWeek"
+                                ? "This Week"
+                                : "Last Week"}
                         </button>
 
                     </div>
 
 
                     <div className="admin-sales-chart-wrapper">
-
-                        {/* Y AXIS */}
 
                         <div className="admin-sales-y-axis">
 
@@ -499,18 +580,12 @@ const AdminDashboard = () => {
 
                         <div className="admin-sales-chart">
 
-                            {/* GRID LINES */}
-
                             <div className="admin-chart-grid-line line-1"></div>
                             <div className="admin-chart-grid-line line-2"></div>
                             <div className="admin-chart-grid-line line-3"></div>
                             <div className="admin-chart-grid-line line-4"></div>
                             <div className="admin-chart-grid-line line-5"></div>
 
-
-                            {/* =================================
-                                DYNAMIC SALES GRAPH
-                            ================================= */}
 
                             <svg
                                 viewBox="0 0 700 260"
@@ -530,14 +605,12 @@ const AdminDashboard = () => {
 
                                         <stop
                                             offset="0%"
-                                            stopColor="#356df3"
-                                            stopOpacity="0.28"
+                                            className="admin-sales-gradient-start"
                                         />
 
                                         <stop
                                             offset="100%"
-                                            stopColor="#356df3"
-                                            stopOpacity="0.02"
+                                            className="admin-sales-gradient-end"
                                         />
 
                                     </linearGradient>
@@ -545,27 +618,17 @@ const AdminDashboard = () => {
                                 </defs>
 
 
-                                {/* DYNAMIC AREA */}
-
                                 <polygon
                                     points={salesAreaPoints}
                                     fill="url(#adminSalesGradient)"
                                 />
 
 
-                                {/* DYNAMIC LINE */}
-
                                 <polyline
                                     points={salesLinePoints}
-                                    fill="none"
-                                    stroke="#356df3"
-                                    strokeWidth="4"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
+                                    className="admin-sales-line"
                                 />
 
-
-                                {/* DYNAMIC DATA POINTS */}
 
                                 {salesPoints.map((point) => (
 
@@ -574,15 +637,13 @@ const AdminDashboard = () => {
                                         cx={point.x}
                                         cy={point.y}
                                         r="5"
-                                        fill="#356df3"
+                                        className="admin-sales-point"
                                     />
 
                                 ))}
 
                             </svg>
 
-
-                            {/* DAYS */}
 
                             <div className="admin-sales-days">
 
@@ -603,9 +664,7 @@ const AdminDashboard = () => {
                 </div>
 
 
-                {/* =====================================
-                    ORDER STATUS
-                ===================================== */}
+                {/* ORDER STATUS */}
 
                 <div className="admin-order-status-card">
 
@@ -621,9 +680,6 @@ const AdminDashboard = () => {
 
                     <div className="admin-order-status-content">
 
-
-                        {/* DONUT CHART */}
-
                         <div className="admin-donut-wrapper">
 
                             <div className="admin-donut-chart">
@@ -631,7 +687,7 @@ const AdminDashboard = () => {
                                 <div className="admin-donut-center">
 
                                     <strong>
-                                        {dashboardStats.totalOrders}
+                                        {totalStatusOrders}
                                     </strong>
 
                                     <span>
@@ -645,11 +701,9 @@ const AdminDashboard = () => {
                         </div>
 
 
-                        {/* STATUS LIST */}
-
                         <div className="admin-order-status-list">
 
-                            {orderStatusData.map((item) => (
+                            {orderStatusWithPercentage.map((item) => (
 
                                 <div
                                     className="admin-order-status-item"
@@ -660,7 +714,6 @@ const AdminDashboard = () => {
                                         className={`admin-status-dot ${item.status.toLowerCase()}`}
                                     ></span>
 
-
                                     <div className="admin-status-details">
 
                                         <strong>
@@ -668,7 +721,7 @@ const AdminDashboard = () => {
                                         </strong>
 
                                         <span>
-                                            {item.count} ({item.percentage})
+                                            {item.count} ({item.percentage}%)
                                         </span>
 
                                     </div>
@@ -680,6 +733,128 @@ const AdminDashboard = () => {
                         </div>
 
                     </div>
+
+                </div>
+
+            </div>
+
+
+            {/* =========================================
+                LATEST ORDERS - ALL SELLERS
+            ========================================= */}
+
+            <div className="admin-latest-orders-card">
+
+                <div className="admin-latest-orders-header">
+
+                    <div>
+                        <h2>Latest Orders</h2>
+                        <p>Recent orders from all sellers</p>
+                    </div>
+
+                </div>
+
+
+                <div className="admin-latest-orders-table-wrapper">
+
+                    <table className="admin-latest-orders-table">
+
+                        <thead>
+
+                            <tr>
+                                <th>Product</th>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Seller</th>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            {latestOrders.map((order) => (
+
+                                <tr key={order.orderId}>
+
+                                    {/* PRODUCT */}
+
+                                    <td>
+
+                                        <div className="admin-latest-product">
+
+                                            <img
+                                                src={order.image}
+                                                alt={order.productName}
+                                                className="admin-latest-product-image"
+                                            />
+
+                                            <span>
+                                                {order.productName}
+                                            </span>
+
+                                        </div>
+
+                                    </td>
+
+
+                                    {/* ORDER ID */}
+
+                                    <td className="admin-order-id">
+                                        {order.orderId}
+                                    </td>
+
+
+                                    {/* CUSTOMER */}
+
+                                    <td>
+                                        {order.customer}
+                                    </td>
+
+
+                                    {/* SELLER */}
+
+                                    <td>
+                                        {order.seller}
+                                    </td>
+
+
+                                    {/* DATE */}
+
+                                    <td>
+                                        {order.date}
+                                    </td>
+
+
+                                    {/* AMOUNT */}
+
+                                    <td className="admin-order-amount">
+                                        ₹{order.amount.toLocaleString("en-IN")}
+                                    </td>
+
+
+                                    {/* STATUS */}
+
+                                    <td>
+
+                                        <span
+                                            className={`admin-order-badge admin-order-${order.status.toLowerCase()}`}
+                                        >
+                                            {order.status}
+                                        </span>
+
+                                    </td>
+
+                                </tr>
+
+                            ))}
+
+                        </tbody>
+
+                    </table>
 
                 </div>
 
