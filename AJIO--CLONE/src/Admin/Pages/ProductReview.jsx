@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import "../CSS/Product-review.css";
 
 const ProductReview = () => {
 
     // =========================================
-    // PRODUCT DATA
+    // DEFAULT PRODUCT DATA
     // =========================================
 
-    const products = [
+    const defaultProducts = [
         {
             id: "PRD12345",
             name: "Nike Air Max Running Shoes",
@@ -65,90 +65,457 @@ const ProductReview = () => {
     ];
 
 
+    // =========================================
+    // GET SELLER CREATED PRODUCTS
+    // =========================================
+
+    const sellerCreatedProducts =
+        JSON.parse(
+            localStorage.getItem("sellerCreatedProducts")
+        ) || [];
+
+
+    // =========================================
+    // FORMAT SELLER PRODUCTS FOR ADMIN REVIEW
+    // =========================================
+
+    const formattedSellerProducts =
+        sellerCreatedProducts.map((product) => ({
+
+            id: product.id,
+
+            name: product.name,
+
+            seller: product.brand || "Seller",
+
+            email: "seller@ajio.com",
+
+            category: product.category,
+
+            price:
+                product.price ||
+                product.sellingPrice ||
+                0,
+
+            status:
+                product.status ||
+                "Pending"
+
+        }));
+
+
+    // =========================================
+    // COMBINE DEFAULT + SELLER PRODUCTS
+    // =========================================
+
+    const [products, setProducts] = useState([
+        ...defaultProducts,
+        ...formattedSellerProducts
+    ]);
+
+
+    // =========================================
+    // ACTIVE STATUS TAB
+    // =========================================
+
+    const [activeTab, setActiveTab] = useState("All");
+
+
+    // =========================================
+    // CATEGORY FILTER STATE
+    // =========================================
+
+    const [selectedCategory, setSelectedCategory] =
+        useState("All Categories");
+
+
+    // =========================================
+    // SORT STATE
+    // =========================================
+
+    const [sortBy, setSortBy] = useState("Sort By");
+
+
+    // =========================================
+    // FILTER PRODUCTS BY STATUS + CATEGORY
+    // =========================================
+
+    const filteredProducts = products.filter((product) => {
+
+        const statusMatch =
+            activeTab === "All" ||
+            product.status === activeTab;
+
+        const categoryMatch =
+            selectedCategory === "All Categories" ||
+            product.category === selectedCategory;
+
+        return statusMatch && categoryMatch;
+    });
+
+
+    // =========================================
+    // SORT FILTERED PRODUCTS
+    // =========================================
+
+    const sortedProducts = [...filteredProducts];
+
+    if (sortBy === "Price: Low to High") {
+
+        sortedProducts.sort(
+            (a, b) =>
+                Number(a.price) - Number(b.price)
+        );
+
+    } else if (sortBy === "Price: High to Low") {
+
+        sortedProducts.sort(
+            (a, b) =>
+                Number(b.price) - Number(a.price)
+        );
+
+    } else if (sortBy === "Product Name") {
+
+        sortedProducts.sort(
+            (a, b) =>
+                a.name.localeCompare(b.name)
+        );
+
+    }
+
+
+    // =========================================
+    // APPROVE PRODUCT
+    // =========================================
+
+    const handleApproveProduct = (productId) => {
+
+        // Update product on Admin Product Review page
+        const updatedProducts = products.map((product) => {
+
+            if (product.id === productId) {
+
+                return {
+                    ...product,
+                    status: "Approved"
+                };
+
+            }
+
+            return product;
+
+        });
+
+        setProducts(updatedProducts);
+
+
+        // =========================================
+        // UPDATE SELLER PRODUCT IN LOCAL STORAGE
+        // =========================================
+
+        const currentSellerProducts =
+            JSON.parse(
+                localStorage.getItem("sellerCreatedProducts")
+            ) || [];
+
+
+        const updatedSellerProducts =
+            currentSellerProducts.map((product) => {
+
+                if (product.id === productId) {
+
+                    return {
+                        ...product,
+                        status: "Approved"
+                    };
+
+                }
+
+                return product;
+
+            });
+
+
+        localStorage.setItem(
+            "sellerCreatedProducts",
+            JSON.stringify(updatedSellerProducts)
+        );
+    };
+
+
+    // =========================================
+    // REJECT PRODUCT
+    // =========================================
+
+    const handleRejectProduct = (productId) => {
+
+        // Update product on Admin Product Review page
+        const updatedProducts = products.map((product) => {
+
+            if (product.id === productId) {
+
+                return {
+                    ...product,
+                    status: "Rejected"
+                };
+
+            }
+
+            return product;
+
+        });
+
+        setProducts(updatedProducts);
+
+
+        // =========================================
+        // UPDATE SELLER PRODUCT IN LOCAL STORAGE
+        // =========================================
+
+        const currentSellerProducts =
+            JSON.parse(
+                localStorage.getItem("sellerCreatedProducts")
+            ) || [];
+
+
+        const updatedSellerProducts =
+            currentSellerProducts.map((product) => {
+
+                if (product.id === productId) {
+
+                    return {
+                        ...product,
+                        status: "Rejected"
+                    };
+
+                }
+
+                return product;
+
+            });
+
+
+        localStorage.setItem(
+            "sellerCreatedProducts",
+            JSON.stringify(updatedSellerProducts)
+        );
+    };
+
+
     return (
+
         <div className="admin-product-review-page">
 
-            {/* PAGE HEADING */}
+
+            {/* =========================================
+                PAGE HEADING
+            ========================================= */}
 
             <div className="admin-review-heading">
-                <h1>Product Review</h1>
+
+                <h1>
+                    Product Review
+                </h1>
 
                 <p>
                     Review and approve products submitted by sellers.
                 </p>
+
             </div>
 
 
-            {/* STATUS TABS */}
+            {/* =========================================
+                STATUS TABS
+            ========================================= */}
 
             <div className="admin-review-tabs">
 
-                <button className="admin-review-tab active">
+
+                {/* ALL */}
+
+                <button
+                    className={`admin-review-tab ${
+                        activeTab === "All" ? "active" : ""
+                    }`}
+                    type="button"
+                    onClick={() => setActiveTab("All")}
+                >
+
                     All
-                    <span>{products.length}</span>
+
+                    <span>
+                        {products.length}
+                    </span>
+
                 </button>
 
-                <button className="admin-review-tab">
+
+                {/* PENDING */}
+
+                <button
+                    className={`admin-review-tab ${
+                        activeTab === "Pending" ? "active" : ""
+                    }`}
+                    type="button"
+                    onClick={() => setActiveTab("Pending")}
+                >
+
                     Pending
+
                     <span>
+
                         {
                             products.filter(
-                                (product) => product.status === "Pending"
+                                (product) =>
+                                    product.status === "Pending"
                             ).length
                         }
+
                     </span>
+
                 </button>
 
-                <button className="admin-review-tab">
+
+                {/* APPROVED */}
+
+                <button
+                    className={`admin-review-tab ${
+                        activeTab === "Approved" ? "active" : ""
+                    }`}
+                    type="button"
+                    onClick={() => setActiveTab("Approved")}
+                >
+
                     Approved
+
                     <span>
+
                         {
                             products.filter(
-                                (product) => product.status === "Approved"
+                                (product) =>
+                                    product.status === "Approved"
                             ).length
                         }
+
                     </span>
+
                 </button>
 
-                <button className="admin-review-tab">
+
+                {/* REJECTED */}
+
+                <button
+                    className={`admin-review-tab ${
+                        activeTab === "Rejected" ? "active" : ""
+                    }`}
+                    type="button"
+                    onClick={() => setActiveTab("Rejected")}
+                >
+
                     Rejected
+
                     <span>
+
                         {
                             products.filter(
-                                (product) => product.status === "Rejected"
+                                (product) =>
+                                    product.status === "Rejected"
                             ).length
                         }
+
                     </span>
+
                 </button>
 
             </div>
 
 
-            {/* FILTER SECTION */}
+            {/* =========================================
+                FILTER SECTION
+            ========================================= */}
 
             <div className="admin-review-filters">
 
-                <select>
-                    <option>All Categories</option>
-                    <option>Men Clothing</option>
-                    <option>Men Footwear</option>
-                    <option>Beauty</option>
-                    <option>Electronics</option>
-                    <option>Bags & Backpacks</option>
+
+                {/* CATEGORY FILTER */}
+
+                <select
+                    value={selectedCategory}
+                    onChange={(e) =>
+                        setSelectedCategory(e.target.value)
+                    }
+                >
+
+                    <option value="All Categories">
+                        All Categories
+                    </option>
+
+                    <option value="Men Clothing">
+                        Men Clothing
+                    </option>
+
+                    <option value="Men Footwear">
+                        Men Footwear
+                    </option>
+
+                    <option value="Beauty">
+                        Beauty
+                    </option>
+
+                    <option value="Electronics">
+                        Electronics
+                    </option>
+
+                    <option value="Bags & Backpacks">
+                        Bags & Backpacks
+                    </option>
+
+                    <option value="Clothing">
+                        Clothing
+                    </option>
+
+                    <option value="Footwear">
+                        Footwear
+                    </option>
+
                 </select>
 
 
-                <select>
-                    <option>Sort By</option>
-                    <option>Price: Low to High</option>
-                    <option>Price: High to Low</option>
-                    <option>Product Name</option>
+                {/* =========================================
+                    SORT
+                ========================================= */}
+
+                <select
+                    value={sortBy}
+                    onChange={(e) =>
+                        setSortBy(e.target.value)
+                    }
+                >
+
+                    <option value="Sort By">
+                        Sort By
+                    </option>
+
+                    <option value="Price: Low to High">
+                        Price: Low to High
+                    </option>
+
+                    <option value="Price: High to Low">
+                        Price: High to Low
+                    </option>
+
+                    <option value="Product Name">
+                        Product Name
+                    </option>
+
                 </select>
 
             </div>
 
 
-            {/* PRODUCT TABLE */}
+            {/* =========================================
+                PRODUCT TABLE
+            ========================================= */}
 
             <div className="admin-review-table-card">
 
@@ -156,36 +523,76 @@ const ProductReview = () => {
 
                     <table className="admin-review-table">
 
+
+                        {/* TABLE HEADER */}
+
                         <thead>
+
                             <tr>
-                                <th>Product</th>
-                                <th>Product ID</th>
-                                <th>Seller</th>
-                                <th>Category</th>
-                                <th>Price</th>
-                                <th>Status</th>
-                                <th>Action</th>
+
+                                <th>
+                                    Product
+                                </th>
+
+                                <th>
+                                    Product ID
+                                </th>
+
+                                <th>
+                                    Seller
+                                </th>
+
+                                <th>
+                                    Category
+                                </th>
+
+                                <th>
+                                    Price
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                                <th>
+                                    Action
+                                </th>
+
                             </tr>
+
                         </thead>
 
 
+                        {/* TABLE BODY */}
+
                         <tbody>
 
-                            {products.map((product) => (
+                            {sortedProducts.map((product) => (
 
                                 <tr key={product.id}>
 
+
+                                    {/* PRODUCT */}
+
                                     <td>
+
                                         <strong>
                                             {product.name}
                                         </strong>
+
                                     </td>
 
+
+                                    {/* PRODUCT ID */}
 
                                     <td>
+
                                         {product.id}
+
                                     </td>
 
+
+                                    {/* SELLER */}
 
                                     <td>
 
@@ -204,56 +611,88 @@ const ProductReview = () => {
                                     </td>
 
 
+                                    {/* CATEGORY */}
+
                                     <td>
+
                                         {product.category}
+
                                     </td>
 
+
+                                    {/* PRICE */}
 
                                     <td>
-                                        ₹{product.price.toLocaleString()}
+
+                                        ₹{Number(product.price).toLocaleString("en-IN")}
+
                                     </td>
 
+
+                                    {/* STATUS */}
 
                                     <td>
 
                                         <span
-                                            className={`admin-review-status ${product.status.toLowerCase()}`}
+                                            className={
+                                                `admin-review-status ${product.status.toLowerCase()}`
+                                            }
                                         >
+
                                             {product.status}
+
                                         </span>
 
                                     </td>
 
 
+                                    {/* ACTION */}
+
                                     <td>
 
-                                        {product.status === "Pending" ? (
+                                        {
+                                            product.status === "Pending"
+                                                ? (
 
-                                            <div className="admin-review-actions">
+                                                    <div className="admin-review-actions">
 
-                                                <button
-                                                    className="admin-approve-btn"
-                                                    type="button"
-                                                >
-                                                    Approve
-                                                </button>
 
-                                                <button
-                                                    className="admin-reject-btn"
-                                                    type="button"
-                                                >
-                                                    Reject
-                                                </button>
+                                                        {/* APPROVE */}
 
-                                            </div>
+                                                        <button
+                                                            className="admin-approve-btn"
+                                                            type="button"
+                                                            onClick={() =>
+                                                                handleApproveProduct(product.id)
+                                                            }
+                                                        >
+                                                            Approve
+                                                        </button>
 
-                                        ) : (
 
-                                            <span className="admin-review-completed">
-                                                Reviewed
-                                            </span>
+                                                        {/* REJECT */}
 
-                                        )}
+                                                        <button
+                                                            className="admin-reject-btn"
+                                                            type="button"
+                                                            onClick={() =>
+                                                                handleRejectProduct(product.id)
+                                                            }
+                                                        >
+                                                            Reject
+                                                        </button>
+
+                                                    </div>
+
+                                                )
+                                                : (
+
+                                                    <span className="admin-review-completed">
+                                                        Reviewed
+                                                    </span>
+
+                                                )
+                                        }
 
                                     </td>
 

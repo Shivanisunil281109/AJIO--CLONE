@@ -133,25 +133,44 @@ const AdminDashboard = () => {
 
 
     // =========================================
-    // ORDER STATUS DATA
+    // GET SELLER ORDERS FROM LOCAL STORAGE
+    // =========================================
+
+    const sellerOrders = JSON.parse(
+        localStorage.getItem("sellerOrders")
+    ) || [];
+
+    console.log("Seller Orders in Admin:", sellerOrders);
+
+
+    // =========================================
+    // ORDER STATUS DATA - DYNAMIC
     // =========================================
 
     const orderStatusData = [
         {
             status: "Delivered",
-            count: 125
+            count: sellerOrders.filter(
+                (order) => order.status === "Delivered"
+            ).length
         },
         {
             status: "Processing",
-            count: 55
+            count: sellerOrders.filter(
+                (order) => order.status === "Processing"
+            ).length
         },
         {
             status: "Shipped",
-            count: 45
+            count: sellerOrders.filter(
+                (order) => order.status === "Shipped"
+            ).length
         },
         {
             status: "Cancelled",
-            count: 20
+            count: sellerOrders.filter(
+                (order) => order.status === "Cancelled"
+            ).length
         }
     ];
 
@@ -181,7 +200,66 @@ const AdminDashboard = () => {
 
 
     // =========================================
+    // DYNAMIC DONUT CHART PERCENTAGES
+    // =========================================
+
+    const deliveredPercentage =
+        totalStatusOrders === 0
+            ? 0
+            : (orderStatusData[0].count / totalStatusOrders) * 100;
+
+    const processingPercentage =
+        totalStatusOrders === 0
+            ? 0
+            : (orderStatusData[1].count / totalStatusOrders) * 100;
+
+    const shippedPercentage =
+        totalStatusOrders === 0
+            ? 0
+            : (orderStatusData[2].count / totalStatusOrders) * 100;
+
+    const deliveredEnd = deliveredPercentage;
+
+    const processingEnd =
+        deliveredPercentage + processingPercentage;
+
+    const shippedEnd =
+        deliveredPercentage +
+        processingPercentage +
+        shippedPercentage;
+
+    const donutBackground =
+        totalStatusOrders === 0
+            ? "#e5e7eb"
+            : `conic-gradient(
+                #22c55e 0% ${deliveredEnd}%,
+                #356df3 ${deliveredEnd}% ${processingEnd}%,
+                #f59e0b ${processingEnd}% ${shippedEnd}%,
+                #ef4444 ${shippedEnd}% 100%
+            )`;
+
+
+    // =========================================
     // LATEST ORDERS - ALL SELLERS
+    // =========================================
+
+
+    // =========================================
+    // GET SELLER ORDER STATUS
+    // =========================================
+
+    const getSellerOrderStatus = (index, defaultStatus) => {
+
+        if (sellerOrders[index]) {
+            return sellerOrders[index].status;
+        }
+
+        return defaultStatus;
+    };
+
+
+    // =========================================
+    // EXISTING ADMIN LATEST ORDERS
     // =========================================
 
     const latestOrders = [
@@ -194,7 +272,7 @@ const AdminDashboard = () => {
             seller: "Fashion Studio",
             date: "May 31, 2026",
             amount: 2499,
-            status: "Delivered"
+            status: getSellerOrderStatus(0, "Delivered")
         },
         {
             orderId: "#AJ1245785",
@@ -205,7 +283,7 @@ const AdminDashboard = () => {
             seller: "Sports Hub",
             date: "May 31, 2026",
             amount: 1799,
-            status: "Processing"
+            status: getSellerOrderStatus(1, "Processing")
         },
         {
             orderId: "#AJ1245784",
@@ -216,7 +294,7 @@ const AdminDashboard = () => {
             seller: "Tech World",
             date: "May 30, 2026",
             amount: 2999,
-            status: "Shipped"
+            status: getSellerOrderStatus(2, "Shipped")
         },
         {
             orderId: "#AJ1245783",
@@ -227,7 +305,7 @@ const AdminDashboard = () => {
             seller: "Beauty Glam",
             date: "May 30, 2026",
             amount: 1299,
-            status: "Delivered"
+            status: getSellerOrderStatus(3, "Delivered")
         },
         {
             orderId: "#AJ1245782",
@@ -238,7 +316,7 @@ const AdminDashboard = () => {
             seller: "Denim Store",
             date: "May 29, 2026",
             amount: 2099,
-            status: "Cancelled"
+            status: getSellerOrderStatus(4, "Cancelled")
         }
     ];
 
@@ -682,7 +760,12 @@ const AdminDashboard = () => {
 
                         <div className="admin-donut-wrapper">
 
-                            <div className="admin-donut-chart">
+                            <div
+                                className="admin-donut-chart"
+                                style={{
+                                    background: donutBackground
+                                }}
+                            >
 
                                 <div className="admin-donut-center">
 
