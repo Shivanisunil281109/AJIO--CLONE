@@ -42,7 +42,7 @@ import AdminLayout from "./Admin/Components/AdminLayout";
 import AdminDashboard from "./Admin/Pages/AdminDashboard";
 import ProductReview from "./Admin/Pages/ProductReview";
 import AdminProducts from "./Admin/Pages/AdminProducts";
-
+import AdminProductDetails from "./Admin/Pages/AdminProductDetails";
 
 
 
@@ -141,6 +141,8 @@ function App() {
 <Route  path="/admin/product-review"  element={<ProductReview />} />
 
 <Route path="/admin/products" element={<AdminProducts />} />
+
+ <Route path="/admin/products/:productId" element={<AdminProductDetails />}/>
 
 </Route>
 

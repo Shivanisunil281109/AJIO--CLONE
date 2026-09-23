@@ -1,7 +1,15 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router";
 import "../CSS/Admin-products.css";
 
 const AdminProducts = () => {
+
+    // =========================================
+    // NAVIGATION
+    // =========================================
+
+    const navigate = useNavigate();
+
 
     // =========================================
     // SEARCH STATE
@@ -609,6 +617,11 @@ const AdminProducts = () => {
                                             <button
                                                 className="admin-products-view-btn"
                                                 type="button"
+                                                onClick={() =>
+                                                    navigate(
+                                                        `/admin/products/${product.id}`
+                                                    )
+                                                }
                                             >
                                                 View
                                             </button>
