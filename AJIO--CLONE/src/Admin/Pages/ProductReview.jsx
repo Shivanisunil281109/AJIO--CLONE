@@ -15,7 +15,9 @@ const ProductReview = () => {
             email: "seller@sportshub.com",
             category: "Men Footwear",
             price: 4999,
-            status: "Pending"
+            status: "Pending",
+            image:
+                "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=200&q=80"
         },
         {
             id: "PRD12346",
@@ -24,7 +26,9 @@ const ProductReview = () => {
             email: "seller@fashion.com",
             category: "Men Clothing",
             price: 899,
-            status: "Pending"
+            status: "Pending",
+            image:
+                "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=200&q=80"
         },
         {
             id: "PRD12347",
@@ -33,7 +37,9 @@ const ProductReview = () => {
             email: "info@beauty.com",
             category: "Beauty",
             price: 650,
-            status: "Pending"
+            status: "Pending",
+            image:
+                "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=200&q=80"
         },
         {
             id: "PRD12348",
@@ -42,7 +48,9 @@ const ProductReview = () => {
             email: "seller@techworld.com",
             category: "Electronics",
             price: 24999,
-            status: "Pending"
+            status: "Pending",
+            image:
+                "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=200&q=80"
         },
         {
             id: "PRD12349",
@@ -51,7 +59,9 @@ const ProductReview = () => {
             email: "contact@denimstore.com",
             category: "Men Clothing",
             price: 2599,
-            status: "Approved"
+            status: "Approved",
+            image:
+                "https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=200&q=80"
         },
         {
             id: "PRD12350",
@@ -60,7 +70,9 @@ const ProductReview = () => {
             email: "seller@sportshub.com",
             category: "Bags & Backpacks",
             price: 1999,
-            status: "Rejected"
+            status: "Rejected",
+            image:
+                "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=200&q=80"
         }
     ];
 
@@ -99,7 +111,11 @@ const ProductReview = () => {
 
             status:
                 product.status ||
-                "Pending"
+                "Pending",
+
+            // Use seller's actual saved product image
+            image:
+                product.image || ""
 
         }));
 
@@ -572,13 +588,50 @@ const ProductReview = () => {
                                 <tr key={product.id}>
 
 
-                                    {/* PRODUCT */}
+                                    {/* PRODUCT WITH IMAGE */}
 
                                     <td>
 
-                                        <strong>
-                                            {product.name}
-                                        </strong>
+                                        <div className="admin-review-product">
+
+                                            <div className="admin-review-product-image-box">
+
+                                                {product.image ? (
+
+                                                    <img
+                                                        src={product.image}
+                                                        alt={product.name}
+                                                        className="admin-review-product-image"
+                                                        onError={(e) => {
+                                                            e.currentTarget.style.display = "none";
+                                                            e.currentTarget.nextElementSibling.style.display = "flex";
+                                                        }}
+                                                    />
+
+                                                ) : null}
+
+
+                                                <div
+                                                    className="admin-review-image-placeholder"
+                                                    style={{
+                                                        display: product.image
+                                                            ? "none"
+                                                            : "flex"
+                                                    }}
+                                                >
+                                                    <span className="material-symbols-outlined">
+                                                        image
+                                                    </span>
+                                                </div>
+
+                                            </div>
+
+
+                                            <strong>
+                                                {product.name}
+                                            </strong>
+
+                                        </div>
 
                                     </td>
 

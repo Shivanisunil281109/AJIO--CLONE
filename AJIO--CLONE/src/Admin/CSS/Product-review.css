@@ -190,7 +190,7 @@
 }
 
 .admin-review-table td {
-    padding: 17px 16px;
+    padding: 13px 16px;
 
     color: #404a54;
 
@@ -212,6 +212,101 @@
 .admin-review-table td > strong {
     color: #2B4052;
     font-weight: 650;
+}
+
+
+/* =========================================
+   PRODUCT HEADING ALIGNMENT
+========================================= */
+
+/* Move only Product heading slightly right */
+
+.admin-review-table th:first-child {
+    padding-left: 30px;
+}
+
+
+/* =========================================
+   ACTION COLUMN ALIGNMENT
+========================================= */
+
+/* Center Action heading above
+   Approve + Reject buttons */
+
+.admin-review-table th:last-child {
+    width: 180px;
+    text-align: center;
+}
+
+/* Center everything inside Action column */
+
+.admin-review-table td:last-child {
+    width: 180px;
+    text-align: center;
+}
+
+
+/* =========================================
+   PRODUCT IMAGE + NAME
+========================================= */
+
+.admin-review-product {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+
+    min-width: 280px;
+}
+
+.admin-review-product strong {
+    color: #2B4052;
+    font-size: 14px;
+    font-weight: 650;
+    line-height: 1.4;
+}
+
+.admin-review-product-image-box {
+    width: 54px;
+    height: 62px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #f7f8f9;
+
+    border: 1px solid #e5e9ed;
+    border-radius: 7px;
+
+    overflow: hidden;
+}
+
+.admin-review-product-image {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+}
+
+.admin-review-image-placeholder {
+    width: 100%;
+    height: 100%;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #f3f5f7;
+
+    color: #9aa5ae;
+}
+
+.admin-review-image-placeholder
+.material-symbols-outlined {
+    font-size: 25px;
 }
 
 
@@ -276,7 +371,9 @@
 .admin-review-actions {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
+    width: 100%;
 }
 
 .admin-approve-btn,
@@ -323,7 +420,13 @@
 ========================================= */
 
 .admin-review-completed {
+    display: block;
+    width: 100%;
+
+    text-align: center;
+
     color: #8a939c;
+
     font-size: 12px;
     font-weight: 600;
 }
@@ -373,6 +476,10 @@
 
     .admin-review-filters select {
         width: 100%;
+    }
+
+    .admin-review-product {
+        min-width: 240px;
     }
 
 }
