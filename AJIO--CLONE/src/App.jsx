@@ -90,7 +90,9 @@ function App() {
       <Route path="/profile"  element={<Profile />} />
 
 
-            </Route>
+      </Route>
+
+
 
 
 
@@ -128,6 +130,9 @@ function App() {
 
 
 
+
+
+
 {/* ==========================
     ADMIN ROUTES
 =========================== */}
@@ -143,6 +148,14 @@ function App() {
 <Route path="/admin/products" element={<AdminProducts />} />
 
  <Route path="/admin/products/:productId" element={<AdminProductDetails />}/>
+
+  <Route  path="/admin/products/:productId/edit" element={<AdminProductDetails />} />
+
+
+
+
+
+
 
 </Route>
 
