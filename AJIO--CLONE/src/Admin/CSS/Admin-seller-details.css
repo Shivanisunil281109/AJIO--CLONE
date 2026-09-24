@@ -1,0 +1,923 @@
+/* =========================================
+   ADMIN SELLER DETAILS PAGE
+========================================= */
+
+.admin-seller-details-page {
+    width: 100%;
+    min-height: 100vh;
+    padding: 34px 40px;
+    background: #f5f7f9;
+    box-sizing: border-box;
+}
+
+
+/* =========================================
+   BACK TO SELLERS BUTTON
+========================================= */
+
+.admin-seller-details-back-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    margin-bottom: 22px;
+
+    padding: 12px 20px;
+
+    border: none;
+    border-radius: 5px;
+
+    background: #2b4052;
+    color: #ffffff;
+
+    font-size: 16px;
+    font-weight: 600;
+    font-family: inherit;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+/* BACK BUTTON ARROW */
+
+.admin-seller-details-back-btn .material-symbols-outlined {
+    color: #ffffff;
+    font-size: 21px;
+    font-weight: 500;
+}
+
+
+/* BACK BUTTON HOVER */
+
+.admin-seller-details-back-btn:hover {
+    background: #1f3242;
+    color: #ffffff;
+}
+
+
+/* BACK BUTTON CLICK */
+
+.admin-seller-details-back-btn:active {
+    transform: translateY(1px);
+}
+
+
+/* =========================================
+   SELLER HEADER
+========================================= */
+
+.admin-seller-details-header {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 24px 26px;
+    margin-bottom: 22px;
+
+    background: #ffffff;
+
+    border: 1px solid #e2e7eb;
+    border-radius: 8px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================
+   SELLER PROFILE
+========================================= */
+
+.admin-seller-details-profile {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+
+/* =========================================
+   SELLER IMAGE
+========================================= */
+
+.admin-seller-details-avatar {
+    width: 70px;
+    height: 70px;
+
+    flex: 0 0 70px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #edf2f5;
+
+    border: 1px solid #e1e6ea;
+    border-radius: 50%;
+
+    overflow: hidden;
+}
+
+.admin-seller-details-avatar img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+}
+
+
+/* =========================================
+   SELLER NAME
+========================================= */
+
+.admin-seller-details-profile h1 {
+    margin: 0 0 7px;
+
+    color: #162f43;
+
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.admin-seller-details-profile p {
+    margin: 0;
+
+    color: #77838d;
+
+    font-size: 14px;
+}
+
+
+/* =========================================
+   SELLER STATUS
+========================================= */
+
+.admin-seller-details-status {
+    min-width: 82px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 7px 13px;
+
+    border-radius: 20px;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.admin-seller-details-status.active {
+    background: #e8f6ee;
+    color: #258653;
+}
+
+.admin-seller-details-status.inactive {
+    background: #fbeaea;
+    color: #c44b4b;
+}
+
+
+/* =========================================
+   SELLER INFORMATION CARD
+========================================= */
+
+.admin-seller-details-card {
+    width: 100%;
+
+    padding: 24px 26px;
+    margin-bottom: 22px;
+
+    background: #ffffff;
+
+    border: 1px solid #e2e7eb;
+    border-radius: 8px;
+
+    box-sizing: border-box;
+}
+
+.admin-seller-details-card h2 {
+    margin: 0 0 22px;
+
+    color: #162f43;
+
+    font-size: 19px;
+    font-weight: 700;
+}
+
+
+/* =========================================
+   INFORMATION GRID
+========================================= */
+
+.admin-seller-details-info-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 20px;
+}
+
+
+/* =========================================
+   INFORMATION ITEM
+========================================= */
+
+.admin-seller-details-info-item {
+    min-height: 82px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    gap: 8px;
+
+    padding: 15px 18px;
+
+    background: #f8fafb;
+
+    border: 1px solid #e8ecef;
+    border-radius: 6px;
+
+    box-sizing: border-box;
+}
+
+.admin-seller-details-info-item span {
+    color: #7b8892;
+
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.admin-seller-details-info-item strong {
+    color: #263e50;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    word-break: break-word;
+}
+
+
+/* =========================================
+   SELLER PRODUCTS CARD
+========================================= */
+
+.admin-seller-products-card {
+    width: 100%;
+
+    background: #ffffff;
+
+    border: 1px solid #e2e7eb;
+    border-radius: 8px;
+
+    overflow: hidden;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================
+   PRODUCTS HEADER
+========================================= */
+
+.admin-seller-products-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 22px 26px;
+
+    border-bottom: 1px solid #e4e8eb;
+}
+
+.admin-seller-products-heading h2 {
+    margin: 0 0 5px;
+
+    color: #162f43;
+
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.admin-seller-products-heading p {
+    margin: 0;
+
+    color: #7c8993;
+
+    font-size: 13px;
+}
+
+.admin-seller-products-heading > span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 90px;
+
+    padding: 7px 12px;
+
+    background: #edf2f5;
+
+    border-radius: 5px;
+
+    color: #2b4052;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+/* =========================================
+   PRODUCTS TABLE WRAPPER
+========================================= */
+
+.admin-seller-products-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+
+/* =========================================
+   PRODUCTS TABLE
+========================================= */
+
+.admin-seller-products-table {
+    width: 100%;
+
+    min-width: 800px;
+
+    border-collapse: collapse;
+    table-layout: fixed;
+
+    background: #ffffff;
+}
+
+
+/* =========================================
+   COLUMN WIDTHS
+========================================= */
+
+.admin-seller-products-table th:nth-child(1),
+.admin-seller-products-table td:nth-child(1) {
+    width: 30%;
+}
+
+.admin-seller-products-table th:nth-child(2),
+.admin-seller-products-table td:nth-child(2) {
+    width: 17%;
+}
+
+.admin-seller-products-table th:nth-child(3),
+.admin-seller-products-table td:nth-child(3) {
+    width: 20%;
+}
+
+.admin-seller-products-table th:nth-child(4),
+.admin-seller-products-table td:nth-child(4) {
+    width: 15%;
+}
+
+.admin-seller-products-table th:nth-child(5),
+.admin-seller-products-table td:nth-child(5) {
+    width: 18%;
+}
+
+
+/* =========================================
+   TABLE HEADER
+========================================= */
+
+.admin-seller-products-table thead {
+    background: #f7f9fa;
+}
+
+.admin-seller-products-table th {
+    padding: 15px 20px;
+
+    border-bottom: 1px solid #dde3e8;
+
+    color: #263e50;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    text-align: left;
+    text-transform: uppercase;
+
+    letter-spacing: 0.3px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================
+   TABLE DATA
+========================================= */
+
+.admin-seller-products-table td {
+    padding: 17px 20px;
+
+    border-bottom: 1px solid #edf0f2;
+
+    color: #405361;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    vertical-align: middle;
+
+    box-sizing: border-box;
+}
+
+.admin-seller-products-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.admin-seller-products-table tbody tr {
+    transition: background 0.2s ease;
+}
+
+.admin-seller-products-table tbody tr:hover {
+    background: #fafbfc;
+}
+
+
+/* =========================================
+   PRODUCT STATUS
+========================================= */
+
+.admin-seller-product-status {
+    min-width: 78px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 6px 11px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+/* APPROVED */
+
+.admin-seller-product-status.approved {
+    background: #e8f6ee;
+    color: #258653;
+}
+
+
+/* PENDING */
+
+.admin-seller-product-status.pending {
+    background: #fff4dc;
+    color: #b77a13;
+}
+
+
+/* REJECTED */
+
+.admin-seller-product-status.rejected {
+    background: #fbeaea;
+    color: #c44b4b;
+}
+
+
+/* =========================================
+   EDIT SELLER ACTION
+   BELOW SELLER PRODUCTS TABLE
+========================================= */
+
+.admin-seller-edit-action {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    margin-top: 18px;
+    margin-bottom: 0;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================
+   EDIT SELLER BUTTON
+========================================= */
+
+.admin-seller-edit-btn {
+    min-width: 125px;
+
+    padding: 11px 20px;
+
+    border: none;
+    border-radius: 5px;
+
+    background: #2b4052;
+    color: #ffffff;
+
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.admin-seller-edit-btn:hover {
+    background: #1f3242;
+}
+
+.admin-seller-edit-btn:active {
+    transform: translateY(1px);
+}
+
+
+/* =========================================
+   EDIT SELLER FORM CARD
+========================================= */
+
+.admin-seller-edit-form-card {
+    width: 100%;
+
+    padding: 26px;
+
+    background: #ffffff;
+
+    border: 1px solid #e2e7eb;
+    border-radius: 8px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================
+   EDIT SELLER FORM HEADING
+========================================= */
+
+.admin-seller-edit-form-card h2 {
+    margin: 0 0 26px;
+
+    color: #162f43;
+
+    font-size: 20px;
+    font-weight: 700;
+}
+
+
+/* =========================================
+   EDIT SELLER FORM GRID
+========================================= */
+
+.admin-seller-edit-form-grid {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 22px 26px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================
+   EDIT SELLER FORM FIELD
+========================================= */
+
+.admin-seller-edit-form-field {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================
+   EDIT SELLER FORM LABEL
+========================================= */
+
+.admin-seller-edit-form-field label {
+    color: #344b5d;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    font-family: inherit;
+}
+
+
+/* =========================================
+   EDIT SELLER INPUT + SELECT
+========================================= */
+
+.admin-seller-edit-form-field input,
+.admin-seller-edit-form-field select {
+    width: 100%;
+    height: 46px;
+
+    padding: 0 14px;
+
+    background: #ffffff;
+    color: #263e50;
+
+    border: 1px solid #d5dde3;
+    border-radius: 5px;
+
+    outline: none;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+
+    box-sizing: border-box;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+/* =========================================
+   INPUT PLACEHOLDER
+========================================= */
+
+.admin-seller-edit-form-field input::placeholder {
+    color: #9aa5ad;
+}
+
+
+/* =========================================
+   INPUT + SELECT FOCUS
+========================================= */
+
+.admin-seller-edit-form-field input:focus,
+.admin-seller-edit-form-field select:focus {
+    border-color: #2b4052;
+
+    box-shadow:
+        0 0 0 2px rgba(43, 64, 82, 0.08);
+}
+
+
+/* =========================================
+   SELECT CURSOR
+========================================= */
+
+.admin-seller-edit-form-field select {
+    cursor: pointer;
+}
+
+
+/* =========================================
+   EDIT SELLER FORM ACTIONS
+========================================= */
+
+.admin-seller-edit-form-actions {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 12px;
+
+    margin-top: 28px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================
+   CANCEL BUTTON
+========================================= */
+
+.admin-seller-edit-cancel-btn {
+    min-width: 105px;
+
+    padding: 11px 20px;
+
+    background: #ffffff;
+    color: #2b4052;
+
+    border: 1px solid #b9c4cc;
+    border-radius: 5px;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.admin-seller-edit-cancel-btn:hover {
+    background: #f3f6f8;
+    border-color: #8f9da7;
+}
+
+.admin-seller-edit-cancel-btn:active {
+    transform: translateY(1px);
+}
+
+
+/* =========================================
+   UPDATE SELLER BUTTON
+========================================= */
+
+.admin-seller-update-btn {
+    min-width: 135px;
+
+    padding: 11px 20px;
+
+    background: #2b4052;
+    color: #ffffff;
+
+    border: 1px solid #2b4052;
+    border-radius: 5px;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.admin-seller-update-btn:hover {
+    background: #1f3242;
+    border-color: #1f3242;
+}
+
+.admin-seller-update-btn:active {
+    transform: translateY(1px);
+}
+
+
+/* =========================================
+   RESPONSIVE - TABLET
+========================================= */
+
+@media (max-width: 900px) {
+
+    .admin-seller-details-page {
+        padding: 25px 20px;
+    }
+
+    .admin-seller-details-info-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .admin-seller-edit-form-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+
+/* =========================================
+   RESPONSIVE - MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .admin-seller-details-page {
+        padding: 20px 14px;
+    }
+
+
+    .admin-seller-details-back-btn {
+        font-size: 15px;
+        padding: 11px 17px;
+    }
+
+
+    .admin-seller-details-back-btn .material-symbols-outlined {
+        font-size: 20px;
+    }
+
+
+    .admin-seller-details-header {
+        flex-direction: column;
+        align-items: flex-start;
+
+        padding: 20px;
+    }
+
+
+    .admin-seller-details-avatar {
+        width: 58px;
+        height: 58px;
+
+        flex-basis: 58px;
+    }
+
+
+    .admin-seller-details-profile h1 {
+        font-size: 21px;
+    }
+
+
+    .admin-seller-details-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .admin-seller-details-card {
+        padding: 20px;
+    }
+
+
+    .admin-seller-products-heading {
+        flex-direction: column;
+        align-items: flex-start;
+
+        padding: 20px;
+    }
+
+
+    .admin-seller-edit-action {
+        justify-content: flex-end;
+        margin-top: 16px;
+    }
+
+
+    .admin-seller-edit-btn {
+        font-size: 14px;
+        padding: 10px 18px;
+    }
+
+
+    /* EDIT FORM */
+
+    .admin-seller-edit-form-card {
+        padding: 20px;
+    }
+
+
+    .admin-seller-edit-form-card h2 {
+        font-size: 19px;
+        margin-bottom: 22px;
+    }
+
+
+    .admin-seller-edit-form-grid {
+        grid-template-columns: 1fr;
+
+        gap: 18px;
+    }
+
+
+    .admin-seller-edit-form-actions {
+        flex-direction: column-reverse;
+        align-items: stretch;
+
+        gap: 10px;
+
+        margin-top: 24px;
+    }
+
+
+    .admin-seller-edit-cancel-btn,
+    .admin-seller-update-btn {
+        width: 100%;
+    }
+
+}

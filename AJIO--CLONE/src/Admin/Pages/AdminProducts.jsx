@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import "../CSS/Admin-products.css";
 
+
 const AdminProducts = () => {
 
     // =========================================
@@ -47,6 +48,7 @@ const AdminProducts = () => {
     // =========================================
 
     const defaultProducts = [
+
         {
             id: "PRD12345",
             name: "Nike Air Max Running Shoes",
@@ -58,6 +60,7 @@ const AdminProducts = () => {
             image:
                 "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=200&q=80"
         },
+
         {
             id: "PRD12346",
             name: "Puma Regular Fit T-Shirt",
@@ -69,6 +72,7 @@ const AdminProducts = () => {
             image:
                 "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=200&q=80"
         },
+
         {
             id: "PRD12347",
             name: "Colorbar Matte Lipstick",
@@ -80,6 +84,7 @@ const AdminProducts = () => {
             image:
                 "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=200&q=80"
         },
+
         {
             id: "PRD12348",
             name: "Samsung Galaxy Watch 6",
@@ -91,6 +96,7 @@ const AdminProducts = () => {
             image:
                 "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=200&q=80"
         },
+
         {
             id: "PRD12349",
             name: "Levi's 511 Slim Jeans",
@@ -102,6 +108,7 @@ const AdminProducts = () => {
             image:
                 "https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=200&q=80"
         },
+
         {
             id: "PRD12350",
             name: "Adidas Backpack",
@@ -113,7 +120,44 @@ const AdminProducts = () => {
             image:
                 "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=200&q=80"
         }
+
     ];
+
+
+    // =========================================
+    // GET ADMIN EDITED DEFAULT PRODUCTS
+    // =========================================
+
+    const adminEditedProducts =
+        JSON.parse(
+            localStorage.getItem(
+                "adminEditedProducts"
+            )
+        ) || [];
+
+
+    // =========================================
+    // APPLY SAVED EDITS TO DEFAULT PRODUCTS
+    // =========================================
+
+    const updatedDefaultProducts =
+        defaultProducts.map((product) => {
+
+            const editedProduct =
+                adminEditedProducts.find(
+                    (item) =>
+                        String(item.id) ===
+                        String(product.id)
+                );
+
+            return editedProduct
+                ? {
+                    ...product,
+                    ...editedProduct
+                }
+                : product;
+
+        });
 
 
     // =========================================
@@ -122,7 +166,9 @@ const AdminProducts = () => {
 
     const sellerCreatedProducts =
         JSON.parse(
-            localStorage.getItem("sellerCreatedProducts")
+            localStorage.getItem(
+                "sellerCreatedProducts"
+            )
         ) || [];
 
 
@@ -137,9 +183,11 @@ const AdminProducts = () => {
 
             name: product.name,
 
-            seller: product.brand || "Seller",
+            seller:
+                product.brand || "Seller",
 
-            category: product.category,
+            category:
+                product.category,
 
             price:
                 product.price ||
@@ -166,8 +214,11 @@ const AdminProducts = () => {
     // =========================================
 
     const allProducts = [
-        ...defaultProducts,
+
+        ...updatedDefaultProducts,
+
         ...formattedSellerProducts
+
     ];
 
 
@@ -176,12 +227,22 @@ const AdminProducts = () => {
     // =========================================
 
     const categories = [
+
         "All Categories",
+
         ...new Set(
+
             allProducts
-                .map((product) => product.category)
+
+                .map(
+                    (product) =>
+                        product.category
+                )
+
                 .filter(Boolean)
+
         )
+
     ];
 
 
@@ -189,83 +250,135 @@ const AdminProducts = () => {
     // SEARCH + CATEGORY + STATUS FILTER
     // =========================================
 
-    const filteredProducts = allProducts.filter((product) => {
+    const filteredProducts =
+        allProducts.filter((product) => {
 
-        const searchValue = searchTerm
-            .toLowerCase()
-            .trim();
-
-
-        // SEARCH
-
-        const matchesSearch =
-            String(product.name || "")
-                .toLowerCase()
-                .includes(searchValue) ||
-
-            String(product.id || "")
-                .toLowerCase()
-                .includes(searchValue) ||
-
-            String(product.seller || "")
-                .toLowerCase()
-                .includes(searchValue) ||
-
-            String(product.category || "")
-                .toLowerCase()
-                .includes(searchValue);
+            const searchValue =
+                searchTerm
+                    .toLowerCase()
+                    .trim();
 
 
-        // CATEGORY
+            // SEARCH
 
-        const matchesCategory =
-            selectedCategory === "All Categories" ||
-            product.category === selectedCategory;
+            const matchesSearch =
+
+                String(
+                    product.name || ""
+                )
+                    .toLowerCase()
+                    .includes(searchValue)
+
+                ||
+
+                String(
+                    product.id || ""
+                )
+                    .toLowerCase()
+                    .includes(searchValue)
+
+                ||
+
+                String(
+                    product.seller || ""
+                )
+                    .toLowerCase()
+                    .includes(searchValue)
+
+                ||
+
+                String(
+                    product.category || ""
+                )
+                    .toLowerCase()
+                    .includes(searchValue);
 
 
-        // STATUS
+            // CATEGORY
 
-        const matchesStatus =
-            selectedStatus === "All Status" ||
-            product.status === selectedStatus;
+            const matchesCategory =
+
+                selectedCategory ===
+                "All Categories"
+
+                ||
+
+                product.category ===
+                selectedCategory;
 
 
-        return (
-            matchesSearch &&
-            matchesCategory &&
-            matchesStatus
-        );
-    });
+            // STATUS
+
+            const matchesStatus =
+
+                selectedStatus ===
+                "All Status"
+
+                ||
+
+                product.status ===
+                selectedStatus;
+
+
+            return (
+
+                matchesSearch &&
+
+                matchesCategory &&
+
+                matchesStatus
+
+            );
+
+        });
 
 
     // =========================================
     // SORT PRODUCTS
     // =========================================
 
-    const sortedProducts = [...filteredProducts];
+    const sortedProducts = [
+        ...filteredProducts
+    ];
 
 
-    if (sortBy === "Price: Low to High") {
+    if (
+        sortBy ===
+        "Price: Low to High"
+    ) {
 
         sortedProducts.sort(
             (a, b) =>
-                Number(a.price) - Number(b.price)
+                Number(a.price) -
+                Number(b.price)
         );
 
-    } else if (sortBy === "Price: High to Low") {
+    }
+
+    else if (
+        sortBy ===
+        "Price: High to Low"
+    ) {
 
         sortedProducts.sort(
             (a, b) =>
-                Number(b.price) - Number(a.price)
+                Number(b.price) -
+                Number(a.price)
         );
 
-    } else if (sortBy === "Product Name") {
+    }
+
+    else if (
+        sortBy ===
+        "Product Name"
+    ) {
 
         sortedProducts.sort(
             (a, b) =>
-                String(a.name).localeCompare(
-                    String(b.name)
-                )
+                String(a.name)
+                    .localeCompare(
+                        String(b.name)
+                    )
         );
 
     }
@@ -331,7 +444,9 @@ const AdminProducts = () => {
                         placeholder="Search by product, ID, seller or category..."
                         value={searchTerm}
                         onChange={(e) =>
-                            setSearchTerm(e.target.value)
+                            setSearchTerm(
+                                e.target.value
+                            )
                         }
                         className="admin-products-search-input"
                     />
@@ -372,20 +487,24 @@ const AdminProducts = () => {
                             className="admin-products-category-select"
                             value={selectedCategory}
                             onChange={(e) =>
-                                setSelectedCategory(e.target.value)
+                                setSelectedCategory(
+                                    e.target.value
+                                )
                             }
                         >
 
-                            {categories.map((category) => (
+                            {categories.map(
+                                (category) => (
 
-                                <option
-                                    key={category}
-                                    value={category}
-                                >
-                                    {category}
-                                </option>
+                                    <option
+                                        key={category}
+                                        value={category}
+                                    >
+                                        {category}
+                                    </option>
 
-                            ))}
+                                )
+                            )}
 
                         </select>
 
@@ -400,7 +519,9 @@ const AdminProducts = () => {
                             className="admin-products-status-select"
                             value={selectedStatus}
                             onChange={(e) =>
-                                setSelectedStatus(e.target.value)
+                                setSelectedStatus(
+                                    e.target.value
+                                )
                             }
                         >
 
@@ -433,7 +554,9 @@ const AdminProducts = () => {
                             className="admin-products-sort-select"
                             value={sortBy}
                             onChange={(e) =>
-                                setSortBy(e.target.value)
+                                setSortBy(
+                                    e.target.value
+                                )
                             }
                         >
 
@@ -461,13 +584,21 @@ const AdminProducts = () => {
                     {/* RESULT COUNT */}
 
                     {(searchTerm ||
-                        selectedCategory !== "All Categories" ||
-                        selectedStatus !== "All Status") && (
+
+                        selectedCategory !==
+                        "All Categories"
+
+                        ||
+
+                        selectedStatus !==
+                        "All Status") && (
 
                         <div className="admin-products-search-result">
 
                             {sortedProducts.length} product
-                            {sortedProducts.length !== 1 ? "s" : ""} found
+                            {sortedProducts.length !== 1
+                                ? "s"
+                                : ""} found
 
                         </div>
 
@@ -492,21 +623,37 @@ const AdminProducts = () => {
 
                             <tr>
 
-                                <th>Product</th>
+                                <th>
+                                    Product
+                                </th>
 
-                                <th>Product ID</th>
+                                <th>
+                                    Product ID
+                                </th>
 
-                                <th>Seller</th>
+                                <th>
+                                    Seller
+                                </th>
 
-                                <th>Category</th>
+                                <th>
+                                    Category
+                                </th>
 
-                                <th>Price</th>
+                                <th>
+                                    Price
+                                </th>
 
-                                <th>Stock</th>
+                                <th>
+                                    Stock
+                                </th>
 
-                                <th>Status</th>
+                                <th>
+                                    Status
+                                </th>
 
-                                <th>Action</th>
+                                <th>
+                                    Action
+                                </th>
 
                             </tr>
 
@@ -517,120 +664,132 @@ const AdminProducts = () => {
 
                             {sortedProducts.length > 0 ? (
 
-                                sortedProducts.map((product) => (
+                                sortedProducts.map(
+                                    (product) => (
 
-                                    <tr key={product.id}>
+                                        <tr key={product.id}>
 
 
-                                        {/* PRODUCT IMAGE + NAME */}
+                                            {/* PRODUCT IMAGE + NAME */}
 
-                                        <td>
+                                            <td>
 
-                                            <div className="admin-products-product">
+                                                <div className="admin-products-product">
 
-                                                <div className="admin-products-image-box">
+                                                    <div className="admin-products-image-box">
 
-                                                    {product.image ? (
+                                                        {product.image ? (
 
-                                                        <img
-                                                            src={product.image}
-                                                            alt={product.name}
-                                                            className="admin-products-product-image"
-                                                            onError={(e) => {
-                                                                e.currentTarget.style.display = "none";
-                                                                e.currentTarget.nextElementSibling.style.display = "flex";
+                                                            <img
+                                                                src={product.image}
+                                                                alt={product.name}
+                                                                className="admin-products-product-image"
+                                                                onError={(e) => {
+
+                                                                    e.currentTarget.style.display =
+                                                                        "none";
+
+                                                                    e.currentTarget.nextElementSibling.style.display =
+                                                                        "flex";
+
+                                                                }}
+                                                            />
+
+                                                        ) : null}
+
+
+                                                        <div
+                                                            className="admin-products-image-placeholder"
+                                                            style={{
+                                                                display:
+                                                                    product.image
+                                                                        ? "none"
+                                                                        : "flex"
                                                             }}
-                                                        />
+                                                        >
 
-                                                    ) : null}
+                                                            <span className="material-symbols-outlined">
+                                                                image
+                                                            </span>
 
-
-                                                    <div
-                                                        className="admin-products-image-placeholder"
-                                                        style={{
-                                                            display: product.image
-                                                                ? "none"
-                                                                : "flex"
-                                                        }}
-                                                    >
-
-                                                        <span className="material-symbols-outlined">
-                                                            image
-                                                        </span>
+                                                        </div>
 
                                                     </div>
 
+
+                                                    <strong>
+                                                        {product.name}
+                                                    </strong>
+
                                                 </div>
 
-
-                                                <strong>
-                                                    {product.name}
-                                                </strong>
-
-                                            </div>
-
-                                        </td>
+                                            </td>
 
 
-                                        <td>
-                                            {product.id}
-                                        </td>
+                                            <td>
+                                                {product.id}
+                                            </td>
 
 
-                                        <td>
-                                            {product.seller}
-                                        </td>
+                                            <td>
+                                                {product.seller}
+                                            </td>
 
 
-                                        <td>
-                                            {product.category}
-                                        </td>
+                                            <td>
+                                                {product.category}
+                                            </td>
 
 
-                                        <td>
+                                            <td>
 
-                                            ₹{Number(
-                                                product.price
-                                            ).toLocaleString("en-IN")}
+                                                ₹{Number(
+                                                    product.price
+                                                ).toLocaleString(
+                                                    "en-IN"
+                                                )}
 
-                                        </td>
-
-
-                                        <td>
-                                            {product.stock}
-                                        </td>
+                                            </td>
 
 
-                                        <td>
-
-                                            <span
-                                                className={`admin-products-status ${product.status.toLowerCase()}`}
-                                            >
-                                                {product.status}
-                                            </span>
-
-                                        </td>
+                                            <td>
+                                                {product.stock}
+                                            </td>
 
 
-                                        <td>
+                                            <td>
 
-                                            <button
-                                                className="admin-products-view-btn"
-                                                type="button"
-                                                onClick={() =>
-                                                    navigate(
-                                                        `/admin/products/${product.id}`
-                                                    )
-                                                }
-                                            >
-                                                View
-                                            </button>
+                                                <span
+                                                    className={`admin-products-status ${String(
+                                                        product.status
+                                                    ).toLowerCase()}`}
+                                                >
+                                                    {product.status}
+                                                </span>
 
-                                        </td>
+                                            </td>
 
-                                    </tr>
 
-                                ))
+                                            <td>
+
+                                                <button
+                                                    className="admin-products-view-btn"
+                                                    type="button"
+                                                    onClick={() =>
+                                                        navigate(
+                                                            `/admin/products/${product.id}`
+                                                        )
+                                                    }
+                                                >
+                                                    View
+                                                </button>
+
+                                            </td>
+
+                                        </tr>
+
+                                    )
+                                )
 
                             ) : (
 
@@ -670,7 +829,9 @@ const AdminProducts = () => {
             </div>
 
         </div>
+
     );
+
 };
 
 export default AdminProducts;

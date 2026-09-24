@@ -43,8 +43,8 @@ import AdminDashboard from "./Admin/Pages/AdminDashboard";
 import ProductReview from "./Admin/Pages/ProductReview";
 import AdminProducts from "./Admin/Pages/AdminProducts";
 import AdminProductDetails from "./Admin/Pages/AdminProductDetails";
-
-
+import AdminSellers from "./Admin/Pages/AdminSellers";
+import AdminSellerDetails from "./Admin/Pages/AdminSellerDetails";
 
 
 
@@ -77,20 +77,16 @@ function App() {
 
                 <Route path="/wishlist" element={<Wishlist />} />
 
-            
-              <Route path="/cart" element={<Cart />} />
+                <Route path="/cart" element={<Cart />} />
+
+                <Route path="/payment" element={<Payment />} />
+
+                <Route path="/orders"  element={<Orders />}  />
+                
+                <Route path="/profile"  element={<Profile />} />
 
 
-         <Route path="/payment" element={<Payment />} />
-
-           
-        <Route path="/orders"  element={<Orders />}  />
-
-
-      <Route path="/profile"  element={<Profile />} />
-
-
-      </Route>
+        </Route>
 
 
 
@@ -104,19 +100,19 @@ function App() {
             =========================== */}
 <Route element={<SellerLayout />}>
 
-           <Route  path="/seller/dashboard"  element={<SellerDashboard />}  />
+            <Route  path="/seller/dashboard"  element={<SellerDashboard />}  />
 
-           <Route path="/seller/create-product" element={<CreateProduct />} />
+            <Route path="/seller/create-product" element={<CreateProduct />} />
 
-           <Route path="/seller/products" element={<SellerProducts />} />
+            <Route path="/seller/products" element={<SellerProducts />} />
 
-           <Route  path="/seller/products/:productId" element={<SellerProductDetails />} />
+            <Route  path="/seller/products/:productId" element={<SellerProductDetails />} />
 
-           <Route path="/seller/products/:productId/edit"   element={<SellerProductDetails />} />
+            <Route path="/seller/products/:productId/edit"   element={<SellerProductDetails />} />
 
-           <Route path="/seller/orders" element={<SellerOrders />}  />
+            <Route path="/seller/orders" element={<SellerOrders />}  />
            
-           <Route path="/seller/profit"  element={<SellerProfit />}  />
+        <Route path="/seller/profit"  element={<SellerProfit />}  />
 
         <Route path="/seller/profile" element={<SellerProfile />} />
 
@@ -147,14 +143,15 @@ function App() {
 
 <Route path="/admin/products" element={<AdminProducts />} />
 
- <Route path="/admin/products/:productId" element={<AdminProductDetails />}/>
+<Route path="/admin/products/:productId" element={<AdminProductDetails />}/>
 
-  <Route  path="/admin/products/:productId/edit" element={<AdminProductDetails />} />
+<Route  path="/admin/products/:productId/edit" element={<AdminProductDetails />} />
 
+<Route path="/admin/sellers"element={<AdminSellers />} />
 
+<Route path="/admin/sellers/:sellerId" element={<AdminSellerDetails />}/>
 
-
-
+<Route path="/admin/sellers/:sellerId/edit" element={<AdminSellerDetails />} />
 
 
 </Route>

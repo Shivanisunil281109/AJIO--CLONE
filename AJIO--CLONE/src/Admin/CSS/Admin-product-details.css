@@ -256,7 +256,10 @@
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+
+    /* EDIT PRODUCT BUTTON ON LEFT SIDE */
+    justify-content: flex-start;
+
     margin-top: 28px;
 }
 
