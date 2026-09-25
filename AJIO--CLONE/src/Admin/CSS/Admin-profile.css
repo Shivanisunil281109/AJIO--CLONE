@@ -539,6 +539,22 @@
 
 
 /* =========================================
+   PROFILE FORM VALIDATION ERROR
+========================================= */
+
+.admin-profile-field-error {
+    display: block;
+    margin-top: 2px;
+
+    color: #dc2626;
+
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+
+/* =========================================
    EDIT FORM ACTIONS
 ========================================= */
 

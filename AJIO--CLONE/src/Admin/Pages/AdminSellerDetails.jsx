@@ -692,6 +692,28 @@ const AdminSellerDetails = () => {
 
 
                     {/* =========================================
+                        EDIT SELLER BUTTON
+                        BELOW SELLER INFORMATION
+                    ========================================= */}
+
+                    <div className="admin-seller-edit-action">
+
+                        <button
+                            type="button"
+                            className="admin-seller-edit-btn"
+                            onClick={() =>
+                                navigate(
+                                    `/admin/sellers/${seller.id}/edit`
+                                )
+                            }
+                        >
+                            Edit Seller
+                        </button>
+
+                    </div>
+
+
+                    {/* =========================================
                         SELLER PRODUCTS
                     ========================================= */}
 
@@ -797,27 +819,6 @@ const AdminSellerDetails = () => {
                             </table>
 
                         </div>
-
-                    </div>
-
-
-                    {/* =========================================
-                        EDIT SELLER BUTTON
-                    ========================================= */}
-
-                    <div className="admin-seller-edit-action">
-
-                        <button
-                            type="button"
-                            className="admin-seller-edit-btn"
-                            onClick={() =>
-                                navigate(
-                                    `/admin/sellers/${seller.id}/edit`
-                                )
-                            }
-                        >
-                            Edit Seller
-                        </button>
 
                     </div>
 

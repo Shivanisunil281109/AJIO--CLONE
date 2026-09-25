@@ -45,6 +45,23 @@ const AdminProfile = () => {
 
 
     // =========================================
+    // VALIDATION ERRORS
+    // =========================================
+
+    const [errors, setErrors] = useState({
+
+        name: "",
+
+        email: "",
+
+        mobile: "",
+
+        role: ""
+
+    });
+
+
+    // =========================================
     // EDIT FORM DATA
     // =========================================
 
@@ -79,6 +96,22 @@ const AdminProfile = () => {
 
         });
 
+
+        // CLEAR OLD ERRORS
+
+        setErrors({
+
+            name: "",
+
+            email: "",
+
+            mobile: "",
+
+            role: ""
+
+        });
+
+
         setIsEditing(true);
 
     };
@@ -92,11 +125,23 @@ const AdminProfile = () => {
 
         const { name, value } = e.target;
 
+
         setEditProfile((previousProfile) => ({
 
             ...previousProfile,
 
             [name]: value
+
+        }));
+
+
+        // CLEAR ERROR WHEN USER CHANGES FIELD
+
+        setErrors((previousErrors) => ({
+
+            ...previousErrors,
+
+            [name]: ""
 
         }));
 
@@ -121,6 +166,22 @@ const AdminProfile = () => {
 
         });
 
+
+        // CLEAR VALIDATION ERRORS
+
+        setErrors({
+
+            name: "",
+
+            email: "",
+
+            mobile: "",
+
+            role: ""
+
+        });
+
+
         setIsEditing(false);
 
     };
@@ -131,6 +192,128 @@ const AdminProfile = () => {
     // =========================================
 
     const handleSaveProfile = () => {
+
+
+        // =========================================
+        // CREATE EMPTY ERROR OBJECT
+        // =========================================
+
+        const newErrors = {
+
+            name: "",
+
+            email: "",
+
+            mobile: "",
+
+            role: ""
+
+        };
+
+
+        // =========================================
+        // FULL NAME VALIDATION
+        // =========================================
+
+        if (!editProfile.name.trim()) {
+
+            newErrors.name =
+                "Full name is required.";
+
+        }
+
+
+        // =========================================
+        // EMAIL VALIDATION
+        // =========================================
+
+        if (!editProfile.email.trim()) {
+
+            newErrors.email =
+                "Email address is required.";
+
+        } else {
+
+            const emailPattern =
+                /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+            if (
+                !emailPattern.test(
+                    editProfile.email.trim()
+                )
+            ) {
+
+                newErrors.email =
+                    "Please enter a valid email address.";
+
+            }
+
+        }
+
+
+        // =========================================
+        // MOBILE VALIDATION
+        // =========================================
+
+        if (!editProfile.mobile.trim()) {
+
+            newErrors.mobile =
+                "Mobile number is required.";
+
+        } else if (
+            !/^\d{10}$/.test(
+                editProfile.mobile.trim()
+            )
+        ) {
+
+            newErrors.mobile =
+                "Mobile number must be exactly 10 digits.";
+
+        }
+
+
+        // =========================================
+        // ROLE VALIDATION
+        // =========================================
+
+        if (!editProfile.role) {
+
+            newErrors.role =
+                "Please select a role.";
+
+        }
+
+
+        // =========================================
+        // SET VALIDATION ERRORS
+        // =========================================
+
+        setErrors(newErrors);
+
+
+        // =========================================
+        // CHECK IF ANY ERROR EXISTS
+        // =========================================
+
+        const hasErrors =
+            Object.values(newErrors).some(
+                (error) => error !== ""
+            );
+
+
+        // DO NOT SAVE IF ERROR EXISTS
+
+        if (hasErrors) {
+
+            return;
+
+        }
+
+
+        // =========================================
+        // CREATE UPDATED PROFILE
+        // =========================================
 
         const updatedProfile = {
 
@@ -145,12 +328,16 @@ const AdminProfile = () => {
         };
 
 
+        // =========================================
         // UPDATE PROFILE ON PAGE
+        // =========================================
 
         setProfile(updatedProfile);
 
 
+        // =========================================
         // SAVE PROFILE IN LOCAL STORAGE
+        // =========================================
 
         localStorage.setItem(
             "adminProfile",
@@ -158,7 +345,26 @@ const AdminProfile = () => {
         );
 
 
+        // =========================================
+        // CLEAR ERRORS
+        // =========================================
+
+        setErrors({
+
+            name: "",
+
+            email: "",
+
+            mobile: "",
+
+            role: ""
+
+        });
+
+
+        // =========================================
         // CLOSE EDIT MODE
+        // =========================================
 
         setIsEditing(false);
 
@@ -176,7 +382,9 @@ const AdminProfile = () => {
 
             <div className="admin-profile-page-heading">
 
-                <h1>Admin Profile</h1>
+                <h1>
+                    Admin Profile
+                </h1>
 
                 <p>
                     Manage your administrator account and personal information.
@@ -194,6 +402,7 @@ const AdminProfile = () => {
 
                 <div className="admin-profile-hero-left">
 
+
                     <div className="admin-profile-avatar">
 
                         <span className="material-symbols-outlined">
@@ -204,6 +413,7 @@ const AdminProfile = () => {
 
 
                     <div className="admin-profile-hero-info">
+
 
                         <div className="admin-profile-name-row">
 
@@ -222,11 +432,14 @@ const AdminProfile = () => {
                             {profile.email}
                         </p>
 
+
                         <p className="admin-profile-account-text">
                             Administrator Account
                         </p>
 
+
                     </div>
+
 
                 </div>
 
@@ -264,7 +477,9 @@ const AdminProfile = () => {
 
                     <div>
 
-                        <h2>Personal Information</h2>
+                        <h2>
+                            Personal Information
+                        </h2>
 
                         <p>
                             Your administrator account details.
@@ -296,6 +511,7 @@ const AdminProfile = () => {
 
                             </div>
 
+
                             <div>
 
                                 <span className="admin-profile-info-label">
@@ -322,6 +538,7 @@ const AdminProfile = () => {
                                 </span>
 
                             </div>
+
 
                             <div>
 
@@ -350,6 +567,7 @@ const AdminProfile = () => {
 
                             </div>
 
+
                             <div>
 
                                 <span className="admin-profile-info-label">
@@ -376,6 +594,7 @@ const AdminProfile = () => {
                                 </span>
 
                             </div>
+
 
                             <div>
 
@@ -417,12 +636,22 @@ const AdminProfile = () => {
                                     Full Name
                                 </label>
 
+
                                 <input
                                     type="text"
                                     name="name"
                                     value={editProfile.name}
                                     onChange={handleInputChange}
                                 />
+
+
+                                {errors.name && (
+
+                                    <span className="admin-profile-field-error">
+                                        {errors.name}
+                                    </span>
+
+                                )}
 
                             </div>
 
@@ -435,12 +664,22 @@ const AdminProfile = () => {
                                     Email Address
                                 </label>
 
+
                                 <input
                                     type="email"
                                     name="email"
                                     value={editProfile.email}
                                     onChange={handleInputChange}
                                 />
+
+
+                                {errors.email && (
+
+                                    <span className="admin-profile-field-error">
+                                        {errors.email}
+                                    </span>
+
+                                )}
 
                             </div>
 
@@ -453,12 +692,22 @@ const AdminProfile = () => {
                                     Mobile Number
                                 </label>
 
+
                                 <input
                                     type="text"
                                     name="mobile"
                                     value={editProfile.mobile}
                                     onChange={handleInputChange}
                                 />
+
+
+                                {errors.mobile && (
+
+                                    <span className="admin-profile-field-error">
+                                        {errors.mobile}
+                                    </span>
+
+                                )}
 
                             </div>
 
@@ -470,6 +719,7 @@ const AdminProfile = () => {
                                 <label>
                                     Role
                                 </label>
+
 
                                 <select
                                     name="role"
@@ -486,6 +736,15 @@ const AdminProfile = () => {
                                     </option>
 
                                 </select>
+
+
+                                {errors.role && (
+
+                                    <span className="admin-profile-field-error">
+                                        {errors.role}
+                                    </span>
+
+                                )}
 
                             </div>
 
@@ -540,7 +799,9 @@ const AdminProfile = () => {
 
                     <div>
 
-                        <h2>Account Information</h2>
+                        <h2>
+                            Account Information
+                        </h2>
 
                         <p>
                             Administrator account status and access.
@@ -558,6 +819,7 @@ const AdminProfile = () => {
 
                     <div className="admin-profile-account-item">
 
+
                         <div className="admin-profile-account-icon">
 
                             <span className="material-symbols-outlined">
@@ -566,11 +828,13 @@ const AdminProfile = () => {
 
                         </div>
 
+
                         <div>
 
                             <span>
                                 Account Status
                             </span>
+
 
                             <div className="admin-profile-active-status">
 
@@ -583,12 +847,14 @@ const AdminProfile = () => {
 
                         </div>
 
+
                     </div>
 
 
                     {/* ACCESS LEVEL */}
 
                     <div className="admin-profile-account-item">
+
 
                         <div className="admin-profile-account-icon">
 
@@ -597,6 +863,7 @@ const AdminProfile = () => {
                             </span>
 
                         </div>
+
 
                         <div>
 
@@ -610,10 +877,12 @@ const AdminProfile = () => {
 
                         </div>
 
+
                     </div>
 
 
                 </div>
+
 
             </div>
 
