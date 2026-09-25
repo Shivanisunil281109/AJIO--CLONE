@@ -140,8 +140,6 @@ const AdminDashboard = () => {
         localStorage.getItem("sellerOrders")
     ) || [];
 
-    console.log("Seller Orders in Admin:", sellerOrders);
-
 
     // =========================================
     // ORDER STATUS DATA - DYNAMIC
@@ -228,6 +226,7 @@ const AdminDashboard = () => {
         processingPercentage +
         shippedPercentage;
 
+
     const donutBackground =
         totalStatusOrders === 0
             ? "#e5e7eb"
@@ -240,50 +239,89 @@ const AdminDashboard = () => {
 
 
     // =========================================
-    // LATEST ORDERS - ALL SELLERS
+    // GET SELLER ORDER BY ORDER ID
     // =========================================
 
+    const getSellerOrder = (orderId) => {
 
-    // =========================================
-    // GET SELLER ORDER STATUS
-    // =========================================
-
-    const getSellerOrderStatus = (index, defaultStatus) => {
-
-        if (sellerOrders[index]) {
-            return sellerOrders[index].status;
-        }
-
-        return defaultStatus;
+        return sellerOrders.find(
+            (order) => order.id === orderId
+        );
     };
 
 
     // =========================================
-    // EXISTING ADMIN LATEST ORDERS
+    // FORMAT SELLER DATE FOR ADMIN
     // =========================================
 
-    const latestOrders = [
+    const formatSellerDate = (dateValue, fallbackDate) => {
+
+        if (!dateValue) {
+            return fallbackDate;
+        }
+
+        const [year, month, day] = dateValue.split("-");
+
+        const date = new Date(
+            Number(year),
+            Number(month) - 1,
+            Number(day)
+        );
+
+        return date.toLocaleDateString("en-US", {
+            month: "short",
+            day: "numeric",
+            year: "numeric"
+        });
+    };
+
+
+    // =========================================
+    // CONVERT SELLER AMOUNT TO NUMBER
+    // =========================================
+
+    const getSellerAmount = (amount, fallbackAmount) => {
+
+        if (!amount) {
+            return fallbackAmount;
+        }
+
+        const numericAmount = Number(
+            String(amount).replace(/[₹,\s]/g, "")
+        );
+
+        return Number.isNaN(numericAmount)
+            ? fallbackAmount
+            : numericAmount;
+    };
+
+
+    // =========================================
+    // ADMIN LATEST ORDER INFORMATION
+    // =========================================
+
+    const adminLatestOrders = [
         {
             orderId: "#AJ1245786",
             productName: "Men Casual Shirt",
             image:
                 "https://assets-jiocdn.ajio.com/medias/sys_master/root1/20251110/hpeH/69120e5e88d6d62ff8da2a5a/urbano_fashion_pink_men_cotton_regular_fit_shirt.jpg",
-            customer: "Rohit",
+            customer: "Rohit Joshi",
             seller: "Fashion Studio",
             date: "May 31, 2026",
             amount: 2499,
-            status: getSellerOrderStatus(0, "Delivered")
+            status: "Processing"
         },
         {
             orderId: "#AJ1245785",
             productName: "Running Shoes",
             image:
                 "https://assets-jiocdn.ajio.com/medias/sys_master/root/20230629/T4Ec/649cce75a9b42d15c91b8114/asian_white_low-top_lace-up_running_shoes.jpg",
-            customer: "Rahul",
+            customer: "Rahul Patel",
             seller: "Sports Hub",
             date: "May 31, 2026",
             amount: 1799,
-            status: getSellerOrderStatus(1, "Processing")
+            status: "Processing"
         },
         {
             orderId: "#AJ1245784",
@@ -294,7 +332,7 @@ const AdminDashboard = () => {
             seller: "Tech World",
             date: "May 30, 2026",
             amount: 2999,
-            status: getSellerOrderStatus(2, "Shipped")
+            status: "Shipped"
         },
         {
             orderId: "#AJ1245783",
@@ -305,7 +343,7 @@ const AdminDashboard = () => {
             seller: "Beauty Glam",
             date: "May 30, 2026",
             amount: 1299,
-            status: getSellerOrderStatus(3, "Delivered")
+            status: "Delivered"
         },
         {
             orderId: "#AJ1245782",
@@ -316,9 +354,90 @@ const AdminDashboard = () => {
             seller: "Denim Store",
             date: "May 29, 2026",
             amount: 2099,
-            status: getSellerOrderStatus(4, "Cancelled")
+            status: "Cancelled"
+        },
+
+        // =========================================
+        // NEW ORDER 81
+        // =========================================
+
+        {
+            orderId: "#AJ1245781",
+            productName: "Casual Top",
+            image:
+                "https://assets-jiocdn.ajio.com/medias/sys_master/root1/20260430/5IGy/69f38c0dfcb5bb61d294b28a/fyre_rose_mauve_women_regular_fit_top.jpg",
+            customer: "Sneha Kapoor",
+            seller: "Fashion Studio",
+            date: "May 16, 2026",
+            amount: 1299,
+            status: "Shipped"
+        },
+
+        // =========================================
+        // NEW ORDER 80
+        // =========================================
+
+        {
+            orderId: "#AJ1245780",
+            productName: "Casual Shirt",
+            image:
+                "https://assets-jiocdn.ajio.com/medias/sys_master/root1/20260727/dWuI/6a66fe7f5d467f347a854ba9/dnmx_blue_men_checked_regular_fit_shirt_with_patch_pocket.jpg",
+            customer: "Vikram Joshi",
+            seller: "Fashion Studio",
+            date: "May 15, 2026",
+            amount: 899,
+            status: "Delivered"
         }
     ];
+
+
+    // =========================================
+    // SYNC ADMIN ORDERS WITH SELLER ORDERS
+    // =========================================
+
+    const latestOrders = adminLatestOrders.map((adminOrder) => {
+
+        const sellerOrder =
+            getSellerOrder(adminOrder.orderId);
+
+        if (!sellerOrder) {
+            return adminOrder;
+        }
+
+        return {
+            ...adminOrder,
+
+            orderId:
+                sellerOrder.id ||
+                adminOrder.orderId,
+
+            customer:
+                sellerOrder.customer ||
+                adminOrder.customer,
+
+            seller:
+                sellerOrder.seller ||
+                adminOrder.seller,
+
+            productName:
+                sellerOrder.productName ||
+                adminOrder.productName,
+
+            date: formatSellerDate(
+                sellerOrder.dateValue,
+                adminOrder.date
+            ),
+
+            amount: getSellerAmount(
+                sellerOrder.amount,
+                adminOrder.amount
+            ),
+
+            status:
+                sellerOrder.status ||
+                adminOrder.status
+        };
+    });
 
 
     return (
@@ -621,6 +740,7 @@ const AdminDashboard = () => {
                     <div className="admin-analytics-heading">
 
                         <div>
+
                             <h2>Sales Overview</h2>
 
                             <p>
@@ -628,6 +748,7 @@ const AdminDashboard = () => {
                                     ? "This week's sales performance"
                                     : "Last week's sales performance"}
                             </p>
+
                         </div>
 
 

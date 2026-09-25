@@ -25,81 +25,100 @@ const SellerOrders = () => {
     // ORDERS DATA
     // =========================
 
-  const [orders, setOrders] = useState(() => {
+    const [orders, setOrders] = useState(() => {
 
-    const savedOrders =
-        JSON.parse(localStorage.getItem("sellerOrders"));
+        const savedOrders =
+            JSON.parse(localStorage.getItem("sellerOrders"));
 
-    if (savedOrders) {
-        return savedOrders;
-    }
-
-    return [
-        {
-            id: "#ORD12345",
-            customer: "Soniya Datarkar",
-            date: "18 May 2026",
-            dateValue: "2026-05-18",
-            amount: "₹1,499",
-            payment: "COD",
-            status: "Processing"
-        },
-        {
-            id: "#ORD12344",
-            customer: "Neha Patel",
-            date: "18 May 2026",
-            dateValue: "2026-05-18",
-            amount: "₹999",
-            payment: "Online",
-            status: "Shipped"
-        },
-        {
-            id: "#ORD12343",
-            customer: "Amit Verma",
-            date: "17 May 2026",
-            dateValue: "2026-05-17",
-            amount: "₹2,299",
-            payment: "Online",
-            status: "Delivered"
-        },
-        {
-            id: "#ORD12342",
-            customer: "Pooja Singh",
-            date: "17 May 2026",
-            dateValue: "2026-05-17",
-            amount: "₹1,199",
-            payment: "COD",
-            status: "Processing"
-        },
-        {
-            id: "#ORD12341",
-            customer: "Karan Mehta",
-            date: "16 May 2026",
-            dateValue: "2026-05-16",
-            amount: "₹799",
-            payment: "Online",
-            status: "Cancelled"
-        },
-        {
-            id: "#ORD12340",
-            customer: "Sneha Kapoor",
-            date: "16 May 2026",
-            dateValue: "2026-05-16",
-            amount: "₹1,299",
-            payment: "Online",
-            status: "Shipped"
-        },
-        {
-            id: "#ORD12339",
-            customer: "Vikram Joshi",
-            date: "15 May 2026",
-            dateValue: "2026-05-15",
-            amount: "₹899",
-            payment: "COD",
-            status: "Delivered"
+        if (savedOrders) {
+            return savedOrders;
         }
-    ];
-});
+
+
+        // DEFAULT SELLER ORDERS
+
+        const defaultOrders = [
+            {
+                id: "#AJ1245786",
+                customer: "Rohit Joshi",
+                seller: "Fashion Studio",
+                productName: "Men Casual Shirt",
+                date: "31 May 2026",
+                dateValue: "2026-05-31",
+                amount: "₹2,499",
+                payment: "COD",
+                status: "Processing"
+            },
+            {
+                id: "#AJ1245785",
+                customer: "Rahul patel",
+                seller: "Sports Hub",
+                productName: "Running Shoes",
+                date: "31 May 2026",
+                dateValue: "2026-05-31",
+                amount: "₹1,799",
+                payment: "Online",
+                status: "Shipped"
+            },
+            {
+                id: "#AJ1245784",
+                customer: "Amit Verma",
+                date: "17 May 2026",
+                dateValue: "2026-05-17",
+                amount: "₹2,299",
+                payment: "Online",
+                status: "Delivered"
+            },
+            {
+                id: "#AJ1245783",
+                customer: "Pooja Singh",
+                date: "17 May 2026",
+                dateValue: "2026-05-17",
+                amount: "₹1,199",
+                payment: "COD",
+                status: "Processing"
+            },
+            {
+                id: "#AJ1245782",
+                customer: "Karan Mehta",
+                date: "16 May 2026",
+                dateValue: "2026-05-16",
+                amount: "₹799",
+                payment: "Online",
+                status: "Cancelled"
+            },
+            {
+                id: "#AJ1245781",
+                customer: "Sneha Kapoor",
+                date: "16 May 2026",
+                dateValue: "2026-05-16",
+                amount: "₹1,299",
+                payment: "Online",
+                status: "Shipped"
+            },
+            {
+                id: "#AJ1245780",
+                customer: "Vikram Joshi",
+                date: "15 May 2026",
+                dateValue: "2026-05-15",
+                amount: "₹899",
+                payment: "COD",
+                status: "Delivered"
+            }
+        ];
+
+
+        // =========================
+        // SAVE DEFAULT ORDERS
+        // =========================
+
+        localStorage.setItem(
+            "sellerOrders",
+            JSON.stringify(defaultOrders)
+        );
+
+        return defaultOrders;
+    });
 
 
     // =========================
@@ -145,40 +164,33 @@ const SellerOrders = () => {
     });
 
 
+    // =========================
+    // UPDATE ORDER STATUS
+    // =========================
 
+    const handleUpdateStatus = () => {
 
-const handleUpdateStatus = () => {
+        const updatedOrders = orders.map((order) => {
 
-    const updatedOrders = orders.map((order) => {
+            if (order.id === selectedOrder.id) {
+                return {
+                    ...order,
+                    status: updatedStatus
+                };
+            }
 
-        if (order.id === selectedOrder.id) {
-            return {
-                ...order,
-                status: updatedStatus
-            };
-        }
+            return order;
+        });
 
-        return order;
-    });
+        setOrders(updatedOrders);
 
-    setOrders(updatedOrders);
+        localStorage.setItem(
+            "sellerOrders",
+            JSON.stringify(updatedOrders)
+        );
 
-    localStorage.setItem(
-        "sellerOrders",
-        JSON.stringify(updatedOrders)
-    );
-
-    setSelectedOrder(null);
-};
-
-
-
-
-
-
-
-
-
+        setSelectedOrder(null);
+    };
 
 
     return (
@@ -522,16 +534,12 @@ const handleUpdateStatus = () => {
                         <div className="order-modal-footer">
 
                             <button
-    type="button"
-    className="order-modal-done"
-    onClick={handleUpdateStatus}
->
-    Update Status
-</button>
-
-
-
-
+                                type="button"
+                                className="order-modal-done"
+                                onClick={handleUpdateStatus}
+                            >
+                                Update Status
+                            </button>
 
                         </div>
 
