@@ -45,7 +45,7 @@ import AdminProducts from "./Admin/Pages/AdminProducts";
 import AdminProductDetails from "./Admin/Pages/AdminProductDetails";
 import AdminSellers from "./Admin/Pages/AdminSellers";
 import AdminSellerDetails from "./Admin/Pages/AdminSellerDetails";
-
+import AdminProfile from "./Admin/Pages/AdminProfile";
 
 
 
@@ -152,6 +152,9 @@ function App() {
 <Route path="/admin/sellers/:sellerId" element={<AdminSellerDetails />}/>
 
 <Route path="/admin/sellers/:sellerId/edit" element={<AdminSellerDetails />} />
+
+ <Route path="/admin/profile"  element={<AdminProfile />}/>
+
 
 
 </Route>
