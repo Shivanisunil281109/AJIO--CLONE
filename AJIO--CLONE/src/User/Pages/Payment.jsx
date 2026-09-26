@@ -307,14 +307,58 @@ const Payment = () => {
                 products: cartItems
             };
 
-            localStorage.setItem(
-                "orders",
-                JSON.stringify(orderData)
-            );
 
-            localStorage.removeItem("cart");
+            
+            // GET PREVIOUS ORDERS
 
-            navigate("/orders");
+const previousOrders =
+    JSON.parse(localStorage.getItem("orders")) || [];
+
+
+// CONVERT OLD SINGLE ORDER FORMAT TO ARRAY
+
+const ordersArray =
+    Array.isArray(previousOrders)
+        ? previousOrders
+        : previousOrders.orderId
+            ? [previousOrders]
+            : [];
+
+
+// ADD NEW ORDER AT THE BEGINNING
+
+const updatedOrders = [
+    orderData,
+    ...ordersArray
+];
+
+
+// SAVE ALL ORDERS
+
+localStorage.setItem(
+    "orders",
+    JSON.stringify(updatedOrders)
+);
+
+
+// CLEAR CART
+
+localStorage.removeItem("cart");
+
+
+// UPDATE NAVBAR CART COUNT
+
+window.dispatchEvent(
+    new Event("cartUpdated")
+);
+
+
+// OPEN ORDERS PAGE
+
+navigate("/orders");
+
+
+
         }
     };
 

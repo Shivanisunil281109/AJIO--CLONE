@@ -12,35 +12,26 @@ const Wishlist = () => {
     );
 
 
-// ================= REMOVE FROM WISHLIST =================
+    // ================= REMOVE FROM WISHLIST =================
 
-const handleRemove = (productId) => {
+    const handleRemove = (productId) => {
 
-    const updatedWishlist = wishlist.filter(
-        (product) => product.id !== productId
-    );
+        const updatedWishlist = wishlist.filter(
+            (product) => product.id !== productId
+        );
 
-    setWishlist(updatedWishlist);
+        setWishlist(updatedWishlist);
 
-    localStorage.setItem(
-        "wishlist",
-        JSON.stringify(updatedWishlist)
-    );
+        localStorage.setItem(
+            "wishlist",
+            JSON.stringify(updatedWishlist)
+        );
 
-};
-
-
-
-
-
-
-
-
-
-
+    };
 
 
     return (
+
         <main className="wishlist-page">
 
             <section className="wishlist-container">
@@ -53,6 +44,7 @@ const handleRemove = (productId) => {
                 {wishlist.length === 0 ? (
 
                     <>
+
                         <p className="wishlist-empty">
                             Your Wishlist is empty!!
                         </p>
@@ -62,13 +54,16 @@ const handleRemove = (productId) => {
                             TO SHOP CLOTHES ONLINE!
                         </p>
 
-                        <Link to="/" className="continue-btn">
+                        <Link
+                            to="/"
+                            className="continue-btn"
+                        >
                             CONTINUE SHOPPING
                         </Link>
+
                     </>
 
                 ) : (
-
 
                     /* ================= WISHLIST PRODUCTS ================= */
 
@@ -81,7 +76,7 @@ const handleRemove = (productId) => {
                                 key={product.id}
                             >
 
-                                {/* PRODUCT IMAGE */}
+                                {/* ================= PRODUCT IMAGE ================= */}
 
                                 <img
                                     src={
@@ -92,34 +87,71 @@ const handleRemove = (productId) => {
                                 />
 
 
-                                {/* PRODUCT INFORMATION */}
+                                {/* ================= PRODUCT INFORMATION ================= */}
 
                                 <div className="wishlist-product-info">
 
-                                    <h3>
+
+                                    {/* BRAND NAME */}
+
+                                    <h3 className="wishlist-brand">
                                         {product.brand}
                                     </h3>
 
-                                    <p>
+
+                                    {/* PRODUCT NAME */}
+
+                                    <p className="wishlist-product-name">
                                         {product.name}
                                     </p>
 
-                                    <h4>
-                                        {product.price}
-                                    </h4>
+
+                                    {/* ================= PRICE DETAILS ================= */}
+
+                                    <div className="wishlist-price-row">
 
 
+                                        {/* CURRENT PRICE */}
+
+                                        <span className="wishlist-current-price">
+                                            ₹{String(product.price).replace("₹", "")}
+                                        </span>
 
 
-                           <button
-                            className="wishlist-remove-btn"
-                            onClick={() => handleRemove(product.id)}
-                                >
-                                REMOVE
-                              </button>
+                                        {/* OLD PRICE */}
+
+                                        {product.oldPrice && (
+
+                                            <span className="wishlist-old-price">
+                                                ₹{String(product.oldPrice).replace("₹", "")}
+                                            </span>
+
+                                        )}
 
 
+                                        {/* DISCOUNT / OFFER */}
 
+                                        {product.discount && (
+
+                                            <span className="wishlist-discount">
+                                                {product.discount}
+                                            </span>
+
+                                        )}
+
+                                    </div>
+
+
+                                    {/* ================= REMOVE BUTTON ================= */}
+
+                                    <button
+                                        className="wishlist-remove-btn"
+                                        onClick={() =>
+                                            handleRemove(product.id)
+                                        }
+                                    >
+                                        REMOVE
+                                    </button>
 
 
                                 </div>
@@ -135,7 +167,9 @@ const handleRemove = (productId) => {
             </section>
 
         </main>
+
     );
+
 };
 
 export default Wishlist;

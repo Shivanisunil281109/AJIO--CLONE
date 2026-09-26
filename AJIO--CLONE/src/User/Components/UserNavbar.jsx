@@ -1,47 +1,74 @@
-// import React, { useState } from "react";
-
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
 import "../CSS/UserNavbar.css";
 
 
-
-
 const UserNavbar = () => {
 
-const [cartCount, setCartCount] = useState(() => {
-    const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
-    return savedCart.length;
-});
+    // ================= CART COUNT =================
 
-
-
-useEffect(() => {
-
-    const updateCartCount = () => {
+    const [cartCount, setCartCount] = useState(() => {
 
         const savedCart =
             JSON.parse(localStorage.getItem("cart")) || [];
 
-        setCartCount(savedCart.length);
+        return savedCart.length;
 
-    };
-
-    window.addEventListener("storage", updateCartCount);
-
-    return () => {
-        window.removeEventListener("storage", updateCartCount);
-    };
-
-}, []);
+    });
 
 
+    // ================= UPDATE CART COUNT =================
+
+    useEffect(() => {
+
+        const updateCartCount = () => {
+
+            const savedCart =
+                JSON.parse(localStorage.getItem("cart")) || [];
+
+            setCartCount(savedCart.length);
+
+        };
+
+
+        // Update when Local Storage changes from another tab
+        window.addEventListener(
+            "storage",
+            updateCartCount
+        );
+
+
+        // Update immediately when cart changes in same tab
+        window.addEventListener(
+            "cartUpdated",
+            updateCartCount
+        );
+
+
+        return () => {
+
+            window.removeEventListener(
+                "storage",
+                updateCartCount
+            );
+
+            window.removeEventListener(
+                "cartUpdated",
+                updateCartCount
+            );
+
+        };
+
+    }, []);
 
 
     return (
+
         <header className="header">
 
+
             {/* ================= TOP NAVBAR ================= */}
+
             <div className="top-navbar">
 
                 <a href="/login">
@@ -60,216 +87,257 @@ useEffect(() => {
 
 
             {/* ================= MAIN NAVBAR ================= */}
+
             <nav className="navbar">
 
+
                 {/* LOGO */}
+
                 <div className="logo">
+
                     <img
                         src="https://assets-jiocdn.ajio.com/static/img/Ajio-Logo.svg"
                         alt="AJIO Logo"
                     />
+
                 </div>
 
 
-                {/* NAV LINKS */}
+                {/* ================= NAV LINKS ================= */}
+
                 <div className="nav-links">
 
 
+                    {/* ================= MEN ================= */}
 
                     <div className="menu-item">
 
-    <a href="#">MEN</a>
-
-    {/* Mega Menu */}
-    <div className="mega-menu">
-
-        {/* Top Tabs */}
-        <div className="menu-tabs">
-
-            <div className="tab">
-                Shop By
-            </div>
-
-            <div className="tab active">
-                Categories
-            </div>
-
-            <div className="tab">
-                Brands
-            </div>
-
-        </div>
+                        <a href="#">
+                            MEN
+                        </a>
 
 
-        {/* Categories Page */}
-        <div className="categories-page">
+                        {/* ================= MEGA MENU ================= */}
 
-            <div className="menu-content">
-
-                {/* Column 1 */}
-                <div className="column">
-
-                    <h3>CLOTHING</h3>
-                    <h3>FOOTWEAR</h3>
-                    <h3>ACCESSORIES</h3>
-                    <h3>ALL THAT'S NEW</h3>
-
-                    <p>Clothing</p>
-                    <p>Footwear</p>
-                    <p>Accessories</p>
-
-                    <h3>AJIO GLOBAL</h3>
-                    <h3>PLUS SIZE</h3>
-                    <h3>NIGHT & LOUNGEWEAR</h3>
-                    <h3>GROOMING</h3>
-
-                </div>
+                        <div className="mega-menu">
 
 
-                {/* Column 2 */}
-                <div className="column">
+                            {/* TOP TABS */}
 
-                    <h3>WINTER WEAR</h3>
+                            <div className="menu-tabs">
 
-                    <p>Blazers & Waistcoats</p>
-                    <p>Jackets & Coats</p>
-                    <p>Sweaters & Cardigans</p>
-                    <p>Sweatshirts & Hoodies</p>
+                                <div className="tab">
+                                    Shop By
+                                </div>
 
-                    <br />
+                                <div className="tab active">
+                                    Categories
+                                </div>
 
-                    <h3>WESTERN WEAR</h3>
+                                <div className="tab">
+                                    Brands
+                                </div>
 
-                    <p>Jeans</p>
-                    <p>Shirts</p>
-                    <p>Shorts & 3/4ths</p>
-                    <p>Suit Sets</p>
-                    <p>Track Pants</p>
-                    <p>Tracksuits</p>
-                    <p>Trousers & Pants</p>
-                    <p>T-Shirts</p>
-
-                </div>
+                            </div>
 
 
-                {/* Column 3 */}
-                <div className="column">
+                            {/* ================= CATEGORIES PAGE ================= */}
 
-                    <h3>FOOTWEAR</h3>
+                            <div className="categories-page">
 
-                    <p>Boots</p>
-                    <p>Casual Shoes</p>
-                    <p>Flip Flops & Slippers</p>
-                    <p>Formal Shoes</p>
-                    <p>Sandals</p>
-                    <p>Sneakers</p>
-                    <p>Sports Shoes</p>
-
-                    <br />
-
-                    <h3>ETHNIC WEAR</h3>
-
-                    <p>Ethnic Jackets</p>
-                    <p>Ethnic Suit Sets</p>
-                    <p>Kurtas</p>
-                    <p>Pyjamas & Churidars</p>
-                    <p>Sherwani Sets</p>
-                    <p>Stoles</p>
-
-                </div>
+                                <div className="menu-content">
 
 
-                {/* Column 4 */}
-                <div className="column">
+                                    {/* COLUMN 1 */}
 
-                    <h3>ACCESSORIES</h3>
+                                    <div className="column">
 
-                    <p>Backpacks</p>
-                    <p>Belts</p>
-                    <p>Caps & Hats</p>
-                    <p>Luggage & Trolley Bags</p>
-                    <p>Perfumes & Colognes</p>
-                    <p>Socks</p>
-                    <p>Sunglasses</p>
-                    <p>Wallets</p>
-                    <p>Watches</p>
+                                        <h3>CLOTHING</h3>
+                                        <h3>FOOTWEAR</h3>
+                                        <h3>ACCESSORIES</h3>
+                                        <h3>ALL THAT'S NEW</h3>
 
-                    <br />
+                                        <p>Clothing</p>
+                                        <p>Footwear</p>
+                                        <p>Accessories</p>
 
-                    <h3>INNERWEAR</h3>
+                                        <h3>AJIO GLOBAL</h3>
+                                        <h3>PLUS SIZE</h3>
+                                        <h3>NIGHT & LOUNGEWEAR</h3>
+                                        <h3>GROOMING</h3>
 
-                    <p>Boxers</p>
-                    <p>Briefs</p>
-                    <p>Pyjamas</p>
-                    <p>Thermal Wear</p>
-                    <p>Trunks</p>
-
-                </div>
+                                    </div>
 
 
-                {/* Column 5 */}
-                <div className="column">
+                                    {/* COLUMN 2 */}
 
-                    <h3>FASHION JEWELLERY</h3>
+                                    <div className="column">
 
-                    <p>Bracelets & Kadas</p>
-                    <p>Chains</p>
-                    <p>Cufflinks & Tiepins</p>
-                    <p>Earrings</p>
-                    <p>Rings</p>
+                                        <h3>WINTER WEAR</h3>
 
-                    <br />
+                                        <p>Blazers & Waistcoats</p>
+                                        <p>Jackets & Coats</p>
+                                        <p>Sweaters & Cardigans</p>
+                                        <p>Sweatshirts & Hoodies</p>
 
-                    <h3>GADGETS</h3>
+                                        <br />
 
-                    <p>Smart Wearables</p>
-                    <p>Fitness Gadgets</p>
-                    <p>Headphones</p>
-                    <p>Speakers</p>
+                                        <h3>WESTERN WEAR</h3>
 
-                </div>
+                                        <p>Jeans</p>
+                                        <p>Shirts</p>
+                                        <p>Shorts & 3/4ths</p>
+                                        <p>Suit Sets</p>
+                                        <p>Track Pants</p>
+                                        <p>Tracksuits</p>
+                                        <p>Trousers & Pants</p>
+                                        <p>T-Shirts</p>
 
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
+                                    </div>
 
 
+                                    {/* COLUMN 3 */}
+
+                                    <div className="column">
+
+                                        <h3>FOOTWEAR</h3>
+
+                                        <p>Boots</p>
+                                        <p>Casual Shoes</p>
+                                        <p>Flip Flops & Slippers</p>
+                                        <p>Formal Shoes</p>
+                                        <p>Sandals</p>
+                                        <p>Sneakers</p>
+                                        <p>Sports Shoes</p>
+
+                                        <br />
+
+                                        <h3>ETHNIC WEAR</h3>
+
+                                        <p>Ethnic Jackets</p>
+                                        <p>Ethnic Suit Sets</p>
+                                        <p>Kurtas</p>
+                                        <p>Pyjamas & Churidars</p>
+                                        <p>Sherwani Sets</p>
+                                        <p>Stoles</p>
+
+                                    </div>
+
+
+                                    {/* COLUMN 4 */}
+
+                                    <div className="column">
+
+                                        <h3>ACCESSORIES</h3>
+
+                                        <p>Backpacks</p>
+                                        <p>Belts</p>
+                                        <p>Caps & Hats</p>
+                                        <p>Luggage & Trolley Bags</p>
+                                        <p>Perfumes & Colognes</p>
+                                        <p>Socks</p>
+                                        <p>Sunglasses</p>
+                                        <p>Wallets</p>
+                                        <p>Watches</p>
+
+                                        <br />
+
+                                        <h3>INNERWEAR</h3>
+
+                                        <p>Boxers</p>
+                                        <p>Briefs</p>
+                                        <p>Pyjamas</p>
+                                        <p>Thermal Wear</p>
+                                        <p>Trunks</p>
+
+                                    </div>
+
+
+                                    {/* COLUMN 5 */}
+
+                                    <div className="column">
+
+                                        <h3>FASHION JEWELLERY</h3>
+
+                                        <p>Bracelets & Kadas</p>
+                                        <p>Chains</p>
+                                        <p>Cufflinks & Tiepins</p>
+                                        <p>Earrings</p>
+                                        <p>Rings</p>
+
+                                        <br />
+
+                                        <h3>GADGETS</h3>
+
+                                        <p>Smart Wearables</p>
+                                        <p>Fitness Gadgets</p>
+                                        <p>Headphones</p>
+                                        <p>Speakers</p>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    {/* ================= WOMEN ================= */}
 
                     <div className="menu-item">
+
                         <a href="/women">
                             WOMEN
                         </a>
+
                     </div>
 
+
+                    {/* ================= KIDS ================= */}
+
                     <div className="menu-item">
+
                         <a href="/kids">
                             KIDS
                         </a>
+
                     </div>
 
+
+                    {/* ================= BEAUTY ================= */}
+
                     <div className="menu-item">
+
                         <a href="/beauty">
                             BEAUTY
                         </a>
+
                     </div>
 
+
+                    {/* ================= HOME & KITCHEN ================= */}
+
                     <div className="menu-item">
+
                         <a href="/home-kitchen">
                             HOME & KITCHEN
                         </a>
+
                     </div>
 
                 </div>
 
 
                 {/* ================= RIGHT SIDE ================= */}
+
                 <div className="nav-right">
 
-                    {/* SEARCH */}
+
+                    {/* ================= SEARCH ================= */}
+
                     <div className="search-box">
 
                         <input
@@ -284,50 +352,46 @@ useEffect(() => {
                     </div>
 
 
+                    {/* ================= WISHLIST ================= */}
+
+                    <div className="wishlist-icon">
+
+                        <Link to="/wishlist">
+
+                            <img
+                                src="https://cdn.pixelbin.io/v2/dry-wildflower-b77541/original/svg/wishlistIcon.svg"
+                                alt="wishlist"
+                            />
+
+                        </Link>
+
+                    </div>
 
 
-{/* WISHLIST */}
-<div className="wishlist-icon">
+                    {/* ================= BAG ================= */}
 
-    <Link to="/wishlist">
+                    <div className="icon-circle">
 
-        <img
-            src="https://cdn.pixelbin.io/v2/dry-wildflower-b77541/original/svg/wishlistIcon.svg"
-            alt="wishlist"
-        />
+                        <Link to="/Cart">
 
-    </Link>
-
-</div>
-                   
+                            <span className="material-symbols-outlined">
+                                local_mall
+                            </span>
 
 
+                            {/* CART PRODUCT COUNT */}
 
+                            {cartCount > 0 && (
 
+                                <span className="cart-count">
+                                    {cartCount}
+                                </span>
 
-                    {/* BAG */}
+                            )}
 
-                   
-   
-<div className="icon-circle">
+                        </Link>
 
-    <Link to="/Cart">
-
-        <span className="material-symbols-outlined">
-            local_mall
-        </span>
-
-        {cartCount > 0 && (
-            <span className="cart-count">
-                {cartCount}
-            </span>
-        )}
-
-    </Link>
-
-</div>
-
-
+                    </div>
 
 
                 </div>
@@ -335,7 +399,9 @@ useEffect(() => {
             </nav>
 
         </header>
+
     );
+
 };
 
 export default UserNavbar;

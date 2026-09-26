@@ -42,90 +42,90 @@ const SingleProduct = () => {
     );
 
 
-// ================= WISHLIST =================
+    // ================= WISHLIST =================
 
-const handleWishlist = () => {
+    const handleWishlist = () => {
 
-    const existingWishlist =
-        JSON.parse(localStorage.getItem("wishlist")) || [];
+        const existingWishlist =
+            JSON.parse(localStorage.getItem("wishlist")) || [];
 
-    const alreadyExists = existingWishlist.some(
-        (item) => item.id === product.id
-    );
-
-    if (!alreadyExists) {
-
-        const updatedWishlist = [
-            ...existingWishlist,
-            product
-        ];
-
-        localStorage.setItem(
-            "wishlist",
-            JSON.stringify(updatedWishlist)
+        const alreadyExists = existingWishlist.some(
+            (item) => item.id === product.id
         );
 
-        alert("Product added to Wishlist ❤️");
+        if (!alreadyExists) {
 
-    } else {
+            const updatedWishlist = [
+                ...existingWishlist,
+                product
+            ];
 
-        alert("Product is already in Wishlist ❤️");
+            localStorage.setItem(
+                "wishlist",
+                JSON.stringify(updatedWishlist)
+            );
 
-    }
+            alert("Product added to Wishlist ❤️");
 
-};
+        } else {
+
+            alert("Product is already in Wishlist ❤️");
+
+        }
+
+    };
 
 
+    // ================= ADD TO CART =================
 
+    const handleAddToCart = () => {
 
+        const existingCart =
+            JSON.parse(localStorage.getItem("cart")) || [];
 
-// ================= ADD TO CART =================
-
-const handleAddToCart = () => {
-
-    const existingCart =
-        JSON.parse(localStorage.getItem("cart")) || [];
-
-    const alreadyExists = existingCart.some(
-        (item) => item.id === product.id
-    );
-
-    if (!alreadyExists) {
-
-        const cartItem = {
-            ...product,
-            quantity: 1,
-            selectedSize: product.sizes?.[0] || "M"
-        };
-
-        const updatedCart = [
-            ...existingCart,
-            cartItem
-        ];
-
-        localStorage.setItem(
-            "cart",
-            JSON.stringify(updatedCart)
+        const alreadyExists = existingCart.some(
+            (item) => item.id === product.id
         );
 
-        alert("Product added to Cart 🛍️");
+        if (!alreadyExists) {
 
-    } else {
+            const cartItem = {
+                ...product,
+                quantity: 1,
+                selectedSize: product.sizes?.[0] || "M"
+            };
 
-        alert("Product is already in Cart 🛍️");
+            const updatedCart = [
+                ...existingCart,
+                cartItem
+            ];
 
-    }
-
-};
-
-
-
+            localStorage.setItem(
+                "cart",
+                JSON.stringify(updatedCart)
+            );
 
 
+            // ================= NEW: UPDATE NAVBAR CART COUNT =================
 
+            window.dispatchEvent(
+                new Event("cartUpdated")
+            );
+
+
+            alert("Product added to Cart 🛍️");
+
+        } else {
+
+            alert("Product is already in Cart 🛍️");
+
+        }
+
+    };
 
 
     return (
+
         <>
 
             {/* ================= BREADCRUMB ================= */}
@@ -207,10 +207,10 @@ const handleAddToCart = () => {
 
                     <div className="main-product-image">
 
-                      <img
-                       src={product.mainImage}
-                        alt={product.name}
-                          /> 
+                        <img
+                            src={product.mainImage}
+                            alt={product.name}
+                        />
 
                     </div>
 
@@ -239,15 +239,11 @@ const handleAddToCart = () => {
                         <div className="product-rating">
 
                             <span className="rating-badge">
-
                                 {product.rating} ★
-
                             </span>
 
                             <span className="rating-count">
-
                                 {product.reviews} Ratings
-
                             </span>
 
                         </div>
@@ -260,7 +256,6 @@ const handleAddToCart = () => {
                             <h2 className="current-price">
                                 {product.price}
                             </h2>
-
 
                             <div className="mrp-row">
 
@@ -277,7 +272,6 @@ const handleAddToCart = () => {
                                 </span>
 
                             </div>
-
 
                             <p className="tax-text">
                                 Price inclusive of all taxes
@@ -328,11 +322,9 @@ const handleAddToCart = () => {
 
                                 </h4>
 
-
                                 <p>
                                     Special offer available on app
                                 </p>
-
 
                                 <a href="#">
                                     View All Products &gt;
@@ -355,9 +347,7 @@ const handleAddToCart = () => {
 
 
                         <p className="selected-color">
-
                             {product.color}
-
                         </p>
 
 
@@ -420,9 +410,7 @@ const handleAddToCart = () => {
 
                                 {product.sizes.map((size) => (
 
-                                    <button
-                                        key={size}
-                                    >
+                                    <button key={size}>
                                         {size}
                                     </button>
 
@@ -465,45 +453,38 @@ const handleAddToCart = () => {
                         {/* ================= ADD TO BAG ================= */}
 
                         <div
-                className="add-to-bag"
-             onClick={handleAddToCart}
-              >
+                            className="add-to-bag"
+                            onClick={handleAddToCart}
+                        >
 
-                <i className="fa-solid fa-bag-shopping"></i>
+                            <i className="fa-solid fa-bag-shopping"></i>
 
-                 <span>
-                   ADD TO BAG
-                </span>
-
-                   </div>
-
-
-
-
-                        <p className="bag-text">
-
-                            HANDPICKED STYLES | ASSURED QUALITY
-
-                        </p>
-
-
-                        {/* ================= WISHLIST ================= */}
-{/* ================= WISHLIST ================= */}
-
-             <div
-               className="wishlist-btn"
-                     onClick={handleWishlist}
-                  >
-
-             <i className="fa-regular fa-heart"></i>
-
-                 <span>
-                    SAVE TO WISHLIST
-                   </span>
+                            <span>
+                                ADD TO BAG
+                            </span>
 
                         </div>
 
 
+                        <p className="bag-text">
+                            HANDPICKED STYLES | ASSURED QUALITY
+                        </p>
+
+
+                        {/* ================= WISHLIST ================= */}
+
+                        <div
+                            className="wishlist-btn"
+                            onClick={handleWishlist}
+                        >
+
+                            <i className="fa-regular fa-heart"></i>
+
+                            <span>
+                                SAVE TO WISHLIST
+                            </span>
+
+                        </div>
 
 
                         {/* ================= PRODUCT DETAILS ================= */}
@@ -902,7 +883,9 @@ const handleAddToCart = () => {
             </main>
 
         </>
+
     );
+
 };
 
 

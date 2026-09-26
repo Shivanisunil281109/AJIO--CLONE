@@ -4,12 +4,16 @@ import "../CSS/Orders.css";
 
 const Orders = () => {
 
-    const [cartItems, setCartItems] = useState([]);
-    const [orderData, setOrderData] = useState({});
+const [cartItems, setCartItems] = useState([]);
 
-    const hasOrder = Boolean(orderData.orderId);
+const [orders, setOrders] = useState([]);
 
-    const [orderStatus, setOrderStatus] = useState("Confirmed");
+const [orderData, setOrderData] = useState({});
+
+const hasOrder = orders.length > 0;
+
+const [orderStatus, setOrderStatus] = useState("Confirmed");
+
 
     const [returnMessage, setReturnMessage] = useState("");
 
@@ -24,12 +28,23 @@ const Orders = () => {
 
     useEffect(() => {
 
-        const savedOrder =
-            JSON.parse(localStorage.getItem("orders")) || {};
+    const savedOrders =
+        JSON.parse(localStorage.getItem("orders")) || [];
 
-        setOrderData(savedOrder);
+    const ordersArray =
+        Array.isArray(savedOrders)
+            ? savedOrders
+            : savedOrders.orderId
+                ? [savedOrders]
+                : [];
 
-        setCartItems(savedOrder.products || []);
+    setOrders(ordersArray);
+
+    const savedOrder = ordersArray[0] || {};
+
+    setOrderData(savedOrder);
+
+    setCartItems(savedOrder.products || []);
 
 
         // =====================================================
@@ -64,29 +79,39 @@ const Orders = () => {
             );
 
 
+
+
             if (
-                today >= deliveryDate &&
-                status === "Confirmed"
-            ) {
+    today >= deliveryDate &&
+    status === "Confirmed"
+) {
 
-                status = "Delivered";
+    status = "Delivered";
+
+    const updatedOrder = {
+        ...savedOrder,
+        status: "Delivered"
+    };
+
+    const updatedOrders = ordersArray.map((order) =>
+        order.orderId === updatedOrder.orderId
+            ? updatedOrder
+            : order
+    );
+
+    setOrders(updatedOrders);
+
+    localStorage.setItem(
+        "orders",
+        JSON.stringify(updatedOrders)
+    );
+
+    setOrderData(updatedOrder);
+}
 
 
-                const updatedOrder = {
-                    ...savedOrder,
-                    status: "Delivered"
-                };
 
 
-                localStorage.setItem(
-                    "orders",
-                    JSON.stringify(updatedOrder)
-                );
-
-
-                setOrderData(updatedOrder);
-
-            }
 
         }
 
@@ -126,56 +151,66 @@ const Orders = () => {
     // CANCEL ORDER
     // =====================================================
 
+
     const handleCancelOrder = () => {
 
-        const updatedOrder = {
-            ...orderData,
-            status: "Cancelled"
-        };
-
-
-        setOrderData(updatedOrder);
-
-        setOrderStatus("Cancelled");
-
-
-        localStorage.setItem(
-            "orders",
-            JSON.stringify(updatedOrder)
-        );
-
+    const updatedOrder = {
+        ...orderData,
+        status: "Cancelled"
     };
+
+    // Update this order inside all orders
+    const updatedOrders = orders.map((order) =>
+        order.orderId === updatedOrder.orderId
+            ? updatedOrder
+            : order
+    );
+
+    setOrderData(updatedOrder);
+
+    setOrders(updatedOrders);
+
+    setOrderStatus("Cancelled");
+
+    localStorage.setItem(
+        "orders",
+        JSON.stringify(updatedOrders)
+    );
+};
 
 
     // =====================================================
     // RETURN ORDER
     // =====================================================
 
-    const handleReturnOrder = () => {
+   const handleReturnOrder = () => {
 
-        const updatedOrder = {
-            ...orderData,
-            status: "Return Requested"
-        };
-
-
-        setOrderData(updatedOrder);
-
-        setOrderStatus("Return Requested");
-
-
-        localStorage.setItem(
-            "orders",
-            JSON.stringify(updatedOrder)
-        );
-
-
-        setReturnMessage(
-            "Your return request has been successfully submitted."
-        );
-
+    const updatedOrder = {
+        ...orderData,
+        status: "Return Requested"
     };
 
+    const updatedOrders = orders.map((order) =>
+        order.orderId === updatedOrder.orderId
+            ? updatedOrder
+            : order
+    );
+
+    setOrderData(updatedOrder);
+
+    setOrders(updatedOrders);
+
+    setOrderStatus("Return Requested");
+
+    localStorage.setItem(
+        "orders",
+        JSON.stringify(updatedOrders)
+    );
+
+    setReturnMessage(
+        "Your return request has been successfully submitted."
+    );
+};
 
     // =====================================================
     // SUBMIT RATING
@@ -183,37 +218,39 @@ const Orders = () => {
 
     const handleSubmitRating = () => {
 
-        if (!rating) {
-
-            setRatingMessage(
-                "Please select a rating."
-            );
-
-            return;
-
-        }
-
-
-        const updatedOrder = {
-            ...orderData,
-            rating: rating
-        };
-
-
-        setOrderData(updatedOrder);
-
-
-        localStorage.setItem(
-            "orders",
-            JSON.stringify(updatedOrder)
-        );
-
+    if (!rating) {
 
         setRatingMessage(
-            `Thank you for rating AJIO ${rating}/10.`
+            "Please select a rating."
         );
 
+        return;
+    }
+
+    const updatedOrder = {
+        ...orderData,
+        rating: rating
     };
+
+    const updatedOrders = orders.map((order) =>
+        order.orderId === updatedOrder.orderId
+            ? updatedOrder
+            : order
+    );
+
+    setOrderData(updatedOrder);
+
+    setOrders(updatedOrders);
+
+    localStorage.setItem(
+        "orders",
+        JSON.stringify(updatedOrders)
+    );
+
+    setRatingMessage(
+        `Thank you for rating AJIO ${rating}/10.`
+    );
+};
 
 
     // =====================================================
@@ -225,6 +262,37 @@ const Orders = () => {
         window.location.href = "/products";
 
     };
+
+
+const handleViewOrder = (order) => {
+
+    setOrderData(order);
+
+    setCartItems(order.products || []);
+
+    setOrderStatus(
+        order.status || "Confirmed"
+    );
+
+    setRating(
+        order.rating || null
+    );
+
+    setRatingMessage("");
+
+    if (order.status === "Return Requested") {
+
+        setReturnMessage(
+            "Your return request has been successfully submitted."
+        );
+
+    } else {
+
+        setReturnMessage("");
+
+    }
+};
+
 
 
     return (
@@ -267,6 +335,48 @@ const Orders = () => {
 
                 <>
 
+{/* =====================================================
+                MY ORDERS HISTORY
+===================================================== */}
+
+<section className="order-history">
+
+    <h2>My Orders</h2>
+
+    <div className="order-history-list">
+
+        {orders.map((order) => (
+
+            <button
+                type="button"
+                key={order.orderId}
+                className={`order-history-item ${
+                    orderData.orderId === order.orderId
+                        ? "active"
+                        : ""
+                }`}
+                onClick={() => handleViewOrder(order)}
+            >
+
+                <span>
+                    {order.orderId}
+                </span>
+
+                <span>
+                    {order.orderDate}
+                </span>
+
+                <span>
+                    {order.status || "Confirmed"}
+                </span>
+
+            </button>
+
+        ))}
+
+    </div>
+
+</section>
 
                     {/* =====================================================
                                 ORDER SUCCESS BAR

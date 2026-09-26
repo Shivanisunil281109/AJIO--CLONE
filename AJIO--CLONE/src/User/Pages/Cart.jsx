@@ -125,21 +125,28 @@ const Cart = () => {
     // DELETE PRODUCT
     // =====================================================
 
-    const handleDelete = (id) => {
+   const handleDelete = (id) => {
 
-        const updatedCart =
-            cartItems.filter(
-                (item) => item.id !== id
-            );
-
-        setCartItems(updatedCart);
-
-        localStorage.setItem(
-            "cart",
-            JSON.stringify(updatedCart)
+    const updatedCart =
+        cartItems.filter(
+            (item) => item.id !== id
         );
 
-    };
+    setCartItems(updatedCart);
+
+    localStorage.setItem(
+        "cart",
+        JSON.stringify(updatedCart)
+    );
+
+
+    // UPDATE NAVBAR CART COUNT IMMEDIATELY
+
+    window.dispatchEvent(
+        new Event("cartUpdated")
+    );
+
+};
 
 
     // =====================================================
