@@ -32,11 +32,62 @@ const AdminDashboard = () => {
     });
 
 
-    // =========================================
-    // SALES FILTER STATE
-    // =========================================
+// =========================================
+// GET SELLER CREATED PRODUCTS
+// =========================================
 
-    const [selectedWeek, setSelectedWeek] = useState("thisWeek");
+const sellerCreatedProducts =
+    JSON.parse(
+        localStorage.getItem("sellerCreatedProducts")
+    ) || [];
+
+
+// =========================================
+// TOTAL PRODUCTS - DYNAMIC
+// =========================================
+
+// AdminProducts.jsx contains 6 default products.
+// Add Seller-created products to those 6 products.
+
+const totalProducts =
+    6 + sellerCreatedProducts.length;
+
+
+
+// =========================================
+// TOTAL SELLERS - DYNAMIC
+// =========================================
+
+// AdminSellers.jsx currently contains 5 registered sellers.
+
+const totalSellers = 5;
+
+
+// =========================================
+// GET REGISTERED USERS
+// =========================================
+
+const registeredUsers =
+    JSON.parse(
+        localStorage.getItem("registeredUsers")
+    ) || [];
+
+
+// =========================================
+// TOTAL USERS - DYNAMIC
+// =========================================
+
+const totalUsers = registeredUsers.length;
+
+
+// =========================================
+// SALES FILTER STATE
+// =========================================
+
+const [selectedWeek, setSelectedWeek] = useState("thisWeek");
+
+
+
 
 
     // =========================================
@@ -140,6 +191,16 @@ const AdminDashboard = () => {
         localStorage.getItem("sellerOrders")
     ) || [];
 
+
+
+// =========================================
+// TOTAL SOLD PRODUCTS - DYNAMIC
+// =========================================
+
+const totalSoldProducts =
+    sellerOrders.filter(
+        (order) => order.status === "Delivered"
+    ).length;
 
     // =========================================
     // ORDER STATUS DATA - DYNAMIC
@@ -476,7 +537,7 @@ const AdminDashboard = () => {
 
                         <div className="admin-stat-info">
                             <p>All Products</p>
-                            <h2>{dashboardStats.allProducts}</h2>
+                            <h2>{totalProducts}</h2>
                         </div>
 
                     </div>
@@ -527,9 +588,9 @@ const AdminDashboard = () => {
                         </span>
 
                         <div className="admin-stat-info">
-                            <p>All Sellers</p>
-                            <h2>{dashboardStats.allSellers}</h2>
-                        </div>
+                       <p>All Sellers</p>
+                      <h2>{totalSellers}</h2>
+                             </div>
 
                     </div>
 
@@ -580,7 +641,7 @@ const AdminDashboard = () => {
 
                         <div className="admin-stat-info">
                             <p>All Users</p>
-                            <h2>{dashboardStats.allUsers.toLocaleString()}</h2>
+                           <h2>{totalUsers}</h2>
                         </div>
 
                     </div>
@@ -631,8 +692,8 @@ const AdminDashboard = () => {
                         </span>
 
                         <div className="admin-stat-info">
-                            <p>Total Sold Products</p>
-                            <h2>{dashboardStats.soldProducts}</h2>
+                             <p>Total Sold Products</p>
+                                  <h2>{totalSoldProducts}</h2>
                         </div>
 
                     </div>
@@ -684,7 +745,7 @@ const AdminDashboard = () => {
 
                         <div className="admin-stat-info">
                             <p>Total Orders</p>
-                            <h2>{dashboardStats.totalOrders}</h2>
+                       <h2>{sellerOrders.length}</h2>
                         </div>
 
                     </div>

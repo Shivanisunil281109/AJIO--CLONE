@@ -46,17 +46,60 @@ const [gender, setGender] = useState("");
             return;
         }
 
+    
         console.log("Name:", name);
-        console.log("Email:", email);
-        console.log("Gender :",  gender);
-        console.log("Invite Code:", inviteCode);
-        console.log("Mobile:", mobile);
+console.log("Email:", email);
+console.log("Gender :", gender);
+console.log("Invite Code:", inviteCode);
+console.log("Mobile:", mobile);
 
-       navigate("/otp", {
+
+// =========================================
+// SAVE REGISTERED USER
+// =========================================
+
+const registeredUsers =
+    JSON.parse(localStorage.getItem("registeredUsers")) || [];
+
+
+// Check if this mobile number is already registered
+
+const existingUser = registeredUsers.find(
+    (user) => user.mobile === mobile
+);
+
+
+if (!existingUser) {
+
+    const newUser = {
+        id: Date.now(),
+        name: name.trim(),
+        email: email.trim(),
+        gender: gender,
+        mobile: mobile,
+        inviteCode: inviteCode.trim()
+    };
+
+    registeredUsers.push(newUser);
+
+    localStorage.setItem(
+        "registeredUsers",
+        JSON.stringify(registeredUsers)
+    );
+}
+
+
+// =========================================
+// GO TO OTP PAGE
+// =========================================
+
+navigate("/otp", {
     state: {
         mobile: mobile
     }
 });
+
+
 
     };
 
