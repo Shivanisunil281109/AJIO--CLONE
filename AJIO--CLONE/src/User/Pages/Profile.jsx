@@ -131,31 +131,65 @@ const Profile = () => {
         setMessage("Profile information saved successfully.");
     };
 
+
+
+
+
     // ===========================
     // UPDATE PASSWORD
     // ===========================
 
-    const handleUpdatePassword = () => {
-        if (!currentPassword || !newPassword || !confirmPassword) {
-            setMessage("Please fill all password fields.");
-            return;
-        }
+   const handleUpdatePassword = () => {
 
-        if (newPassword !== confirmPassword) {
-            setMessage(
-                "New password and confirm password do not match."
-            );
-            return;
-        }
+    // Check empty fields
+    if (!currentPassword || !newPassword || !confirmPassword) {
+        setMessage("Please fill all password fields.");
+        return;
+    }
 
-        localStorage.setItem("password", newPassword);
+    // Get current saved password
+    const savedPassword = localStorage.getItem("password");
 
-        setMessage("Password updated successfully.");
+    // Check current password
+    if (savedPassword && currentPassword !== savedPassword) {
+        setMessage("Current password is incorrect.");
+        return;
+    }
 
-        setCurrentPassword("");
-        setNewPassword("");
-        setConfirmPassword("");
-    };
+    // Password validation
+    const passwordPattern =
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+
+    if (!passwordPattern.test(newPassword)) {
+        setMessage(
+            "Password must be at least 8 characters and include uppercase, lowercase and a number."
+        );
+        return;
+    }
+
+    // Check confirm password
+    if (newPassword !== confirmPassword) {
+        setMessage(
+            "New password and confirm password do not match."
+        );
+        return;
+    }
+
+    // Save new password
+    localStorage.setItem("password", newPassword);
+
+    setMessage("Password updated successfully.");
+
+    // Clear fields
+    setCurrentPassword("");
+    setNewPassword("");
+    setConfirmPassword("");
+};
+
+
+
+
+
 
     // ===========================
     // SAVE ADDRESS
@@ -173,6 +207,11 @@ const Profile = () => {
 
         setEditingAddress(false);
     };
+
+
+
+
+
 
     // ===========================
     // ADDRESS INPUT CHANGE

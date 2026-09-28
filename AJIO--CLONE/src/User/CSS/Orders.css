@@ -1469,8 +1469,27 @@
 
 
 
+/* =====================================================
+   RETURN SUCCESS MESSAGE
+===================================================== */
 
+.orders-page .return-message {
+    width: 100%;
+    box-sizing: border-box;
 
+    margin-top: 17px;
+    padding: 12px 15px;
+
+    background-color: #9B7A28 !important;
+    color: #ffffff !important;
+
+    border: none !important;
+
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.5;
+    text-align: center;
+}
 
 
 

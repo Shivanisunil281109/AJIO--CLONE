@@ -351,40 +351,69 @@ const handleViewOrder = (order) => {
 
                             <div className="success-message">
 
-                                <p>
+    {orderStatus === "Delivered" ? (
 
-                                    Thank you{" "}
+        <>
+            <p>
 
-                                    <strong>
-                                        Shivani Sonawane
-                                    </strong>
+                Thank you{" "}
 
-                                    , for placing an order with us.
+                <strong>
+                    Shivani Sonawane
+                </strong>.
 
-                                    Your order{" "}
+                Your order{" "}
 
-                                    <span className="order-id">
+                <span className="order-id">
+                    {orderData.orderId}
+                </span>{" "}
 
-                                        {orderData.orderId}
+                has been delivered successfully.
 
-                                    </span>{" "}
+            </p>
+        </>
 
-                                    is confirmed.
+    ) : (
 
-                                </p>
+        <>
+            <p>
+
+                Thank you{" "}
+
+                <strong>
+                    Shivani Sonawane
+                </strong>
+
+                , for placing an order with us.
+
+                Your order{" "}
+
+                <span className="order-id">
+                    {orderData.orderId}
+                </span>{" "}
+
+                is confirmed.
+
+            </p>
 
 
-                                <p className="delivery-text">
+            <p className="delivery-text">
 
-                                    We expect to deliver your order by{" "}
+                We expect to deliver your order by{" "}
 
-                                    <strong>
-                                        {orderData.deliveryDate}
-                                    </strong>
+                <strong>
+                    {orderData.deliveryDate}
+                </strong>
 
-                                </p>
+            </p>
+        </>
 
-                            </div>
+    )}
+
+</div>
+
+
+
 
 
                             <div className="shopping-btn">
