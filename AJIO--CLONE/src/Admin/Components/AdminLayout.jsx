@@ -2,7 +2,9 @@ import React from "react";
 import { Outlet } from "react-router";
 
 import AdminHeader from "./AdminHeader";
-import "../CSS/Admin-layout.css";
+import AdminFooter from "./AdminFooter";
+
+
 
 const AdminLayout = () => {
 
@@ -14,6 +16,8 @@ const AdminLayout = () => {
             <main className="admin-main-content">
                 <Outlet />
             </main>
+
+            <AdminFooter />
 
         </div>
     );
