@@ -256,12 +256,11 @@ const [orderStatus, setOrderStatus] = useState("Confirmed");
     // =====================================================
     // CONTINUE SHOPPING
     // =====================================================
+const handleContinueShopping = () => {
 
-    const handleContinueShopping = () => {
+    window.location.href = "/";
 
-        window.location.href = "/products";
-
-    };
+};
 
 
 const handleViewOrder = (order) => {
@@ -335,48 +334,12 @@ const handleViewOrder = (order) => {
 
                 <>
 
-{/* =====================================================
-                MY ORDERS HISTORY
-===================================================== */}
 
-<section className="order-history">
 
-    <h2>My Orders</h2>
 
-    <div className="order-history-list">
 
-        {orders.map((order) => (
 
-            <button
-                type="button"
-                key={order.orderId}
-                className={`order-history-item ${
-                    orderData.orderId === order.orderId
-                        ? "active"
-                        : ""
-                }`}
-                onClick={() => handleViewOrder(order)}
-            >
 
-                <span>
-                    {order.orderId}
-                </span>
-
-                <span>
-                    {order.orderDate}
-                </span>
-
-                <span>
-                    {order.status || "Confirmed"}
-                </span>
-
-            </button>
-
-        ))}
-
-    </div>
-
-</section>
 
                     {/* =====================================================
                                 ORDER SUCCESS BAR
@@ -437,6 +400,70 @@ const handleViewOrder = (order) => {
                         </div>
 
                     </section>
+
+
+
+
+
+
+
+
+
+
+
+
+{/* =====================================================
+                MY ORDERS HISTORY
+===================================================== */}
+
+<section className="order-history">
+
+    <h2>My Orders</h2>
+
+    <div className="order-history-list">
+
+        {orders.map((order) => (
+
+            <button
+                type="button"
+                key={order.orderId}
+                className={`order-history-item ${
+                    orderData.orderId === order.orderId
+                        ? "active"
+                        : ""
+                }`}
+                onClick={() => handleViewOrder(order)}
+            >
+
+                <span>
+                    {order.orderId}
+                </span>
+
+                <span>
+                    {order.orderDate}
+                </span>
+
+                <span>
+                    {order.status || "Confirmed"}
+                </span>
+
+            </button>
+
+        ))}
+
+    </div>
+
+</section>
+
+
+
+
+
+
+
+
+
+
 
 
                     {/* =====================================================
@@ -870,4 +897,3 @@ const handleViewOrder = (order) => {
 
 
 export default Orders;
-
