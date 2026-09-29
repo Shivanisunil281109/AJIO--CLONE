@@ -289,7 +289,7 @@ const UserNavbar = () => {
 
                     <div className="menu-item">
 
-                        <a href="/women">
+                        <a href="#">
                             WOMEN
                         </a>
 
@@ -300,7 +300,7 @@ const UserNavbar = () => {
 
                     <div className="menu-item">
 
-                        <a href="/kids">
+                        <a href="#">
                             KIDS
                         </a>
 
@@ -311,7 +311,7 @@ const UserNavbar = () => {
 
                     <div className="menu-item">
 
-                        <a href="/beauty">
+                        <a href="#">
                             BEAUTY
                         </a>
 
@@ -322,7 +322,7 @@ const UserNavbar = () => {
 
                     <div className="menu-item">
 
-                        <a href="/home-kitchen">
+                        <a href="#">
                             HOME & KITCHEN
                         </a>
 
