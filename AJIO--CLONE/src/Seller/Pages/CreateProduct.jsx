@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { showToast } from "../../redux/toastSlice";
 import "../CSS/Create-product.css";
 
 const CreateProduct = () => {
+const dispatch = useDispatch();
+const [productName, setProductName] = useState("");
 
-    const [productName, setProductName] = useState("");
     const [category, setCategory] = useState("");
     const [brand, setBrand] = useState("");
     const [sellingPrice, setSellingPrice] = useState("");
@@ -27,7 +30,12 @@ const CreateProduct = () => {
         }
 
         if (!file.type.startsWith("image/")) {
-            alert("Please select an image file.");
+            dispatch(
+    showToast({
+        message: "❌ Please select an image file.",
+        type: "error"
+    })
+);
             return;
         }
 
@@ -57,14 +65,27 @@ const CreateProduct = () => {
             stock === "" ||
             !description.trim()
         ) {
-            alert("Please fill all product fields.");
+            
+            dispatch(
+    showToast({
+        message: "❌ Please fill all product fields.",
+        type: "error"
+    })
+);
+
             return;
         }
 
 
         // Check image
         if (!image) {
-            alert("Please select a product image.");
+            
+            dispatch(
+    showToast({
+        message: "❌ Please select a product image.",
+        type: "error"
+    })
+);
             return;
         }
 
@@ -74,14 +95,24 @@ const CreateProduct = () => {
             Number(sellingPrice) <= 0 ||
             Number(mfgPrice) <= 0
         ) {
-            alert("Product price must be greater than 0.");
+            dispatch(
+    showToast({
+        message: "❌ Product price must be greater than 0.",
+        type: "error"
+    })
+);
             return;
         }
 
 
         // Stock validation
         if (Number(stock) < 0) {
-            alert("Stock cannot be negative.");
+            dispatch(
+    showToast({
+        message: "❌ Stock cannot be negative.",
+        type: "error"
+    })
+);
             return;
         }
 
@@ -134,7 +165,12 @@ const CreateProduct = () => {
             );
 
 
-            alert("Product created successfully!");
+            dispatch(
+    showToast({
+        message: "✅ Product created successfully!",
+        type: "success"
+    })
+);
 
         } catch (error) {
 
@@ -143,9 +179,12 @@ const CreateProduct = () => {
                 error
             );
 
-            alert(
-                "Product could not be saved. Please try using a smaller image."
-            );
+            dispatch(
+    showToast({
+        message: "❌ Product could not be saved. Please try using a smaller image.",
+        type: "error"
+    })
+);
         }
     };
 

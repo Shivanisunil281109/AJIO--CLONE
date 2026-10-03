@@ -1,10 +1,14 @@
 import { useNavigate } from "react-router";
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { showToast } from "../../redux/toastSlice";
 import "../CSS/Payment.css";
 
 const Payment = () => {
 
     const navigate = useNavigate();
+
+    const dispatch = useDispatch();
 
     // =====================================================
     // PAYMENT MODE STATE
@@ -352,6 +356,13 @@ window.dispatchEvent(
     new Event("cartUpdated")
 );
 
+
+dispatch(
+    showToast({
+        message: "✅ Order placed successfully!",
+        type: "success"
+    })
+);
 
 // OPEN ORDERS PAGE
 

@@ -1,6 +1,10 @@
 import { Routes, Route } from "react-router";
 
 
+
+
+
+
 // User Pages
 import UserLayout from "./User/Components/UserLayout";
 import Home from "./User/Pages/Home";
@@ -14,6 +18,8 @@ import Cart from "./User/Pages/Cart";
 import Payment from "./User/Pages/Payment";
 import Orders from "./User/Pages/Orders";
 import Profile from "./User/Pages/Profile";
+
+
 
 
 
@@ -37,6 +43,10 @@ import SellerProfit from "./Seller/Pages/SellerProfit";
 
 
 
+
+
+
+
 // Admin Pages
 import AdminLayout from "./Admin/Components/AdminLayout";
 import AdminDashboard from "./Admin/Pages/AdminDashboard";
@@ -53,111 +63,59 @@ import AdminProfile from "./Admin/Pages/AdminProfile";
 
 
 
-
+// Global Redux Toast
+import Toast from "./Components/Toast";
 
 
 function App() {
 
     return (
-        <Routes>
-
-            <Route element={<UserLayout />}>
-
-                <Route path="/" element={<Home />} />
-
-                <Route path="/login" element={<Login />} />
-
-                <Route path="/register" element={<Register />} />
-
-                <Route path="/otp" element={<OTP />} />
-
-                <Route path="/MenProducts" element={<MenProducts />} />
-
-                <Route  path="/single-product/:productId" element={<SingleProduct />}  />
-
-                <Route path="/wishlist" element={<Wishlist />} />
-
-                <Route path="/cart" element={<Cart />} />
-
-                <Route path="/payment" element={<Payment />} />
-
-                <Route path="/orders"  element={<Orders />}  />
-                
-                <Route path="/profile"  element={<Profile />} />
-
-
-        </Route>
-
-
-
-
-
-
-
-
-{/* ==========================
-                SELLER ROUTES
+        <>
+            {/* ==========================
+                GLOBAL TOAST
             =========================== */}
-<Route element={<SellerLayout />}>
 
-            <Route  path="/seller/dashboard"  element={<SellerDashboard />}  />
-
-            <Route path="/seller/create-product" element={<CreateProduct />} />
-
-            <Route path="/seller/products" element={<SellerProducts />} />
-
-            <Route  path="/seller/products/:productId" element={<SellerProductDetails />} />
-
-            <Route path="/seller/products/:productId/edit"   element={<SellerProductDetails />} />
-
-            <Route path="/seller/orders" element={<SellerOrders />}  />
-           
-        <Route path="/seller/profit"  element={<SellerProfit />}  />
-
-        <Route path="/seller/profile" element={<SellerProfile />} />
+            <Toast />
 
 
-</Route>
+            <Routes>
 
 
 
 
 
+                {/* ==========================
+                    USER ROUTES
+                =========================== */}
 
+                <Route element={<UserLayout />}>
 
+                    <Route path="/" element={<Home />} />
 
+                    <Route path="/login" element={<Login />} />
 
+                    <Route path="/register" element={<Register />} />
 
+                    <Route path="/otp" element={<OTP />} />
 
-{/* ==========================
-    ADMIN ROUTES
-=========================== */}
+                    <Route path="/MenProducts" element={<MenProducts />} />
 
+                    <Route
+                        path="/single-product/:productId"
+                        element={<SingleProduct />}
+                    />
 
-<Route element={<AdminLayout />}>
+                    <Route path="/wishlist" element={<Wishlist />} />
 
+                    <Route path="/cart" element={<Cart />} />
 
-<Route path="/admin/dashboard" element={<AdminDashboard />} />
+                    <Route path="/payment" element={<Payment />} />
 
-<Route  path="/admin/product-review"  element={<ProductReview />} />
+                    <Route path="/orders" element={<Orders />} />
 
-<Route path="/admin/products" element={<AdminProducts />} />
+                    <Route path="/profile" element={<Profile />} />
 
-<Route path="/admin/products/:productId" element={<AdminProductDetails />}/>
-
-<Route  path="/admin/products/:productId/edit" element={<AdminProductDetails />} />
-
-<Route path="/admin/sellers"element={<AdminSellers />} />
-
-<Route path="/admin/sellers/:sellerId" element={<AdminSellerDetails />}/>
-
-<Route path="/admin/sellers/:sellerId/edit" element={<AdminSellerDetails />} />
-
- <Route path="/admin/profile"  element={<AdminProfile />}/>
-
-
-
-</Route>
+                </Route>
 
 
 
@@ -168,8 +126,70 @@ function App() {
 
 
 
+                {/* ==========================
+                    SELLER ROUTES
+                =========================== */}
 
-        </Routes>
+                <Route element={<SellerLayout />}>
+
+              <Route path="/seller/dashboard" element={<SellerDashboard />}/>
+
+             <Route path="/seller/create-product" element={<CreateProduct />}/>
+
+             <Route path="/seller/products" element={<SellerProducts />}/>
+
+             <Route path="/seller/products/:productId" element={<SellerProductDetails />} />
+
+            <Route path="/seller/products/:productId/edit" element={<SellerProductDetails />} />
+
+            <Route path="/seller/orders" element={<SellerOrders />} />
+
+            <Route path="/seller/profit" element={<SellerProfit />} />
+
+          <Route path="/seller/profile" element={<SellerProfile />}/>
+
+                </Route>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                {/* ==========================
+                    ADMIN ROUTES
+                =========================== */}
+
+                <Route element={<AdminLayout />}>
+
+                 <Route path="/admin/dashboard" element={<AdminDashboard />} />
+
+                 <Route path="/admin/product-review" element={<ProductReview />}/>
+
+                <Route path="/admin/products" element={<AdminProducts />}/>
+
+                 <Route path="/admin/products/:productId" element={<AdminProductDetails />} />
+
+                <Route path="/admin/products/:productId/edit" element={<AdminProductDetails />}/>
+
+                <Route path="/admin/sellers" element={<AdminSellers />} />
+
+                <Route path="/admin/sellers/:sellerId" element={<AdminSellerDetails />} />
+
+                <Route path="/admin/sellers/:sellerId/edit"element={<AdminSellerDetails />} />
+
+                 <Route path="/admin/profile"element={<AdminProfile />} />
+
+                </Route>
+
+            </Routes>
+        </>
     );
 }
 

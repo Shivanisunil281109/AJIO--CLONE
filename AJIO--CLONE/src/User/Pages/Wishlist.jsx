@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router";
+import { useDispatch } from "react-redux";
+import { showToast } from "../../redux/toastSlice";
 
 import "../CSS/Wishlist.css";
 
 const Wishlist = () => {
+
+    const dispatch = useDispatch();
 
     // ================= WISHLIST DATA =================
 
@@ -26,6 +30,14 @@ const Wishlist = () => {
             "wishlist",
             JSON.stringify(updatedWishlist)
         );
+
+        dispatch(
+    showToast({
+        message: "Product removed from Wishlist ❤️",
+        type: "success"
+    })
+    
+);
 
     };
 

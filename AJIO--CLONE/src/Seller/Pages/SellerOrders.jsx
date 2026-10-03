@@ -1,7 +1,11 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { showToast } from "../../redux/toastSlice";
 import "../CSS/SellerOrders.css";
 
 const SellerOrders = () => {
+
+    const dispatch = useDispatch();
 
     // =========================
     // FILTER STATES
@@ -184,10 +188,19 @@ const SellerOrders = () => {
 
         setOrders(updatedOrders);
 
+
+
         localStorage.setItem(
             "sellerOrders",
             JSON.stringify(updatedOrders)
         );
+
+        dispatch(
+    showToast({
+        message: "✅ Order status updated successfully!",
+        type: "success"
+    })
+);
 
         setSelectedOrder(null);
     };

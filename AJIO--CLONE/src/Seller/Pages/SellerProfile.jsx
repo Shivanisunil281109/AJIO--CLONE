@@ -1,7 +1,11 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { showToast } from "../../redux/toastSlice";
 import "../CSS/SellerProfile.css";
 
 const SellerProfile = () => {
+
+  const dispatch = useDispatch();
 
   const [seller, setSeller] = useState(() => {
 
@@ -91,7 +95,12 @@ const SellerProfile = () => {
       !seller.state.trim() ||
       !seller.pincode.trim()
     ) {
-      alert("Please fill all required profile fields.");
+      dispatch(
+  showToast({
+    message: "❌ Please fill all required profile fields.",
+    type: "error"
+  })
+);
       return;
     }
 
@@ -101,7 +110,12 @@ const SellerProfile = () => {
     // ---------------------------------------------
 
     if (!seller.email.includes("@")) {
-      alert("Please enter a valid email address.");
+     dispatch(
+  showToast({
+    message: "❌ Please enter a valid email address.",
+    type: "error"
+  })
+);
       return;
     }
 
@@ -114,7 +128,12 @@ const SellerProfile = () => {
       seller.mobile.replace(/\D/g, "");
 
     if (mobileDigits.length < 10) {
-      alert("Please enter a valid mobile number.");
+     dispatch(
+  showToast({
+    message: "❌ Please enter a valid mobile number.",
+    type: "error"
+  })
+);
       return;
     }
 
@@ -124,9 +143,12 @@ const SellerProfile = () => {
     // ---------------------------------------------
 
     if (seller.gstNumber.length !== 15) {
-      alert(
-        "GST Number must contain exactly 15 characters."
-      );
+      dispatch(
+  showToast({
+    message: "❌ GST Number must contain exactly 15 characters.",
+    type: "error"
+  })
+);
       return;
     }
 
@@ -136,9 +158,12 @@ const SellerProfile = () => {
     // ---------------------------------------------
 
     if (!/^\d{6}$/.test(seller.pincode)) {
-      alert(
-        "Pincode must contain exactly 6 digits."
-      );
+      dispatch(
+  showToast({
+    message: "❌ Pincode must contain exactly 6 digits.",
+    type: "error"
+  })
+);
       return;
     }
 
@@ -151,6 +176,14 @@ const SellerProfile = () => {
       "sellerProfile",
       JSON.stringify(seller)
     );
+
+
+    dispatch(
+  showToast({
+    message: "✅ Profile updated successfully!",
+    type: "success"
+  })
+);
 
     setIsEditing(false);
   };

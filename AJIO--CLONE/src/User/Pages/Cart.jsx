@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+import { showToast } from "../../redux/toastSlice";
 import "../CSS/Cart.css";
 
 const Cart = () => {
 
     const navigate = useNavigate();
+
+    const dispatch = useDispatch();
 
     const [cartItems, setCartItems] = useState([]);
 
@@ -145,6 +149,13 @@ const Cart = () => {
     window.dispatchEvent(
         new Event("cartUpdated")
     );
+
+    dispatch(
+    showToast({
+        message: "Product removed from Cart 🛍️",
+        type: "success"
+    })
+);
 
 };
 

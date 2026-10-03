@@ -1,0 +1,49 @@
+/* =================================
+   REDUX GLOBAL TOAST
+   User + Seller + Admin
+================================= */
+
+.redux-toast {
+    position: fixed;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    min-width: 280px;
+    max-width: 400px;
+
+    padding: 14px 20px;
+
+    border-radius: 6px;
+
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+
+    z-index: 99999;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.18);
+}
+
+/* SUCCESS */
+
+.redux-toast-success {
+    background-color: #ffffff;
+    color:#2e7d32;;
+    border-left: 5px solid #2e7d32;
+}
+
+
+/* ERROR */
+
+.redux-toast-error {
+    background-color: #ffffff;
+    color: #c62828;
+    border-left: 5px solid #c62828;
+}
+
+/* INFO */
+
+.redux-toast-info {
+    background-color: #2B4052;
+}

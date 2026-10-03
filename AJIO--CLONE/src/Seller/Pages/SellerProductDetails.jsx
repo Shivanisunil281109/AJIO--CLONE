@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import { useLocation, useParams, useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+import { showToast } from "../../redux/toastSlice";
 import "../CSS/SellerProductDetails.css";
 
 const SellerProductDetails = () => {
+
+  const dispatch = useDispatch();
+
   const location = useLocation();
   const { productId } = useParams();
   const navigate = useNavigate();
@@ -201,7 +206,12 @@ const product = savedProduct
     !editedProduct.brand.trim() ||
     !editedProduct.description.trim()
   ) {
-    alert("Please fill all product fields.");
+    dispatch(
+    showToast({
+        message: "❌ Please fill all product fields.",
+        type: "error"
+    })
+);
     return;
   }
 
@@ -209,12 +219,22 @@ const product = savedProduct
     Number(editedProduct.sellingPrice) <= 0 ||
     Number(editedProduct.mfgPrice) <= 0
   ) {
-    alert("Product price must be greater than 0.");
+   dispatch(
+    showToast({
+        message: "❌ Product price must be greater than 0.",
+        type: "error"
+    })
+);
     return;
   }
 
   if (Number(editedProduct.stock) < 0) {
-    alert("Stock cannot be negative.");
+   dispatch(
+    showToast({
+        message: "❌ Stock cannot be negative.",
+        type: "error"
+    })
+);
     return;
   }
 
@@ -234,7 +254,12 @@ const product = savedProduct
       JSON.stringify(updatedProduct)
     );
 
-    alert("Product updated successfully!");
+    dispatch(
+    showToast({
+        message: "✅ Product updated successfully!",
+        type: "success"
+    })
+);
 
     navigate(`/seller/products/${product.id}`);
   };

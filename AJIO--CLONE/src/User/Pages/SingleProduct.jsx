@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { useParams } from "react-router";
+import { useDispatch } from "react-redux";
+import { showToast } from "../../redux/toastSlice";
 import "../CSS/SingleProduct.css";
 import products from "../Data/productData";
 
 
 const SingleProduct = () => {
+
+const dispatch = useDispatch();
 
     // Get product ID from URL
     const { productId } = useParams();
@@ -65,11 +69,21 @@ const SingleProduct = () => {
                 JSON.stringify(updatedWishlist)
             );
 
-            alert("Product added to Wishlist ❤️");
+           dispatch(
+    showToast({
+        message: "Product added to Wishlist ❤️",
+        type: "success"
+    })
+);
 
         } else {
 
-            alert("Product is already in Wishlist ❤️");
+            dispatch(
+    showToast({
+        message: "Product is already in Wishlist ❤️",
+        type: "info"
+    })
+);
 
         }
 
@@ -113,11 +127,21 @@ const SingleProduct = () => {
             );
 
 
-            alert("Product added to Cart 🛍️");
+           dispatch(
+    showToast({
+        message: "Product added to Cart 🛍️",
+        type: "success"
+    })
+);
 
         } else {
 
-            alert("Product is already in Cart 🛍️");
+            dispatch(
+    showToast({
+        message: "Product is already in Cart 🛍️",
+        type: "info"
+    })
+);
 
         }
 
