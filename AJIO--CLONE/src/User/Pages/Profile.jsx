@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { showToast } from "../../redux/toastSlice";
 import "../CSS/Profile.css";
 
 const Profile = () => {
+
+    const dispatch = useDispatch();
+
     const [firstName, setFirstName] = useState("Shivani");
     const [lastName, setLastName] = useState("Sonawane");
     const [email, setEmail] = useState("shivaniesonawane@gmail.com");
@@ -9,7 +14,7 @@ const Profile = () => {
     const [gender, setGender] = useState("Female");
     const [dob, setDob] = useState("2003-09-18");
 
-    const [message, setMessage] = useState("");
+    
 
     const [currentPassword, setCurrentPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
@@ -38,7 +43,7 @@ const Profile = () => {
     const [cardHolderName, setCardHolderName] = useState("");
     const [cardNumber, setCardNumber] = useState("");
     const [expiryDate, setExpiryDate] = useState("");
-    const [cardMessage, setCardMessage] = useState("");
+    
 
     const [address, setAddress] = useState({
         name: "Shivani Sonawane",
@@ -53,7 +58,7 @@ const Profile = () => {
         isDefault: true
     });
 
-    const [addressMessage, setAddressMessage] = useState("");
+    
 
     // ===========================
     // LOAD DATA
@@ -128,7 +133,15 @@ const Profile = () => {
             JSON.stringify(profileData)
         );
 
-        setMessage("Profile information saved successfully.");
+       dispatch(
+    showToast({
+        message: "✅ Profile updated successfully!",
+        type: "success"
+    })
+);
+
+
+
     };
 
 
@@ -143,7 +156,13 @@ const Profile = () => {
 
     // Check empty fields
     if (!currentPassword || !newPassword || !confirmPassword) {
-        setMessage("Please fill all password fields.");
+
+        dispatch(
+    showToast({
+        message: "⚠️ Please fill all password fields.",
+        type: "error"
+    })
+);
         return;
     }
 
@@ -152,7 +171,14 @@ const Profile = () => {
 
     // Check current password
     if (savedPassword && currentPassword !== savedPassword) {
-        setMessage("Current password is incorrect.");
+    
+dispatch(
+    showToast({
+        message: "❌ Current password is incorrect.",
+        type: "error"
+    })
+);
+
         return;
     }
 
@@ -161,24 +187,42 @@ const Profile = () => {
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
 
     if (!passwordPattern.test(newPassword)) {
-        setMessage(
-            "Password must be at least 8 characters and include uppercase, lowercase and a number."
-        );
+
+
+       dispatch(
+    showToast({
+        message: "⚠️ Password must be at least 8 characters and include uppercase, lowercase and a number.",
+        type: "error"
+    })
+);
+
+
         return;
     }
 
     // Check confirm password
     if (newPassword !== confirmPassword) {
-        setMessage(
-            "New password and confirm password do not match."
-        );
+
+       dispatch(
+    showToast({
+        message: "❌ New password and confirm password do not match.",
+        type: "error"
+    })
+);
+
+
         return;
     }
 
     // Save new password
     localStorage.setItem("password", newPassword);
 
-    setMessage("Password updated successfully.");
+    dispatch(
+    showToast({
+        message: "✅ Password updated successfully!",
+        type: "success"
+    })
+);
 
     // Clear fields
     setCurrentPassword("");
@@ -203,7 +247,12 @@ const Profile = () => {
             JSON.stringify(address)
         );
 
-        setAddressMessage("Address saved successfully.");
+        dispatch(
+    showToast({
+        message: "✅ Address saved successfully!",
+        type: "success"
+    })
+);
 
         setEditingAddress(false);
     };
@@ -273,25 +322,46 @@ const Profile = () => {
             cardNumber.replace(/\s/g, "");
 
         if (!cardHolderName.trim()) {
-            setCardMessage(
-                "Please enter card holder name."
-            );
+
+            dispatch(
+    showToast({
+        message: "⚠️ Please enter card holder name.",
+        type: "error"
+    })
+);
+
+
             return;
         }
 
         if (cleanCardNumber.length !== 16) {
-            setCardMessage(
-                "Please enter a valid 16-digit card number."
-            );
+            
+            dispatch(
+    showToast({
+        message: "⚠️ Please enter a valid 16-digit card number.",
+        type: "error"
+    })
+);
+
             return;
         }
 
-        if (expiryDate.length !== 5) {
-            setCardMessage(
-                "Please enter a valid expiry date."
-            );
-            return;
-        }
+
+
+       const expiryPattern = /^(0[1-9]|1[0-2])\/\d{2}$/;
+
+if (!expiryPattern.test(expiryDate)) {
+    dispatch(
+        showToast({
+            message: "⚠️ Please enter a valid expiry date (MM/YY).",
+            type: "error"
+        })
+    );
+    return;
+}
+
+
+
 
         const cardData = {
             cardHolderName: cardHolderName.trim(),
@@ -306,7 +376,12 @@ const Profile = () => {
 
         setSavedCard(cardData);
 
-        setCardMessage("Card saved successfully.");
+       dispatch(
+    showToast({
+        message: "💳 Card saved successfully!",
+        type: "success"
+    })
+);
 
         setShowCardForm(false);
 
@@ -324,9 +399,13 @@ const Profile = () => {
 
         setSavedCard(null);
 
-        setCardMessage(
-            "Saved card deleted successfully."
-        );
+       dispatch(
+    showToast({
+        message: "❌ Card deleted successfully!",
+        type: "success"
+    })
+);
+
     };
 
     // ===========================
@@ -628,7 +707,6 @@ const Profile = () => {
                                                 type="button"
                                                 onClick={() => {
                                                     setShowCardForm(true);
-                                                    setCardMessage("");
                                                     setCardHolderName(
                                                         savedCard.cardHolderName
                                                     );
@@ -666,7 +744,7 @@ const Profile = () => {
                                             className="add-card-button"
                                             onClick={() => {
                                                 setShowCardForm(true);
-                                                setCardMessage("");
+                                               
                                             }}
                                         >
                                             + Add New Card
@@ -696,7 +774,7 @@ const Profile = () => {
                                                 type="button"
                                                 onClick={() => {
                                                     setShowCardForm(false);
-                                                    setCardMessage("");
+                                                    
                                                 }}
                                             >
                                                 ×
@@ -772,13 +850,7 @@ const Profile = () => {
 
                                             </div>
 
-                                            {/* MESSAGE */}
-
-                                            {cardMessage && (
-                                                <p className="card-message">
-                                                    {cardMessage}
-                                                </p>
-                                            )}
+                                          
 
                                             {/* BUTTONS */}
 
@@ -788,7 +860,7 @@ const Profile = () => {
                                                     type="button"
                                                     onClick={() => {
                                                         setShowCardForm(false);
-                                                        setCardMessage("");
+                                                        
                                                     }}
                                                 >
                                                     CANCEL
@@ -808,13 +880,10 @@ const Profile = () => {
 
                                 )}
 
-                                {/* SUCCESS MESSAGE */}
 
-                                {!showCardForm && cardMessage && (
-                                    <p className="card-message">
-                                        {cardMessage}
-                                    </p>
-                                )}
+                              
+
+                              
 
                             </div>
 
@@ -857,7 +926,7 @@ const Profile = () => {
                                             className="address-close-btn"
                                             onClick={() => {
                                                 setEditingAddress(false);
-                                                setAddressMessage("");
+                                               
                                             }}
                                         >
                                             ×
@@ -1104,13 +1173,9 @@ const Profile = () => {
 
                                         </label>
 
-                                        {/* MESSAGE */}
+                                        
 
-                                        {addressMessage && (
-                                            <p className="address-edit-message">
-                                                {addressMessage}
-                                            </p>
-                                        )}
+                                        
 
                                         {/* BUTTONS */}
 
@@ -1121,7 +1186,7 @@ const Profile = () => {
                                                 className="address-cancel-btn"
                                                 onClick={() => {
                                                     setEditingAddress(false);
-                                                    setAddressMessage("");
+                                                
                                                 }}
                                             >
                                                 CANCEL
@@ -1156,7 +1221,7 @@ const Profile = () => {
                                             className="add-address-card"
                                             onClick={() => {
                                                 setEditingAddress(true);
-                                                setAddressMessage("");
+                                                
                                             }}
                                         >
 
@@ -1252,7 +1317,7 @@ const Profile = () => {
                                                     type="button"
                                                     onClick={() => {
                                                         setEditingAddress(true);
-                                                        setAddressMessage("");
+                                                        
                                                     }}
                                                 >
                                                     ✎ Edit
@@ -1280,10 +1345,14 @@ const Profile = () => {
                                                             isDefault:
                                                                 false
                                                         });
+                                                   
 
-                                                        setAddressMessage(
-                                                            "Address deleted successfully."
-                                                        );
+                                                        dispatch(
+                                         showToast({
+                            message: " ❌ Address deleted successfully!",
+                             type: "success"
+                            })
+);
 
                                                     }}
                                                 >
@@ -1304,13 +1373,9 @@ const Profile = () => {
 
                                     </div>
 
-                                    {/* SUCCESS / DELETE MESSAGE */}
+                                  
 
-                                    {addressMessage && (
-                                        <p className="address-message">
-                                            {addressMessage}
-                                        </p>
-                                    )}
+                                   
 
                                 </>
 
@@ -1524,14 +1589,7 @@ const Profile = () => {
 
                             </form>
 
-                            {/* Profile Message */}
-
-                            {message && (
-                                <p className="profile-message">
-                                    {message}
-                                </p>
-                            )}
-
+                           
                             <hr className="profile-divider" />
 
                             {/* =================================================

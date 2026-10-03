@@ -1,8 +1,12 @@
 
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { showToast } from "../../redux/toastSlice";
 import "../CSS/Orders.css";
 
 const Orders = () => {
+
+    const dispatch = useDispatch();
 
 const [cartItems, setCartItems] = useState([]);
 
@@ -176,6 +180,22 @@ const [orderStatus, setOrderStatus] = useState("Confirmed");
         "orders",
         JSON.stringify(updatedOrders)
     );
+
+
+
+
+
+dispatch(
+    showToast({
+        message: "✅ Order cancelled successfully!",
+        type: "success"
+    })
+);
+
+   
+
+
+
 };
 
 
@@ -210,6 +230,16 @@ const [orderStatus, setOrderStatus] = useState("Confirmed");
     setReturnMessage(
         "Your return request has been successfully submitted."
     );
+
+
+dispatch(
+    showToast({
+        message: "✅ Return request submitted successfully!",
+        type: "success"
+    })
+);
+
+
 };
 
     // =====================================================
@@ -250,6 +280,14 @@ const [orderStatus, setOrderStatus] = useState("Confirmed");
     setRatingMessage(
         `Thank you for rating AJIO ${rating}/10.`
     );
+
+dispatch(
+    showToast({
+        message: "✅ Rating submitted successfully!",
+        type: "success"
+    })
+);
+
 };
 
 
