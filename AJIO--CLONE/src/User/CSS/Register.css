@@ -63,10 +63,10 @@
    CLOSE BUTTON
 ================================ */
 
-.close-btn {
-    font-size: 32px;
-
+.register-close-btn {
+    font-size: 35px;
     cursor: pointer;
+    color: #2d3e50;
 }
 
 
@@ -219,6 +219,10 @@
         font-size: 36px;
     }
 
+    .register-close-btn {
+    font-size: 30px;
+}
+
 }
 
 
@@ -284,5 +288,10 @@
 
         margin-top: 25px;
     }
+
+
+    .register-close-btn {
+    font-size: 28px;
+}
 
 }

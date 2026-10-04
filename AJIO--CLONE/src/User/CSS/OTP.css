@@ -63,10 +63,10 @@
    CLOSE BUTTON
 ================================ */
 
-.close-btn {
+.otp-close-btn {
     font-size: 35px;
-
     cursor: pointer;
+    color: #2d3e50;
 }
 
 
@@ -192,6 +192,10 @@
         min-height: 650px;
     }
 
+    .otp-close-btn {
+    font-size: 32px;
+}
+
 }
 
 
@@ -222,5 +226,9 @@
 
         gap: 10px;
     }
+
+   .otp-close-btn {
+    font-size: 28px;
+}
 
 }

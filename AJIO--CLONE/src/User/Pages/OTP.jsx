@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router";
+import { useDispatch } from "react-redux";
+import { showToast } from "../../redux/toastSlice";
 
 import "../CSS/OTP.css";
 
@@ -7,6 +9,7 @@ const OTP = () => {
 
     const navigate = useNavigate();
     const location = useLocation();
+    const dispatch = useDispatch();
 
     // Get mobile number from Register/Login page
     const mobile = location.state?.mobile || "";
@@ -31,10 +34,28 @@ const OTP = () => {
 
         if (otp.trim() === "") {
 
-            alert("Please enter OTP");
+        dispatch(
+    showToast({
+        message: "⚠️ Please enter OTP.",
+        type: "error"
+    })
+);
 
             return;
         }
+
+
+        if (!/^\d{6}$/.test(otp)) {
+    dispatch(
+        showToast({
+            message: "⚠️ Please enter a valid 6-digit OTP.",
+            type: "error"
+        })
+    );
+    return;
+}
+
+
 
         console.log("Entered OTP:", otp);
 
@@ -60,9 +81,12 @@ const OTP = () => {
                     </button>
 
 
-                    <span className="close-btn">
-                        ×
-                    </span>
+                   <span
+    className="otp-close-btn"
+    onClick={() => navigate("/")}
+>
+    ×
+</span>
 
                 </div>
 
