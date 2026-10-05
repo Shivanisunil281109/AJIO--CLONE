@@ -58,7 +58,7 @@ const AdminProducts = () => {
             stock: 25,
             status: "Pending",
             image:
-                "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=200&q=80"
+    "https://assets-jiocdn.ajio.com/medias/sys_master/root1/20260312/EPTa/69b27aba4970ce6a6e3c1cfc/nike_grey_men_air_max_bolt_sneakers.jpg"
         },
 
         {
@@ -69,8 +69,8 @@ const AdminProducts = () => {
             price: 899,
             stock: 40,
             status: "Pending",
-            image:
-                "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=200&q=80"
+          image:
+    "https://assets-jiocdn.ajio.com/medias/sys_master/root/20220405/blMY/624c3d62f997dd03e2482168/puma_green_multi_logo_graphic_men%27s_slim_fit_t-shirt.jpg"
         },
 
         {

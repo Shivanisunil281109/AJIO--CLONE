@@ -224,9 +224,7 @@ const SellerProfile = () => {
                 onClick={handleSaveProfile}
               >
 
-                <span className="material-symbols-outlined">
-                  save
-                </span>
+              
 
                 Save Profile
 

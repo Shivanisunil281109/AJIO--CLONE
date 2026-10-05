@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+import { showToast } from "../../redux/toastSlice";
 import "../CSS/SellerProducts.css";
 
 const SellerProducts = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // =========================
   // ORIGINAL PRODUCTS
@@ -124,6 +127,38 @@ const SellerProducts = () => {
 
     return product;
   });
+
+  const handleDeleteProduct = (productId) => {
+    if (productId <= 7) {
+      return;
+    }
+
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this product?",
+    );
+
+    if (!confirmDelete) {
+      return;
+    }
+
+    const updatedCreatedProducts = createdProducts.filter(
+      (product) => product.id !== productId,
+    );
+
+    setCreatedProducts(updatedCreatedProducts);
+
+    localStorage.setItem(
+      "sellerCreatedProducts",
+      JSON.stringify(updatedCreatedProducts),
+    );
+
+    dispatch(
+      showToast({
+        message: "✅ Product deleted successfully!",
+        type: "success",
+      }),
+    );
+  };
 
   // =========================
   // STATUS CLASS
@@ -265,6 +300,7 @@ const SellerProducts = () => {
                         <button
                           type="button"
                           className="seller-products-edit-btn"
+                          onClick={() => handleDeleteProduct(product.id)}
                         >
                           Delete
                         </button>
