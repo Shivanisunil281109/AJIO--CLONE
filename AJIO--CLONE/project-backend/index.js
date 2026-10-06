@@ -1,11 +1,23 @@
 import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
-
+import mainRouter from "./routes/index.js"
+import dns from "dns";
 
 const app = express();
 
+app.use(express.json());
+
 dotenv.config();
+
+
+dns.setServers([
+    "8.8.8.8",
+    "1.1.1.1"
+]);
+
+
+app.use("/api", mainRouter)
 
 
 app.get("/", (req, res) => {
