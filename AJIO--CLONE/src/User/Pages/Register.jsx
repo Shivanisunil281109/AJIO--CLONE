@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { useNavigate, useLocation } from "react-router";
 import { useDispatch } from "react-redux";
 import { showToast } from "../../redux/toastSlice";
@@ -23,7 +24,7 @@ const Register = () => {
   };
 
   // Send OTP
-  const handleSendOTP = () => {
+  const handleSendOTP =  async() => {
     if (name.trim() === "") {
       dispatch(
         showToast({
@@ -83,6 +84,18 @@ const Register = () => {
     console.log("Gender :", gender);
     console.log("Invite Code:", inviteCode);
     console.log("Mobile:", mobile);
+
+
+    const response = await axios.post(
+  "http://localhost:8000/api/auth/register",
+  {
+    name: name.trim(),
+    email: email.trim(),
+    mobile: mobile,
+    gender: gender,
+    inviteCode: inviteCode.trim(),
+  }
+);
 
     // =========================================
     // SAVE REGISTERED USER

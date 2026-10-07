@@ -26,6 +26,20 @@ const userSchema = new Schema({
     inviteCode: {
         type: String
     },
+    
+
+    otp: {
+    type: String
+},
+
+otpExpiry: {
+    type: Date
+},
+
+isVerified: {
+    type: Boolean,
+    default: false
+},
 
     role: {
         type: String,

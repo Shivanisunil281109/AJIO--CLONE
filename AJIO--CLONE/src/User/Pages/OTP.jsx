@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { useNavigate, useLocation } from "react-router";
 import { useDispatch } from "react-redux";
 import { showToast } from "../../redux/toastSlice";
@@ -29,37 +30,80 @@ const OTP = () => {
     };
 
 
+
+
+const handleShopping = () => {
+    navigate("/");
+};
+
+
+
+
     // Verify OTP
-    const handleStartShopping = () => {
+  const handleStartShopping = async (enteredOtp = otp) => {
 
-        if (otp.trim() === "") {
+if (enteredOtp.trim() === "") {
 
-        dispatch(
-    showToast({
-        message: "⚠️ Please enter OTP.",
-        type: "error"
-    })
-);
+            dispatch(
+                showToast({
+                    message: "⚠️ Please enter OTP.",
+                    type: "error"
+                })
+            );
 
             return;
         }
 
 
-        if (!/^\d{6}$/.test(otp)) {
-    dispatch(
-        showToast({
-            message: "⚠️ Please enter a valid 6-digit OTP.",
-            type: "error"
-        })
-    );
-    return;
-}
+if (!/^\d{6}$/.test(enteredOtp)) {
+
+            dispatch(
+                showToast({
+                    message: "⚠️ Please enter a valid 6-digit OTP.",
+                    type: "error"
+                })
+            );
+
+            return;
+        }
 
 
+        console.log("Entered OTP:", enteredOtp);
 
-        console.log("Entered OTP:", otp);
 
-        navigate("/");
+        try {
+
+            const response = await axios.post(
+                "http://localhost:8000/api/auth/verify-otp",
+                {
+                    mobile: mobile,
+                  otp: enteredOtp.trim()
+                }
+            );
+
+
+            dispatch(
+                showToast({
+                    message: "✓ Account verified successfully!",
+                    type: "success"
+                })
+            );
+
+
+         
+
+
+        } catch (error) {
+
+            dispatch(
+                showToast({
+                    message: error.response?.data?.message || "Invalid OTP.",
+                    type: "error"
+                })
+            );
+
+        }
+
     };
 
 
@@ -81,12 +125,12 @@ const OTP = () => {
                     </button>
 
 
-                   <span
-    className="otp-close-btn"
-    onClick={() => navigate("/")}
->
-    ×
-</span>
+                    <span
+                        className="otp-close-btn"
+                        onClick={() => navigate("/")}
+                    >
+                        ×
+                    </span>
 
                 </div>
 
@@ -116,13 +160,20 @@ const OTP = () => {
 
 
                 {/* OTP INPUT */}
+<input
+    type="text"
+    placeholder="Enter OTP"
+    value={otp}
+    onChange={(e) => {
+        const value = e.target.value;
 
-                <input
-                    type="text"
-                    placeholder="Enter OTP"
-                    value={otp}
-                    onChange={(e) => setOtp(e.target.value)}
-                />
+        setOtp(value);
+
+        if (/^\d{6}$/.test(value)) {
+            handleStartShopping(value);
+        }
+    }}
+/>
 
 
 
@@ -147,7 +198,7 @@ const OTP = () => {
 
                 <button
                     className="shopping-btn"
-                    onClick={handleStartShopping}
+                    onClick={handleShopping}
                 >
                     START SHOPPING
                 </button>
