@@ -1,3 +1,4 @@
+
 import { Schema, model } from "mongoose";
 
 const userSchema = new Schema({
@@ -10,6 +11,11 @@ const userSchema = new Schema({
         type: String,
         required: true,
         unique: true
+    },
+
+    password: {
+        type: String,
+        required: true
     },
 
     mobile: {
@@ -26,20 +32,6 @@ const userSchema = new Schema({
     inviteCode: {
         type: String
     },
-    
-
-    otp: {
-    type: String
-},
-
-otpExpiry: {
-    type: Date
-},
-
-isVerified: {
-    type: Boolean,
-    default: false
-},
 
     role: {
         type: String,

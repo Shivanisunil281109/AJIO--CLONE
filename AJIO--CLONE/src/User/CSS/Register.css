@@ -1,297 +1,456 @@
+
 /* ================================
    REGISTER PAGE
 ================================ */
 
 .overlay {
-    width: 100%;
-    min-height: 100vh;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    background: rgba(0, 0, 0, 0.4);
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 15px;
+  background: rgba(0, 0, 0, 0.4);
+  box-sizing: border-box;
 }
 
-
-/* ================================
-   REGISTER BOX
-================================ */
+/* REGISTER BOX */
 
 .register-box {
-    width: 420px;
-    min-height: 700px;
-
-    background: white;
-
-    padding: 30px;
+  width: 100%;
+  max-width: 480px;
+  min-height: auto;
+  background: #ffffff;
+  padding: 28px 30px;
+  box-sizing: border-box;
 }
 
-
-/* ================================
-   TOP ROW
-================================ */
+/* TOP ROW */
 
 .top-row {
-    display: flex;
-
-    justify-content: space-between;
-
-    margin-bottom: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
 }
 
-
-/* ================================
-   BACK BUTTON
-================================ */
+/* BACK BUTTON */
 
 .back-btn {
-    background: none;
-    border: none;
-
-    text-decoration: none;
-
-    color: #2d3e50;
-
-    cursor: pointer;
-
-    font-size: 16px;
+  background: none;
+  border: none;
+  color: #2d3e50;
+  cursor: pointer;
+  font-size: 16px;
 }
 
-
-/* ================================
-   CLOSE BUTTON
-================================ */
+/* CLOSE BUTTON */
 
 .register-close-btn {
-    font-size: 35px;
-    cursor: pointer;
-    color: #2d3e50;
+  padding: 0;
+  border: none;
+  background: transparent;
+  font-size: 32px;
+  line-height: 1;
+  cursor: pointer;
+  color: #2d3e50;
 }
 
-
-/* ================================
-   HEADING
-================================ */
+/* HEADING */
 
 .register-box h1 {
-    font-size: 42px;
-
-    font-weight: 400;
-
-    color: #2d3e50;
-
-    margin-bottom: 10px;
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: #2d3e50;
+  margin: 0 0 8px;
 }
 
 .register-box p {
-    margin-bottom: 20px;
-
-    color: #555;
+  margin: 0 0 18px;
+  color: #555555;
+  font-size: 14px;
 }
 
-
-/* ================================
-   MOBILE ROW
-================================ */
+/* MOBILE NUMBER */
 
 .mobile-row {
-    display: flex;
-
-    justify-content: space-between;
-
-    margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
 }
 
-.mobile-row a {
-    color: #0074c2;
+.mobile-row > span {
+  flex-shrink: 0;
+  color: #2d3e50;
+  font-size: 14px;
 }
 
-
-/* ================================
-   GENDER
-================================ */
-
-.gender {
-    margin-top: 20px;
-
-    margin-bottom: 20px;
+.register-box .mobile-row input {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  min-height: 42px;
+  padding: 10px 12px;
+  margin: 0;
+  border: 1px solid #dddddd;
+  border-radius: 7px;
+  outline: none;
+  background: #f5f6f8;
+  color: #222222;
+  font-size: 14px;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, background 0.2s ease;
 }
 
+.register-box .mobile-row input:focus {
+  border-color: #866528;
+  background: #ffffff;
+}
 
-/* ================================
-   INPUTS
-================================ */
+/* GENDER AND ROLE ROW */
+
+.register-box .gender-role-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  margin: 14px 0 22px;
+}
+
+.register-box .gender-role-row .gender {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 9px;
+  margin: 0;
+  color: #444444;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.register-box .gender-label {
+  color: #2d3e50;
+  font-weight: 500;
+}
+
+.register-box .gender-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.register-box .gender-option input[type="radio"] {
+  width: 15px;
+  height: 15px;
+  margin: 0;
+  accent-color: #866528;
+  cursor: pointer;
+}
+
+.register-box .gender-role-row select {
+  flex: 0 1 125px;
+  width: 125px;
+  min-width: 90px;
+  margin: 0;
+  padding: 10px 8px;
+  border: 1px solid #dddddd;
+  border-radius: 7px;
+  outline: none;
+  background: #f5f6f8;
+  color: #333333;
+  font-size: 13px;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.register-box .gender-role-row select:focus {
+  border-color: #866528;
+  background: #ffffff;
+}
+
+/* TWO-COLUMN FIELDS */
+
+.register-box .register-fields-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  width: 100%;
+  margin-bottom: 18px;
+}
+
+.register-box .register-field {
+  min-width: 0;
+}
+
+.register-box .register-label {
+  display: block;
+  margin: 0 0 7px;
+  color: #2d3e50;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* INPUT FIELDS */
 
 .register-box input[type="text"],
-.register-box input[type="email"] {
-    width: 100%;
-
-    border: none;
-
-    border-bottom: 1px solid #ddd;
-
-    padding: 14px 0;
-
-    margin-bottom: 15px;
-
-    outline: none;
+.register-box input[type="email"],
+.register-box input[type="password"] {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  min-height: 42px;
+  padding: 10px 12px;
+  margin: 0 0 14px;
+  box-sizing: border-box;
+  border: 1px solid #dddddd;
+  border-radius: 7px;
+  outline: none;
+  background: #f5f6f8;
+  color: #222222;
+  font-size: 14px;
+  transition: border-color 0.2s ease, background 0.2s ease;
 }
 
-
-/* ================================
-   CHECKBOX
-================================ */
-
-.checkbox {
-    display: flex;
-
-    align-items: center;
-
-    gap: 10px;
-
-    margin-top: 20px;
-
-    font-size: 14px;
-
-    color: #555;
+.register-box .register-field input {
+  margin-bottom: 0;
 }
 
-.checkbox input {
-    width: auto;
+.register-box input[type="text"]:focus,
+.register-box input[type="email"]:focus,
+.register-box input[type="password"]:focus {
+  border-color: #866528;
+  background: #ffffff;
 }
 
-.checkbox a {
-    color: #0066a6;
-
-    text-decoration: none;
-
-    font-weight: 600;
+.register-box input::placeholder {
+  color: #888888;
+  opacity: 1;
 }
 
+/* INVITE CODE SPACING */
 
-/* ================================
-   SEND OTP
-================================ */
-
-.otp-btn {
-    display: inline-block;
-
-    width: 170px;
-
-    height: 42px;
-
-    background: #9b7b2e;
-
-    color: white;
-
-    border: none;
-
-    text-decoration: none;
-
-    text-align: center;
-
-    line-height: 42px;
-
-    margin-top: 30px;
-
-    letter-spacing: 1px;
-
-    cursor: pointer;
+.register-box #register-invite {
+  margin-bottom: 0;
 }
 
+/* CHECKBOX AND TERMS */
 
-/* ================================
-   TABLET
-================================ */
+.register-box .checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 24px;
+  font-size: 13px;
+  line-height: 20px;
+  color: #555555;
+}
+
+.register-box .checkbox input {
+  width: auto;
+  flex-shrink: 0;
+  accent-color: #866528;
+  margin: 0;
+}
+
+.register-box .checkbox a {
+  color: #0066a6;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.register-box .checkbox a:hover {
+  text-decoration: underline;
+}
+
+/* REGISTER BUTTON */
+
+.register-box .otp-btn {
+  display: block;
+  width: 100%;
+  min-height: 46px;
+  margin: 28px auto 0;
+  padding: 10px 15px;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 0;
+  background: #8D6A20;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  line-height: 1.4;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.register-box .otp-btn:hover {
+  background: #765719;
+}
+
+.register-box .otp-btn:focus-visible {
+  outline: 2px solid #2d3e50;
+  outline-offset: 3px;
+}
+
+/* TABLET */
 
 @media (max-width: 1024px) {
+  .register-box {
+    max-width: 460px;
+    padding: 25px;
+  }
 
-    .register-box {
-        width: 380px;
+  .register-box h1 {
+    font-size: 34px;
+  }
 
-        min-height: auto;
-
-        padding: 25px;
-    }
-
-    .register-box h1 {
-        font-size: 36px;
-    }
-
-    .register-close-btn {
+  .register-close-btn {
     font-size: 30px;
+  }
 }
 
-}
-
-
-/* ================================
-   MOBILE
-================================ */
+/* MOBILE */
 
 @media (max-width: 768px) {
+  .overlay {
+    padding: 15px;
+    align-items: flex-start;
+  }
 
-    .overlay {
-        padding: 15px;
-    }
+  .register-box {
+    width: 100%;
+    max-width: 440px;
+    padding: 22px 20px;
+  }
 
-    .register-box {
-        width: 100%;
+  .top-row {
+    margin-bottom: 24px;
+  }
 
-        min-height: auto;
+  .register-box h1 {
+    font-size: 30px;
+    line-height: 38px;
+  }
 
-        padding: 20px;
-    }
+  .register-box p {
+    font-size: 14px;
+  }
 
-    .top-row {
-        margin-bottom: 25px;
-    }
+  .register-box .gender-role-row {
+    gap: 8px;
+    margin-bottom: 20px;
+  }
 
-    .register-box h1 {
-        font-size: 30px;
+  .register-box .gender-role-row .gender {
+    gap: 5px;
+    font-size: 12px;
+  }
 
-        line-height: 38px;
-    }
+  .register-box .gender-role-row select {
+    flex-basis: 105px;
+    width: 105px;
+    min-width: 85px;
+    padding: 9px 5px;
+    font-size: 12px;
+  }
 
-    .register-box p {
-        font-size: 14px;
-    }
+  .register-box .register-fields-row {
+    gap: 14px;
+    margin-bottom: 16px;
+  }
 
-    .mobile-row {
-        flex-direction: row;
+  .register-box input[type="text"],
+  .register-box input[type="email"],
+  .register-box input[type="password"] {
+    font-size: 14px;
+    padding: 10px;
+  }
 
-        align-items: center;
-    }
+  .register-box .checkbox {
+    font-size: 13px;
+    line-height: 20px;
+    align-items: flex-start;
+    margin-top: 22px;
+  }
 
-    .gender {
-        font-size: 14px;
+  .register-box .otp-btn {
+    min-height: 46px;
+    margin-top: 26px;
+    font-size: 16px;
+  }
 
-        line-height: 30px;
-    }
-
-    .register-box input[type="text"],
-    .register-box input[type="email"] {
-        font-size: 14px;
-    }
-
-    .checkbox {
-        font-size: 13px;
-
-        line-height: 20px;
-
-        align-items: flex-start;
-    }
-
-    .otp-btn {
-        width: 100%;
-
-        margin-top: 25px;
-    }
-
-
-    .register-close-btn {
+  .register-close-btn {
     font-size: 28px;
+  }
 }
 
+/* SMALL MOBILE */
+
+@media (max-width: 380px) {
+  .overlay {
+    padding: 10px;
+  }
+
+  .register-box {
+    padding: 18px 15px;
+  }
+
+  .register-box h1 {
+    font-size: 27px;
+    line-height: 34px;
+  }
+
+  .register-box .mobile-row {
+    gap: 7px;
+  }
+
+  .register-box .mobile-row input {
+    padding: 9px 7px;
+    font-size: 12px;
+  }
+
+  .register-box .gender-role-row {
+    gap: 5px;
+    margin-bottom: 18px;
+  }
+
+  .register-box .gender-role-row .gender {
+    gap: 3px;
+    font-size: 11px;
+  }
+
+  .register-box .gender-role-row select {
+    flex-basis: 95px;
+    width: 95px;
+    min-width: 80px;
+    font-size: 11px;
+  }
+
+  .register-box .register-fields-row {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+
+  .register-box input[type="text"],
+  .register-box input[type="email"],
+  .register-box input[type="password"] {
+    font-size: 13px;
+  }
+
+  .register-box .checkbox {
+    font-size: 12px;
+  }
+
+  .register-box .otp-btn {
+    min-height: 44px;
+    font-size: 15px;
+  }
 }

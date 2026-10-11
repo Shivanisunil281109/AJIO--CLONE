@@ -1,11 +1,15 @@
+
 import { Router } from "express";
 
-import { registerController,verifyOtpController} from "../controllers/auth.controllers.js";
+import {
+    registerController,
+    loginController
+} from "../controllers/auth.controllers.js";
 
 const AuthRouter = Router();
 
 AuthRouter.post("/register", registerController);
 
-AuthRouter.post("/verify-otp", verifyOtpController);
+AuthRouter.post("/login", loginController);
 
 export default AuthRouter;

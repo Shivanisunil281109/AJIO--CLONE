@@ -1,16 +1,12 @@
+
 import UserSchema from "../models/users.schema.js";
+import bcrypt from "bcrypt";
 
 export const registerController = async (req, res) => {
     try {
-        const { name, email, mobile, gender, inviteCode } = req.body;
+     const { name, email, password, mobile, gender, inviteCode, role } = req.body;
 
-        const otp = Math.floor(100000 + Math.random() * 900000).toString();
-console.log("REGISTER API HIT");
-        console.log("Generated OTP:", otp);
-
-        const otpExpiry = new Date(Date.now() + 5 * 60 * 1000);
-
-        if (!name || !email || !mobile || !gender) {
+        if (!name || !email || !password || !mobile || !gender) {
             return res.status(400).json({
                 success: false,
                 message: "All required fields are required."
@@ -35,33 +31,37 @@ console.log("REGISTER API HIT");
             });
         }
 
-        const newUser = await UserSchema.create({
-            name,
-            email,
-            mobile,
-            gender,
-            inviteCode,
-            otp,
-              otpExpiry,
-              isVerified: false
-        });
+        const hashedPassword = await bcrypt.hash(password, 10);
 
+       const newUser = await UserSchema.create({
+    name,
+    email,
+    password: hashedPassword,
+    mobile,
+    gender,
+    inviteCode,
+    role
+});
 
-        console.log(newUser, "newUser");
-
-        
         return res.status(201).json({
             success: true,
             message: "Registration successful.",
-            user: newUser
+            user: {
+                _id: newUser._id,
+                name: newUser.name,
+                email: newUser.email,
+                mobile: newUser.mobile,
+                gender: newUser.gender,
+                role: newUser.role
+            }
         });
 
     } catch (error) {
         console.log(error, "error");
 
         return res.status(500).json({
-            error,
-            success: false
+            success: false,
+            message: "Something went wrong."
         });
     }
 };
@@ -69,46 +69,49 @@ console.log("REGISTER API HIT");
 
 
 
-export const verifyOtpController = async (req, res) => {
+export const loginController = async (req, res) => {
     try {
-        const { mobile, otp } = req.body;
+        const { email, password } = req.body;
 
-        if (!mobile || !otp) {
+        if (!email || !password) {
             return res.status(400).json({
                 success: false,
-                message: "Mobile and OTP are required."
+                message: "Email and password are required."
             });
         }
 
-        const user = await UserSchema.findOne({ mobile });
+        const user = await UserSchema.findOne({ email });
 
         if (!user) {
             return res.status(404).json({
                 success: false,
-                message: "User not found."
+                message: "User not found. Please register."
             });
         }
 
-        if (user.otp !== otp) {
-            return res.status(400).json({
+        const isPasswordValid = await bcrypt.compare(
+            password,
+            user.password
+        );
+
+        if (!isPasswordValid) {
+            return res.status(401).json({
                 success: false,
-                message: "Invalid OTP."
+                message: "Invalid email or password."
             });
         }
-
-        if (new Date() > user.otpExpiry) {
-            return res.status(400).json({
-                success: false,
-                message: "OTP has expired."
-            });
-        }
-
-        user.isVerified = true;
-        await user.save();
 
         return res.status(200).json({
             success: true,
-            message: "OTP verified successfully."
+            message: "Login successful.",
+            user: {
+                _id: user._id,
+                name: user.name,
+                email: user.email,
+                mobile: user.mobile,
+                gender: user.gender,
+                role: user.role
+            }
         });
 
     } catch (error) {
