@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import axios from "axios";
+import api from "../../config/axiosConfig";
 import { Link, useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
+import { login } from "../../redux/authSlice";
+import { useSelector } from "react-redux";
 import { showToast } from "../../redux/toastSlice";
 import "../CSS/Login.css";
 
@@ -11,7 +13,12 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
+
   const dispatch = useDispatch();
+
+  const authState = useSelector((state) => state.auth);
+
+  console.log("Redux Auth State:", authState);
 
   const handleLogin = async () => {
     if (!email.trim() || !password) {
@@ -31,10 +38,17 @@ const Login = () => {
           email: email.trim(),
           password,
         },
+        {
+          withCredentials: true,
+        },
       );
 
       if (response.data.success) {
         const user = response.data.user;
+
+        dispatch(login(user));
+
+        console.log("Redux Login User:", user);
 
         localStorage.setItem("user", JSON.stringify(user));
 
