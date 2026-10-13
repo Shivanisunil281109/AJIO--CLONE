@@ -9,42 +9,38 @@ import { logout } from "../../redux/authSlice";
 import { showToast } from "../../redux/toastSlice";
 
 const UserNavbar = () => {
-
   const userData = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-
-
-  
-const logoutHandler = async () => {
+  const logoutHandler = async () => {
     try {
-        const response = await api.get("/auth/logout");
+      const response = await api.get("/auth/logout");
 
-        if (response.data.success) {
-            dispatch(logout());
-            localStorage.removeItem("user");
+      if (response.data.success) {
+        dispatch(logout());
+        localStorage.removeItem("user");
 
-            dispatch(
-                showToast({
-                    message: response.data.message || "Logout successful!",
-                    type: "success",
-                })
-            );
-
-            navigate("/login");
-        }
-    } catch (error) {
-        console.log("Logout error:", error);
         dispatch(
-            showToast({
-                message: error.response?.data?.message || "Logout failed. Please try again.",
-                type: "error",
-            })
+          showToast({
+            message: response.data.message || "Logout successful!",
+            type: "success",
+          }),
         );
-    }
-};
 
+        navigate("/login");
+      }
+    } catch (error) {
+      console.log("Logout error:", error);
+      dispatch(
+        showToast({
+          message:
+            error.response?.data?.message || "Logout failed. Please try again.",
+          type: "error",
+        }),
+      );
+    }
+  };
 
   // ================= CART COUNT =================
 
@@ -81,7 +77,25 @@ const logoutHandler = async () => {
       {/* ================= TOP NAVBAR ================= */}
 
       <div className="top-navbar">
-        <a href="/login">Sign In / Join AJIO</a>
+        {userData?.name ? (
+          <>
+            <a href="/profile">Profile</a>
+
+            <a
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                logoutHandler();
+              }}
+            >
+              Logout
+            </a>
+          </>
+        ) : (
+          <>
+            <a href="/login">Sign In / Join AJIO</a>
+          </>
+        )}
 
         <a href="#">Customer Care</a>
 
@@ -89,7 +103,6 @@ const logoutHandler = async () => {
       </div>
 
       {/* ================= MAIN NAVBAR ================= */}
-
       <nav className="navbar">
         {/* LOGO */}
 

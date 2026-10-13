@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import api from "./config/axiosConfig";
 import { login } from "./redux/authSlice";
 
@@ -69,10 +69,9 @@ import AdminProfile from "./Admin/Pages/AdminProfile";
 // Global Redux Toast
 import Toast from "./Components/Toast";
 
-
 function App() {
-
-     const dispatch = useDispatch();
+    const userData = useSelector((data) => data.auth.user);
+    const dispatch = useDispatch();
 
 
 const getCurrentUser = async () => {
