@@ -32,16 +32,12 @@ const Login = () => {
     }
 
     try {
-      const response = await axios.post(
-        "http://localhost:8000/api/auth/login",
-        {
-          email: email.trim(),
-          password,
-        },
-        {
-          withCredentials: true,
-        },
-      );
+      
+const response = await api.post("/auth/login", {
+  email: email.trim(),
+  password,
+});
+
 
       if (response.data.success) {
         const user = response.data.user;

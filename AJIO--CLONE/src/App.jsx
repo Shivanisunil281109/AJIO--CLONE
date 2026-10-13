@@ -1,5 +1,8 @@
 import { Routes, Route } from "react-router";
-
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import api from "./config/axiosConfig";
+import { login } from "./redux/authSlice";
 
 
 
@@ -68,6 +71,29 @@ import Toast from "./Components/Toast";
 
 
 function App() {
+
+     const dispatch = useDispatch();
+
+
+const getCurrentUser = async () => {
+    try {
+        const response = await api.get("/auth/get-current-user");
+
+        if (response.data.success) {
+            dispatch(login(response.data.user));
+        }
+    } catch (error) {
+        console.log(error, "error");
+    }
+};
+
+
+
+useEffect(() => {
+    getCurrentUser();
+}, []);
+
+
 
     return (
         <>
