@@ -32,12 +32,10 @@ const Login = () => {
     }
 
     try {
-      
-const response = await api.post("/auth/login", {
-  email: email.trim(),
-  password,
-});
-
+      const response = await api.post("/auth/login", {
+        email: email.trim(),
+        password,
+      });
 
       if (response.data.success) {
         const user = response.data.user;
@@ -56,9 +54,9 @@ const response = await api.post("/auth/login", {
         );
 
         if (user.role === "admin") {
-          navigate("/admin");
+          navigate("/admin/dashboard");
         } else if (user.role === "seller") {
-          navigate("/seller");
+          navigate("/seller/dashboard");
         } else {
           navigate("/");
         }
