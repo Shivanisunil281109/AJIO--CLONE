@@ -37,4 +37,31 @@ const token = async (req, res, next) => {
     }
 };
 
+
+
+
+export const roleValidator = (role) => {
+    return (req, res, next) => {
+        const roleFromToken = req.user.role;
+
+        if (roleFromToken !== role) {
+            return res.status(403).json({
+                success: false,
+                message: "Access denied."
+            });
+        }
+
+        next();
+    };
+};
+
+
+
+
+
+
+
+
+
+
 export default token;

@@ -37,7 +37,15 @@ const userSchema = new Schema({
         type: String,
         default: "user",
         enum: ["user", "seller", "admin"]
+    },
+
+
+    isApprovedByAdmin: {
+        type: Boolean,
+        default: false
     }
+
+
 });
 
 const UserSchema = model("users", userSchema);

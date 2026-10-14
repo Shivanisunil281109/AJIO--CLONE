@@ -10,7 +10,6 @@
     box-sizing: border-box;
 }
 
-
 /* =========================================
    PAGE HEADER
 ========================================= */
@@ -36,7 +35,6 @@
     font-size: 14px;
 }
 
-
 /* =========================================
    TOTAL SELLERS
 ========================================= */
@@ -44,16 +42,13 @@
 .admin-sellers-count {
     min-width: 130px;
     padding: 12px 18px;
-
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
-
     background: #ffffff;
     border: 1px solid #e1e6ea;
     border-radius: 7px;
-
     color: #66747f;
     font-size: 13px;
 }
@@ -64,29 +59,23 @@
     font-weight: 700;
 }
 
-
 /* =========================================
    SEARCH + FILTER TOOLBAR
 ========================================= */
 
 .admin-sellers-toolbar {
     width: 100%;
-
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 18px;
-
     padding: 18px 20px;
     margin-bottom: 22px;
-
     background: #ffffff;
     border: 1px solid #e3e7eb;
     border-radius: 8px;
-
     box-sizing: border-box;
 }
-
 
 /* =========================================
    SEARCH BOX
@@ -96,18 +85,13 @@
     width: 420px;
     max-width: 100%;
     height: 43px;
-
     display: flex;
     align-items: center;
     gap: 10px;
-
     padding: 0 14px;
-
     border: 1px solid #dce2e7;
     border-radius: 6px;
-
     background: #ffffff;
-
     box-sizing: border-box;
 }
 
@@ -123,12 +107,9 @@
 .admin-sellers-search-box input {
     width: 100%;
     height: 100%;
-
     border: none;
     outline: none;
-
     background: transparent;
-
     color: #263e50;
     font-size: 14px;
     font-family: inherit;
@@ -138,7 +119,6 @@
     color: #9aa4ac;
 }
 
-
 /* =========================================
    STATUS FILTER
 ========================================= */
@@ -146,20 +126,14 @@
 .admin-sellers-filter-box select {
     min-width: 150px;
     height: 43px;
-
     padding: 0 38px 0 13px;
-
     border: 1px solid #dce2e7;
     border-radius: 6px;
-
     outline: none;
     background: #ffffff;
-
     color: #405361;
-
     font-family: inherit;
     font-size: 14px;
-
     cursor: pointer;
 }
 
@@ -167,21 +141,16 @@
     border-color: #2b4052;
 }
 
-
 /* =========================================
    TABLE CARD
 ========================================= */
 
 .admin-sellers-table-card {
     width: 100%;
-
     background: #ffffff;
-
     border: 1px solid #e2e7eb;
     border-radius: 8px;
-
     overflow: hidden;
-
     box-sizing: border-box;
 }
 
@@ -190,18 +159,15 @@
     overflow-x: auto;
 }
 
-
 /* =========================================
    TABLE
 ========================================= */
 
 .admin-sellers-table {
     width: 100%;
-    min-width: 1100px;
-
+    min-width: 1000px;
     border-collapse: collapse;
     table-layout: fixed;
-
     background: #ffffff;
 }
 
@@ -209,210 +175,81 @@
     background: #f7f9fa;
 }
 
-
 /* =========================================
-   UPDATED COLUMN WIDTHS
+   COLUMN WIDTHS - 7 COLUMNS
 ========================================= */
 
-
-/* SELLER
-   Reduced from 22% to 19%
-*/
-
+/* SELLER */
 .admin-sellers-table th:nth-child(1),
 .admin-sellers-table td:nth-child(1) {
+    width: 16%;
+}
+
+/* SELLER ID */
+.admin-sellers-table th:nth-child(2),
+.admin-sellers-table td:nth-child(2) {
     width: 19%;
 }
 
-
-/* SELLER ID */
-
-.admin-sellers-table th:nth-child(2),
-.admin-sellers-table td:nth-child(2) {
-    width: 9%;
-}
-
-
 /* EMAIL */
-
 .admin-sellers-table th:nth-child(3),
 .admin-sellers-table td:nth-child(3) {
-    width: 20%;
+    width: 21%;
 }
 
-
 /* MOBILE */
-
 .admin-sellers-table th:nth-child(4),
 .admin-sellers-table td:nth-child(4) {
     width: 14%;
 }
 
-
-/* PRODUCTS */
-
+/* ORDERS */
 .admin-sellers-table th:nth-child(5),
 .admin-sellers-table td:nth-child(5) {
-    width: 10%;
+    width: 8%;
 }
 
-
-/* ORDERS */
-
+/* STATUS */
 .admin-sellers-table th:nth-child(6),
 .admin-sellers-table td:nth-child(6) {
     width: 10%;
 }
 
-
-/* STATUS */
-
+/* ACTION */
 .admin-sellers-table th:nth-child(7),
 .admin-sellers-table td:nth-child(7) {
-    width: 10%;
+    width: 12%;
 }
-
-
-/* ACTION */
-
-.admin-sellers-table th:nth-child(8),
-.admin-sellers-table td:nth-child(8) {
-    width: 8%;
-}
-
 
 /* =========================================
    TABLE HEADINGS
 ========================================= */
 
 .admin-sellers-table th {
-    padding: 16px 18px;
-
+    padding: 16px 10px;
     border-bottom: 1px solid #dde3e8;
-
     color: #263e50;
-
     font-size: 13px;
     font-weight: 700;
-
-    text-align: left;
+    text-align: center;
     text-transform: uppercase;
-
     letter-spacing: 0.35px;
-
     white-space: nowrap;
-
     box-sizing: border-box;
 }
-
-
-/* =========================================
-   SELLER HEADING ALIGNMENT
-========================================= */
-
-/* Align SELLER heading with seller name */
-
-.admin-sellers-table th:nth-child(1) {
-    padding-left: 72px;
-}
-
-
-/* =========================================
-   SELLER ID ALIGNMENT
-========================================= */
-
-.admin-sellers-table th:nth-child(2),
-.admin-sellers-table td:nth-child(2) {
-    text-align: left;
-}
-
-
-/* =========================================
-   EMAIL ALIGNMENT
-========================================= */
-
-/* Email data */
-
-.admin-sellers-table td:nth-child(3) {
-    padding-left: 26px;
-    text-align: left;
-}
-
-
-/* Email heading slightly right */
-
-.admin-sellers-table th:nth-child(3) {
-    padding-left: 34px;
-    text-align: left;
-}
-
-
-/* =========================================
-   MOBILE ALIGNMENT
-========================================= */
-
-.admin-sellers-table th:nth-child(4),
-.admin-sellers-table td:nth-child(4) {
-    text-align: left;
-}
-
-
-/* =========================================
-   PRODUCTS ALIGNMENT
-========================================= */
-
-.admin-sellers-table th:nth-child(5),
-.admin-sellers-table td:nth-child(5) {
-    text-align: center;
-}
-
-
-/* =========================================
-   ORDERS ALIGNMENT
-========================================= */
-
-.admin-sellers-table th:nth-child(6),
-.admin-sellers-table td:nth-child(6) {
-    text-align: center;
-}
-
-
-/* =========================================
-   STATUS ALIGNMENT
-========================================= */
-
-.admin-sellers-table th:nth-child(7),
-.admin-sellers-table td:nth-child(7) {
-    text-align: center;
-}
-
-
-/* =========================================
-   ACTION ALIGNMENT
-========================================= */
-
-.admin-sellers-table th:nth-child(8),
-.admin-sellers-table td:nth-child(8) {
-    text-align: center;
-}
-
 
 /* =========================================
    TABLE DATA
 ========================================= */
 
 .admin-sellers-table td {
-    padding: 16px 18px;
-
+    padding: 16px 10px;
     border-bottom: 1px solid #edf0f2;
-
     color: #344b5c;
-
     font-size: 14px;
     font-weight: 500;
-
+    text-align: center;
     vertical-align: middle;
-
     box-sizing: border-box;
 }
 
@@ -428,197 +265,189 @@
     background: #fafbfc;
 }
 
-
 /* =========================================
-   KEEP EMAIL DATA POSITION
+   SELLER NAME
 ========================================= */
 
-.admin-sellers-table td:nth-child(3) {
-    padding-left: 26px;
+.admin-sellers-table th:nth-child(1),
+.admin-sellers-table td:nth-child(1) {
+    text-align: center;
 }
-
-
-/* =========================================
-   SELLER INFORMATION
-========================================= */
 
 .admin-seller-info {
     width: 100%;
-
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 12px;
 }
 
-
-/* =========================================
-   SELLER AVATAR
-========================================= */
-
-.admin-seller-avatar {
-    width: 43px;
-    height: 43px;
-
-    flex: 0 0 43px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background: #edf2f5;
-
-    border-radius: 50%;
-
-    color: #2b4052;
-
-    overflow: hidden;
-}
-
-
-/* =========================================
-   SELLER IMAGE
-========================================= */
-
-.admin-seller-image {
-    width: 100%;
-    height: 100%;
-
-    display: block;
-
-    object-fit: cover;
-
-    border-radius: 50%;
-}
-
-
-/* =========================================
-   FALLBACK ICON
-========================================= */
-
-.admin-seller-fallback-icon {
-    width: 100%;
-    height: 100%;
-
-    align-items: center;
-    justify-content: center;
-
-    color: #2b4052;
-
-    font-size: 21px;
-}
-
-.admin-seller-avatar .material-symbols-outlined {
-    font-size: 21px;
-}
-
-
-/* =========================================
-   SELLER NAME + WEBSITE
-========================================= */
-
 .admin-seller-info > div:last-child {
     min-width: 0;
-
     display: flex;
     flex-direction: column;
-
+    align-items: center;
     gap: 4px;
 }
 
 .admin-seller-info strong {
     color: #162f43;
-
     font-size: 15px;
     font-weight: 700;
-
-    white-space: nowrap;
+    overflow-wrap: anywhere;
 }
 
 .admin-seller-info span:not(.material-symbols-outlined) {
     color: #71818d;
-
     font-size: 13px;
     font-weight: 400;
-
-    white-space: nowrap;
 }
 
+/* =========================================
+   SELLER ID
+========================================= */
+
+.admin-sellers-table th:nth-child(2),
+.admin-sellers-table td:nth-child(2) {
+    text-align: center;
+}
+
+.admin-sellers-table td:nth-child(2) {
+    overflow-wrap: anywhere;
+}
 
 /* =========================================
-   SELLER STATUS
+   EMAIL
 ========================================= */
+
+.admin-sellers-table th:nth-child(3),
+.admin-sellers-table td:nth-child(3) {
+    text-align: center;
+}
+
+.admin-sellers-table td:nth-child(3) {
+    padding-left: 8px;
+    padding-right: 8px;
+    overflow-wrap: anywhere;
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+.admin-sellers-table th:nth-child(4),
+.admin-sellers-table td:nth-child(4) {
+    text-align: center;
+}
+
+/* =========================================
+   ORDERS
+========================================= */
+
+.admin-sellers-table th:nth-child(5),
+.admin-sellers-table td:nth-child(5) {
+    text-align: center;
+}
+
+/* =========================================
+   STATUS
+========================================= */
+
+.admin-sellers-table th:nth-child(6),
+.admin-sellers-table td:nth-child(6) {
+    text-align: center;
+}
 
 .admin-seller-status {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-
     min-width: 75px;
-
     padding: 6px 10px;
-
     border-radius: 20px;
-
     font-size: 13px;
     font-weight: 600;
-
     box-sizing: border-box;
 }
 
-
-/* ACTIVE */
-
-.admin-seller-status.active {
+.admin-seller-status.approved {
     background: #e8f6ee;
     color: #258653;
 }
 
-
-/* INACTIVE */
-
-.admin-seller-status.inactive {
+.admin-seller-status.not-approved {
     background: #fbeaea;
     color: #c44b4b;
 }
 
-
 /* =========================================
-   VIEW BUTTON
+   ACTION COLUMN
 ========================================= */
 
-.admin-seller-view-btn {
-    min-width: 70px;
-    height: 36px;
+.admin-sellers-table th:nth-child(7),
+.admin-sellers-table td:nth-child(7) {
+    text-align: center;
+    white-space: nowrap;
+}
 
-    padding: 0 16px;
+/* =========================================
+   ACTION BUTTONS - HORIZONTAL
+========================================= */
 
-    border: none;
+.admin-sellers-table td:last-child {
+    white-space: nowrap;
+    text-align: center;
+}
+
+.admin-sellers-table td:last-child button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    height: 32px;
+    padding: 0 8px;
+    margin: 0 2px;
     border-radius: 5px;
-
-    background: #2b4052;
-
-    color: #ffffff;
-
     font-family: inherit;
-    font-size: 14px;
-    font-weight: 600;
-
+    font-size: 12px;
+    font-weight: 500;
     cursor: pointer;
-
     transition: 0.2s ease;
 }
 
-.admin-seller-view-btn:hover {
-    background: #1f3242;
+/* VIEW BUTTON - FIRST */
+
+.admin-sellers-table td:last-child .admin-seller-view-btn {
+    min-width: 52px;
+    background: #2b4052;
+    color: #ffffff;
+    border: 1px solid #2b4052;
 }
 
+.admin-sellers-table td:last-child .admin-seller-view-btn:hover {
+    background: #1f3242;
+    border-color: #1f3242;
+}
+
+/* APPROVE BUTTON - SECOND */
+
+.admin-sellers-table td:last-child .admin-seller-approve-btn {
+    min-width: 62px;
+    background: #ffffff;
+    color: #2b4052;
+    border: 1px solid #dce2e7;
+}
+
+.admin-sellers-table td:last-child .admin-seller-approve-btn:hover {
+    background: #f1f4f6;
+    border-color: #aebbc5;
+}
 
 /* =========================================
    RESPONSIVE - TABLET
 ========================================= */
 
 @media (max-width: 900px) {
-
     .admin-sellers-page {
         padding: 25px 20px;
     }
@@ -639,16 +468,13 @@
     .admin-sellers-filter-box select {
         width: 100%;
     }
-
 }
-
 
 /* =========================================
    RESPONSIVE - MOBILE
 ========================================= */
 
 @media (max-width: 600px) {
-
     .admin-sellers-page {
         padding: 20px 14px;
     }
@@ -666,5 +492,4 @@
     .admin-sellers-heading h1 {
         font-size: 24px;
     }
-
 }

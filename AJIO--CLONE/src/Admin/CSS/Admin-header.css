@@ -212,6 +212,43 @@
 }
 
 
+
+.admin-logout-btn {
+    padding: 9px 16px;
+    margin-right: 20px;
+
+    background: #ffffff;
+    color: #183247;
+
+    border: 1px solid #d1dbe3;
+    border-radius: 7px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+    white-space: nowrap;
+
+    transition: background 0.2s ease, color 0.2s ease,
+                border-color 0.2s ease;
+}
+
+.admin-logout-btn:hover {
+    background: #183247;
+    color: #ffffff;
+    border-color: #183247;
+}
+
+
+
+
+
+
+
+
+
+
+
 /* =========================================
    RESPONSIVE
 ========================================= */
@@ -279,6 +316,12 @@
         background: #ffffff;
 
         overflow: hidden;
+    }
+
+      .admin-logout-btn {
+        padding: 7px 10px;
+        margin-right: 10px;
+        font-size: 12px;
     }
 
 
@@ -491,6 +534,12 @@
         height: 62px;
 
         padding-right: 9px;
+    }
+
+      .admin-logout-btn {
+        padding: 6px 7px;
+        margin-right: 7px;
+        font-size: 11px;
     }
 
 
