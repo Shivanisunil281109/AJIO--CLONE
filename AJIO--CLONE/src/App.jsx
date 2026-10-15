@@ -59,7 +59,7 @@ import AdminProductDetails from "./Admin/Pages/AdminProductDetails";
 import AdminSellers from "./Admin/Pages/AdminSellers";
 import AdminSellerDetails from "./Admin/Pages/AdminSellerDetails";
 import AdminProfile from "./Admin/Pages/AdminProfile";
-
+import AdminUsers from "./Admin/Pages/AdminUsers";
 
 
 
@@ -194,6 +194,8 @@ useEffect(() => {
                 <Route element={<AdminLayout />}>
 
                  <Route path="/admin/dashboard" element={<AdminDashboard />} />
+
+                 <Route path="/admin/users" element={<AdminUsers />} />
 
                  <Route path="/admin/product-review" element={<ProductReview />}/>
 

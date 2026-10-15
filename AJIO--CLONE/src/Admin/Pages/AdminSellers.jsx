@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import api from "../../config/axiosConfig";
+import { useDispatch } from "react-redux";
+import { showToast } from "../../redux/toastSlice";
 import "../CSS/Admin-sellers.css";
 
 const AdminSellers = () => {
+  const dispatch = useDispatch();
   // =========================================
   // NAVIGATION
   // =========================================
@@ -43,6 +46,13 @@ const AdminSellers = () => {
       });
 
       if (response.data.success) {
+        dispatch(
+          showToast({
+            message: "✅ Seller approved successfully!",
+            type: "success",
+          }),
+        );
+
         await getAllSellers();
       }
     } catch (error) {

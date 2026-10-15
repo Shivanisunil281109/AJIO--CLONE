@@ -463,9 +463,6 @@ const AdminDashboard = () => {
           </svg>
         </div>
 
-
-
-
         {/* ALL SELLERS */}
 
         <div
@@ -507,8 +504,11 @@ const AdminDashboard = () => {
         </div>
 
         {/* ALL USERS */}
-
-        <div className="admin-stat-card">
+        <div
+          className="admin-stat-card"
+          onClick={() => navigate("/admin/users")}
+          style={{ cursor: "pointer" }}
+        >
           <div className="admin-stat-top">
             <span className="material-symbols-outlined admin-stat-icon">
               group

@@ -1,3 +1,4 @@
+
 /* =================================
    REDUX GLOBAL TOAST
    User + Seller + Admin
@@ -8,42 +9,74 @@
     top: 25px;
     left: 50%;
     transform: translateX(-50%);
+/* 
+    min-width: 340px;
+    max-width: 480px; */
 
-    min-width: 280px;
-    max-width: 400px;
+min-width: 300px;
+max-width: 380px;
 
-    padding: 14px 20px;
+    width: max-content;
 
-    border-radius: 6px;
+    padding: 20px 28px;
+
+    border-radius: 10px;
 
     color: #ffffff;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
+    line-height: 1.5;
 
     z-index: 99999;
 
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.18);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
+
+    /* animation: toastSlideDown 0.3s ease-out; */
+    box-sizing: border-box;
 }
 
 /* SUCCESS */
-
 .redux-toast-success {
     background-color: #ffffff;
-    color:#2e7d32;;
-    border-left: 5px solid #2e7d32;
+    color: #2e7d32;
+    border-left: 6px solid #2e7d32;
 }
 
-
 /* ERROR */
-
 .redux-toast-error {
     background-color: #ffffff;
     color: #c62828;
-    border-left: 5px solid #c62828;
+    border-left: 6px solid #c62828;
 }
 
 /* INFO */
-
 .redux-toast-info {
     background-color: #2B4052;
+    color: #ffffff;
+    border-left: 6px solid #5b91b8;
+}
+
+/* Toast Animation */
+@keyframes toastSlideDown {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+
+/* Mobile Responsive */
+@media (max-width: 600px) {
+    .redux-toast {
+        top: 15px;
+        min-width: 0;
+        width: calc(100% - 32px);
+        max-width: 480px;
+        padding: 17px 20px;
+        font-size: 15px;
+    }
 }
