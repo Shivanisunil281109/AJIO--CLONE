@@ -362,6 +362,15 @@
 }
 
 
+
+/* REJECTED STATUS */
+.seller-products-page
+.seller-products-status-rejected {
+    background: #fde8e8;
+    color: #c62828;
+}
+
+
 /* ==========================================
    ACTIONS
 ========================================== */

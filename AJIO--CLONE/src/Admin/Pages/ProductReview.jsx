@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { showToast } from "../../redux/toastSlice";
+import api from "../../config/axiosConfig";
 import "../CSS/Product-review.css";
 
 const ProductReview = () => {
@@ -10,74 +11,7 @@ const ProductReview = () => {
   // DEFAULT PRODUCT DATA
   // =========================================
 
-  const defaultProducts = [
-    {
-      id: "PRD12345",
-      name: "Nike Air Max Running Shoes",
-      seller: "Sports Hub",
-      email: "seller@sportshub.com",
-      category: "Men Footwear",
-      price: 4999,
-      status: "Pending",
-     image:
-    "https://assets-jiocdn.ajio.com/medias/sys_master/root1/20260312/EPTa/69b27aba4970ce6a6e3c1cfc/nike_grey_men_air_max_bolt_sneakers.jpg"
-    },
-    {
-      id: "PRD12346",
-      name: "Puma Regular Fit T-Shirt",
-      seller: "Fashion Studio",
-      email: "seller@fashion.com",
-      category: "Men Clothing",
-      price: 899,
-      status: "Pending",
-      image:
-  "https://assets-jiocdn.ajio.com/medias/sys_master/root/20220405/blMY/624c3d62f997dd03e2482168/puma_green_multi_logo_graphic_men%27s_slim_fit_t-shirt.jpg",
-    },
-    {
-      id: "PRD12347",
-      name: "Colorbar Matte Lipstick",
-      seller: "Beauty Glam",
-      email: "info@beauty.com",
-      category: "Beauty",
-      price: 650,
-      status: "Pending",
-      image:
-        "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=200&q=80",
-    },
-    {
-      id: "PRD12348",
-      name: "Samsung Galaxy Watch 6",
-      seller: "Tech World",
-      email: "seller@techworld.com",
-      category: "Electronics",
-      price: 24999,
-      status: "Pending",
-      image:
-        "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=200&q=80",
-    },
-    {
-      id: "PRD12349",
-      name: "Levi's 511 Slim Jeans",
-      seller: "Denim Store",
-      email: "contact@denimstore.com",
-      category: "Men Clothing",
-      price: 2599,
-      status: "Approved",
-      image:
-        "https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=200&q=80",
-    },
-    {
-      id: "PRD12350",
-      name: "Adidas Backpack",
-      seller: "Sports Hub",
-      email: "seller@sportshub.com",
-      category: "Bags & Backpacks",
-      price: 1999,
-      status: "Rejected",
-      image:
-        "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=200&q=80",
-    },
-  ];
+  const defaultProducts = [];
 
   // =========================================
   // GET SELLER CREATED PRODUCTS
@@ -113,11 +47,35 @@ const ProductReview = () => {
   // COMBINE DEFAULT + SELLER PRODUCTS
   // =========================================
 
-  const [products, setProducts] = useState([
-    ...defaultProducts,
-    ...formattedSellerProducts,
-  ]);
+const [products, setProducts] = useState([]);
 
+
+useEffect(() => {
+  const getProducts = async () => {
+    try {
+      const response = await api.get("/admin/get-all-products");
+
+      if (response.data.success) {
+        const formattedProducts = response.data.products.map((product) => ({
+          id: product._id,
+          name: product.name,
+          seller: product.sellerId?.name || "Seller",
+          email: product.sellerId?.email || "Not Available",
+          category: product.category,
+          price: product.price,
+      status: product.status || (product.approvedByAdmin ? "Approved" : "Pending"),
+          image: product.image || "",
+        }));
+
+        setProducts(formattedProducts);
+      }
+    } catch (error) {
+      console.error("Products fetch error:", error);
+    }
+  };
+
+  getProducts();
+}, []);
   // =========================================
   // ACTIVE STATUS TAB
   // =========================================
@@ -168,101 +126,105 @@ const ProductReview = () => {
   // APPROVE PRODUCT
   // =========================================
 
-  const handleApproveProduct = (productId) => {
-    // Update product on Admin Product Review page
-    const updatedProducts = products.map((product) => {
-      if (product.id === productId) {
-        return {
-          ...product,
-          status: "Approved",
-        };
-      }
-
-      return product;
+ const handleApproveProduct = async (productId) => {
+  try {
+    const response = await api.post("/admin/approve-product", {
+      productId,
     });
 
-    setProducts(updatedProducts);
+    if (response.data.success) {
+      setProducts((previousProducts) =>
+        previousProducts.map((product) =>
+          product.id === productId
+            ? { ...product, status: "Approved" }
+            : product
+        )
+      );
 
-    // =========================================
-    // UPDATE SELLER PRODUCT IN LOCAL STORAGE
-    // =========================================
-
-    const currentSellerProducts =
-      JSON.parse(localStorage.getItem("sellerCreatedProducts")) || [];
-
-    const updatedSellerProducts = currentSellerProducts.map((product) => {
-      if (product.id === productId) {
-        return {
-          ...product,
-          status: "Approved",
-        };
-      }
-
-      return product;
-    });
-
-    localStorage.setItem(
-      "sellerCreatedProducts",
-      JSON.stringify(updatedSellerProducts),
-    );
+      dispatch(
+        showToast({
+          message: "✅ Product approved successfully!",
+          type: "success",
+        })
+      );
+    }
+  } catch (error) {
+    console.error("Product approval error:", error);
 
     dispatch(
       showToast({
-        message: "✅ Product approved successfully!",
-        type: "success",
-      }),
+        message:
+          error.response?.data?.message ||
+           "❌ Failed to approve product.",
+        type: "error",
+      })
     );
-  };
+  }
+};
+
+
+
+
 
   // =========================================
   // REJECT PRODUCT
   // =========================================
-
-  const handleRejectProduct = (productId) => {
-    // Update product on Admin Product Review page
-    const updatedProducts = products.map((product) => {
-      if (product.id === productId) {
-        return {
-          ...product,
-          status: "Rejected",
-        };
-      }
-
-      return product;
+const handleRejectProduct = async (productId) => {
+  try {
+    const response = await api.post("/admin/reject-product", {
+      productId,
     });
 
-    setProducts(updatedProducts);
+console.log("Reject API response:", response.data);
 
-    // =========================================
-    // UPDATE SELLER PRODUCT IN LOCAL STORAGE
-    // =========================================
 
-    const currentSellerProducts =
-      JSON.parse(localStorage.getItem("sellerCreatedProducts")) || [];
+    if (response.data.success) {
+      setProducts((previousProducts) =>
+        previousProducts.map((product) =>
+          product.id === productId
+            ? { ...product, status: "Rejected" }
+            : product
+        )
+      );
 
-    const updatedSellerProducts = currentSellerProducts.map((product) => {
-      if (product.id === productId) {
-        return {
-          ...product,
-          status: "Rejected",
-        };
-      }
-
-      return product;
-    });
-
-    localStorage.setItem(
-      "sellerCreatedProducts",
-      JSON.stringify(updatedSellerProducts),
-    );
+      dispatch(
+        showToast({
+          message: "Product rejected successfully!",
+          type: "error",
+        })
+      );
+    }
+  } catch (error) {
+    console.error("Product rejection error:", error);
 
     dispatch(
       showToast({
-        message: "❌ Product rejected successfully!",
+        message:
+          error.response?.data?.message ||
+          "Failed to reject product.",
         type: "error",
-      }),
+      })
     );
-  };
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   return (
     <div className="admin-product-review-page">

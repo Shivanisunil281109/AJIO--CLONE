@@ -1,9 +1,8 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
 import { useNavigate, useParams, useLocation } from "react-router";
-
 import { useDispatch } from "react-redux";
 import { showToast } from "../../redux/toastSlice";
+import api from "../../config/axiosConfig";
 
 import "../CSS/Admin-product-details.css";
 
@@ -16,6 +15,60 @@ const AdminProductDetails = () => {
 
   const location = useLocation();
 
+
+  const [product, setProduct] = useState(null);
+
+  useEffect(() => {
+  const getProduct = async () => {
+    try {
+      const response = await api.get("/admin/get-all-products");
+
+      if (response.data.success) {
+        const foundProduct = response.data.products.find(
+          (item) => String(item._id) === String(productId)
+        );
+
+        if (foundProduct) {
+          setProduct({
+            id: foundProduct._id,
+            name: foundProduct.name,
+            seller: foundProduct.sellerId?.name || "Seller",
+            category: foundProduct.category,
+            price: foundProduct.price,
+            stock: foundProduct.stock,
+            status: foundProduct.approvedByAdmin
+              ? "Approved"
+              : "Pending",
+            description: foundProduct.description || "",
+            image: foundProduct.image || "",
+            brand: foundProduct.brand || "",
+            mfgPrice: foundProduct.mfgPrice || 0,
+          });
+
+          setEditForm({
+            name: foundProduct.name || "",
+            seller: foundProduct.sellerId?.name || "Seller",
+            category: foundProduct.category || "",
+            price: foundProduct.price || "",
+            mfgPrice: foundProduct.mfgPrice || "",
+            stock: foundProduct.stock || "",
+            status: foundProduct.approvedByAdmin
+              ? "Approved"
+              : "Pending",
+            productStatus: "",
+            description: foundProduct.description || "",
+          });
+        }
+      }
+    } catch (error) {
+      console.error("Product fetch error:", error);
+    }
+  };
+
+  getProduct();
+}, [productId]);
+
+
   // =========================================
   // CHECK EDIT MODE
   // =========================================
@@ -26,79 +79,7 @@ const AdminProductDetails = () => {
   // DEFAULT PRODUCTS
   // =========================================
 
-  const defaultProducts = [
-    {
-      id: "PRD12345",
-      name: "Nike Air Max Running Shoes",
-      seller: "Sports Hub",
-      category: "Men Footwear",
-      price: 4999,
-      stock: 25,
-      status: "Pending",
-      image:
-    "https://assets-jiocdn.ajio.com/medias/sys_master/root1/20260312/EPTa/69b27aba4970ce6a6e3c1cfc/nike_grey_men_air_max_bolt_sneakers.jpg",
-    },
-
-    {
-      id: "PRD12346",
-      name: "Puma Regular Fit T-Shirt",
-      seller: "Fashion Studio",
-      category: "Men Clothing",
-      price: 899,
-      stock: 40,
-      status: "Pending",
-      image:
-  "https://assets-jiocdn.ajio.com/medias/sys_master/root/20220405/blMY/624c3d62f997dd03e2482168/puma_green_multi_logo_graphic_men%27s_slim_fit_t-shirt.jpg",
-    },
-
-    {
-      id: "PRD12347",
-      name: "Colorbar Matte Lipstick",
-      seller: "Beauty Glam",
-      category: "Beauty",
-      price: 650,
-      stock: 32,
-      status: "Pending",
-      image:
-        "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=600&q=80",
-    },
-
-    {
-      id: "PRD12348",
-      name: "Samsung Galaxy Watch 6",
-      seller: "Tech World",
-      category: "Electronics",
-      price: 24999,
-      stock: 12,
-      status: "Pending",
-      image:
-        "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=600&q=80",
-    },
-
-    {
-      id: "PRD12349",
-      name: "Levi's 511 Slim Jeans",
-      seller: "Denim Store",
-      category: "Men Clothing",
-      price: 2599,
-      stock: 18,
-      status: "Approved",
-      image:
-        "https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=600&q=80",
-    },
-
-    {
-      id: "PRD12350",
-      name: "Adidas Backpack",
-      seller: "Sports Hub",
-      category: "Bags & Backpacks",
-      price: 1999,
-      stock: 20,
-      status: "Rejected",
-      image:
-        "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80",
-    },
-  ];
+const defaultProducts = [];
 
   // =========================================
   // GET SELLER CREATED PRODUCTS
@@ -171,9 +152,7 @@ const AdminProductDetails = () => {
   // FIND SELECTED PRODUCT
   // =========================================
 
-  const product = allProducts.find(
-    (item) => String(item.id) === String(productId),
-  );
+ 
 
   // =========================================
   // EDIT PRODUCT FORM STATE

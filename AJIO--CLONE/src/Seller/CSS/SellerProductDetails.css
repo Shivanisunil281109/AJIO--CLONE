@@ -242,6 +242,20 @@
 }
 
 
+
+/* REJECTED STATUS - RED */
+.seller-product-status-rejected {
+  background: #fde8e8;
+  color: #c62828;
+}
+
+
+/* PENDING STATUS - YELLOW */
+.seller-product-status-pending {
+  background: #fff3cd;
+  color: #996c00;
+}
+
 /* ==========================================
    DESCRIPTION
 ========================================== */

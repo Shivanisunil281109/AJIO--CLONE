@@ -1,9 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import api from "../../config/axiosConfig";
 import { useNavigate } from "react-router";
 import "../CSS/Admin-dashboard.css";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
+
+
+
+  const [totalSellers, setTotalSellers] = useState(0);
+const [totalUsers, setTotalUsers] = useState(0);
+
+useEffect(() => {
+  const getDashboardCounts = async () => {
+    try {
+      const [sellersResponse, usersResponse] = await Promise.all([
+        api.get("/admin/get-all-sellers"),
+        api.get("/admin/get-all-users"),
+      ]);
+
+      if (sellersResponse.data.success) {
+        setTotalSellers(sellersResponse.data.sellers.length);
+      }
+
+      if (usersResponse.data.success) {
+        setTotalUsers(usersResponse.data.users.length);
+      }
+    } catch (error) {
+      console.error("Error fetching dashboard counts:", error);
+    }
+  };
+
+  getDashboardCounts();
+}, []);
 
   // =========================================
   // DASHBOARD STATISTICS
@@ -51,7 +80,7 @@ const AdminDashboard = () => {
 
   // AdminSellers.jsx currently contains 5 registered sellers.
 
-  const totalSellers = 5;
+  
 
   // =========================================
   // GET REGISTERED USERS
@@ -64,7 +93,7 @@ const AdminDashboard = () => {
   // TOTAL USERS - DYNAMIC
   // =========================================
 
-  const totalUsers = registeredUsers.length;
+ 
 
   // =========================================
   // SALES FILTER STATE

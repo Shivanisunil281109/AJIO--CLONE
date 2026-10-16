@@ -30,21 +30,25 @@
 
 
 import React from "react";
-import { Outlet } from "react-router";
+// import { Outlet } from "react-router";
+import { Outlet, useLocation } from "react-router";
 
 import UserNavbar from "./UserNavbar";
 import UserFooter from "./UserFooter";
 
 const UserLayout = () => {
 
+const location = useLocation();
+const hideLayout = ["/login", "/register"].includes(location.pathname);
+
     return (
         <>
-            <UserNavbar />
+    {!hideLayout && <UserNavbar />}
 
-            <Outlet />
+    <Outlet />
 
-            <UserFooter />
-        </>
+    {!hideLayout && <UserFooter />}
+</>
     );
 };
 

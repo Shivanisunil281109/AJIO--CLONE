@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, useParams, useNavigate } from "react-router";
+import api from "../../config/axiosConfig";
 import { useDispatch } from "react-redux";
 import { showToast } from "../../redux/toastSlice";
 import "../CSS/SellerProductDetails.css";
 
 const SellerProductDetails = () => {
-
   const dispatch = useDispatch();
 
   const location = useLocation();
@@ -14,174 +14,28 @@ const SellerProductDetails = () => {
 
   const isEditMode = location.pathname.includes("/edit");
 
-  const products = [
-    {
-      id: 1,
-      name: "Men Casual Shirt",
-      category: "Clothing",
-      brand: "ZIKARAA",
-      sellingPrice: 999,
-      mfgPrice: 1299,
-      stock: 20,
-      status: "Approved",
-      image:
-        "https://assets-jiocdn.ajio.com/medias/sys_master/root1/20260421/KtGk/69e7a96014d0c2171988e4ff/zikaraa_blue_men_regular_fit_cotton_shirt.jpg",
-      description:
-        "Men regular fit cotton casual shirt suitable for everyday wear.",
-    },
+  const [product, setProduct] = useState(null);
 
-    {
-      id: 2,
-      name: "Slim Fit Jeans",
-      category: "Clothing",
-      brand: "Pepe Jeans",
-      sellingPrice: 1499,
-      mfgPrice: 1999,
-      stock: 15,
-      status: "Pending",
-      image:
-        "https://assets-jiocdn.ajio.com/medias/sys_master/root/20240606/jIcS/666157fe16fd2c6e6a508452/pepe_jeans_dark_blue_men_vapour_mid-wash_slim_fit_jeans.jpg",
-      description:
-        "Dark blue mid-wash slim fit jeans for men with a stylish casual look.",
-    },
+  useEffect(() => {
+    const getProduct = async () => {
+      try {
+        const response = await api.get("/seller/get-products");
 
-    {
-      id: 3,
-      name: "Running Sneakers",
-      category: "Footwear",
-      brand: "AADI",
-      sellingPrice: 1999,
-      mfgPrice: 2499,
-      stock: 8,
-      status: "Approved",
-      image:
-        "https://assets-jiocdn.ajio.com/medias/sys_master/root1/20260509/JUQP/69ff5d79fcb5bb61d2b2894f/aadi_green_men_colourblock_running_shoes.jpg",
-      description:
-        "Men colourblock running shoes designed for comfort and daily activity.",
-    },
+        if (response.data.success) {
+          const foundProduct = response.data.products.find(
+            (item) => item._id === productId,
+          );
 
-    {
-      id: 4,
-      name: "Wireless Headphones",
-      category: "Electronics",
-      brand: "Sony",
-      sellingPrice: 2499,
-      mfgPrice: 2999,
-      stock: 0,
-      status: "Not Approved",
-      image:
-        "https://assets-jiocdn.ajio.com/medias/sys_master/root1/20260814/rJC3/6a7f240da0359b385af4512f/sony_blue_sony_wh-ch520_wireless_on-ear_bluetooth_headphones_with_mic_up_to_50_hours_of_playtime_quick_charging_multipoint_connectivity_fast_charge_blue.jpg",
-      description:
-        "Sony wireless on-ear Bluetooth headphones with microphone and long battery life.",
-    },
+          setProduct(foundProduct || null);
+        }
+      } catch (error) {
+        console.error("Error fetching product:", error);
+        setProduct(null);
+      }
+    };
 
-    {
-      id: 5,
-      name: "Men Polo T-Shirt",
-      category: "Clothing",
-      brand: "U.S. Polo Assn.",
-      sellingPrice: 799,
-      mfgPrice: 1199,
-      stock: 25,
-      status: "Approved",
-      image:
-        "https://assets-jiocdn.ajio.com/medias/sys_master/root1/20260527/Yjo5/6a16ceb714d0c217190753ac/u.s._polo_assn._navy_blue_men_patterned_regular_fit_polo_t-shirt.jpg",
-      description:
-        "Men patterned regular fit polo T-shirt suitable for casual and everyday wear.",
-    },
-
-    {
-      id: 6,
-      name: "Women Printed Top",
-      category: "Clothing",
-      brand: "Niya Art",
-      sellingPrice: 899,
-      mfgPrice: 1299,
-      stock: 18,
-      status: "Approved",
-      image:
-        "https://assets-jiocdn.ajio.com/medias/sys_master/root/20250108/BxLJ/677dd2ec663dbe1c5fc4092f/niya_art_green_womens_cotton_printed_top.jpg",
-      description:
-        "Women cotton printed top with a comfortable fit for casual and daily wear.",
-    },
-
-    {
-      id: 7,
-      name: "Women Embroidered Kurta",
-      category: "Clothing",
-      brand: "Svaraa",
-      sellingPrice: 1299,
-      mfgPrice: 1799,
-      stock: 12,
-      status: "Pending",
-      image:
-        "https://assets-jiocdn.ajio.com/medias/sys_master/root1/20260408/zjiW/69d6a77e9e784a25d5cf613f/svaraa_brown_women_embroidery_straight_kurta_set.jpg",
-      description:
-        "Women embroidered straight kurta set with an elegant ethnic design.",
-    },
-  ];
-
-
-// =========================
-// GET CREATED PRODUCTS
-// =========================
-
-const createdProducts =
-  JSON.parse(
-    localStorage.getItem("sellerCreatedProducts")
-  ) || [];
-
-
-
-
-
-
-// =========================
-// COMBINE ALL PRODUCTS
-// =========================
-
-const allProducts = [
-  ...products,
-  ...createdProducts
-];
-
-
-
-
-
-
-
-// =========================
-// FIND CURRENT PRODUCT
-// =========================
-
-const originalProduct = allProducts.find(
-  (item) => item.id === Number(productId)
-);
-
-
-// =========================
-// GET EDITED PRODUCT
-// =========================
-
-const savedProduct = localStorage.getItem(
-  `sellerProduct_${productId}`
-);
-
-
-// =========================
-// FINAL PRODUCT
-// =========================
-
-const product = savedProduct
-  ? JSON.parse(savedProduct)
-  : originalProduct;
-
-
-
-
-
-
+    getProduct();
+  }, [productId]);
 
   const [editedProduct, setEditedProduct] = useState({
     name: product?.name || "",
@@ -193,53 +47,61 @@ const product = savedProduct
     description: product?.description || "",
   });
 
+  useEffect(() => {
+    if (product) {
+      setEditedProduct({
+        name: product.name || "",
+        category: product.category || "",
+        brand: product.brand || "",
+        sellingPrice: product.price || "",
+        mfgPrice: "",
+        stock: product.stock ?? "",
+        description: product.description || "",
+      });
+    }
+  }, [product]);
+
   const handleUpdateProduct = () => {
-  
+    // =========================
+    // VALIDATION
+    // =========================
 
+    if (
+      !editedProduct.name.trim() ||
+      !editedProduct.brand.trim() ||
+      !editedProduct.description.trim()
+    ) {
+      dispatch(
+        showToast({
+          message: "❌ Please fill all product fields.",
+          type: "error",
+        }),
+      );
+      return;
+    }
 
-  // =========================
-  // VALIDATION
-  // =========================
+    if (
+      Number(editedProduct.sellingPrice) <= 0 ||
+      Number(editedProduct.mfgPrice) <= 0
+    ) {
+      dispatch(
+        showToast({
+          message: "❌ Product price must be greater than 0.",
+          type: "error",
+        }),
+      );
+      return;
+    }
 
-  if (
-    !editedProduct.name.trim() ||
-    !editedProduct.brand.trim() ||
-    !editedProduct.description.trim()
-  ) {
-    dispatch(
-    showToast({
-        message: "❌ Please fill all product fields.",
-        type: "error"
-    })
-);
-    return;
-  }
-
-  if (
-    Number(editedProduct.sellingPrice) <= 0 ||
-    Number(editedProduct.mfgPrice) <= 0
-  ) {
-   dispatch(
-    showToast({
-        message: "❌ Product price must be greater than 0.",
-        type: "error"
-    })
-);
-    return;
-  }
-
-  if (Number(editedProduct.stock) < 0) {
-   dispatch(
-    showToast({
-        message: "❌ Stock cannot be negative.",
-        type: "error"
-    })
-);
-    return;
-  }
-
-
-
+    if (Number(editedProduct.stock) < 0) {
+      dispatch(
+        showToast({
+          message: "❌ Stock cannot be negative.",
+          type: "error",
+        }),
+      );
+      return;
+    }
 
     const updatedProduct = {
       ...product,
@@ -251,17 +113,17 @@ const product = savedProduct
 
     localStorage.setItem(
       `sellerProduct_${product.id}`,
-      JSON.stringify(updatedProduct)
+      JSON.stringify(updatedProduct),
     );
 
     dispatch(
-    showToast({
+      showToast({
         message: "✅ Product updated successfully!",
-        type: "success"
-    })
-);
+        type: "success",
+      }),
+    );
 
-    navigate(`/seller/products/${product.id}`);
+    navigate(`/seller/products/${product._id}`);
   };
 
   if (!product) {
@@ -277,10 +139,8 @@ const product = savedProduct
   return (
     <div className="seller-product-details-page">
       <main className="seller-product-details-content">
-
         {/* PAGE HEADER */}
         <div className="seller-product-details-header">
-
           <button
             type="button"
             className="seller-back-products-button"
@@ -289,15 +149,11 @@ const product = savedProduct
             ← Back to Products
           </button>
 
-          <h1>
-            {isEditMode ? "Edit Product" : "Product Details"}
-          </h1>
-
+          <h1>{isEditMode ? "Edit Product" : "Product Details"}</h1>
         </div>
 
         {/* PRODUCT CARD */}
         <div className="seller-product-details-card">
-
           {/* PRODUCT IMAGE */}
           <div className="seller-product-image-section">
             <img
@@ -309,7 +165,6 @@ const product = savedProduct
 
           {/* PRODUCT INFORMATION */}
           <div className="seller-product-info-section">
-
             {!isEditMode ? (
               <>
                 {/* =========================
@@ -325,17 +180,17 @@ const product = savedProduct
 
                 <div className="seller-product-info-row">
                   <span className="info-label">Brand</span>
-                  <span>{product.brand}</span>
+                  <span>Not Available</span>
                 </div>
 
                 <div className="seller-product-info-row">
                   <span className="info-label">Selling Price</span>
-                  <span>₹{product.sellingPrice}</span>
+                  <span>₹{product.price}</span>
                 </div>
 
                 <div className="seller-product-info-row">
                   <span className="info-label">MFG Price</span>
-                  <span>₹{product.mfgPrice}</span>
+                  <span>Not Available</span>
                 </div>
 
                 <div className="seller-product-info-row">
@@ -346,8 +201,18 @@ const product = savedProduct
                 <div className="seller-product-info-row">
                   <span className="info-label">Approval Status</span>
 
-                  <span className="seller-product-approved-status">
-                    {product.status}
+                  {/* <span className="seller-product-approved-status">
+                    {product.status || (product.approvedByAdmin ? "Approved" : "Pending")}
+                  </span> */}
+
+                  <span
+                    className={`seller-product-approved-status seller-product-status-${(
+                      product.status ||
+                      (product.approvedByAdmin ? "Approved" : "Pending")
+                    ).toLowerCase()}`}
+                  >
+                    {product.status ||
+                      (product.approvedByAdmin ? "Approved" : "Pending")}
                   </span>
                 </div>
 
@@ -360,7 +225,7 @@ const product = savedProduct
                   type="button"
                   className="seller-edit-product-button"
                   onClick={() =>
-                    navigate(`/seller/products/${product.id}/edit`)
+                    navigate(`/seller/products/${product._id}/edit`)
                   }
                 >
                   Edit Product
@@ -373,7 +238,6 @@ const product = savedProduct
                 ========================= */}
 
                 <div className="seller-edit-form">
-
                   {/* PRODUCT NAME */}
                   <div className="seller-edit-form-group">
                     <label>Product Name</label>
@@ -427,7 +291,6 @@ const product = savedProduct
 
                   {/* PRICES */}
                   <div className="seller-edit-form-row">
-
                     <div className="seller-edit-form-group">
                       <label>Selling Price</label>
 
@@ -457,7 +320,6 @@ const product = savedProduct
                         }
                       />
                     </div>
-
                   </div>
 
                   {/* STOCK */}
@@ -500,15 +362,11 @@ const product = savedProduct
                   >
                     Update Product
                   </button>
-
                 </div>
               </>
             )}
-
           </div>
-
         </div>
-
       </main>
     </div>
   );

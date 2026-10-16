@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { showToast } from "../../redux/toastSlice";
+import api from "../../config/axiosConfig";
 import "../CSS/Create-product.css";
 
 const CreateProduct = () => {
@@ -15,45 +16,20 @@ const [productName, setProductName] = useState("");
     const [description, setDescription] = useState("");
     const [status, setStatus] = useState("Active");
     const [image, setImage] = useState("");
+    const [imageUrl, setImageUrl] = useState("");
 
 
     // =========================================
     // IMAGE CHANGE
     // =========================================
 
-    const handleImageChange = (e) => {
-
-        const file = e.target.files[0];
-
-        if (!file) {
-            return;
-        }
-
-        if (!file.type.startsWith("image/")) {
-            dispatch(
-    showToast({
-        message: "❌ Please select an image file.",
-        type: "error"
-    })
-);
-            return;
-        }
-
-        const reader = new FileReader();
-
-        reader.onloadend = () => {
-            setImage(reader.result);
-        };
-
-        reader.readAsDataURL(file);
-    };
-
+   
 
     // =========================================
     // SUBMIT PRODUCT
     // =========================================
 
-    const handleSubmitProduct = () => {
+    const handleSubmitProduct = async () => {
 
         // Check empty fields
         if (
@@ -145,47 +121,44 @@ const [productName, setProductName] = useState("");
         };
 
 
-        try {
-
-            const existingProducts =
-                JSON.parse(
-                    localStorage.getItem("sellerCreatedProducts")
-                ) || [];
 
 
-            const updatedProducts = [
-                ...existingProducts,
-                newProduct
-            ];
+       
+try {
+    const response = await api.post("/seller/create-product", {
+        name: productName.trim(),
+        category: category.toLowerCase(),
+        description: description.trim(),
+        image: image,
+        price: Number(sellingPrice),
+        stock: Number(stock)
+    });
+
+    if (response.data.success) {
+        dispatch(
+            showToast({
+                message: "✅ Product created successfully!",
+                type: "success"
+            })
+        );
+    }
+
+} catch (error) {
+    console.error("Error creating product:", error);
+
+    dispatch(
+        showToast({
+            message:
+                error.response?.data?.message ||
+                "❌ Product could not be saved.",
+            type: "error"
+        })
+    );
+}
 
 
-            localStorage.setItem(
-                "sellerCreatedProducts",
-                JSON.stringify(updatedProducts)
-            );
 
 
-            dispatch(
-    showToast({
-        message: "✅ Product created successfully!",
-        type: "success"
-    })
-);
-
-        } catch (error) {
-
-            console.error(
-                "Error saving product:",
-                error
-            );
-
-            dispatch(
-    showToast({
-        message: "❌ Product could not be saved. Please try using a smaller image.",
-        type: "error"
-    })
-);
-        }
     };
 
 
@@ -201,6 +174,7 @@ const [productName, setProductName] = useState("");
     setDescription("");
     setStatus("Active");
     setImage("");
+    setImageUrl("");
 };
 
     return (
@@ -507,11 +481,11 @@ const [productName, setProductName] = useState("");
                                     </span>
 
                                     <p className="upload-title">
-                                        Click to upload image
+                                        Enter Product Image URL
                                     </p>
 
                                     <p className="upload-subtitle">
-                                        Select product image
+                                   Paste a direct link to your product image
                                     </p>
 
                                 </>
@@ -521,23 +495,25 @@ const [productName, setProductName] = useState("");
 
                             {/* Custom Choose File Button */}
 
-                            <label
-                                htmlFor="product-image"
-                                className="custom-file-button"
-                            >
-                                Choose File
-                            </label>
+
+                          
+<input
+    type="url"
+    placeholder="Enter product image URL"
+    value={imageUrl}
+    onChange={(e) => {
+        setImageUrl(e.target.value);
+        setImage(e.target.value);
+    }}
+/>
+
+
+
+
 
 
                             {/* Hidden Original File Input */}
 
-                            <input
-                                type="file"
-                                id="product-image"
-                                accept="image/*"
-                                onChange={handleImageChange}
-                                className="product-file-input"
-                            />
 
                         </div>
 

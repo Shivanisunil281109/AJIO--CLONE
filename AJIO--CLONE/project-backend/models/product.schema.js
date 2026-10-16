@@ -49,7 +49,13 @@ const productSchema = new Schema({
     approvedByAdmin: {
         type: Boolean,
         default: false
-    }
+    },
+
+    status: {
+    type: String,
+    enum: ["Pending", "Approved", "Rejected"],
+    default: "Pending"
+}
 });
 
 const ProductSchema = model("products", productSchema);

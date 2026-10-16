@@ -1,10 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import api from "../../config/axiosConfig";
 import "../CSS/Admin-products.css";
+
 
 
 const AdminProducts = () => {
 
+    const [products, setProducts] = useState([]);
+
+    const getAllProducts = async () => {
+    try {
+        const response = await api.get("/admin/get-all-products");
+
+        if (response.data.success) {
+            setProducts(response.data.products);
+        }
+    } catch (error) {
+        console.log(error, "error");
+    }
+};
+
+
+useEffect(() => {
+    getAllProducts();
+}, []);
     // =========================================
     // NAVIGATION
     // =========================================
@@ -43,183 +63,32 @@ const AdminProducts = () => {
         useState("Sort By");
 
 
+
+
     // =========================================
     // DEFAULT PRODUCTS
     // =========================================
 
-    const defaultProducts = [
-
-        {
-            id: "PRD12345",
-            name: "Nike Air Max Running Shoes",
-            seller: "Sports Hub",
-            category: "Men Footwear",
-            price: 4999,
-            stock: 25,
-            status: "Pending",
-            image:
-    "https://assets-jiocdn.ajio.com/medias/sys_master/root1/20260312/EPTa/69b27aba4970ce6a6e3c1cfc/nike_grey_men_air_max_bolt_sneakers.jpg"
-        },
-
-        {
-            id: "PRD12346",
-            name: "Puma Regular Fit T-Shirt",
-            seller: "Fashion Studio",
-            category: "Men Clothing",
-            price: 899,
-            stock: 40,
-            status: "Pending",
-          image:
-    "https://assets-jiocdn.ajio.com/medias/sys_master/root/20220405/blMY/624c3d62f997dd03e2482168/puma_green_multi_logo_graphic_men%27s_slim_fit_t-shirt.jpg"
-        },
-
-        {
-            id: "PRD12347",
-            name: "Colorbar Matte Lipstick",
-            seller: "Beauty Glam",
-            category: "Beauty",
-            price: 650,
-            stock: 32,
-            status: "Pending",
-            image:
-                "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=200&q=80"
-        },
-
-        {
-            id: "PRD12348",
-            name: "Samsung Galaxy Watch 6",
-            seller: "Tech World",
-            category: "Electronics",
-            price: 24999,
-            stock: 12,
-            status: "Pending",
-            image:
-                "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=200&q=80"
-        },
-
-        {
-            id: "PRD12349",
-            name: "Levi's 511 Slim Jeans",
-            seller: "Denim Store",
-            category: "Men Clothing",
-            price: 2599,
-            stock: 18,
-            status: "Approved",
-            image:
-                "https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=200&q=80"
-        },
-
-        {
-            id: "PRD12350",
-            name: "Adidas Backpack",
-            seller: "Sports Hub",
-            category: "Bags & Backpacks",
-            price: 1999,
-            stock: 20,
-            status: "Rejected",
-            image:
-                "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=200&q=80"
-        }
-
-    ];
 
 
-    // =========================================
-    // GET ADMIN EDITED DEFAULT PRODUCTS
-    // =========================================
-
-    const adminEditedProducts =
-        JSON.parse(
-            localStorage.getItem(
-                "adminEditedProducts"
-            )
-        ) || [];
 
 
-    // =========================================
-    // APPLY SAVED EDITS TO DEFAULT PRODUCTS
-    // =========================================
-
-    const updatedDefaultProducts =
-        defaultProducts.map((product) => {
-
-            const editedProduct =
-                adminEditedProducts.find(
-                    (item) =>
-                        String(item.id) ===
-                        String(product.id)
-                );
-
-            return editedProduct
-                ? {
-                    ...product,
-                    ...editedProduct
-                }
-                : product;
-
-        });
-
-
-    // =========================================
-    // GET SELLER CREATED PRODUCTS
-    // =========================================
-
-    const sellerCreatedProducts =
-        JSON.parse(
-            localStorage.getItem(
-                "sellerCreatedProducts"
-            )
-        ) || [];
-
-
-    // =========================================
-    // FORMAT SELLER PRODUCTS
-    // =========================================
-
-    const formattedSellerProducts =
-        sellerCreatedProducts.map((product) => ({
-
-            id: product.id,
-
-            name: product.name,
-
-            seller:
-                product.brand || "Seller",
-
-            category:
-                product.category,
-
-            price:
-                product.price ||
-                product.sellingPrice ||
-                0,
-
-            stock:
-                product.stock || 0,
-
-            status:
-                product.status || "Pending",
-
-            // Seller uploaded/entered product image
-            image:
-                product.image ||
-                product.img ||
-                ""
-
-        }));
-
-
+    
+   
     // =========================================
     // COMBINE ALL PRODUCTS
     // =========================================
 
-    const allProducts = [
-
-        ...updatedDefaultProducts,
-
-        ...formattedSellerProducts
-
-    ];
+   const allProducts = products.map((product) => ({
+    id: product._id,
+    name: product.name,
+    seller: product.sellerId?.name || "Seller",
+    category: product.category,
+    price: product.price,
+    stock: product.stock,
+ status: product.status || (product.approvedByAdmin ? "Approved" : "Pending"),
+    image: product.image
+}));
 
 
     // =========================================
