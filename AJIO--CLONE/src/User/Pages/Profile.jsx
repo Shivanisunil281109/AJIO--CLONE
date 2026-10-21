@@ -199,75 +199,73 @@ const Profile = () => {
   // UPDATE PASSWORD
   // ===========================
 
-  const handleUpdatePassword = () => {
-    // Check empty fields
-    if (!currentPassword || !newPassword || !confirmPassword) {
-      dispatch(
-        showToast({
-          message: "⚠️ Please fill all password fields.",
-          type: "error",
-        }),
-      );
-      return;
-    }
-
-    // Get current saved password
-    const savedPassword = localStorage.getItem("password");
-
-    // Check current password
-    if (savedPassword && currentPassword !== savedPassword) {
-      dispatch(
-        showToast({
-          message: "❌ Current password is incorrect.",
-          type: "error",
-        }),
-      );
-
-      return;
-    }
-
-    // Password validation
-    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
-
-    if (!passwordPattern.test(newPassword)) {
-      dispatch(
-        showToast({
-          message:
-            "⚠️ Password must be at least 8 characters and include uppercase, lowercase and a number.",
-          type: "error",
-        }),
-      );
-
-      return;
-    }
-
-    // Check confirm password
-    if (newPassword !== confirmPassword) {
-      dispatch(
-        showToast({
-          message: "❌ New password and confirm password do not match.",
-          type: "error",
-        }),
-      );
-
-      return;
-    }
-
-    // Save new password
-    localStorage.setItem("password", newPassword);
-
+ 
+const handleUpdatePassword = async () => {
+  if (!currentPassword || !newPassword || !confirmPassword) {
     dispatch(
       showToast({
-        message: "✅ Password updated successfully!",
-        type: "success",
-      }),
+        message: "⚠️ Please fill all password fields.",
+        type: "error",
+      })
     );
+    return;
+  }
 
-    // Clear fields
-    setCurrentPassword("");
-    setNewPassword("");
-    setConfirmPassword("");
-  };
+  const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+
+  if (!passwordPattern.test(newPassword)) {
+    dispatch(
+      showToast({
+        message:
+          "⚠️ Password must be at least 8 characters and include uppercase, lowercase and a number.",
+        type: "error",
+      })
+    );
+    return;
+  }
+
+  if (newPassword !== confirmPassword) {
+    dispatch(
+      showToast({
+        message: "❌ New password and confirm password do not match.",
+        type: "error",
+      })
+    );
+    return;
+  }
+
+  try {
+    const response = await api.put("/user/update-password", {
+      currentPassword,
+      newPassword,
+      confirmPassword,
+    });
+
+    if (response.data.success) {
+      dispatch(
+        showToast({
+          message: "✅ Password updated successfully!",
+          type: "success",
+        })
+      );
+
+      setCurrentPassword("");
+      setNewPassword("");
+      setConfirmPassword("");
+    }
+  } catch (error) {
+    dispatch(
+      showToast({
+        message:
+          error.response?.data?.message ||
+          "❌ Failed to update password.",
+        type: "error",
+      })
+    );
+  }
+};
+
+
 
   // ===========================
   // SAVE ADDRESS

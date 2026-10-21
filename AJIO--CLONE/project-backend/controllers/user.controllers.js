@@ -1,4 +1,6 @@
 import UserSchema from "../models/users.schema.js";
+import ProductSchema from "../models/product.schema.js";
+import bcrypt from "bcrypt";
 
 export const getUserProfile = async (req, res) => {
     try {
@@ -128,5 +130,107 @@ if (!firstName.trim() || !lastName.trim()) {
     });
 }
 
+};
 
+
+
+
+
+export const updatePassword = async (req, res) => {
+    try {
+        const userId = req.user._id;
+        const { currentPassword, newPassword, confirmPassword } = req.body;
+
+        if (!currentPassword || !newPassword || !confirmPassword) {
+            return res.status(400).json({
+                success: false,
+                message: "Please fill all password fields."
+            });
+        }
+
+        if (newPassword !== confirmPassword) {
+            return res.status(400).json({
+                success: false,
+                message: "New password and confirm password do not match."
+            });
+        }
+
+        if (
+            newPassword.length < 8 ||
+            !/[A-Z]/.test(newPassword) ||
+            !/[a-z]/.test(newPassword) ||
+            !/[0-9]/.test(newPassword)
+        ) {
+            return res.status(400).json({
+                success: false,
+                message: "Password must be at least 8 characters and include uppercase, lowercase and a number."
+            });
+        }
+
+        const user = await UserSchema.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found."
+            });
+        }
+
+        const isPasswordValid = await bcrypt.compare(
+            currentPassword,
+            user.password
+        );
+
+        if (!isPasswordValid) {
+            return res.status(401).json({
+                success: false,
+                message: "Current password is incorrect."
+            });
+        }
+
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+        user.password = hashedPassword;
+        await user.save();
+
+        return res.status(200).json({
+            success: true,
+            message: "Password updated successfully."
+        });
+
+    } catch (error) {
+        console.error("Update password error:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Failed to update password."
+        });
+    }
+};
+
+
+
+
+
+
+export const getAllProducts = async (req, res) => {
+    try {
+        const products = await ProductSchema.find({
+            approvedByAdmin: true,
+            stock: { $gt: 0 }
+        });
+
+        return res.status(200).json({
+            success: true,
+            products
+        });
+
+    } catch (error) {
+        console.error("Get all products error:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Failed to fetch products."
+        });
+    }
 };
