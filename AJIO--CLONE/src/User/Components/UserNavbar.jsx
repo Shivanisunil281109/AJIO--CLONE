@@ -50,6 +50,9 @@ const UserNavbar = () => {
     return savedCart.length;
   });
 
+
+  const [sellerCartCount, setSellerCartCount] = useState(0);
+
   // ================= UPDATE CART COUNT =================
 
   useEffect(() => {
@@ -71,6 +74,37 @@ const UserNavbar = () => {
       window.removeEventListener("cartUpdated", updateCartCount);
     };
   }, []);
+
+
+
+
+
+
+
+
+useEffect(() => {
+  const fetchSellerCartCount = async () => {
+    try {
+      const response = await api.get("/user/get-cart-products");
+
+      if (response.data.success) {
+        setSellerCartCount(response.data.products.length);
+      }
+    } catch (error) {
+      console.error("Seller cart count error:", error);
+    }
+  };
+
+  fetchSellerCartCount();
+
+  window.addEventListener("cartUpdated", fetchSellerCartCount);
+
+  return () => {
+    window.removeEventListener("cartUpdated", fetchSellerCartCount);
+  };
+}, []);
+
+
 
   return (
     <header className="header">
@@ -313,7 +347,14 @@ const UserNavbar = () => {
 
               {/* CART PRODUCT COUNT */}
 
-              {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
+              {cartCount + sellerCartCount > 0 && (
+  <span className="cart-count">
+    {cartCount + sellerCartCount}
+  </span>
+)}
+
+
+
             </Link>
           </div>
         </div>

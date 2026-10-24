@@ -787,7 +787,7 @@ const handleViewOrder = (order) => {
 
                                             Shivani Sonawane
                                             <br />
-
+                                            House no.246,
                                             Opposite Central Bank of India,
                                             <br />
 
