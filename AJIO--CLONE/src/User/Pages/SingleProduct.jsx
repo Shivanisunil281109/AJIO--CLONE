@@ -13,9 +13,13 @@ const SingleProduct = () => {
   
 const addToCart = async () => {
     try {
-        const response = await api.get(
-            `/user/add-to-cart/${productId}`
-        );
+
+
+       const response = await api.post(
+  `/user/add-to-cart/${productId}`
+);
+
+
 
         if (response.data.success) {
              window.dispatchEvent(new Event("cartUpdated"));

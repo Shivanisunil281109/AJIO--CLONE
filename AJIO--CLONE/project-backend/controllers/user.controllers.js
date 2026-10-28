@@ -1,6 +1,8 @@
 import UserSchema from "../models/users.schema.js";
 import ProductSchema from "../models/product.schema.js";
 import CartSchema from "../models/cart.schema.js";
+import Address from "../models/address.schema.js";
+import OrderSchema from "../models/orders.schema.js";
 import bcrypt from "bcrypt";
 
 export const getUserProfile = async (req, res) => {
@@ -370,6 +372,11 @@ export const getCartProducts = async (req, res) => {
         const cart = await CartSchema.findOne({ user: userId })
             .populate("products.product");
 
+            console.log(
+  "Cart products:",
+  JSON.stringify(cart?.products, null, 2)
+);
+
         if (!cart) {
             return res.status(200).json({
                 success: true,
@@ -474,6 +481,9 @@ export const removeFromCart = async (req, res) => {
 
 
 
+
+
+
 export const updateCartProduct = async (req, res) => {
     try {
         const { productId } = req.params;
@@ -548,4 +558,344 @@ export const updateCartProduct = async (req, res) => {
             message: "Failed to update cart product."
         });
     }
+};
+
+
+
+
+
+// CREATE ADDRESS
+export const createAddress = async (req, res) => {
+    try {
+        const userId = req.user._id;
+
+        const {
+            name,
+            mobile,
+            pincode,
+            locality,
+            building,
+            landmark,
+            city,
+            state,
+            addressType,
+            isDefault,
+        } = req.body;
+
+        if (
+            !name?.trim() ||
+            !mobile?.trim() ||
+            !pincode?.trim() ||
+            !locality?.trim() ||
+            !building?.trim() ||
+            !landmark?.trim() ||
+            !city?.trim() ||
+            !state?.trim()
+        ) {
+            return res.status(400).json({
+                success: false,
+                message: "Please fill all address fields.",
+            });
+        }
+
+        if (!/^[6-9]\d{9}$/.test(mobile.trim())) {
+            return res.status(400).json({
+                success: false,
+                message: "Please enter a valid 10-digit mobile number.",
+            });
+        }
+
+        if (!/^\d{6}$/.test(pincode.trim())) {
+            return res.status(400).json({
+                success: false,
+                message: "Please enter a valid 6-digit pincode.",
+            });
+        }
+
+        if (isDefault) {
+            await Address.updateMany(
+                { user: userId },
+                { $set: { isDefault: false } }
+            );
+        }
+
+        const address = new Address({
+            user: userId,
+            name: name.trim(),
+            mobile: mobile.trim(),
+            pincode: pincode.trim(),
+            locality: locality.trim(),
+            building: building.trim(),
+            landmark: landmark.trim(),
+            city: city.trim(),
+            state: state.trim(),
+            addressType: addressType || "Home",
+            isDefault: Boolean(isDefault),
+        });
+
+        await address.save();
+
+        return res.status(201).json({
+            success: true,
+            message: "Address saved successfully.",
+            address,
+        });
+    } catch (error) {
+        console.error("Create address error:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Failed to save address.",
+        });
+    }
+};
+
+
+
+
+
+
+// GET ALL ADDRESSES
+export const getAddresses = async (req, res) => {
+    try {
+        const userId = req.user._id;
+
+        const addresses = await Address.find({ user: userId })
+            .populate("user", "name email mobile")
+            .sort({ createdAt: -1 });
+
+        return res.status(200).json({
+            success: true,
+            addresses,
+        });
+    } catch (error) {
+        console.error("Get addresses error:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Failed to fetch addresses.",
+        });
+    }
+};
+
+
+
+
+
+
+
+
+//placeOrder
+
+export const placeOrder = async (req, res) => {
+  try {
+    const userId = req.user._id;
+  const {
+  addressId,
+  normalProducts = [],
+  paymentMode = "Not specified",
+} = req.body;
+
+    if (!addressId) {
+      return res.status(400).json({
+        success: false,
+        message: "Please select a delivery address.",
+      });
+    }
+
+
+if (!Array.isArray(normalProducts)) {
+  return res.status(400).json({
+    success: false,
+    message: "Invalid normal products data.",
+  });
+}
+
+    const address = await Address.findOne({
+      _id: addressId,
+      user: userId,
+    });
+
+    if (!address) {
+      return res.status(404).json({
+        success: false,
+        message: "Delivery address not found.",
+      });
+    }
+
+    const cart = await CartSchema.findOne({
+      user: userId,
+    }).populate("products.product");
+
+   
+
+    const orderProducts = [];
+    let totalPrice = 0;
+
+    for (const item of normalProducts) {
+  if (
+    !item.id ||
+    !item.name ||
+    !item.image ||
+    !Number.isFinite(Number(item.price)) ||
+    Number(item.price) <= 0 ||
+    !Number.isInteger(Number(item.quantity)) ||
+    Number(item.quantity) < 1
+  ) {
+    return res.status(400).json({
+      success: false,
+      message: "Invalid normal product details.",
+    });
+  }
+
+  orderProducts.push({
+    normalProductId: Number(item.id),
+    name: item.name,
+    image: item.image,
+    price: Number(item.price),
+    quantity: Number(item.quantity),
+    selectedSize: item.selectedSize || "M",
+  });
+
+  totalPrice += Number(item.price) * Number(item.quantity);
+}
+
+   for (const item of cart?.products || []) {
+  const product = item.product;
+
+  if (!product) {
+    continue;
+  }
+
+
+
+
+
+      if (product.stock < item.quantity) {
+        return res.status(400).json({
+          success: false,
+          message: `Insufficient stock for ${product.name}.`,
+        });
+      }
+
+orderProducts.push({
+  productId: product._id,
+  name: product.name,
+  image: product.image,
+  price: product.price,
+  quantity: item.quantity,
+  selectedSize: item.selectedSize,
+});
+
+
+      totalPrice += product.price * item.quantity;
+    }
+
+     const order = await OrderSchema.create({
+      user: userId,
+      paymentMode: paymentMode,
+      products: orderProducts,
+      address: {
+        name: address.name,
+        mobile: address.mobile,
+        pincode: address.pincode,
+        locality: address.locality,
+        building: address.building,
+        landmark: address.landmark,
+        city: address.city,
+        state: address.state,
+       addressType: address.addressType,
+        addressId: address._id.toString(),
+      },
+     total_price: totalPrice + (orderProducts.length > 0 ? 23 : 0),
+      payment_status: "unpaid",
+    });
+
+
+   
+for (const item of cart?.products || []) {
+  if (!item.product?._id) {
+    continue;
+  }
+
+  await ProductSchema.findByIdAndUpdate(item.product._id, {
+    $inc: { stock: -item.quantity },
+  });
+}
+
+
+    if (cart) {
+  cart.products = [];
+  await cart.save();
+}
+
+    return res.status(201).json({
+      success: true,
+      message: "Order placed successfully.",
+      order,
+    });
+  } catch (error) {
+    console.error("Place order error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to place order.",
+    });
+  }
+};
+
+
+
+
+
+
+
+
+
+
+ // Get User Orders
+export const getUserOrders = async (req, res) => {
+  try {
+    const userId = req.user._id;
+
+    const orders = await OrderSchema.find({
+      user: userId,
+    }).sort({ createdAt: -1 });
+
+    const formattedOrders = orders.map((order) => ({
+      orderId: order._id.toString(),
+      orderDate: order.createdAt
+        ? new Date(order.createdAt).toLocaleDateString("en-GB")
+        : "",
+      deliveryDate: "",
+      paymentMode: "Not specified",
+      status:
+        order.delivery_status === "delivered"
+          ? "Delivered"
+          : order.delivery_status === "dispatched"
+          ? "Dispatched"
+          : "Confirmed",
+      totalAmount: order.total_price,
+      products: order.products.map((item) => ({
+        id: item.productId?.toString() || item.normalProductId,
+        name: item.name,
+        image: item.image,
+        price: `₹${item.price}`,
+        quantity: item.quantity,
+        selectedSize: item.selectedSize || "M",
+      })),
+    }));
+
+    return res.status(200).json({
+      success: true,
+      orders: formattedOrders,
+    });
+  } catch (error) {
+    console.error("Get user orders error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to fetch orders.",
+    });
+  }
 };

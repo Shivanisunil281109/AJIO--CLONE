@@ -514,6 +514,7 @@ const Cart = () => {
                             handleSizeChange(item.id, e.target.value)
                           }
                         >
+
                           <option value="S">S</option>
 
                           <option value="M">M</option>
@@ -770,7 +771,7 @@ const Cart = () => {
 
               <button
                 className="cart-shipping-btn"
-                onClick={() => navigate("/Payment")}
+         onClick={() => navigate("/delivery-details")}
               >
                 PROCEED TO SHIPPING
               </button>

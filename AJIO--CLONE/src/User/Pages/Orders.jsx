@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { showToast } from "../../redux/toastSlice";
+import api from "../../config/axiosConfig";
 import "../CSS/Orders.css";
 
 const Orders = () => {
@@ -32,6 +33,54 @@ const [orderStatus, setOrderStatus] = useState("Confirmed");
 
     useEffect(() => {
 
+
+        let isMounted = true;
+
+
+          
+
+
+
+
+api.get("/user/get-orders")
+  .then((response) => {
+    if (!isMounted) return;
+
+    console.log("Backend orders:", response.data);
+
+    if (response.data.success && response.data.orders?.length > 0) {
+      const backendOrders = response.data.orders;
+      setOrders(backendOrders);
+
+      const savedOrderId = JSON.parse(
+        localStorage.getItem("orders") || "[]"
+      );
+
+      const currentOrders = Array.isArray(savedOrderId)
+        ? savedOrderId
+        : [savedOrderId];
+
+      const matchingOrder = backendOrders.find(
+        (order) =>
+          order.orderId === currentOrders[0]?.orderId ||
+          order.orderId === currentOrders[0]?._id
+      );
+
+      const selectedOrder = matchingOrder || backendOrders[0];
+
+      setOrderData(selectedOrder);
+      setCartItems(selectedOrder.products || []);
+      setOrderStatus(selectedOrder.status || "Confirmed");
+    }
+  })
+  .catch((error) => {
+    console.error("Failed to fetch orders:", error);
+  });
+
+
+
+
+
     const savedOrders =
         JSON.parse(localStorage.getItem("orders")) || [];
 
@@ -49,6 +98,8 @@ const [orderStatus, setOrderStatus] = useState("Confirmed");
     setOrderData(savedOrder);
 
     setCartItems(savedOrder.products || []);
+
+    
 
 
         // =====================================================

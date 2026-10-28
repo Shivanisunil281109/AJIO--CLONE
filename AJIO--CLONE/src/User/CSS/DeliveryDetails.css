@@ -1,0 +1,546 @@
+
+/* ================================
+   DELIVERY DETAILS PAGE
+================================ */
+
+.delivery-details-page {
+    max-width: 1100px;
+    margin: 35px auto;
+    padding: 25px;
+    color: #2c4053;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+}
+
+.delivery-details-page * {
+    box-sizing: border-box;
+}
+
+.delivery-heading {
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.delivery-heading h2 {
+    margin: 0 0 8px;
+    font-size: 28px;
+    color: #2c4053;
+}
+
+.delivery-heading p {
+    margin: 0;
+    color: #666;
+    font-size: 14px;
+}
+
+.delivery-content {
+    margin-top: 25px;
+}
+
+.delivery-address-section {
+    width: 100%;
+}
+
+/* ================================
+   SECTION HEADING
+================================ */
+
+.delivery-section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.delivery-section-heading h3 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.delivery-add-btn,
+.delivery-continue-btn {
+    background: #a4822c;
+    color: white;
+    border: none;
+    padding: 13px 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.delivery-add-btn:hover,
+.delivery-continue-btn:hover {
+    background: #8c6d21;
+}
+
+/* ================================
+   EMPTY ADDRESS
+================================ */
+
+.delivery-empty {
+    padding: 20px;
+    border: 1px solid #ddd;
+    color: #666;
+    font-size: 14px;
+    background: #fff;
+}
+
+/* ================================
+   SAVED ADDRESSES
+================================ */
+
+.delivery-saved-addresses {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.delivery-saved-card {
+    padding: 22px;
+    border: 1px solid #ddd;
+    background: #fff;
+}
+
+.delivery-saved-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.delivery-saved-header h4 {
+    margin: 0;
+    font-size: 16px;
+    color: #222;
+}
+
+.delivery-address-type-badge {
+    padding: 5px 10px;
+    background: #f2ead6;
+    color: #725819;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.delivery-default-label {
+    margin: 0 0 10px;
+    color: #a4822c;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.delivery-saved-card p {
+    margin: 6px 0;
+    color: #555;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.delivery-delete-btn {
+    margin-top: 12px;
+    padding: 8px 14px;
+    background: transparent;
+    color: #2c4053;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.delivery-delete-btn:hover {
+    border-color: #a4822c;
+    color: #a4822c;
+}
+
+/* ================================
+   ADDRESS FORM CONTAINER
+   Similar to Profile Address Book
+================================ */
+
+.delivery-address-form {
+    width: 100%;
+    margin-top: 20px;
+    padding: 30px;
+    border: 1px solid #ddd;
+    border-radius: 0;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+/* ================================
+   FORM HEADER
+================================ */
+
+.delivery-form-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.delivery-form-header h3 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 400;
+    color: #111;
+}
+
+.delivery-close-btn {
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: #777;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.delivery-close-btn:hover {
+    color: #111;
+}
+
+/* ================================
+   TWO-COLUMN FORM ROW
+================================ */
+
+.delivery-form-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 25px;
+    row-gap: 0;
+    margin-bottom: 20px;
+}
+
+.delivery-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    min-width: 0;
+}
+
+.delivery-form-group label {
+    font-size: 13px;
+    color: #444;
+}
+
+.delivery-form-group input {
+    width: 100%;
+    height: 45px;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 0;
+    background: #fff;
+    color: #222;
+    font-size: 14px;
+    outline: none;
+}
+
+.delivery-form-group input:focus {
+    border-color: #a4822c;
+}
+
+/* ================================
+   ADDRESS TYPE
+================================ */
+
+.delivery-address-type-section {
+    margin-top: 3px;
+    margin-bottom: 25px;
+}
+
+.delivery-address-type-title {
+    display: block;
+    margin-bottom: 12px;
+    font-size: 13px;
+    color: #444;
+}
+
+.delivery-address-type-options {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
+.delivery-address-type-options label {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: #333;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.delivery-address-type-options input {
+    margin: 0;
+    accent-color: #a4822c;
+    cursor: pointer;
+}
+
+/* ================================
+   DEFAULT ADDRESS CHECKBOX
+================================ */
+
+.delivery-default-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 25px;
+    color: #333;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.delivery-default-checkbox input {
+    margin: 0;
+    accent-color: #a4822c;
+    cursor: pointer;
+}
+
+/* ================================
+   FORM BUTTONS
+================================ */
+
+.delivery-form-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.delivery-form-buttons button {
+    min-width: 150px;
+    min-height: 45px;
+    padding: 12px 20px;
+    border: 1px solid #a4822c;
+    border-radius: 0;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.delivery-cancel-btn {
+    background: #fff;
+    color: #444;
+    border-color: #ccc !important;
+}
+
+.delivery-cancel-btn:hover {
+    background: #f5f5f5;
+}
+
+.delivery-save-btn {
+    background: #a4822c;
+    color: #fff;
+}
+
+.delivery-save-btn:hover {
+    background: #856820;
+}
+
+/* ================================
+   CONTINUE TO PAYMENT
+================================ */
+
+.delivery-continue-section {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 25px;
+}
+
+
+
+
+
+
+
+
+
+/* ================================
+   RESPONSIVE DESIGN
+================================ */
+
+
+/* ================================
+   TABLET RESPONSIVE
+   768px - 1024px
+================================ */
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .delivery-details-page {
+        width: 100%;
+        max-width: 100%;
+        margin: 25px auto;
+        padding: 20px;
+    }
+
+    .delivery-heading h2 {
+        font-size: 26px;
+    }
+
+    .delivery-saved-addresses {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+    }
+
+    .delivery-saved-card {
+        min-width: 0;
+        padding: 18px;
+        overflow-wrap: anywhere;
+    }
+
+    .delivery-address-form {
+        padding: 24px;
+    }
+
+    .delivery-form-row {
+        column-gap: 18px;
+    }
+
+    .delivery-form-buttons button {
+        min-width: 130px;
+    }
+
+    .delivery-continue-section {
+        margin-top: 22px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+/* ================================
+   MOBILE RESPONSIVE
+   767px and below
+================================ */
+
+@media (max-width: 767px) {
+    .delivery-details-page {
+        width: 100%;
+        max-width: 100%;
+        margin: 15px auto;
+        padding: 14px;
+    }
+
+    .delivery-heading {
+        padding-bottom: 15px;
+    }
+
+    .delivery-heading h2 {
+        font-size: 22px;
+    }
+
+    .delivery-heading p {
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
+    .delivery-content {
+        margin-top: 20px;
+    }
+
+    .delivery-section-heading {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .delivery-section-heading h3 {
+        font-size: 19px;
+    }
+
+    .delivery-add-btn,
+    .delivery-continue-btn {
+        width: 100%;
+        padding: 12px 14px;
+        font-size: 13px;
+    }
+
+    .delivery-saved-addresses {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 14px;
+    }
+
+    .delivery-saved-card {
+        width: 100%;
+        min-width: 0;
+        padding: 16px;
+        overflow-wrap: anywhere;
+    }
+
+    .delivery-saved-header {
+        align-items: flex-start;
+    }
+
+    .delivery-saved-header h4 {
+        font-size: 15px;
+        overflow-wrap: anywhere;
+    }
+
+    .delivery-saved-card p {
+        font-size: 13px;
+    }
+
+    .delivery-address-form {
+        padding: 18px 14px;
+    }
+
+    .delivery-form-header {
+        margin-bottom: 22px;
+    }
+
+    .delivery-form-header h3 {
+        font-size: 20px;
+    }
+
+    .delivery-form-row {
+        grid-template-columns: minmax(0, 1fr);
+        row-gap: 16px;
+        margin-bottom: 16px;
+    }
+
+    .delivery-form-group {
+        width: 100%;
+    }
+
+    .delivery-form-group input {
+        width: 100%;
+        height: 44px;
+        font-size: 16px;
+    }
+
+    .delivery-address-type-options {
+        gap: 16px;
+    }
+
+    .delivery-default-checkbox {
+        align-items: flex-start;
+        line-height: 1.5;
+    }
+
+    .delivery-form-buttons {
+        flex-direction: column-reverse;
+        gap: 10px;
+    }
+
+    .delivery-form-buttons button {
+        width: 100%;
+        min-width: 0;
+        min-height: 44px;
+    }
+
+    .delivery-continue-section {
+        margin-top: 20px;
+    }
+}

@@ -1,1195 +1,949 @@
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { showToast } from "../../redux/toastSlice";
+import api from "../../config/axiosConfig";
 import "../CSS/Payment.css";
 
 const Payment = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+const selectedAddress = location.state?.selectedAddress;
 
-    const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-    const dispatch = useDispatch();
+  // =====================================================
+  // PAYMENT MODE STATE
+  // =====================================================
 
-    // =====================================================
-    // PAYMENT MODE STATE
-    // =====================================================
+  const [selectedMode, setSelectedMode] = useState("Credit/ Debit Card");
 
-    const [selectedMode, setSelectedMode] = useState("Credit/ Debit Card");
+  // =====================================================
+  // CART STATE
+  // =====================================================
 
-    // =====================================================
-    // CART STATE
-    // =====================================================
+  const [cartItems, setCartItems] = useState([]);
 
-    const [cartItems, setCartItems] = useState([]);
+  const [sellerCartItems, setSellerCartItems] = useState([]);
 
-    // =====================================================
-    // CARD STATES
-    // =====================================================
+  // =====================================================
+  // CARD STATES
+  // =====================================================
 
-    const [cardNumber, setCardNumber] = useState("");
-    const [cardName, setCardName] = useState("");
-    const [cardMonth, setCardMonth] = useState("");
-    const [cardYear, setCardYear] = useState("");
-    const [cvv, setCvv] = useState("");
+  const [cardNumber, setCardNumber] = useState("");
+  const [cardName, setCardName] = useState("");
+  const [cardMonth, setCardMonth] = useState("");
+  const [cardYear, setCardYear] = useState("");
+  const [cvv, setCvv] = useState("");
 
-    // =====================================================
-    // ERROR STATE
-    // =====================================================
+  // =====================================================
+  // ERROR STATE
+  // =====================================================
 
-    const [error, setError] = useState("");
+  const [error, setError] = useState("");
 
-    // =====================================================
-    // UPI STATE
-    // =====================================================
+  // =====================================================
+  // UPI STATE
+  // =====================================================
 
-    const [upiId, setUpiId] = useState("");
+  const [upiId, setUpiId] = useState("");
 
-    // =====================================================
-    // OTHER PAYMENT STATES
-    // =====================================================
+  // =====================================================
+  // OTHER PAYMENT STATES
+  // =====================================================
 
-    const [selectedBank, setSelectedBank] = useState("");
-    const [selectedWallet, setSelectedWallet] = useState("");
-    const [selectedEMI, setSelectedEMI] = useState("");
+  const [selectedBank, setSelectedBank] = useState("");
+  const [selectedWallet, setSelectedWallet] = useState("");
+  const [selectedEMI, setSelectedEMI] = useState("");
 
-    // =====================================================
-    // GET CART ITEMS
-    // =====================================================
+  // =====================================================
+  // GET CART ITEMS
+  // =====================================================
 
-    useEffect(() => {
+  useEffect(() => {
+    const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
 
-        const savedCart =
-            JSON.parse(localStorage.getItem("cart")) || [];
+    setCartItems(savedCart);
+  }, []);
 
-        setCartItems(savedCart);
+  useEffect(() => {
+    const fetchSellerCart = async () => {
+      try {
+        const response = await api.get("/user/get-cart-products");
 
-    }, []);
+        if (response.data.success) {
+          setSellerCartItems(response.data.products);
+        }
+      } catch (error) {
+        console.error("Fetch seller cart error:", error);
+      }
+    };
 
-    // =====================================================
-    // BAG TOTAL
-    // =====================================================
+    fetchSellerCart();
+  }, []);
 
-    const bagTotal = cartItems.reduce((total, item) => {
+  // =====================================================
+  // BAG TOTAL
+  // =====================================================
 
+
+const bagTotal =
+    cartItems.reduce((total, item) => {
         const price = Number(
-            String(item.price).replace(/[^\d.]/g, "")
+            String(item.price || 0).replace(/[^\d.]/g, "")
         );
 
-        const quantity = item.quantity || 1;
+        const quantity = Number(item.quantity) || 1;
 
         return total + price * quantity;
-
-    }, 0);
-
-    // =====================================================
-    // BAG DISCOUNT
-    // =====================================================
-
-    const bagDiscount = cartItems.reduce((total, item) => {
-
-        const oldPrice = Number(
-            String(item.oldPrice || item.price)
-                .replace(/[^\d.]/g, "")
-        );
-
+    }, 0) +
+    sellerCartItems.reduce((total, item) => {
         const price = Number(
-            String(item.price)
-                .replace(/[^\d.]/g, "")
+            String(item.price || 0).replace(/[^\d.]/g, "")
         );
 
-        const quantity = item.quantity || 1;
+        const quantity = Number(item.quantity) || 1;
 
-        return total +
-            Math.max(oldPrice - price, 0) * quantity;
-
+        return total + price * quantity;
     }, 0);
 
-    // =====================================================
-    // FEES
-    // =====================================================
+  // =====================================================
+  // BAG DISCOUNT
+  // =====================================================
+
+  const bagDiscount = cartItems.reduce((total, item) => {
+    const oldPrice = Number(
+      String(item.oldPrice || item.price).replace(/[^\d.]/g, ""),
+    );
+
+    const price = Number(String(item.price).replace(/[^\d.]/g, ""));
+
+    const quantity = item.quantity || 1;
+
+    return total + Math.max(oldPrice - price, 0) * quantity;
+  }, 0);
+
+  // =====================================================
+  // FEES
+  // =====================================================
+const platformFee =
+  cartItems.length > 0 || sellerCartItems.length > 0 ? 23 : 0;
+
+  const deliveryFee = 0;
+
+  // =====================================================
+  // FINAL ORDER TOTAL
+  // =====================================================
+  // IMPORTANT:
+  // bagTotal is already the actual selling price.
+  // Do NOT subtract bagDiscount again.
+  // =====================================================
+
+  const orderTotal = bagTotal + platformFee + deliveryFee;
+
+  // =====================================================
+  // CARD VALIDATION
+  // =====================================================
+
+  const validateCard = () => {
+    if (!cardNumber) {
+      setError("Please enter card number.");
+      return false;
+    }
+
+    if (cardNumber.length !== 16) {
+      setError("Card number must contain 16 digits.");
+      return false;
+    }
 
-    const platformFee =
-        cartItems.length > 0 ? 23 : 0;
+    if (!cardName.trim()) {
+      setError("Please enter name on card.");
+      return false;
+    }
 
-    const deliveryFee = 0;
+    if (!cardMonth) {
+      setError("Please select expiration month.");
+      return false;
+    }
 
-    // =====================================================
-    // FINAL ORDER TOTAL
-    // =====================================================
-    // IMPORTANT:
-    // bagTotal is already the actual selling price.
-    // Do NOT subtract bagDiscount again.
-    // =====================================================
+    if (!cardYear) {
+      setError("Please select expiration year.");
+      return false;
+    }
 
-    const orderTotal =
-        bagTotal + platformFee + deliveryFee;
+    if (!cvv) {
+      setError("Please enter CVV.");
+      return false;
+    }
 
-    // =====================================================
-    // CARD VALIDATION
-    // =====================================================
+    if (cvv.length !== 3) {
+      setError("CVV must contain 3 digits.");
+      return false;
+    }
 
-    const validateCard = () => {
+    setError("");
 
-        if (!cardNumber) {
-            setError("Please enter card number.");
-            return false;
-        }
+    return true;
+  };
 
-        if (cardNumber.length !== 16) {
-            setError("Card number must contain 16 digits.");
-            return false;
-        }
+  // =====================================================
+  // UPI VALIDATION
+  // =====================================================
 
-        if (!cardName.trim()) {
-            setError("Please enter name on card.");
-            return false;
-        }
+  const validateUPI = () => {
+    if (!upiId.trim()) {
+      setError("Please enter UPI ID.");
+      return false;
+    }
 
-        if (!cardMonth) {
-            setError("Please select expiration month.");
-            return false;
-        }
+    if (!upiId.includes("@")) {
+      setError("Please enter a valid UPI ID.");
+      return false;
+    }
+
+    setError("");
 
-        if (!cardYear) {
-            setError("Please select expiration year.");
-            return false;
-        }
+    return true;
+  };
 
-        if (!cvv) {
-            setError("Please enter CVV.");
-            return false;
-        }
+  // =====================================================
+  // NETBANKING VALIDATION
+  // =====================================================
 
-        if (cvv.length !== 3) {
-            setError("CVV must contain 3 digits.");
-            return false;
-        }
+  const validateNetBanking = () => {
+    if (!selectedBank) {
+      setError("Please select a bank.");
+      return false;
+    }
 
-        setError("");
+    setError("");
 
-        return true;
-    };
+    return true;
+  };
 
-    // =====================================================
-    // UPI VALIDATION
-    // =====================================================
+  // =====================================================
+  // WALLET VALIDATION
+  // =====================================================
 
-    const validateUPI = () => {
+  const validateWallet = () => {
+    if (!selectedWallet) {
+      setError("Please select a wallet.");
+      return false;
+    }
 
-        if (!upiId.trim()) {
-            setError("Please enter UPI ID.");
-            return false;
-        }
+    setError("");
 
-        if (!upiId.includes("@")) {
-            setError("Please enter a valid UPI ID.");
-            return false;
-        }
+    return true;
+  };
 
-        setError("");
+  // =====================================================
+  // EMI VALIDATION
+  // =====================================================
 
-        return true;
-    };
+  const validateEMI = () => {
+    if (!selectedEMI) {
+      setError("Please select an EMI plan.");
+      return false;
+    }
 
-    // =====================================================
-    // NETBANKING VALIDATION
-    // =====================================================
+    setError("");
 
-    const validateNetBanking = () => {
+    return true;
+  };
 
-        if (!selectedBank) {
-            setError("Please select a bank.");
-            return false;
-        }
+  // =====================================================
+  // PAY BUTTON HANDLER
+  // =====================================================
 
-        setError("");
+ const handlePayment = async () => {
+    setError("");
 
-        return true;
-    };
+    let isValid = false;
 
-    // =====================================================
-    // WALLET VALIDATION
-    // =====================================================
+    if (selectedMode === "Credit/ Debit Card") {
+      isValid = validateCard();
+    }
 
-    const validateWallet = () => {
+    if (selectedMode === "UPI") {
+      isValid = validateUPI();
+    }
 
-        if (!selectedWallet) {
-            setError("Please select a wallet.");
-            return false;
-        }
+    if (selectedMode === "NetBanking") {
+      isValid = validateNetBanking();
+    }
 
-        setError("");
+    if (selectedMode === "Wallet") {
+      isValid = validateWallet();
+    }
 
-        return true;
-    };
+    if (selectedMode === "EMI") {
+      isValid = validateEMI();
+    }
 
-    // =====================================================
-    // EMI VALIDATION
-    // =====================================================
+    if (selectedMode === "Cash on Delivery") {
+      setError("");
+      isValid = true;
+    }
 
-    const validateEMI = () => {
+    // =================================================
+    // PAYMENT SUCCESS
+    // =================================================
 
-        if (!selectedEMI) {
-            setError("Please select an EMI plan.");
-            return false;
-        }
+    if (isValid) {
 
-        setError("");
 
-        return true;
-    };
+  if (isValid && !selectedAddress?._id) {
+  dispatch(
+    showToast({
+      message: "⚠️ Please select a delivery address.",
+      type: "error",
+    }),
+  );
+  return;
+}
 
-    // =====================================================
-    // PAY BUTTON HANDLER
-    // =====================================================
 
-    const handlePayment = () => {
 
-        setError("");
 
-        let isValid = false;
+      const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
 
-        if (selectedMode === "Credit/ Debit Card") {
-            isValid = validateCard();
-        }
+const normalProducts = cartItems.map((item) => ({
 
-        if (selectedMode === "UPI") {
-            isValid = validateUPI();
-        }
+  id: item.id,
+  name: item.name,
+  image: item.image || item.mainImage,
+  price: Number(String(item.price || 0).replace(/[^\d.]/g, "")),
+  quantity: Number(item.quantity) || 1,
+  selectedSize: item.selectedSize || item.size || "M",
+}));
 
-        if (selectedMode === "NetBanking") {
-            isValid = validateNetBanking();
-        }
 
-        if (selectedMode === "Wallet") {
-            isValid = validateWallet();
-        }
 
-        if (selectedMode === "EMI") {
-            isValid = validateEMI();
-        }
+const response = await api.post("/user/place-order", {
+  addressId: selectedAddress._id,
+  normalProducts,
+  paymentMode: selectedMode,
+});
 
-        if (selectedMode === "Cash on Delivery") {
-            setError("");
-            isValid = true;
-        }
+if (!response.data.success) {
+  dispatch(
+    showToast({
+      message: response.data.message || "❌ Failed to place order.",
+      type: "error",
+    }),
+  );
+  return;
+}
+    
 
-        // =================================================
-        // PAYMENT SUCCESS
-        // =================================================
 
-        if (isValid) {
+      const orderDate = new Date();
 
-            const cartItems =
-                JSON.parse(localStorage.getItem("cart")) || [];
+      const deliveryDate = new Date(orderDate);
 
-            const orderDate = new Date();
+      deliveryDate.setDate(orderDate.getDate() + 5);
 
-            const deliveryDate = new Date(orderDate);
+      const orderData = {
+        orderId: "AJIO" + Date.now(),
 
-            deliveryDate.setDate(
-                orderDate.getDate() + 5
-            );
+        orderDate: orderDate.toLocaleDateString("en-IN"),
 
-            const orderData = {
+        deliveryDate: deliveryDate.toLocaleDateString("en-IN"),
 
-                orderId: "AJIO" + Date.now(),
+        paymentMode: selectedMode,
 
-                orderDate:
-                    orderDate.toLocaleDateString("en-IN"),
+        totalAmount: orderTotal,
 
-                deliveryDate:
-                    deliveryDate.toLocaleDateString("en-IN"),
+        status: "Confirmed",
 
-                paymentMode: selectedMode,
+        products: cartItems,
+      };
 
-                totalAmount: orderTotal,
+      // GET PREVIOUS ORDERS
 
+      const previousOrders = JSON.parse(localStorage.getItem("orders")) || [];
 
-                  status: "Confirmed",
-                  
-                products: cartItems
-            };
+      // CONVERT OLD SINGLE ORDER FORMAT TO ARRAY
 
-
-            
-            // GET PREVIOUS ORDERS
-
-const previousOrders =
-    JSON.parse(localStorage.getItem("orders")) || [];
-
-
-// CONVERT OLD SINGLE ORDER FORMAT TO ARRAY
-
-const ordersArray =
-    Array.isArray(previousOrders)
+      const ordersArray = Array.isArray(previousOrders)
         ? previousOrders
         : previousOrders.orderId
-            ? [previousOrders]
-            : [];
+          ? [previousOrders]
+          : [];
 
+      // ADD NEW ORDER AT THE BEGINNING
 
-// ADD NEW ORDER AT THE BEGINNING
+      const updatedOrders = [orderData, ...ordersArray];
 
-const updatedOrders = [
-    orderData,
-    ...ordersArray
-];
+      // SAVE ALL ORDERS
 
+      localStorage.setItem("orders", JSON.stringify(updatedOrders));
 
-// SAVE ALL ORDERS
+      // CLEAR CART
 
-localStorage.setItem(
-    "orders",
-    JSON.stringify(updatedOrders)
-);
+      localStorage.removeItem("cart");
 
+      // UPDATE NAVBAR CART COUNT
 
-// CLEAR CART
+      window.dispatchEvent(new Event("cartUpdated"));
 
-localStorage.removeItem("cart");
+      dispatch(
+        showToast({
+          message: "✅ Order placed successfully!",
+          type: "success",
+        }),
+      );
 
+      // OPEN ORDERS PAGE
 
-// UPDATE NAVBAR CART COUNT
+      navigate("/orders");
+    }
+  };
 
-window.dispatchEvent(
-    new Event("cartUpdated")
-);
-
-
-dispatch(
-    showToast({
-        message: "✅ Order placed successfully!",
-        type: "success"
-    })
-);
-
-// OPEN ORDERS PAGE
-
-navigate("/orders");
-
-
-
-        }
-    };
-
-    return (
-
-        <div className="payment-page">
-
-            {/* =====================================================
+  return (
+    <div className="payment-page">
+      {/* =====================================================
                         PAYMENT FEATURES
             ====================================================== */}
 
-            <div className="payment-feature-header">
+      <div className="payment-feature-header">
+        <div className="payment-feature-item">
+          <i className="fa-regular fa-circle-check"></i>
+          <span>SECURE PAYMENTS</span>
+        </div>
 
-                <div className="payment-feature-item">
-                    <i className="fa-regular fa-circle-check"></i>
-                    <span>SECURE PAYMENTS</span>
-                </div>
+        <div className="payment-feature-item">
+          <i className="fa-solid fa-indian-rupee-sign"></i>
+          <span>CASH ON DELIVERY</span>
+        </div>
 
-                <div className="payment-feature-item">
-                    <i className="fa-solid fa-indian-rupee-sign"></i>
-                    <span>CASH ON DELIVERY</span>
-                </div>
+        <div className="payment-feature-item">
+          <i className="fa-solid fa-award"></i>
+          <span>ASSURED QUALITY</span>
+        </div>
 
-                <div className="payment-feature-item">
-                    <i className="fa-solid fa-award"></i>
-                    <span>ASSURED QUALITY</span>
-                </div>
+        <div className="payment-feature-item">
+          <i className="fa-solid fa-rotate-left"></i>
+          <span>EASY RETURNS</span>
+        </div>
+      </div>
 
-                <div className="payment-feature-item">
-                    <i className="fa-solid fa-rotate-left"></i>
-                    <span>EASY RETURNS</span>
-                </div>
-
-            </div>
-
-            {/* =====================================================
+      {/* =====================================================
                         MAIN PAYMENT AREA
             ====================================================== */}
 
-            <main className="payment-main">
+      <main className="payment-main">
+        <section className="payment-top">
+          {/* ================= LEFT SIDE ================= */}
 
-                <section className="payment-top">
+          <div className="payment-left">
+            {/* ================= BANK OFFERS ================= */}
 
-                    {/* ================= LEFT SIDE ================= */}
+            <div className="offers-box">
+              <div className="offer-item">
+                <div className="offer-logo">
+                  <img
+                    src="https://assets-jiocdn.ajio.com/cms/LUXE/MOBILE/au%20bank%20luxe-logo.jpg"
+                    alt="AU Bank"
+                  />
+                </div>
 
-                    <div className="payment-left">
+                <div className="offer-text">
+                  <p>
+                    Get 10% Instant Discount of up to Rs.1000 on a minimum
+                    transaction value of Rs 3000 using AU Credit Cards.
+                  </p>
 
-                        {/* ================= BANK OFFERS ================= */}
+                  <a
+                    href="#"
+                    className="payment-tc-link"
+                    onClick={(e) => e.preventDefault()}
+                  >
+                    T&C
+                    <img
+                      src="https://assets-jiocdn.ajio.com/static/peassets/public/icons/open-new-tab-icon.svg"
+                      alt=""
+                    />
+                  </a>
+                </div>
+              </div>
 
-                        <div className="offers-box">
+              <div className="offer-item">
+                <div className="offer-logo">
+                  <img
+                    src="https://assets-jiocdn.ajio.com/cms/AJIO/MOBILE/HSBC-71x21-NP.jpg"
+                    alt="HSBC"
+                  />
+                </div>
 
-                            <div className="offer-item">
+                <div className="offer-text">
+                  <p>
+                    Get 12% Instant Discount of up to Rs.1000 on a minimum
+                    transaction value of Rs 3000 using HSBC Credit and Debit
+                    Cards.
+                  </p>
 
-                                <div className="offer-logo">
+                  <a
+                    href="#"
+                    className="payment-tc-link"
+                    onClick={(e) => e.preventDefault()}
+                  >
+                    T&C
+                    <img
+                      src="https://assets-jiocdn.ajio.com/static/peassets/public/icons/open-new-tab-icon.svg"
+                      alt=""
+                    />
+                  </a>
+                </div>
+              </div>
+            </div>
 
-                                    <img
-                                        src="https://assets-jiocdn.ajio.com/cms/LUXE/MOBILE/au%20bank%20luxe-logo.jpg"
-                                        alt="AU Bank"
-                                    />
+            {/* ================= VIEW MORE ================= */}
 
-                                </div>
+            <a
+              href="#"
+              className="payment-view-more"
+              onClick={(e) => e.preventDefault()}
+            >
+              View 20 More
+            </a>
 
-                                <div className="offer-text">
+            {/* ================= REDEEM ================= */}
 
-                                    <p>
-                                        Get 10% Instant Discount of up to
-                                        Rs.1000 on a minimum transaction
-                                        value of Rs 3000 using AU Credit
-                                        Cards.
-                                    </p>
+            <div className="payment-redeem-section">
+              <div className="payment-redeem-title">
+                <h3>Select Redeem Option</h3>
+              </div>
 
-                                    <a
-                                        href="#"
-                                        className="payment-tc-link"
-                                        onClick={(e) =>
-                                            e.preventDefault()
-                                        }
-                                    >
-                                        T&C
+              <div className="payment-otp-text">
+                Verify OTP to use redemption options
+              </div>
 
-                                        <img
-                                            src="https://assets-jiocdn.ajio.com/static/peassets/public/icons/open-new-tab-icon.svg"
-                                            alt=""
-                                        />
+              <div className="payment-otp-btn">
+                <button>Verify with OTP</button>
+              </div>
+            </div>
 
-                                    </a>
+            {/* ================= GIFT CARD ================= */}
 
-                                </div>
+            <div className="payment-gift-card-section">
+              <div className="payment-gift-left">
+                <img
+                  src="https://assets-jiocdn.ajio.com/static/peassets/public/icons/giftCard.svg"
+                  alt="Gift Card"
+                />
 
+                <div className="payment-gift-text">
+                  <h4>Have a Gift Card?</h4>
+
+                  <p>Add it to AJIO Wallet to pay for your orders</p>
+                </div>
+              </div>
+
+              <div className="payment-gift-right">
+                <a href="#" onClick={(e) => e.preventDefault()}>
+                  Add Gift Card
+                </a>
+              </div>
+            </div>
+
+            {/* ================= PAYMENT MODE ================= */}
+
+            <div className="payment-mode-section">
+              <h2 className="payment-heading">Select Payment Mode</h2>
+
+              <div className="payment-container">
+                {/* ================= SIDEBAR ================= */}
+
+                <div className="payment-sidebar">
+                  <div
+                    className={`payment-tab ${
+                      selectedMode === "Credit/ Debit Card" ? "active" : ""
+                    }`}
+                    onClick={() => {
+                      setSelectedMode("Credit/ Debit Card");
+                      setError("");
+                    }}
+                  >
+                    Credit/ Debit Card
+                  </div>
+
+                  <div
+                    className={`payment-tab ${
+                      selectedMode === "NetBanking" ? "active" : ""
+                    }`}
+                    onClick={() => {
+                      setSelectedMode("NetBanking");
+                      setError("");
+                    }}
+                  >
+                    NetBanking
+                  </div>
+
+                  <div
+                    className={`payment-tab ${
+                      selectedMode === "Wallet" ? "active" : ""
+                    }`}
+                    onClick={() => {
+                      setSelectedMode("Wallet");
+                      setError("");
+                    }}
+                  >
+                    Wallet
+                  </div>
+
+                  <div
+                    className={`payment-tab ${
+                      selectedMode === "UPI" ? "active" : ""
+                    }`}
+                    onClick={() => {
+                      setSelectedMode("UPI");
+                      setError("");
+                    }}
+                  >
+                    UPI
+                  </div>
+
+                  <div
+                    className={`payment-tab ${
+                      selectedMode === "EMI" ? "active" : ""
+                    }`}
+                    onClick={() => {
+                      setSelectedMode("EMI");
+                      setError("");
+                    }}
+                  >
+                    EMI
+                  </div>
+
+                  <div
+                    className={`payment-tab ${
+                      selectedMode === "Cash on Delivery" ? "active" : ""
+                    }`}
+                    onClick={() => {
+                      setSelectedMode("Cash on Delivery");
+                      setError("");
+                    }}
+                  >
+                    Cash on Delivery
+                  </div>
+                </div>
+
+                {/* ================= PAYMENT FORM ================= */}
+
+                <div className="payment-form">
+                  {/* CREDIT / DEBIT CARD */}
+
+                  {selectedMode === "Credit/ Debit Card" && (
+                    <>
+                      <h3>Add New Card</h3>
+
+                      <div className="payment-form-group">
+                        <label>
+                          Card Number <span>*</span>
+                        </label>
+
+                        <input
+                          type="text"
+                          value={cardNumber}
+                          onChange={(e) =>
+                            setCardNumber(
+                              e.target.value.replace(/\D/g, "").slice(0, 16),
+                            )
+                          }
+                        />
+                      </div>
+
+                      <div className="payment-form-group">
+                        <label>
+                          Name on Card <span>*</span>
+                        </label>
+
+                        <input
+                          type="text"
+                          value={cardName}
+                          onChange={(e) => setCardName(e.target.value)}
+                        />
+                      </div>
+
+                      <div className="payment-card-bottom">
+                        <div className="payment-expiry">
+                          <label>
+                            Expiration Date <span>*</span>
+                          </label>
+
+                          <div className="payment-expiry-select">
+                            <div className="payment-expiry-month">
+                              <select
+                                value={cardMonth}
+                                onChange={(e) => setCardMonth(e.target.value)}
+                              >
+                                <option value="" disabled>
+                                  Month
+                                </option>
+
+                                <option>January</option>
+                                <option>February</option>
+                                <option>March</option>
+                                <option>April</option>
+                                <option>May</option>
+                                <option>June</option>
+                                <option>July</option>
+                                <option>August</option>
+                                <option>September</option>
+                                <option>October</option>
+                                <option>November</option>
+                                <option>December</option>
+                              </select>
                             </div>
 
-                            <div className="offer-item">
+                            <div className="payment-expiry-year">
+                              <select
+                                value={cardYear}
+                                onChange={(e) => setCardYear(e.target.value)}
+                              >
+                                <option value="" disabled>
+                                  Year
+                                </option>
 
-                                <div className="offer-logo">
-
-                                    <img
-                                        src="https://assets-jiocdn.ajio.com/cms/AJIO/MOBILE/HSBC-71x21-NP.jpg"
-                                        alt="HSBC"
-                                    />
-
-                                </div>
-
-                                <div className="offer-text">
-
-                                    <p>
-                                        Get 12% Instant Discount of up to
-                                        Rs.1000 on a minimum transaction
-                                        value of Rs 3000 using HSBC
-                                        Credit and Debit Cards.
-                                    </p>
-
-                                    <a
-                                        href="#"
-                                        className="payment-tc-link"
-                                        onClick={(e) =>
-                                            e.preventDefault()
-                                        }
-                                    >
-                                        T&C
-
-                                        <img
-                                            src="https://assets-jiocdn.ajio.com/static/peassets/public/icons/open-new-tab-icon.svg"
-                                            alt=""
-                                        />
-
-                                    </a>
-
-                                </div>
-
+                                <option>2026</option>
+                                <option>2027</option>
+                                <option>2028</option>
+                                <option>2029</option>
+                                <option>2030</option>
+                              </select>
                             </div>
-
+                          </div>
                         </div>
 
-                        {/* ================= VIEW MORE ================= */}
+                        <div className="payment-cvv">
+                          <label>
+                            CVV <span>*</span>
+                          </label>
 
-                        <a
-                            href="#"
-                            className="payment-view-more"
-                            onClick={(e) =>
-                                e.preventDefault()
+                          <input
+                            type="password"
+                            maxLength="3"
+                            value={cvv}
+                            onChange={(e) =>
+                              setCvv(
+                                e.target.value.replace(/\D/g, "").slice(0, 3),
+                              )
                             }
+                          />
+                        </div>
+                      </div>
+                    </>
+                  )}
+
+                  {/* NETBANKING */}
+
+                  {selectedMode === "NetBanking" && (
+                    <>
+                      <h3>Select Your Bank</h3>
+
+                      <div className="payment-form-group">
+                        <label>
+                          Bank <span>*</span>
+                        </label>
+
+                        <select
+                          value={selectedBank}
+                          onChange={(e) => setSelectedBank(e.target.value)}
                         >
-                            View 20 More
-                        </a>
+                          <option value="" disabled>
+                            Select Bank
+                          </option>
+
+                          <option>HDFC Bank</option>
+                          <option>ICICI Bank</option>
+                          <option>State Bank of India</option>
+                          <option>Axis Bank</option>
+                          <option>Kotak Mahindra Bank</option>
+                        </select>
+                      </div>
+                    </>
+                  )}
+
+                  {/* WALLET */}
+
+                  {selectedMode === "Wallet" && (
+                    <>
+                      <h3>Select Wallet</h3>
+
+                      <div className="payment-form-group">
+                        <label>
+                          Wallet <span>*</span>
+                        </label>
+
+                        <select
+                          value={selectedWallet}
+                          onChange={(e) => setSelectedWallet(e.target.value)}
+                        >
+                          <option value="" disabled>
+                            Select Wallet
+                          </option>
+
+                          <option>Paytm</option>
+                          <option>PhonePe</option>
+                          <option>Amazon Pay</option>
+                          <option>Mobikwik</option>
+                        </select>
+                      </div>
+                    </>
+                  )}
+
+                  {/* UPI */}
+
+                  {selectedMode === "UPI" && (
+                    <>
+                      <h3>Pay using UPI</h3>
+
+                      <div className="payment-form-group">
+                        <label>
+                          UPI ID <span>*</span>
+                        </label>
+
+                        <input
+                          type="text"
+                          placeholder="example@upi"
+                          value={upiId}
+                          onChange={(e) => setUpiId(e.target.value)}
+                        />
+                      </div>
+                    </>
+                  )}
+
+                  {/* EMI */}
+
+                  {selectedMode === "EMI" && (
+                    <>
+                      <h3>Select EMI Option</h3>
+
+                      <div className="payment-form-group">
+                        <label>
+                          EMI Plan <span>*</span>
+                        </label>
+
+                        <select
+                          value={selectedEMI}
+                          onChange={(e) => setSelectedEMI(e.target.value)}
+                        >
+                          <option value="" disabled>
+                            Select EMI Plan
+                          </option>
+
+                          <option>3 Months EMI</option>
+                          <option>6 Months EMI</option>
+                          <option>9 Months EMI</option>
+                          <option>12 Months EMI</option>
+                        </select>
+                      </div>
+                    </>
+                  )}
+
+                  {/* CASH ON DELIVERY */}
+
+                  {selectedMode === "Cash on Delivery" && (
+                    <>
+                      <h3>Cash on Delivery</h3>
+
+                      <p>
+                        Pay ₹{orderTotal.toFixed(2)} when your order is
+                        delivered to you.
+                      </p>
+                    </>
+                  )}
 
-                        {/* ================= REDEEM ================= */}
+                  {/* ERROR */}
 
-                        <div className="payment-redeem-section">
+                  {error && <p className="payment-error">{error}</p>}
 
-                            <div className="payment-redeem-title">
-                                <h3>
-                                    Select Redeem Option
-                                </h3>
-                            </div>
+                  {/* PAY BUTTON */}
 
-                            <div className="payment-otp-text">
-                                Verify OTP to use redemption options
-                            </div>
+                  <button className="payment-pay-btn" onClick={handlePayment}>
+                    PAY ₹{orderTotal.toFixed(2)} SECURELY
+                  </button>
 
-                            <div className="payment-otp-btn">
+                  {/* TERMS */}
 
-                                <button>
-                                    Verify with OTP
-                                </button>
+                  <p className="payment-note">
+                    By placing this order, you agree to AJIO's{" "}
+                    <a href="#" onClick={(e) => e.preventDefault()}>
+                      T&C
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
 
-                            </div>
-
-                        </div>
-
-                        {/* ================= GIFT CARD ================= */}
-
-                        <div className="payment-gift-card-section">
-
-                            <div className="payment-gift-left">
-
-                                <img
-                                    src="https://assets-jiocdn.ajio.com/static/peassets/public/icons/giftCard.svg"
-                                    alt="Gift Card"
-                                />
-
-                                <div className="payment-gift-text">
-
-                                    <h4>
-                                        Have a Gift Card?
-                                    </h4>
-
-                                    <p>
-                                        Add it to AJIO Wallet to pay
-                                        for your orders
-                                    </p>
-
-                                </div>
-
-                            </div>
-
-                            <div className="payment-gift-right">
-
-                                <a
-                                    href="#"
-                                    onClick={(e) =>
-                                        e.preventDefault()
-                                    }
-                                >
-                                    Add Gift Card
-                                </a>
-
-                            </div>
-
-                        </div>
-
-                        {/* ================= PAYMENT MODE ================= */}
-
-                        <div className="payment-mode-section">
-
-                            <h2 className="payment-heading">
-                                Select Payment Mode
-                            </h2>
-
-                            <div className="payment-container">
-
-                                {/* ================= SIDEBAR ================= */}
-
-                                <div className="payment-sidebar">
-
-                                    <div
-                                        className={`payment-tab ${
-                                            selectedMode ===
-                                            "Credit/ Debit Card"
-                                                ? "active"
-                                                : ""
-                                        }`}
-                                        onClick={() => {
-                                            setSelectedMode(
-                                                "Credit/ Debit Card"
-                                            );
-                                            setError("");
-                                        }}
-                                    >
-                                        Credit/ Debit Card
-                                    </div>
-
-                                    <div
-                                        className={`payment-tab ${
-                                            selectedMode ===
-                                            "NetBanking"
-                                                ? "active"
-                                                : ""
-                                        }`}
-                                        onClick={() => {
-                                            setSelectedMode(
-                                                "NetBanking"
-                                            );
-                                            setError("");
-                                        }}
-                                    >
-                                        NetBanking
-                                    </div>
-
-                                    <div
-                                        className={`payment-tab ${
-                                            selectedMode ===
-                                            "Wallet"
-                                                ? "active"
-                                                : ""
-                                        }`}
-                                        onClick={() => {
-                                            setSelectedMode(
-                                                "Wallet"
-                                            );
-                                            setError("");
-                                        }}
-                                    >
-                                        Wallet
-                                    </div>
-
-                                    <div
-                                        className={`payment-tab ${
-                                            selectedMode ===
-                                            "UPI"
-                                                ? "active"
-                                                : ""
-                                        }`}
-                                        onClick={() => {
-                                            setSelectedMode("UPI");
-                                            setError("");
-                                        }}
-                                    >
-                                        UPI
-                                    </div>
-
-                                    <div
-                                        className={`payment-tab ${
-                                            selectedMode ===
-                                            "EMI"
-                                                ? "active"
-                                                : ""
-                                        }`}
-                                        onClick={() => {
-                                            setSelectedMode("EMI");
-                                            setError("");
-                                        }}
-                                    >
-                                        EMI
-                                    </div>
-
-                                    <div
-                                        className={`payment-tab ${
-                                            selectedMode ===
-                                            "Cash on Delivery"
-                                                ? "active"
-                                                : ""
-                                        }`}
-                                        onClick={() => {
-                                            setSelectedMode(
-                                                "Cash on Delivery"
-                                            );
-                                            setError("");
-                                        }}
-                                    >
-                                        Cash on Delivery
-                                    </div>
-
-                                </div>
-
-                                {/* ================= PAYMENT FORM ================= */}
-
-                                <div className="payment-form">
-
-                                    {/* CREDIT / DEBIT CARD */}
-
-                                    {selectedMode ===
-                                        "Credit/ Debit Card" && (
-
-                                        <>
-                                            <h3>
-                                                Add New Card
-                                            </h3>
-
-                                            <div className="payment-form-group">
-
-                                                <label>
-                                                    Card Number{" "}
-                                                    <span>*</span>
-                                                </label>
-
-                                                <input
-                                                    type="text"
-                                                    value={cardNumber}
-                                                    onChange={(e) =>
-                                                        setCardNumber(
-                                                            e.target.value
-                                                                .replace(/\D/g, "")
-                                                                .slice(0, 16)
-                                                        )
-                                                    }
-                                                />
-
-                                            </div>
-
-                                            <div className="payment-form-group">
-
-                                                <label>
-                                                    Name on Card{" "}
-                                                    <span>*</span>
-                                                </label>
-
-                                                <input
-                                                    type="text"
-                                                    value={cardName}
-                                                    onChange={(e) =>
-                                                        setCardName(
-                                                            e.target.value
-                                                        )
-                                                    }
-                                                />
-
-                                            </div>
-
-                                            <div className="payment-card-bottom">
-
-                                                <div className="payment-expiry">
-
-                                                    <label>
-                                                        Expiration Date{" "}
-                                                        <span>*</span>
-                                                    </label>
-
-                                                    <div className="payment-expiry-select">
-
-                                                        <div className="payment-expiry-month">
-
-                                                            <select
-                                                                value={cardMonth}
-                                                                onChange={(e) =>
-                                                                    setCardMonth(
-                                                                        e.target.value
-                                                                    )
-                                                                }
-                                                            >
-
-                                                                <option
-                                                                    value=""
-                                                                    disabled
-                                                                >
-                                                                    Month
-                                                                </option>
-
-                                                                <option>January</option>
-                                                                <option>February</option>
-                                                                <option>March</option>
-                                                                <option>April</option>
-                                                                <option>May</option>
-                                                                <option>June</option>
-                                                                <option>July</option>
-                                                                <option>August</option>
-                                                                <option>September</option>
-                                                                <option>October</option>
-                                                                <option>November</option>
-                                                                <option>December</option>
-
-                                                            </select>
-
-                                                        </div>
-
-                                                        <div className="payment-expiry-year">
-
-                                                            <select
-                                                                value={cardYear}
-                                                                onChange={(e) =>
-                                                                    setCardYear(
-                                                                        e.target.value
-                                                                    )
-                                                                }
-                                                            >
-
-                                                                <option
-                                                                    value=""
-                                                                    disabled
-                                                                >
-                                                                    Year
-                                                                </option>
-
-                                                                <option>2026</option>
-                                                                <option>2027</option>
-                                                                <option>2028</option>
-                                                                <option>2029</option>
-                                                                <option>2030</option>
-
-                                                            </select>
-
-                                                        </div>
-
-                                                    </div>
-
-                                                </div>
-
-                                                <div className="payment-cvv">
-
-                                                    <label>
-                                                        CVV{" "}
-                                                        <span>*</span>
-                                                    </label>
-
-                                                    <input
-                                                        type="password"
-                                                        maxLength="3"
-                                                        value={cvv}
-                                                        onChange={(e) =>
-                                                            setCvv(
-                                                                e.target.value
-                                                                    .replace(/\D/g, "")
-                                                                    .slice(0, 3)
-                                                            )
-                                                        }
-                                                    />
-
-                                                </div>
-
-                                            </div>
-                                        </>
-                                    )}
-
-                                    {/* NETBANKING */}
-
-                                    {selectedMode === "NetBanking" && (
-
-                                        <>
-                                            <h3>
-                                                Select Your Bank
-                                            </h3>
-
-                                            <div className="payment-form-group">
-
-                                                <label>
-                                                    Bank <span>*</span>
-                                                </label>
-
-                                                <select
-                                                    value={selectedBank}
-                                                    onChange={(e) =>
-                                                        setSelectedBank(
-                                                            e.target.value
-                                                        )
-                                                    }
-                                                >
-
-                                                    <option
-                                                        value=""
-                                                        disabled
-                                                    >
-                                                        Select Bank
-                                                    </option>
-
-                                                    <option>HDFC Bank</option>
-                                                    <option>ICICI Bank</option>
-                                                    <option>State Bank of India</option>
-                                                    <option>Axis Bank</option>
-                                                    <option>Kotak Mahindra Bank</option>
-
-                                                </select>
-
-                                            </div>
-                                        </>
-                                    )}
-
-                                    {/* WALLET */}
-
-                                    {selectedMode === "Wallet" && (
-
-                                        <>
-                                            <h3>
-                                                Select Wallet
-                                            </h3>
-
-                                            <div className="payment-form-group">
-
-                                                <label>
-                                                    Wallet <span>*</span>
-                                                </label>
-
-                                                <select
-                                                    value={selectedWallet}
-                                                    onChange={(e) =>
-                                                        setSelectedWallet(
-                                                            e.target.value
-                                                        )
-                                                    }
-                                                >
-
-                                                    <option
-                                                        value=""
-                                                        disabled
-                                                    >
-                                                        Select Wallet
-                                                    </option>
-
-                                                    <option>Paytm</option>
-                                                    <option>PhonePe</option>
-                                                    <option>Amazon Pay</option>
-                                                    <option>Mobikwik</option>
-
-                                                </select>
-
-                                            </div>
-                                        </>
-                                    )}
-
-                                    {/* UPI */}
-
-                                    {selectedMode === "UPI" && (
-
-                                        <>
-                                            <h3>
-                                                Pay using UPI
-                                            </h3>
-
-                                            <div className="payment-form-group">
-
-                                                <label>
-                                                    UPI ID <span>*</span>
-                                                </label>
-
-                                                <input
-                                                    type="text"
-                                                    placeholder="example@upi"
-                                                    value={upiId}
-                                                    onChange={(e) =>
-                                                        setUpiId(
-                                                            e.target.value
-                                                        )
-                                                    }
-                                                />
-
-                                            </div>
-                                        </>
-                                    )}
-
-                                    {/* EMI */}
-
-                                    {selectedMode === "EMI" && (
-
-                                        <>
-                                            <h3>
-                                                Select EMI Option
-                                            </h3>
-
-                                            <div className="payment-form-group">
-
-                                                <label>
-                                                    EMI Plan <span>*</span>
-                                                </label>
-
-                                                <select
-                                                    value={selectedEMI}
-                                                    onChange={(e) =>
-                                                        setSelectedEMI(
-                                                            e.target.value
-                                                        )
-                                                    }
-                                                >
-
-                                                    <option
-                                                        value=""
-                                                        disabled
-                                                    >
-                                                        Select EMI Plan
-                                                    </option>
-
-                                                    <option>3 Months EMI</option>
-                                                    <option>6 Months EMI</option>
-                                                    <option>9 Months EMI</option>
-                                                    <option>12 Months EMI</option>
-
-                                                </select>
-
-                                            </div>
-                                        </>
-                                    )}
-
-                                    {/* CASH ON DELIVERY */}
-
-                                    {selectedMode ===
-                                        "Cash on Delivery" && (
-
-                                        <>
-                                            <h3>
-                                                Cash on Delivery
-                                            </h3>
-
-                                            <p>
-                                                Pay ₹{orderTotal.toFixed(2)}
-                                                {" "}when your order
-                                                is delivered to you.
-                                            </p>
-                                        </>
-                                    )}
-
-                                    {/* ERROR */}
-
-                                    {error && (
-
-                                        <p className="payment-error">
-                                            {error}
-                                        </p>
-                                    )}
-
-                                    {/* PAY BUTTON */}
-
-                                    <button
-                                        className="payment-pay-btn"
-                                        onClick={handlePayment}
-                                    >
-                                        PAY ₹{orderTotal.toFixed(2)} SECURELY
-                                    </button>
-
-                                    {/* TERMS */}
-
-                                    <p className="payment-note">
-
-                                        By placing this order, you agree
-                                        to AJIO's{" "}
-
-                                        <a
-                                            href="#"
-                                            onClick={(e) =>
-                                                e.preventDefault()
-                                            }
-                                        >
-                                            T&C
-                                        </a>
-
-                                    </p>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    {/* =====================================================
+          {/* =====================================================
                                 ORDER SUMMARY
                     ====================================================== */}
 
-                    <div className="payment-order-summary">
+          <div className="payment-order-summary">
+            <h2>Order Summary</h2>
 
-                        <h2>
-                            Order Summary
-                        </h2>
+            <div className="payment-summary-row">
+              <span>Bag total</span>
 
-                        <div className="payment-summary-row">
+              <span>₹ {bagTotal.toFixed(2)}</span>
+            </div>
 
-                            <span>
-                                Bag total
-                            </span>
+            <div className="payment-summary-row">
+              <span>Bag Discount</span>
 
-                            <span>
-                                ₹ {bagTotal.toFixed(2)}
-                            </span>
+              <span className="payment-discount">
+                - ₹ {bagDiscount.toFixed(2)}
+              </span>
+            </div>
 
-                        </div>
+            <div className="payment-summary-row">
+              <span>
+                Convenience Fee{" "}
+                <a href="#" onClick={(e) => e.preventDefault()}>
+                  What's this?
+                </a>
+              </span>
 
-                        <div className="payment-summary-row">
+              <span></span>
+            </div>
 
-                            <span>
-                                Bag Discount
-                            </span>
+            <div className="payment-summary-row payment-sub-row">
+              <span>Delivery Fee</span>
 
-                            <span className="payment-discount">
-                                - ₹ {bagDiscount.toFixed(2)}
-                            </span>
+              <span>
+                <span className="payment-free">Free</span>
 
-                        </div>
+                <del>₹49</del>
+              </span>
+            </div>
 
-                        <div className="payment-summary-row">
+            <div className="payment-summary-row payment-sub-row">
+              <span>Platform Fee</span>
 
-                            <span>
-                                Convenience Fee{" "}
+              <span>₹{platformFee}</span>
+            </div>
 
-                                <a
-                                    href="#"
-                                    onClick={(e) =>
-                                        e.preventDefault()
-                                    }
-                                >
-                                    What's this?
-                                </a>
-                            </span>
+            <hr />
 
-                            <span></span>
+            <div className="payment-summary-row payment-total">
+              <span>Order Total</span>
 
-                        </div>
+              <span>₹{orderTotal.toFixed(2)}</span>
+            </div>
 
-                        <div className="payment-summary-row payment-sub-row">
+            <div className="payment-summary-row payment-payable">
+              <span>Amount Payable</span>
 
-                            <span>
-                                Delivery Fee
-                            </span>
-
-                            <span>
-
-                                <span className="payment-free">
-                                    Free
-                                </span>
-
-                                <del>
-                                    ₹49
-                                </del>
-
-                            </span>
-
-                        </div>
-
-                        <div className="payment-summary-row payment-sub-row">
-
-                            <span>
-                                Platform Fee
-                            </span>
-
-                            <span>
-                                ₹{platformFee}
-                            </span>
-
-                        </div>
-
-                        <hr />
-
-                        <div className="payment-summary-row payment-total">
-
-                            <span>
-                                Order Total
-                            </span>
-
-                            <span>
-                                ₹{orderTotal.toFixed(2)}
-                            </span>
-
-                        </div>
-
-                        <div className="payment-summary-row payment-payable">
-
-                            <span>
-                                Amount Payable
-                            </span>
-
-                            <span>
-                                ₹{orderTotal.toFixed(2)}
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                </section>
-
-            </main>
-
-        </div>
-    );
+              <span>₹{orderTotal.toFixed(2)}</span>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  );
 };
 
 export default Payment;

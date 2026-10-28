@@ -18,6 +18,7 @@ import MenProducts from "./User/Pages/MenProducts";
 import SingleProduct from "./User/Pages/SingleProduct";
 import Wishlist from "./User/Pages/Wishlist";
 import Cart from "./User/Pages/Cart";
+import DeliveryDetails from "./User/Pages/DeliveryDetails";
 import Payment from "./User/Pages/Payment";
 import Orders from "./User/Pages/Orders";
 import Profile from "./User/Pages/Profile";
@@ -133,6 +134,8 @@ useEffect(() => {
                     <Route path="/wishlist" element={<Wishlist />} />
 
                     <Route path="/cart" element={<Cart />} />
+
+                    <Route path="/delivery-details" element={<DeliveryDetails />}/>
 
                     <Route path="/payment" element={<Payment />} />
 
