@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { showToast } from "../../redux/toastSlice";
@@ -6,90 +5,74 @@ import api from "../../config/axiosConfig";
 import "../CSS/Orders.css";
 
 const Orders = () => {
+  const dispatch = useDispatch();
 
-    const dispatch = useDispatch();
+  const [cartItems, setCartItems] = useState([]);
 
-const [cartItems, setCartItems] = useState([]);
+  const [orders, setOrders] = useState([]);
 
-const [orders, setOrders] = useState([]);
+  const [orderData, setOrderData] = useState({});
 
-const [orderData, setOrderData] = useState({});
+  const hasOrder = orders.length > 0;
 
-const hasOrder = orders.length > 0;
+  const [orderStatus, setOrderStatus] = useState("Confirmed");
 
-const [orderStatus, setOrderStatus] = useState("Confirmed");
+  const [returnMessage, setReturnMessage] = useState("");
 
+  // CUSTOMER RATING
+  const [rating, setRating] = useState(null);
+  const [ratingMessage, setRatingMessage] = useState("");
 
-    const [returnMessage, setReturnMessage] = useState("");
+  // =====================================================
+  // GET ORDER ITEMS
+  // =====================================================
 
-    // CUSTOMER RATING
-    const [rating, setRating] = useState(null);
-    const [ratingMessage, setRatingMessage] = useState("");
+  useEffect(() => {
+    let isMounted = true;
 
+    api
+      .get("/user/get-orders")
+      .then((response) => {
+        if (!isMounted) return;
 
-    // =====================================================
-    // GET ORDER ITEMS
-    // =====================================================
+        console.log("Backend orders:", response.data);
 
-    useEffect(() => {
+        if (response.data.success && response.data.orders?.length > 0) {
+          const backendOrders = response.data.orders;
+          setOrders(backendOrders);
 
+          const savedOrderId = JSON.parse(
+            localStorage.getItem("orders") || "[]",
+          );
 
-        let isMounted = true;
+          const currentOrders = Array.isArray(savedOrderId)
+            ? savedOrderId
+            : [savedOrderId];
 
+          const matchingOrder = backendOrders.find(
+            (order) =>
+              order.orderId === currentOrders[0]?.orderId ||
+              order.orderId === currentOrders[0]?._id,
+          );
 
-          
+          const selectedOrder = matchingOrder || backendOrders[0];
 
+          setOrderData(selectedOrder);
+          setCartItems(selectedOrder.products || []);
+          setOrderStatus(selectedOrder.status || "Confirmed");
+        }
+      })
+      .catch((error) => {
+        console.error("Failed to fetch orders:", error);
+      });
 
+    const savedOrders = JSON.parse(localStorage.getItem("orders")) || [];
 
-
-api.get("/user/get-orders")
-  .then((response) => {
-    if (!isMounted) return;
-
-    console.log("Backend orders:", response.data);
-
-    if (response.data.success && response.data.orders?.length > 0) {
-      const backendOrders = response.data.orders;
-      setOrders(backendOrders);
-
-      const savedOrderId = JSON.parse(
-        localStorage.getItem("orders") || "[]"
-      );
-
-      const currentOrders = Array.isArray(savedOrderId)
-        ? savedOrderId
-        : [savedOrderId];
-
-      const matchingOrder = backendOrders.find(
-        (order) =>
-          order.orderId === currentOrders[0]?.orderId ||
-          order.orderId === currentOrders[0]?._id
-      );
-
-      const selectedOrder = matchingOrder || backendOrders[0];
-
-      setOrderData(selectedOrder);
-      setCartItems(selectedOrder.products || []);
-      setOrderStatus(selectedOrder.status || "Confirmed");
-    }
-  })
-  .catch((error) => {
-    console.error("Failed to fetch orders:", error);
-  });
-
-
-
-
-
-    const savedOrders =
-        JSON.parse(localStorage.getItem("orders")) || [];
-
-    const ordersArray =
-        Array.isArray(savedOrders)
-            ? savedOrders
-            : savedOrders.orderId
-                ? [savedOrders]
-                : [];
+    const ordersArray = Array.isArray(savedOrders)
+      ? savedOrders
+      : savedOrders.orderId
+        ? [savedOrders]
+        : [];
 
     setOrders(ordersArray);
 
@@ -99,126 +82,81 @@ api.get("/user/get-orders")
 
     setCartItems(savedOrder.products || []);
 
-    
+    // =====================================================
+    // LOAD SAVED RATING
+    // =====================================================
 
+    if (savedOrder.rating) {
+      setRating(savedOrder.rating);
+    }
 
-        // =====================================================
-        // LOAD SAVED RATING
-        // =====================================================
+    let status = savedOrder.status || "Confirmed";
 
-        if (savedOrder.rating) {
+    // =====================================================
+    // CHECK DELIVERY DATE
+    // =====================================================
 
-            setRating(savedOrder.rating);
+    if (savedOrder.deliveryDate) {
+      const today = new Date();
 
-        }
+      const [day, month, year] = savedOrder.deliveryDate.split("/");
 
+      const deliveryDate = new Date(year, month - 1, day);
 
-        let status = savedOrder.status || "Confirmed";
+      if (today >= deliveryDate && status === "Confirmed") {
+        status = "Delivered";
 
+        const updatedOrder = {
+          ...savedOrder,
+          status: "Delivered",
+        };
 
-        // =====================================================
-        // CHECK DELIVERY DATE
-        // =====================================================
+        const updatedOrders = ordersArray.map((order) =>
+          order.orderId === updatedOrder.orderId ? updatedOrder : order,
+        );
 
-        if (savedOrder.deliveryDate) {
+        setOrders(updatedOrders);
 
-            const today = new Date();
+        localStorage.setItem("orders", JSON.stringify(updatedOrders));
 
-            const [day, month, year] =
-                savedOrder.deliveryDate.split("/");
+        setOrderData(updatedOrder);
+      }
+    }
 
-            const deliveryDate = new Date(
-                year,
-                month - 1,
-                day
-            );
+    setOrderStatus(status);
 
+    // =====================================================
+    // SHOW RETURN MESSAGE IF ALREADY REQUESTED
+    // =====================================================
 
+    if (status === "Return Requested") {
+      setReturnMessage("Your return request has been successfully submitted.");
+    }
+  }, []);
 
+  // =====================================================
+  // CUSTOMER RATING
+  // =====================================================
 
-            if (
-    today >= deliveryDate &&
-    status === "Confirmed"
-) {
+  const handleRating = (value) => {
+    setRating(value);
 
-    status = "Delivered";
+    setRatingMessage("");
+  };
 
+  // =====================================================
+  // CANCEL ORDER
+  // =====================================================
+
+  const handleCancelOrder = () => {
     const updatedOrder = {
-        ...savedOrder,
-        status: "Delivered"
-    };
-
-    const updatedOrders = ordersArray.map((order) =>
-        order.orderId === updatedOrder.orderId
-            ? updatedOrder
-            : order
-    );
-
-    setOrders(updatedOrders);
-
-    localStorage.setItem(
-        "orders",
-        JSON.stringify(updatedOrders)
-    );
-
-    setOrderData(updatedOrder);
-}
-
-
-
-
-
-        }
-
-
-        setOrderStatus(status);
-
-
-        // =====================================================
-        // SHOW RETURN MESSAGE IF ALREADY REQUESTED
-        // =====================================================
-
-        if (status === "Return Requested") {
-
-            setReturnMessage(
-                "Your return request has been successfully submitted."
-            );
-
-        }
-
-    }, []);
-
-
-    // =====================================================
-    // CUSTOMER RATING
-    // =====================================================
-
-    const handleRating = (value) => {
-
-        setRating(value);
-
-        setRatingMessage("");
-
-    };
-
-
-    // =====================================================
-    // CANCEL ORDER
-    // =====================================================
-
-
-    const handleCancelOrder = () => {
-
-    const updatedOrder = {
-        ...orderData,
-        status: "Cancelled"
+      ...orderData,
+      status: "Cancelled",
     };
 
     // Update this order inside all orders
     const updatedOrders = orders.map((order) =>
-        order.orderId === updatedOrder.orderId
-            ? updatedOrder
-            : order
+      order.orderId === updatedOrder.orderId ? updatedOrder : order,
     );
 
     setOrderData(updatedOrder);
@@ -227,44 +165,28 @@ api.get("/user/get-orders")
 
     setOrderStatus("Cancelled");
 
-    localStorage.setItem(
-        "orders",
-        JSON.stringify(updatedOrders)
-    );
+    localStorage.setItem("orders", JSON.stringify(updatedOrders));
 
-
-
-
-
-dispatch(
-    showToast({
+    dispatch(
+      showToast({
         message: "✅ Order cancelled successfully!",
-        type: "success"
-    })
-);
+        type: "success",
+      }),
+    );
+  };
 
-   
+  // =====================================================
+  // RETURN ORDER
+  // =====================================================
 
-
-
-};
-
-
-    // =====================================================
-    // RETURN ORDER
-    // =====================================================
-
-   const handleReturnOrder = () => {
-
+  const handleReturnOrder = () => {
     const updatedOrder = {
-        ...orderData,
-        status: "Return Requested"
+      ...orderData,
+      status: "Return Requested",
     };
 
     const updatedOrders = orders.map((order) =>
-        order.orderId === updatedOrder.orderId
-            ? updatedOrder
-            : order
+      order.orderId === updatedOrder.orderId ? updatedOrder : order,
     );
 
     setOrderData(updatedOrder);
@@ -273,745 +195,395 @@ dispatch(
 
     setOrderStatus("Return Requested");
 
-    localStorage.setItem(
-        "orders",
-        JSON.stringify(updatedOrders)
-    );
+    localStorage.setItem("orders", JSON.stringify(updatedOrders));
 
-    setReturnMessage(
-        "Your return request has been successfully submitted."
-    );
+    setReturnMessage("Your return request has been successfully submitted.");
 
-
-dispatch(
-    showToast({
+    dispatch(
+      showToast({
         message: "✅ Return request submitted successfully!",
-        type: "success"
-    })
-);
+        type: "success",
+      }),
+    );
+  };
 
+  // =====================================================
+  // SUBMIT RATING
+  // =====================================================
 
-};
-
-    // =====================================================
-    // SUBMIT RATING
-    // =====================================================
-
-    const handleSubmitRating = () => {
-
+  const handleSubmitRating = () => {
     if (!rating) {
+      setRatingMessage("Please select a rating.");
 
-        setRatingMessage(
-            "Please select a rating."
-        );
-
-        return;
+      return;
     }
 
     const updatedOrder = {
-        ...orderData,
-        rating: rating
+      ...orderData,
+      rating: rating,
     };
 
     const updatedOrders = orders.map((order) =>
-        order.orderId === updatedOrder.orderId
-            ? updatedOrder
-            : order
+      order.orderId === updatedOrder.orderId ? updatedOrder : order,
     );
 
     setOrderData(updatedOrder);
 
     setOrders(updatedOrders);
 
-    localStorage.setItem(
-        "orders",
-        JSON.stringify(updatedOrders)
-    );
+    localStorage.setItem("orders", JSON.stringify(updatedOrders));
 
-    setRatingMessage(
-        `Thank you for rating AJIO ${rating}/10.`
-    );
+    setRatingMessage(`Thank you for rating AJIO ${rating}/10.`);
 
-dispatch(
-    showToast({
+    dispatch(
+      showToast({
         message: "✅ Rating submitted successfully!",
-        type: "success"
-    })
-);
+        type: "success",
+      }),
+    );
+  };
 
-};
-
-
-    // =====================================================
-    // CONTINUE SHOPPING
-    // =====================================================
-const handleContinueShopping = () => {
-
+  // =====================================================
+  // CONTINUE SHOPPING
+  // =====================================================
+  const handleContinueShopping = () => {
     window.location.href = "/";
+  };
 
-};
-
-
-const handleViewOrder = (order) => {
-
+  const handleViewOrder = (order) => {
     setOrderData(order);
 
     setCartItems(order.products || []);
 
-    setOrderStatus(
-        order.status || "Confirmed"
-    );
+    setOrderStatus(order.status || "Confirmed");
 
-    setRating(
-        order.rating || null
-    );
+    setRating(order.rating || null);
 
     setRatingMessage("");
 
     if (order.status === "Return Requested") {
-
-        setReturnMessage(
-            "Your return request has been successfully submitted."
-        );
-
+      setReturnMessage("Your return request has been successfully submitted.");
     } else {
-
-        setReturnMessage("");
-
+      setReturnMessage("");
     }
-};
+  };
 
-
-
-    return (
-
-        <div className="orders-page">
-
-
-            {/* =====================================================
+  return (
+    <div className="orders-page">
+      {/* =====================================================
                         EMPTY ORDERS
             ====================================================== */}
 
-            {!hasOrder && (
+      {!hasOrder && (
+        <div className="empty-orders">
+          <h2>No Orders Yet</h2>
 
-                <div className="empty-orders">
+          <p>You haven't placed any orders yet.</p>
 
-                    <h2>
-                        No Orders Yet
-                    </h2>
+          <button onClick={handleContinueShopping}>CONTINUE SHOPPING</button>
+        </div>
+      )}
 
-                    <p>
-                        You haven't placed any orders yet.
-                    </p>
-
-                    <button
-                        onClick={handleContinueShopping}
-                    >
-                        CONTINUE SHOPPING
-                    </button>
-
-                </div>
-
-            )}
-
-
-            {/* =====================================================
+      {/* =====================================================
                         SHOW ORDER ONLY IF ORDER EXISTS
             ====================================================== */}
 
-            {hasOrder && (
-
-                <>
-
-
-
-
-
-
-
-
-                    {/* =====================================================
+      {hasOrder && (
+        <>
+          {/* =====================================================
                                 ORDER SUCCESS BAR
                     ====================================================== */}
 
-                    <section className="order-success">
+          <section className="order-success">
+            <div className="success-container">
+              <div className="success-message">
+                {orderStatus === "Delivered" ? (
+                  <>
+                    <p>
+                      Thank you <strong>Shivani Sonawane</strong>. Your order{" "}
+                      <span className="order-id">{orderData.orderId}</span> has
+                      been delivered successfully.
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <p>
+                      Thank you <strong>Shivani Sonawane</strong>, for placing
+                      an order with us. Your order{" "}
+                      <span className="order-id">{orderData.orderId}</span> is
+                      confirmed.
+                    </p>
 
-                        <div className="success-container">
+                    <p className="delivery-text">
+                      We expect to deliver your order by{" "}
+                      <strong>{orderData.deliveryDate}</strong>
+                    </p>
+                  </>
+                )}
+              </div>
 
-                            <div className="success-message">
+              <div className="shopping-btn">
+                <button onClick={handleContinueShopping}>
+                  CONTINUE SHOPPING
+                </button>
+              </div>
+            </div>
+          </section>
 
-    {orderStatus === "Delivered" ? (
-
-        <>
-            <p>
-
-                Thank you{" "}
-
-                <strong>
-                    Shivani Sonawane
-                </strong>.
-
-                Your order{" "}
-
-                <span className="order-id">
-                    {orderData.orderId}
-                </span>{" "}
-
-                has been delivered successfully.
-
-            </p>
-        </>
-
-    ) : (
-
-        <>
-            <p>
-
-                Thank you{" "}
-
-                <strong>
-                    Shivani Sonawane
-                </strong>
-
-                , for placing an order with us.
-
-                Your order{" "}
-
-                <span className="order-id">
-                    {orderData.orderId}
-                </span>{" "}
-
-                is confirmed.
-
-            </p>
-
-
-            <p className="delivery-text">
-
-                We expect to deliver your order by{" "}
-
-                <strong>
-                    {orderData.deliveryDate}
-                </strong>
-
-            </p>
-        </>
-
-    )}
-
-</div>
-
-
-
-
-
-                            <div className="shopping-btn">
-
-                                <button
-                                    onClick={handleContinueShopping}
-                                >
-                                    CONTINUE SHOPPING
-                                </button>
-
-                            </div>
-
-                        </div>
-
-                    </section>
-
-
-
-
-
-
-
-
-
-
-
-
-{/* =====================================================
+          {/* =====================================================
                 MY ORDERS HISTORY
 ===================================================== */}
 
-<section className="order-history">
+          <section className="order-history">
+            <h2>My Orders</h2>
 
-    <h2>My Orders</h2>
+            <div className="order-history-list">
+              {orders.map((order) => (
+                <button
+                  type="button"
+                  key={order.orderId}
+                  className={`order-history-item ${
+                    orderData.orderId === order.orderId ? "active" : ""
+                  }`}
+                  onClick={() => handleViewOrder(order)}
+                >
+                  <span>{order.orderId}</span>
 
-    <div className="order-history-list">
+                  <span>{order.orderDate}</span>
 
-        {orders.map((order) => (
+                  <span>{order.status || "Confirmed"}</span>
+                </button>
+              ))}
+            </div>
+          </section>
 
-            <button
-                type="button"
-                key={order.orderId}
-                className={`order-history-item ${
-                    orderData.orderId === order.orderId
-                        ? "active"
-                        : ""
-                }`}
-                onClick={() => handleViewOrder(order)}
-            >
-
-                <span>
-                    {order.orderId}
-                </span>
-
-                <span>
-                    {order.orderDate}
-                </span>
-
-                <span>
-                    {order.status || "Confirmed"}
-                </span>
-
-            </button>
-
-        ))}
-
-    </div>
-
-</section>
-
-
-
-
-
-
-
-
-
-
-
-
-                    {/* =====================================================
+          {/* =====================================================
                                 ORDER SUMMARY TITLE
                     ====================================================== */}
 
-                    <main>
+          <main>
+            <div className="order-info">
+              <h2>Order Summary</h2>
+            </div>
 
-                        <div className="order-info">
-
-                            <h2>
-                                Order Summary
-                            </h2>
-
-                        </div>
-
-
-                        {/* =====================================================
+            {/* =====================================================
                                     MAIN ORDER LAYOUT
                         ====================================================== */}
 
-                        <div className="order-main">
-
-
-                            {/* =================================================
+            <div className="order-main">
+              {/* =================================================
                                         LEFT SIDE
                             ================================================== */}
 
-                            <div className="order-left">
-
-
-                                {/* =================================================
+              <div className="order-left">
+                {/* =================================================
                                             DYNAMIC ORDER PRODUCTS
                                 ================================================== */}
 
-                                {cartItems.map((item) => (
+                {cartItems.map((item) => (
+                  <div className="order-product-card" key={item.id}>
+                    {/* PRODUCT IMAGE */}
 
-                                    <div
-                                        className="order-product-card"
-                                        key={item.id}
-                                    >
+                    <div className="product-image">
+                      <img src={item.mainImage || item.image} alt={item.name} />
 
+                      <p className="delivery-date">
+                        Expected Delivery : {orderData.deliveryDate}
+                      </p>
+                    </div>
 
-                                        {/* PRODUCT IMAGE */}
+                    {/* PRODUCT DETAILS */}
 
-                                        <div className="product-image">
+                    <div className="order-product-details">
+                      <div className="product-info">
+                        <h3>{item.name}</h3>
 
-                                            <img
-                                                src={
-                                                    item.mainImage ||
-                                                    item.image
-                                                }
-                                                alt={item.name}
-                                            />
+                        <p className="size">
+                          Size : <strong>{item.selectedSize || "M"}</strong>
+                        </p>
 
+                        <p className="size">
+                          Qty : <strong>{Number(item.quantity) || 1}</strong>
+                        </p>
+                      </div>
 
-                                            <p className="delivery-date">
+                      {/* PRICE */}
 
-                                                Expected Delivery :{" "}
+                      <div className="price-section">
+                        <p className="old-price">
+                          {item.oldPrice || item.price}
+                        </p>
 
-                                                {orderData.deliveryDate}
+                        <p className="discount">{item.discount}</p>
 
-                                            </p>
+                        <h4>{item.price}</h4>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
 
-                                        </div>
-
-
-                                        {/* PRODUCT DETAILS */}
-
-                                        <div className="order-product-details">
-
-                                            <div className="product-info">
-
-                                                <h3>
-                                                    {item.name}
-                                                </h3>
-
-
-                                                <p className="size">
-
-                                                    Size :{" "}
-
-                                                    <strong>
-                                                        {item.selectedSize || "M"}
-                                                    </strong>
-
-                                                </p>
-
-
-                                                <p className="size">
-
-                                                    Qty :{" "}
-
-                                                    <strong>
-                                                        {Number(item.quantity) || 1}
-                                                    </strong>
-
-                                                </p>
-
-                                            </div>
-
-
-                                            {/* PRICE */}
-
-                                            <div className="price-section">
-
-                                                <p className="old-price">
-
-                                                    {item.oldPrice || item.price}
-
-                                                </p>
-
-
-                                                <p className="discount">
-
-                                                    {item.discount}
-
-                                                </p>
-
-
-                                                <h4>
-
-                                                    {item.price}
-
-                                                </h4>
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-                                ))}
-
-                            </div>
-
-
-                            {/* =====================================================
+              {/* =====================================================
                                         RIGHT SIDE
                             ====================================================== */}
 
-                            <div className="cart-right">
+              <div className="cart-right">
+                {/* WHAT HAPPENS NEXT */}
 
+                <div className="info-card">
+                  <h3>What Happens Next</h3>
 
-                                {/* WHAT HAPPENS NEXT */}
+                  <p>Your order has been confirmed and is being processed.</p>
 
-                                <div className="info-card">
-
-                                    <h3>
-                                        What Happens Next
-                                    </h3>
-
-                                    <p>
-
-                                        Your order has been confirmed
-                                        and is being processed.
-
-                                    </p>
-
-                                    <p>
-
-                                        You'll receive updates via SMS
-                                        and email as your order moves
-                                        through different stages.
-
-                                    </p>
-
-                                </div>
-
-
-                                {/* YOU HAVE EARNED */}
-
-                                <div className="info-card">
-
-                                    <h3>
-                                        You Have Earned
-                                    </h3>
-
-                                    <div className="earned-box">
-
-                                        <span className="earned-points">
-
-                                            138 AJIO Points
-
-                                        </span>
-
-                                    </div>
-
-                                    <p>
-
-                                        AJIO Points will be credited
-                                        after successful delivery.
-
-                                    </p>
-
-                                </div>
-
-
-                                {/* ORDER DETAILS */}
-
-                                <div className="info-card">
-
-                                    <h3>
-                                        Order Details
-                                    </h3>
-
-
-                                    <div className="detail-row">
-
-                                        <span>
-                                            Order ID
-                                        </span>
-
-                                        <span>
-                                            {orderData.orderId}
-                                        </span>
-
-                                    </div>
-
-
-                                    <div className="detail-row">
-
-                                        <span>
-                                            Order Date
-                                        </span>
-
-                                        <span>
-                                            {orderData.orderDate}
-                                        </span>
-
-                                    </div>
-
-
-                                    <div className="detail-row">
-
-                                        <span>
-                                            Payment Mode
-                                        </span>
-
-                                        <span>
-                                            {orderData.paymentMode}
-                                        </span>
-
-                                    </div>
-
-
-                                    <div className="detail-row">
-
-                                        <span>
-                                            Delivery Address
-                                        </span>
-
-                                        <span className="address">
-
-                                            Shivani Sonawane
-                                            <br />
-                                            House no.246,
-                                            Opposite Central Bank of India,
-                                            <br />
-
-                                            Usar, Tal. Alibag,
-                                            <br />
-
-                                            Dist. Raigad - 402203,
-                                            <br />
-
-                                            Maharashtra
-
-                                        </span>
-
-                                    </div>
-
-
-                                    <div className="detail-row">
-
-                                        <span>
-                                            Mobile Number
-                                        </span>
-
-                                        <span>
-                                            +91 91680 77927
-                                        </span>
-
-                                    </div>
-
-
-                                    {/* ORDER STATUS */}
-
-                                    <div className="detail-row">
-
-                                        <span>
-                                            Order Status
-                                        </span>
-
-                                        <span>
-                                            {orderStatus}
-                                        </span>
-
-                                    </div>
-
-
-                                    {/* RETURN MESSAGE */}
-
-                                    {returnMessage && (
-
-                                        <p className="return-message">
-
-                                            {returnMessage}
-
-                                        </p>
-
-                                    )}
-
-
-                                    {/* CANCEL ORDER BUTTON */}
-
-                                    {orderStatus === "Confirmed" && (
-
-                                        <button
-                                            className="cancel-order-btn"
-                                            onClick={handleCancelOrder}
-                                        >
-                                            CANCEL ORDER
-                                        </button>
-
-                                    )}
-
-
-                                    {/* RETURN ORDER BUTTON */}
-
-                                    {orderStatus === "Delivered" && (
-
-                                        <button
-                                            className="return-order-btn"
-                                            onClick={handleReturnOrder}
-                                        >
-                                            RETURN ORDER
-                                        </button>
-
-                                    )}
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-                        {/* =====================================================
+                  <p>
+                    You'll receive updates via SMS and email as your order moves
+                    through different stages.
+                  </p>
+                </div>
+
+                {/* YOU HAVE EARNED */}
+
+                <div className="info-card">
+                  <h3>You Have Earned</h3>
+
+                  <div className="earned-box">
+                    <span className="earned-points">138 AJIO Points</span>
+                  </div>
+
+                  <p>AJIO Points will be credited after successful delivery.</p>
+                </div>
+
+                {/* ORDER DETAILS */}
+
+                <div className="info-card">
+                  <h3>Order Details</h3>
+
+                  <div className="detail-row">
+                    <span>Order ID</span>
+
+                    <span>{orderData.orderId}</span>
+                  </div>
+
+                  <div className="detail-row">
+                    <span>Order Date</span>
+
+                    <span>{orderData.orderDate}</span>
+                  </div>
+
+                  <div className="detail-row">
+                    <span>Payment Mode</span>
+
+                    <span>{orderData.paymentMode}</span>
+                  </div>
+
+                  <div className="detail-row">
+                    <span>Delivery Address</span>
+
+                    <span className="address">
+                      {orderData.address ? (
+                        <>
+                          {orderData.address.name}
+                          <br />
+                          {orderData.address.building}
+                          <br />
+                          {orderData.address.locality}
+                          <br />
+                          {orderData.address.landmark}
+                          <br />
+                          {orderData.address.city}, {orderData.address.state} -{" "}
+                          {orderData.address.pincode}
+                        </>
+                      ) : (
+                        "Delivery address not available"
+                      )}
+                    </span>
+                  </div>
+
+                  <div className="detail-row">
+                    <span>Mobile Number</span>
+
+                    <span>{orderData.address?.mobile || "Not available"}</span>
+                  </div>
+
+                  {/* ORDER STATUS */}
+
+                  <div className="detail-row">
+                    <span>Order Status</span>
+
+                    <span>{orderStatus}</span>
+                  </div>
+
+                  {/* RETURN MESSAGE */}
+
+                  {returnMessage && (
+                    <p className="return-message">{returnMessage}</p>
+                  )}
+
+                  {/* CANCEL ORDER BUTTON */}
+
+                  {orderStatus === "Confirmed" && (
+                    <button
+                      className="cancel-order-btn"
+                      onClick={handleCancelOrder}
+                    >
+                      CANCEL ORDER
+                    </button>
+                  )}
+
+                  {/* RETURN ORDER BUTTON */}
+
+                  {orderStatus === "Delivered" && (
+                    <button
+                      className="return-order-btn"
+                      onClick={handleReturnOrder}
+                    >
+                      RETURN ORDER
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* =====================================================
                                     CUSTOMER RATING
                         ====================================================== */}
 
-                        <section className="customer-rating">
+            <section className="customer-rating">
+              <h2>Loving AJIO?</h2>
 
-                            <h2>
-                                Loving AJIO?
-                            </h2>
+              <p>
+                Based on your shopping experience,
+                <br />
+                how likely are you to recommend AJIO to Friends and Family?
+              </p>
 
-                            <p>
+              <div className="rating-numbers">
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((number) => (
+                  <button
+                    key={number}
+                    className={rating === number ? "selected-rating" : ""}
+                    onClick={() => handleRating(number)}
+                  >
+                    {number}
+                  </button>
+                ))}
+              </div>
 
-                                Based on your shopping experience,
-                                <br />
+              {/* RATING MESSAGE */}
 
-                                how likely are you to recommend AJIO
-                                to Friends and Family?
+              {ratingMessage && (
+                <p className="rating-message">{ratingMessage}</p>
+              )}
 
-                            </p>
-
-
-                            <div className="rating-numbers">
-
-                                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(
-                                    (number) => (
-
-                                        <button
-                                            key={number}
-                                            className={
-                                                rating === number
-                                                    ? "selected-rating"
-                                                    : ""
-                                            }
-                                            onClick={() =>
-                                                handleRating(number)
-                                            }
-                                        >
-
-                                            {number}
-
-                                        </button>
-
-                                    )
-                                )}
-
-                            </div>
-
-
-                            {/* RATING MESSAGE */}
-
-                            {ratingMessage && (
-
-                                <p className="rating-message">
-
-                                    {ratingMessage}
-
-                                </p>
-
-                            )}
-
-
-                            <button
-                                className="submit-rating"
-                                onClick={handleSubmitRating}
-                            >
-                                SUBMIT & CONTINUE
-                            </button>
-
-                        </section>
-
-
-                    </main>
-
-                </>
-
-            )}
-
-        </div>
-
-    );
-
+              <button className="submit-rating" onClick={handleSubmitRating}>
+                SUBMIT & CONTINUE
+              </button>
+            </section>
+          </main>
+        </>
+      )}
+    </div>
+  );
 };
-
 
 export default Orders;

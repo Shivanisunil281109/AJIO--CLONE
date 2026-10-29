@@ -818,20 +818,60 @@
 
     text-align: right;
 
-    overflow-wrap: break-word;
-
-    word-break: normal;
-
-}
-
-.orders-page .address {
+    /* white-space: nowrap; */
 
     white-space: normal;
 
     overflow-wrap: break-word;
 
+    word-break: normal;
+
+    overflow-wrap: normal;
+
 }
 
+/* .orders-page .address {
+
+    white-space: normal;
+
+    overflow-wrap: break-word;
+
+        width: 100%;
+
+         display: block;
+ transform: translateX(-8px);
+            overflow-wrap: anywhere;
+
+} */
+
+.orders-page .address {
+    white-space: normal;
+    width: 100%;
+    min-width: 0;
+    display: block;
+    overflow-wrap: anywhere;
+    transform: none;
+   text-align: left;
+   
+}
+
+
+.orders-page .detail-row .address {
+    flex: 1;
+    min-width: 0;
+    width: auto;
+    display: block;
+    white-space: normal;
+    /* overflow-wrap: anywhere; */
+    overflow-wrap: break-word;
+    transform: none;
+    text-align: left !important;
+}
+
+ /* .orders-page .address-shift {
+    display: inline-block;
+        transform: translateX(-24px);
+}  */
 
 /* =====================================================
    LOVING AJIO
