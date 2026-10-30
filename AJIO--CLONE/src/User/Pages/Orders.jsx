@@ -399,7 +399,7 @@ const Orders = () => {
                         <h3>{item.name}</h3>
 
                         <p className="size">
-                          Size : <strong>{item.selectedSize || "M"}</strong>
+                          Size : <strong>{item.selectedSize}</strong>
                         </p>
 
                         <p className="size">
@@ -476,6 +476,18 @@ const Orders = () => {
                     <span>{orderData.paymentMode}</span>
                   </div>
 
+                  {/* DELIVERY STATUS */}
+                  <div className="detail-row">
+                    <span>Delivery Status</span>
+                    <span>{orderData.delivery_status || "booked"}</span>
+                  </div>
+
+                  {/* PAYMENT STATUS */}
+                  <div className="detail-row">
+                    <span>Payment Status</span>
+                    <span>{orderData.payment_status || "unpaid"}</span>
+                  </div>
+
                   <div className="detail-row">
                     <span>Delivery Address</span>
 
@@ -507,11 +519,7 @@ const Orders = () => {
 
                   {/* ORDER STATUS */}
 
-                  <div className="detail-row">
-                    <span>Order Status</span>
-
-                    <span>{orderStatus}</span>
-                  </div>
+                 
 
                   {/* RETURN MESSAGE */}
 

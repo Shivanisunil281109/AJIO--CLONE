@@ -253,23 +253,6 @@ const Cart = () => {
   // SIZE CHANGE
   // =====================================================
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   const handleSizeChange = (productId, newSize) => {
     const updatedCart = cartItems.map((item) =>
       item.id === productId
@@ -304,31 +287,18 @@ const Cart = () => {
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
-
-
-
-
-
-
-
-
-
-  
   // SELLER PRODUCT SIZE CHANGE
   const handleSellerSizeChange = async (productId, newSize) => {
     try {
-      const response = await api.put(
-        `/user/update-cart-product/${productId}`,
-        { selectedSize: newSize }
-      );
+      const response = await api.put(`/user/update-cart-product/${productId}`, {
+        selectedSize: newSize,
+      });
 
       if (response.data.success) {
         setSellerCartItems((previousItems) =>
           previousItems.map((item) =>
-            item._id === productId
-              ? { ...item, selectedSize: newSize }
-              : item
-          )
+            item._id === productId ? { ...item, selectedSize: newSize } : item,
+          ),
         );
       }
     } catch (error) {
@@ -336,8 +306,8 @@ const Cart = () => {
       dispatch(
         showToast({
           message: "Failed to update product size.",
-          type: "error"
-        })
+          type: "error",
+        }),
       );
     }
   };
@@ -347,18 +317,15 @@ const Cart = () => {
     try {
       const quantity = Number(newQuantity);
 
-      const response = await api.put(
-        `/user/update-cart-product/${productId}`,
-        { quantity }
-      );
+      const response = await api.put(`/user/update-cart-product/${productId}`, {
+        quantity,
+      });
 
       if (response.data.success) {
         setSellerCartItems((previousItems) =>
           previousItems.map((item) =>
-            item._id === productId
-              ? { ...item, quantity }
-              : item
-          )
+            item._id === productId ? { ...item, quantity } : item,
+          ),
         );
       }
     } catch (error) {
@@ -366,15 +333,11 @@ const Cart = () => {
       dispatch(
         showToast({
           message: "Failed to update product quantity.",
-          type: "error"
-        })
+          type: "error",
+        }),
       );
     }
   };
-
-
-
-
 
   // =====================================================
   // FORMAT CURRENCY
@@ -465,7 +428,7 @@ const Cart = () => {
               <div className="cart-bag-header">
                 <h2>
                   My Bag
-                  <span>({cartItems.length} Items)</span>
+                <span>({cartItems.length + sellerCartItems.length} Items)</span>
                 </h2>
 
                 <a
@@ -509,12 +472,12 @@ const Cart = () => {
                         <span>Size</span>
 
                         <select
-                          value={item.selectedSize || "M"}
+                          value={item.selectedSize || ""}
                           onChange={(e) =>
                             handleSizeChange(item.id, e.target.value)
                           }
                         >
-
+                          <option value="">Select Size</option>
                           <option value="S">S</option>
 
                           <option value="M">M</option>
@@ -596,83 +559,77 @@ const Cart = () => {
 
                 <div className="cart-product-details">
                   <div className="cart-product-top">
+                    <div className="cart-product-info">
+                      <h3>{item.name}</h3>
+                      <p>Seller Product</p>
 
-                   
-<div className="cart-product-info">
-  <h3>{item.name}</h3>
-  <p>Seller Product</p>
+                      <div className="seller-cart-product-options">
+                        {["clothing", "footwear"].includes(
+                          String(item.category || "").toLowerCase(),
+                        ) && (
+                          <>
+                            <span>Size</span>
 
-  <div className="seller-cart-product-options">
-    <span>Size</span>
+                            <select
+                              value={item.selectedSize || ""}
+                              onChange={(e) =>
+                                handleSellerSizeChange(item._id, e.target.value)
+                              }
+                            >
+                              <option value="">Select Size</option>
+                              <option value="S">S</option>
+                              <option value="M">M</option>
+                              <option value="L">L</option>
+                            </select>
+                          </>
+                        )}
 
-    <select
-      value={item.selectedSize || "M"}
-      onChange={(e) =>
-        handleSellerSizeChange(item._id, e.target.value)
-      }
-    >
-      <option value="S">S</option>
-      <option value="M">M</option>
-      <option value="L">L</option>
-      
-    </select>
+                        <span>Qty</span>
 
-    <span>Qty</span>
-
-    <select
-      value={item.quantity || 1}
-      onChange={(e) =>
-        handleSellerQuantityChange(
-          item._id,
-          Number(e.target.value)
-        )
-      }
-    >
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-    </select>
-  </div>
-</div>
-
-
+                        <select
+                          value={item.quantity || 1}
+                          onChange={(e) =>
+                            handleSellerQuantityChange(
+                              item._id,
+                              Number(e.target.value),
+                            )
+                          }
+                        >
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                        </select>
+                      </div>
+                    </div>
 
                     <div className="cart-product-right">
                       <div className="cart-price-box">
                         {formatPrice(getPrice(item.price))}
                       </div>
 
+                      <div className="cart-product-actions">
+                        <a
+                          href="#"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleSellerDelete(item._id);
+                          }}
+                        >
+                          Delete
+                        </a>
 
-
-                     
-<div className="cart-product-actions">
-  <a
-    href="#"
-    onClick={(e) => {
-      e.preventDefault();
-      handleSellerDelete(item._id);
-    }}
-  >
-    Delete
-  </a>
-
-  <a
-    href="#"
-    onClick={(e) => {
-      e.preventDefault();
-      handleSellerWishlist(item);
-    }}
-  >
-    <i className="fa-regular fa-heart"></i>
-    Move to Wishlist
-  </a>
-</div>
-
-</div>
-
-
-
-
+                        <a
+                          href="#"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleSellerWishlist(item);
+                          }}
+                        >
+                          <i className="fa-regular fa-heart"></i>
+                          Move to Wishlist
+                        </a>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -771,7 +728,7 @@ const Cart = () => {
 
               <button
                 className="cart-shipping-btn"
-         onClick={() => navigate("/delivery-details")}
+                onClick={() => navigate("/delivery-details")}
               >
                 PROCEED TO SHIPPING
               </button>

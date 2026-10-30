@@ -52,6 +52,8 @@ const addToCart = async () => {
 
   const [selectedImage, setSelectedImage] = useState("");
 
+  const [selectedSize, setSelectedSize] = useState("");
+
   // Get product ID from URL
   const { productId } = useParams();
 
@@ -185,7 +187,7 @@ const addToCart = async () => {
       const cartItem = {
         ...product,
         quantity: 1,
-        selectedSize: product.sizes?.[0] || "M",
+       selectedSize: "",
       };
 
       const updatedCart = [...existingCart, cartItem];
